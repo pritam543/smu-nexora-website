@@ -31,7 +31,7 @@ export default function Contact() {
     submitData.append("form_type", "General Contact");
 
     try {
-      const res = await axios.post("http://127.0.0.1:8000/api/contact", submitData, {
+      const res = await axios.post("https://smu-nexora-website.onrender.com/api/contact", submitData, {
         headers: { "Content-Type": "multipart/form-data" }
       });
       setStatus({ type: "success", msg: res.data.message });
