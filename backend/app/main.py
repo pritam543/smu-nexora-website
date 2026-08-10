@@ -51,6 +51,17 @@ init_db()
 SENDER_EMAIL = os.getenv("SENDER_EMAIL", "smunextech@gmail.com")
 SENDER_PASSWORD = os.getenv("SENDER_PASSWORD", "athervrnbjqncmcd")
 
+@app.get("/")
+def read_root():
+    return {
+        "status": "online",
+        "message": "SMU Nexora Backend API is running successfully!",
+        "endpoints": {
+            "contact_api": "/api/contact",
+            "inquiries_api": "/api/inquiries"
+        }
+    }
+
 def send_email_with_attachment(name: str, email: str, phone: str, service: str, message: str, form_type: str = "Inquiry", resume_file: Optional[UploadFile] = None):
     try:
         msg = MIMEMultipart()
