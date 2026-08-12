@@ -1,148 +1,724 @@
-import React, { useState } from 'react';
-import Hero from './components/Hero';
-import Services from './components/Services';
-import Contact from './components/Contact';
-import Careers from './components/Careers';
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import {
+  Rocket, Sparkles, Code2, Globe, Cpu, ShieldCheck,
+  Cloud, Megaphone, GraduationCap, ArrowRight, ArrowLeft,
+  Upload, CheckCircle2, MessageSquare, Briefcase, User, Mail, Phone, Award, FileText,
+  ChevronDown, Building, Stethoscope, School, Compass, Hotel, BarChart3, ShoppingCart,
+  CheckCircle, Users, Target, Laptop, Send, Layers, MessageCircle, AlertCircle, X, Camera
+} from 'lucide-react';
 
-function App() {
+export default function App() {
   const [currentPage, setCurrentPage] = useState('home');
+  const [selectedDetail, setSelectedDetail] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [modalState, setModalState] = useState({
+    isOpen: false,
+    type: 'success',
+    userName: '',
+    fieldTitle: '',
+    message: ''
+  });
 
-  const renderPage = () => {
-    switch (currentPage) {
-      case 'services':
-        return (
-          <div className="pt-20">
-            <Services />
-          </div>
-        );
-      case 'about':
-        return (
-          <div className="pt-32 pb-24 max-w-5xl mx-auto px-6">
-            <div className="text-center">
-              <span className="text-blue-600 font-bold tracking-widest text-xs uppercase px-3 py-1 bg-blue-100 rounded-full">
-                About SMU Nexora
-              </span>
-              <h2 className="text-4xl md:text-5xl font-black text-slate-900 mt-4">
-                Pioneering Tech & Growth Agency
-              </h2>
-            </div>
-            <p className="text-slate-600 mt-8 leading-relaxed text-lg text-justify">
-              SMU Nexora Technologies Pvt. Ltd., headquartered in Indore, Madhya Pradesh, is a modern technology and growth agency. We specialize in engineering high-speed web platforms, enterprise mobile applications, custom cloud solutions, and ROI-driven Digital Marketing strategies that elevate corporate brands globally.
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
-              <div className="p-6 bg-slate-50 border border-slate-200 rounded-2xl">
-                <h3 className="text-xl font-bold text-blue-600">Our Mission</h3>
-                <p className="text-sm text-slate-600 mt-2">Delivering clean code, responsive digital products, and ROI-centric marketing campaigns.</p>
-              </div>
-              <div className="p-6 bg-slate-50 border border-slate-200 rounded-2xl">
-                <h3 className="text-xl font-bold text-blue-600">Our Vision</h3>
-                <p className="text-sm text-slate-600 mt-2">Empowering brands with seamless automation, modern cloud platforms, and global reach.</p>
-              </div>
-              <div className="p-6 bg-slate-50 border border-slate-200 rounded-2xl">
-                <h3 className="text-xl font-bold text-blue-600">Our Commitment</h3>
-                <p className="text-sm text-slate-600 mt-2">Dedicated support, continuous server uptime, and transparent business operations.</p>
-              </div>
-            </div>
-          </div>
-        );
-      case 'careers':
-        return (
-          <div className="pt-20">
-            <Careers />
-          </div>
-        );
-      case 'contact':
-        return (
-          <div className="pt-20">
-            <Contact />
-          </div>
-        );
-      default:
-        return (
-          <div>
-            <Hero onNavigate={(page) => setCurrentPage(page)} />
-            <Services />
-            <div className="py-20 bg-slate-100 text-center border-t border-slate-200">
-              <h3 className="text-3xl font-extrabold text-slate-900">Ready to Grow Your Career?</h3>
-              <p className="text-slate-600 mt-2">Explore job roles and submit your application on our dedicated Careers portal.</p>
-              <button 
-                onClick={() => setCurrentPage('careers')}
-                className="mt-6 px-8 py-3.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl transition-all shadow-md text-sm uppercase tracking-wider cursor-pointer"
-              >
-                View Career Opportunities
-              </button>
-            </div>
-            <Contact />
-          </div>
-        );
+  const [activeService, setActiveService] = useState('web-dev');
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [whatWeDoOpen, setWhatWeDoOpen] = useState(false);
+  const [servicesOpen, setServicesOpen] = useState(false);
+
+  const [careerData, setCareerData] = useState({
+    domain: 'Web & Game Development',
+    opportunityType: 'Internship Program',
+    experienceLevel: 'Fresher / Student',
+    fullName: '',
+    email: '',
+    phone: '',
+    qualification: '',
+    skills: '',
+    portfolioLink: '',
+    availability: 'Immediate Joining',
+    userMessage: ''
+  });
+  const [resumeFile, setResumeFile] = useState(null);
+
+  const [contactData, setContactData] = useState({
+    fullName: '',
+    email: '',
+    phone: '',
+    subject: 'General Business Inquiry',
+    userMessage: ''
+  });
+
+  // ==================== EXACT BACK BUTTON ROUTING LOGIC ====================
+  useEffect(() => {
+    // Initial entry setup
+    window.history.replaceState({ page: 'home' }, '', '#home');
+
+    const handlePopState = (event) => {
+      // If user presses back from any non-home view, take them to 'home'
+      if (currentPage !== 'home') {
+        setCurrentPage('home');
+        setSelectedDetail(null);
+        // Ensure browser history point stays at home
+        window.history.pushState({ page: 'home' }, '', '#home');
+      }
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, [currentPage]);
+
+  const navigateTo = (pageName, preselectDomain = null, detailObj = null) => {
+    if (preselectDomain) {
+      setCareerData(prev => ({ ...prev, domain: preselectDomain }));
+    }
+    if (detailObj) {
+      setSelectedDetail(detailObj);
+    }
+
+    setWhatWeDoOpen(false);
+    setServicesOpen(false);
+
+    if (pageName === 'home') {
+      setCurrentPage('home');
+      setSelectedDetail(null);
+      window.history.pushState({ page: 'home' }, '', '#home');
+    } else {
+      setCurrentPage(pageName);
+      // Push sub-page entry into history stack
+      window.history.pushState({ page: pageName }, '', `#${pageName}`);
+    }
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const slides = [
+    {
+      title: "Building Enterprise Digital Ecosystems",
+      subtitle: "Empowering global businesses with Next-Gen Cloud, AI, and Web Architecture.",
+      image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1200&q=80",
+      target: "services"
+    },
+    {
+      title: "Transforming Careers Through Technology",
+      subtitle: "Join SMU Nexora's mentorship program to work on real-world IT client systems.",
+      image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1200&q=80",
+      target: "careers"
+    },
+    {
+      title: "AI-Driven Automation & Cyber Security",
+      subtitle: "Safeguarding digital infrastructure with automated intelligence and high compliance.",
+      image: "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=1200&q=80",
+      target: "services"
+    }
+  ];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % slides.length);
+    }, 4500);
+    return () => clearInterval(interval);
+  }, [slides.length]);
+
+  const fields = [
+    { id: 'web-dev', title: "Web & Game Development", icon: Globe, color: "#4f46e5", desc: "Engineered scalable web applications and interactive gaming experiences.", techStack: "React, Next.js, Node.js, Unity, WebGL, TypeScript", businessImpact: "Accelerates conversion rates, handles high concurrent users, and ensures 99.9% uptime." },
+    { id: 'ai-solutions', title: "AI & Machine Learning", icon: Cpu, color: "#7c3aed", desc: "Custom ML models, enterprise automation scripts, and LLM integrations.", techStack: "Python, PyTorch, TensorFlow, OpenAI API, LangChain, FastAPI", businessImpact: "Reduces manual operational costs by 60% and automates complex business decisions." },
+    { id: 'data-science', title: "Data Science & Analytics", icon: BarChart3, color: "#2563eb", desc: "Advanced ETL pipelines, data warehousing, and executive analytics dashboards.", techStack: "Pandas, Spark, PostgreSQL, Snowflake, PowerBI, Tableau", businessImpact: "Provides C-suite executives with actionable real-time business metrics." },
+    { id: 'cloud-computing', title: "Cloud & DevOps Solutions", icon: Cloud, color: "#0284c7", desc: "Cloud migration, AWS/Azure DevOps CI/CD pipelines, and server monitoring.", techStack: "AWS, Azure, Docker, Kubernetes, Terraform, GitHub Actions", businessImpact: "Optimizes server costs while providing unbreakable enterprise cloud infrastructure." },
+    { id: 'cyber-security', title: "Cyber Security & Auditing", icon: ShieldCheck, color: "#e11d48", desc: "Vulnerability assessments, penetration testing, and end-to-end data encryption.", techStack: "Kali Linux, Wireshark, OWASP Tools, Encrypted DB Protocols", businessImpact: "Safeguards intellectual property and critical customer financial records." },
+    { id: 'digital-marketing', title: "Digital Growth & SEO", icon: Megaphone, color: "#d97706", desc: "Performance marketing, technical SEO, and brand growth strategies.", techStack: "Google Analytics 4, SEMrush, Meta Ads Manager, Ahrefs", businessImpact: "Drives organic lead acquisition and lowers Customer Acquisition Cost (CAC)." },
+    { id: 'e-commerce', title: "E-Commerce Systems", icon: ShoppingCart, color: "#059669", desc: "High-converting Shopify stores and custom headless marketplace architectures.", techStack: "Shopify Plus, Liquid, WooCommerce, Stripe / Razorpay Integration", businessImpact: "Boosts e-commerce revenue with frictionless mobile checkout flows." },
+    { id: 'consulting', title: "IT Strategic Consulting", icon: Code2, color: "#4338ca", desc: "Modernizing legacy architectures and defining digital product roadmaps.", techStack: "Agile Architecture, System Design Blueprints, Legacy Code Refactoring", businessImpact: "Aligns software engineering roadmaps directly with core business revenue goals." }
+  ];
+
+  const whatWeDoList = [
+    { id: 'education', name: "Education", icon: GraduationCap, tagline: "Empowering Modern Learning Environments", description: "Digitizing educational ecosystems with AI-backed LMS, online exam engines, and cloud campus portals.", features: ["AI-based Student Analytics", "Live Interactive Classrooms", "Automated Grading Systems"] },
+    { id: 'healthcare', name: "Healthcare", icon: Stethoscope, tagline: "Digital Health Solutions & Patient Care Systems", description: "Building HIPAA-compliant telemedicine platforms, EHR integrations, and hospital inventory workflows.", features: ["Tele-Consultation Systems", "EHR/EMR Cloud Integration", "Hospital Management Suite"] },
+    { id: 'schools', name: "Schools", icon: School, tagline: "Smart Campus Automation for K-12 Institutions", description: "Comprehensive ERP systems designed for schools to simplify fee collection and attendance tracking.", features: ["Parent Mobile Application", "Biometric & Attendance ERP", "Fee Management Gateway"] },
+    { id: 'architectures', name: "Architectures", icon: Compass, tagline: "Digital Engineering for Infrastructure & Design", description: "Delivering 3D rendering management, CAD file sync cloud tools, and BIM project collaboration software.", features: ["3D/BIM Project Portals", "Cloud Asset Management", "Client Design Review Suite"] },
+    { id: 'hospitality', name: "Hospitality", icon: Hotel, tagline: "Guest Experience Platforms & Hotel Tech", description: "Smart booking engines, guest management software, room controls, and loyalty program integrations.", features: ["Contactless Check-In/Out", "Direct Booking Engine", "POS & Room Service Integration"] }
+  ];
+
+  const handleCareerInputChange = (e) => {
+    const { name, value } = e.target;
+    setCareerData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleContactInputChange = (e) => {
+    const { name, value } = e.target;
+    setContactData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleCareerSubmit = async (e) => {
+    e.preventDefault();
+    if (!resumeFile) {
+      setModalState({ isOpen: true, type: 'error', userName: careerData.fullName || 'Applicant', fieldTitle: careerData.domain, message: 'Please attach your Resume PDF/DOCX before submitting!' });
+      return;
+    }
+
+    setIsSubmitting(true);
+    const submitData = new FormData();
+    submitData.append("domain", careerData.domain);
+    submitData.append("opportunityType", careerData.opportunityType);
+    submitData.append("experienceLevel", careerData.experienceLevel);
+    submitData.append("fullName", careerData.fullName);
+    submitData.append("email", careerData.email);
+    submitData.append("phone", careerData.phone);
+    submitData.append("qualification", careerData.qualification);
+    submitData.append("skills", careerData.skills);
+    submitData.append("portfolioLink", careerData.portfolioLink);
+    submitData.append("availability", careerData.availability);
+    submitData.append("userMessage", careerData.userMessage);
+    submitData.append("resume", resumeFile);
+
+    try {
+      const response = await fetch("http://127.0.0.1:8000/api/apply", { method: "POST", body: submitData });
+      const result = await response.json();
+      if (response.ok && result.success) {
+        setModalState({ isOpen: true, type: 'success', userName: careerData.fullName, fieldTitle: careerData.domain, message: 'Your application has been received successfully. Email alert dispatched.' });
+      } else {
+        setModalState({ isOpen: true, type: 'error', userName: careerData.fullName || 'User', fieldTitle: careerData.domain, message: result.detail || 'Failed to submit application. Please check backend server.' });
+      }
+    } catch (err) {
+      setModalState({ isOpen: true, type: 'error', userName: careerData.fullName || 'User', fieldTitle: careerData.domain, message: 'Backend Connection Failed! Ensure Python Uvicorn server is running on port 8000.' });
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
-  return (
-    <div className="min-h-screen bg-white text-slate-900 font-sans">
-      
-      {/* Light Corporate Navbar */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-          
-          <button 
-            onClick={() => setCurrentPage('home')} 
-            className="flex items-center gap-2 text-xl font-black tracking-tight text-slate-900 cursor-pointer"
-          >
-            <span className="text-blue-600">SMU</span> NEXORA
-          </button>
+  const handleContactSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
 
-          <div className="flex items-center gap-8 text-sm font-bold text-slate-700">
-            <button 
-              onClick={() => setCurrentPage('home')}
-              className={`hover:text-blue-600 transition-colors cursor-pointer ${currentPage === 'home' ? 'text-blue-600' : ''}`}
-            >
-              Home
-            </button>
-            <button 
-              onClick={() => setCurrentPage('services')}
-              className={`hover:text-blue-600 transition-colors cursor-pointer ${currentPage === 'services' ? 'text-blue-600' : ''}`}
-            >
-              Services
-            </button>
-            <button 
-              onClick={() => setCurrentPage('about')}
-              className={`hover:text-blue-600 transition-colors cursor-pointer ${currentPage === 'about' ? 'text-blue-600' : ''}`}
-            >
-              About Us
-            </button>
-            <button 
-              onClick={() => setCurrentPage('careers')}
-              className={`hover:text-blue-600 transition-colors cursor-pointer ${currentPage === 'careers' ? 'text-blue-600' : ''}`}
-            >
-              Careers
-            </button>
-            <button 
-              onClick={() => setCurrentPage('contact')}
-              className={`hover:text-blue-600 transition-colors cursor-pointer ${currentPage === 'contact' ? 'text-blue-600' : ''}`}
-            >
-              Contact
-            </button>
+    const submitData = new FormData();
+    submitData.append("fullName", contactData.fullName);
+    submitData.append("email", contactData.email);
+    submitData.append("phone", contactData.phone);
+    submitData.append("subject", contactData.subject);
+    submitData.append("userMessage", contactData.userMessage);
+
+    try {
+      const response = await fetch("http://127.0.0.1:8000/api/contact", { method: "POST", body: submitData });
+      const result = await response.json();
+      if (response.ok && result.success) {
+        setModalState({ isOpen: true, type: 'success', userName: contactData.fullName, fieldTitle: contactData.subject, message: 'Your inquiry message has been submitted. Email alert dispatched.' });
+        setContactData({ fullName: '', email: '', phone: '', subject: 'General Business Inquiry', userMessage: '' });
+      } else {
+        setModalState({ isOpen: true, type: 'error', userName: contactData.fullName || 'User', fieldTitle: contactData.subject, message: result.detail || 'Inquiry submission failed. Please try again.' });
+      }
+    } catch (err) {
+      setModalState({ isOpen: true, type: 'error', userName: contactData.fullName || 'User', fieldTitle: contactData.subject, message: 'Backend Connection Failed! Ensure Python Uvicorn server is running on port 8000.' });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const closeModal = () => {
+    setModalState(prev => ({ ...prev, isOpen: false }));
+  };
+
+  const scrollToSection = (id) => {
+    setWhatWeDoOpen(false);
+    setServicesOpen(false);
+    if (currentPage !== 'home') {
+      navigateTo('home');
+      setTimeout(() => {
+        const el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }, 200);
+    } else {
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const pastelBg = "#f4f6fc";
+
+  return (
+    <div style={{ backgroundColor: pastelBg, color: '#1e293b', minHeight: '100vh', fontFamily: "'Plus Jakarta Sans', 'Inter', system-ui, sans-serif", position: 'relative', overflowX: 'hidden' }}>
+
+      {/* FIXED NAV BAR */}
+      <nav style={{ position: 'fixed', top: 0, left: 0, width: '100%', zIndex: 1000, backgroundColor: 'rgba(255, 255, 255, 0.95)', backdropFilter: 'blur(12px)', borderBottom: '1px solid #e0e7ff', padding: '0.8rem 1.5rem', boxSizing: 'border-box' }}>
+        <div style={{ maxWidth: '1300px', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap' }}>
+
+          <div onClick={() => navigateTo('home')} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <div style={{ width: '38px', height: '38px', borderRadius: '10px', background: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontWeight: 'bold', fontSize: '1.1rem', boxShadow: '0 4px 10px rgba(99, 102, 241, 0.25)' }}>
+              SN
+            </div>
+            <div>
+              <span style={{ fontSize: '1.2rem', fontWeight: '800', color: '#1e1b4b', letterSpacing: '-0.02em' }}>SMU NEXORA</span>
+              <span style={{ fontSize: '0.7rem', display: 'block', color: '#6366f1', fontWeight: '700', letterSpacing: '0.05em' }}>TECHNOLOGIES</span>
+            </div>
           </div>
 
-          <button 
-            onClick={() => setCurrentPage('contact')}
-            className="hidden md:block px-5 py-2.5 text-xs font-bold bg-blue-600 hover:bg-blue-700 text-white rounded-xl transition-all cursor-pointer uppercase tracking-wider shadow-md"
-          >
-            Get In Touch
-          </button>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1.2rem', flexWrap: 'wrap', position: 'relative' }}>
+            <button onClick={() => navigateTo('home')} style={navLinkStyle}>Home</button>
+            <button onClick={() => scrollToSection('about')} style={navLinkStyle}>About Us</button>
+
+            {/* What We Do Dropdown */}
+            <div style={{ position: 'relative' }} onMouseEnter={() => setWhatWeDoOpen(true)} onMouseLeave={() => setWhatWeDoOpen(false)}>
+              <button style={navLinkStyle}>What We Do <ChevronDown size={14} /></button>
+              <AnimatePresence>
+                {whatWeDoOpen && (
+                  <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 10 }} style={dropdownContainerStyle}>
+                    {whatWeDoList.map((item) => {
+                      const IconComp = item.icon;
+                      return (
+                        <div key={item.id} onClick={() => navigateTo('what-we-do-detail', null, item)} style={dropdownItemStyle}>
+                          <IconComp size={18} color="#6366f1" /><span>{item.name}</span>
+                        </div>
+                      );
+                    })}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+
+            {/* Services Dropdown */}
+            <div style={{ position: 'relative' }} onMouseEnter={() => setServicesOpen(true)} onMouseLeave={() => setServicesOpen(false)}>
+              <button onClick={() => scrollToSection('services')} style={navLinkStyle}>Services <ChevronDown size={14} /></button>
+              <AnimatePresence>
+                {servicesOpen && (
+                  <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 10 }} style={{ ...dropdownContainerStyle, width: 'min(92vw, 680px)', right: 0, left: 'auto', display: 'flex', gap: '15px', flexDirection: 'row-reverse' }}>
+                    <div style={{ flex: 1, borderLeft: '1px solid #e0e7ff', paddingLeft: '10px' }}>
+                      {fields.map((f) => (
+                        <div key={f.id} onMouseEnter={() => setActiveService(f.id)} onClick={() => scrollToSection('services')} style={{ ...dropdownItemStyle, backgroundColor: activeService === f.id ? '#e0e7ff' : 'transparent', borderRadius: '8px' }}>
+                          <f.icon size={16} color={f.color} />
+                          <span style={{ fontSize: '0.85rem', fontWeight: '600' }}>{f.title}</span>
+                        </div>
+                      ))}
+                    </div>
+
+                    <div style={{ flex: 1.5, padding: '14px', background: '#f8fafc', borderRadius: '12px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', border: '1px solid #e2e8f0' }}>
+                      {(() => {
+                        const curr = fields.find(item => item.id === activeService) || fields[0];
+                        return (
+                          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', height: '100%' }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', borderBottom: '1px solid #e2e8f0', paddingBottom: '6px' }}>
+                              <curr.icon size={22} color={curr.color} />
+                              <h4 style={{ margin: 0, fontSize: '0.98rem', color: '#1e1b4b', fontWeight: '800' }}>SMU {curr.title}</h4>
+                            </div>
+                            <p style={{ fontSize: '0.82rem', color: '#475569', lineHeight: '1.4', margin: 0 }}>{curr.desc}</p>
+                            <div style={{ background: '#ffffff', padding: '8px', borderRadius: '8px', border: '1px solid #e0e7ff' }}>
+                              <span style={{ fontSize: '0.72rem', fontWeight: '700', color: '#6366f1', display: 'block' }}>TECH STACK:</span>
+                              <span style={{ fontSize: '0.75rem', color: '#334155' }}>{curr.techStack}</span>
+                            </div>
+                            <button onClick={() => navigateTo('careers', curr.title)} style={{ marginTop: '4px', background: curr.color, color: '#fff', border: 'none', padding: '8px 12px', borderRadius: '6px', fontSize: '0.78rem', fontWeight: '700', cursor: 'pointer' }}>
+                              Apply / Inquire For {curr.title}
+                            </button>
+                          </div>
+                        );
+                      })()}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+
+            <button onClick={() => navigateTo('careers')} style={navLinkStyle}>Careers</button>
+            <button onClick={() => navigateTo('contact')} style={navLinkStyle}>Contact Us</button>
+          </div>
         </div>
       </nav>
 
-      <main>
-        {renderPage()}
-      </main>
+      {/* Main Container */}
+      <div style={{ paddingTop: '70px' }}>
+        <AnimatePresence mode="wait">
 
-      <footer className="py-8 text-center text-xs text-slate-500 border-t border-slate-200 bg-slate-50">
-        © {new Date().getFullYear()} SMU Nexora Technologies Pvt. Ltd. | Official Mail: <a href="mailto:smunextech@gmail.com" className="text-blue-600 hover:underline">smunextech@gmail.com</a>
+          {currentPage === 'home' && (
+            <motion.div key="home-page">
+              <section style={{ position: 'relative', width: '100%', height: '480px', overflow: 'hidden', background: '#1e1b4b' }}>
+                <AnimatePresence mode="wait">
+                  <motion.div key={currentSlide} initial={{ opacity: 0, scale: 1.04 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.8 }} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', backgroundImage: `linear-gradient(to right, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.4)), url(${slides[currentSlide].image})`, backgroundSize: 'cover', backgroundPosition: 'center', display: 'flex', alignItems: 'center', padding: '0 clamp(1.5rem, 5vw, 4rem)' }}>
+                    <div style={{ maxWidth: '750px', zIndex: 2, color: '#ffffff' }}>
+                      <motion.h1 initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.2 }} style={{ fontSize: 'clamp(2rem, 3.8vw, 3.2rem)', fontWeight: '900', margin: '0 0 12px 0', lineHeight: '1.2' }}>{slides[currentSlide].title}</motion.h1>
+                      <motion.p initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.4 }} style={{ fontSize: '1.1rem', color: '#e2e8f0', margin: '0 0 24px 0', lineHeight: '1.6' }}>{slides[currentSlide].subtitle}</motion.p>
+                      <motion.button initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ delay: 0.6 }} onClick={() => navigateTo('careers')} style={{ background: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)', color: '#fff', border: 'none', padding: '13px 26px', borderRadius: '10px', fontWeight: '700', fontSize: '0.95rem', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: '8px', boxShadow: '0 10px 20px rgba(99, 102, 241, 0.3)' }}>
+                        <span>Apply For Opportunities</span><ArrowRight size={18} />
+                      </motion.button>
+                    </div>
+                  </motion.div>
+                </AnimatePresence>
+              </section>
+
+              <motion.section id="about" initial={{ opacity: 0, scale: 0.9, y: 40 }} whileInView={{ opacity: 1, scale: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} style={{ padding: '4rem 1.5rem', maxWidth: '1200px', margin: '0 auto' }}>
+                <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
+                  <span style={{ fontSize: '0.85rem', color: '#6366f1', fontWeight: '800', textTransform: 'uppercase' }}>Corporate Identity</span>
+                  <h2 style={{ fontSize: '2.2rem', fontWeight: '800', margin: '8px 0 0 0', color: '#1e1b4b' }}>About SMU Nexora Technologies</h2>
+                </div>
+                <div style={{ ...pastelCardStyle, borderLeft: '5px solid #6366f1' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '1rem' }}>
+                    <Laptop size={28} color="#6366f1" />
+                    <h3 style={{ fontSize: '1.4rem', fontWeight: '800', color: '#1e1b4b', margin: 0 }}>Who We Are</h3>
+                  </div>
+                  <p style={{ color: '#475569', fontSize: '1rem', lineHeight: '1.7', margin: 0 }}>
+                    <strong>SMU Nexora Technologies</strong> is a software engineering and IT consulting firm based in Indore. We build modern web apps, cloud backend infrastructure, and AI automation while providing industry project experience to passionate students and developers.
+                  </p>
+                </div>
+              </motion.section>
+
+              <motion.section id="services" initial={{ opacity: 0, scale: 0.9, y: 40 }} whileInView={{ opacity: 1, scale: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} style={{ padding: '4rem 1.5rem', background: '#eef2ff', borderTop: '1px solid #e0e7ff', borderBottom: '1px solid #e0e7ff' }}>
+                <div style={{ maxWidth: '1300px', margin: '0 auto' }}>
+                  <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
+                    <span style={{ fontSize: '0.85rem', color: '#6366f1', fontWeight: '800', textTransform: 'uppercase' }}>Client IT Services</span>
+                    <h2 style={{ fontSize: '2.2rem', fontWeight: '800', margin: '8px 0 0 0', color: '#1e1b4b' }}>Core Technology Domains</h2>
+                  </div>
+
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(270px, 1fr))', gap: '20px' }}>
+                    {fields.map((field) => (
+                      <div key={field.id} style={{ ...pastelCardStyle, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                        <div>
+                          <div style={{ width: '46px', height: '46px', borderRadius: '12px', background: `${field.color}15`, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1rem' }}>
+                            <field.icon size={24} color={field.color} />
+                          </div>
+                          <h3 style={{ fontSize: '1.15rem', margin: '0 0 8px 0', color: '#1e1b4b', fontWeight: '700' }}>{field.title}</h3>
+                          <p style={{ fontSize: '0.88rem', color: '#475569', margin: 0, lineHeight: '1.5' }}>{field.desc}</p>
+                        </div>
+                        <button onClick={() => navigateTo('careers', field.title)} style={{ marginTop: '1.4rem', background: '#ffffff', border: `1px solid ${field.color}`, color: field.color, padding: '8px 16px', borderRadius: '8px', fontWeight: '700', fontSize: '0.82rem', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+                          <span>Apply For Field</span><ArrowRight size={14} />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </motion.section>
+
+              <motion.section id="home-contact" initial={{ opacity: 0, scale: 0.9, y: 40 }} whileInView={{ opacity: 1, scale: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} style={{ padding: '4.5rem 1.5rem', maxWidth: '1100px', margin: '0 auto' }}>
+                <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
+                  <span style={{ fontSize: '0.85rem', color: '#6366f1', fontWeight: '800', textTransform: 'uppercase' }}>Quick Connect</span>
+                  <h2 style={{ fontSize: '2.2rem', fontWeight: '800', margin: '8px 0 0 0', color: '#1e1b4b' }}>Get In Touch With SMU Nexora</h2>
+                </div>
+
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '2rem' }}>
+                  <div style={pastelCardStyle}>
+                    <h3 style={{ fontSize: '1.3rem', fontWeight: '800', color: '#1e1b4b', margin: '0 0 1.2rem 0' }}>Connect On Social Media</h3>
+                    <p style={{ color: '#475569', fontSize: '0.92rem', lineHeight: '1.6', marginBottom: '1.5rem' }}>
+                      Have a project query or internship doubt? Contact us directly via WhatsApp, Instagram, or Email.
+                    </p>
+
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                      <a href="https://wa.me/918435299100" target="_blank" rel="noreferrer" style={socialBadgeStyle('#25D366')}>
+                        <MessageCircle size={22} color="#25D366" />
+                        <div>
+                          <span style={{ display: 'block', fontSize: '0.78rem', color: '#64748b' }}>WhatsApp / Call</span>
+                          <span style={{ fontSize: '0.92rem', fontWeight: '700', color: '#1e1b4b' }}>8435299100</span>
+                        </div>
+                      </a>
+
+                      <a href="https://instagram.com/smunextech" target="_blank" rel="noreferrer" style={socialBadgeStyle('#E1306C')}>
+                        <Camera size={22} color="#E1306C" />
+                        <div>
+                          <span style={{ display: 'block', fontSize: '0.78rem', color: '#64748b' }}>Instagram Handle</span>
+                          <span style={{ fontSize: '0.92rem', fontWeight: '700', color: '#1e1b4b' }}>@smunextech</span>
+                        </div>
+                      </a>
+
+                      <a href="mailto:smunextech@gmail.com" style={socialBadgeStyle('#6366f1')}>
+                        <Mail size={22} color="#6366f1" />
+                        <div>
+                          <span style={{ display: 'block', fontSize: '0.78rem', color: '#64748b' }}>Official Support Email</span>
+                          <span style={{ fontSize: '0.92rem', fontWeight: '700', color: '#1e1b4b' }}>smunextech@gmail.com</span>
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+
+                  <div style={pastelCardStyle}>
+                    <h3 style={{ fontSize: '1.3rem', fontWeight: '800', color: '#1e1b4b', margin: '0 0 1rem 0' }}>Send Inquiry Message</h3>
+                    <form onSubmit={handleContactSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                      <div>
+                        <label style={labelStyle}>Your Full Name *</label>
+                        <input type="text" name="fullName" placeholder="Enter your full name" required value={contactData.fullName} onChange={handleContactInputChange} style={inputStyle} />
+                      </div>
+                      <div>
+                        <label style={labelStyle}>Email Address *</label>
+                        <input type="email" name="email" placeholder="Enter your email address" required value={contactData.email} onChange={handleContactInputChange} style={inputStyle} />
+                      </div>
+                      <div>
+                        <label style={labelStyle}>Subject *</label>
+                        <input type="text" name="subject" placeholder="Enter inquiry subject" required value={contactData.subject} onChange={handleContactInputChange} style={inputStyle} />
+                      </div>
+                      <div>
+                        <label style={labelStyle}>Your Message *</label>
+                        <textarea name="userMessage" rows="3" placeholder="Enter your message here..." required value={contactData.userMessage} onChange={handleContactInputChange} style={{ ...inputStyle, resize: 'vertical' }}></textarea>
+                      </div>
+                      <button type="submit" disabled={isSubmitting} style={{ width: '100%', padding: '12px', borderRadius: '10px', border: 'none', background: '#6366f1', color: '#fff', fontWeight: '700', fontSize: '0.95rem', cursor: isSubmitting ? 'not-allowed' : 'pointer' }}>
+                        {isSubmitting ? 'Sending Message...' : 'Send Inquiry Message'}
+                      </button>
+                    </form>
+                  </div>
+                </div>
+              </motion.section>
+            </motion.div>
+          )}
+
+          {currentPage === 'careers' && (
+            <motion.div key="careers-page" initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -15 }} style={{ maxWidth: '900px', margin: '2rem auto', padding: '0 1.5rem' }}>
+              <button onClick={() => navigateTo('home')} style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#ffffff', border: '1px solid #cbd5e1', padding: '9px 18px', borderRadius: '10px', color: '#334155', fontWeight: '600', cursor: 'pointer', marginBottom: '1.8rem' }}>
+                <ArrowLeft size={18} /><span>Back to Home</span>
+              </button>
+
+              <div style={pastelCardStyle}>
+                <div style={{ textAlign: 'center', marginBottom: '2rem', borderBottom: '1px solid #e2e8f0', paddingBottom: '1.5rem' }}>
+                  <Briefcase size={40} color="#6366f1" style={{ margin: '0 auto 10px auto' }} />
+                  <h1 style={{ margin: 0, fontSize: '2.2rem', color: '#1e1b4b', fontWeight: '800' }}>SMU Nexora Career Application</h1>
+                </div>
+
+                <form onSubmit={handleCareerSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.8rem' }}>
+                  <div style={sectionBoxStyle}>
+                    <div style={sectionHeaderStyle}><Layers size={18} color="#6366f1" /><span>1. Select Domain & Role</span></div>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1.2rem' }}>
+                      <div>
+                        <label style={labelStyle}>Target Technology Domain *</label>
+                        <select name="domain" value={careerData.domain} onChange={handleCareerInputChange} style={inputStyle}>
+                          {fields.map(f => (<option key={f.id} value={f.title}>{f.title}</option>))}
+                        </select>
+                      </div>
+                      <div>
+                        <label style={labelStyle}>Applying As *</label>
+                        <select name="opportunityType" value={careerData.opportunityType} onChange={handleCareerInputChange} style={inputStyle}>
+                          <option value="Internship Program">Internship Program</option>
+                          <option value="Full-Time Job">Full-Time Job</option>
+                          <option value="Part-Time / Freelance">Part-Time / Freelance</option>
+                        </select>
+                      </div>
+                      <div>
+                        <label style={labelStyle}>Experience Level *</label>
+                        <select name="experienceLevel" value={careerData.experienceLevel} onChange={handleCareerInputChange} style={inputStyle}>
+                          <option value="Fresher / Student">Fresher / Student</option>
+                          <option value="0 - 1 Year">0 - 1 Year</option>
+                          <option value="1 - 3 Years">1 - 3 Years</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div style={sectionBoxStyle}>
+                    <div style={sectionHeaderStyle}><User size={18} color="#6366f1" /><span>2. Personal Information</span></div>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1.2rem' }}>
+                      <div><label style={labelStyle}>Full Name *</label><input type="text" name="fullName" placeholder="Enter your full name" required value={careerData.fullName} onChange={handleCareerInputChange} style={inputStyle} /></div>
+                      <div><label style={labelStyle}>Email Address *</label><input type="email" name="email" placeholder="Enter your email address" required value={careerData.email} onChange={handleCareerInputChange} style={inputStyle} /></div>
+                      <div><label style={labelStyle}>Phone / WhatsApp *</label><input type="tel" name="phone" placeholder="Enter your phone / WhatsApp number" required value={careerData.phone} onChange={handleCareerInputChange} style={inputStyle} /></div>
+                    </div>
+                  </div>
+
+                  <div style={sectionBoxStyle}>
+                    <div style={sectionHeaderStyle}><Award size={18} color="#6366f1" /><span>3. Technical Background</span></div>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1.2rem' }}>
+                      <div><label style={labelStyle}>Highest Qualification *</label><input type="text" name="qualification" placeholder="Enter your highest qualification" required value={careerData.qualification} onChange={handleCareerInputChange} style={inputStyle} /></div>
+                      <div><label style={labelStyle}>Key Skills *</label><input type="text" name="skills" placeholder="Enter your key technical skills" required value={careerData.skills} onChange={handleCareerInputChange} style={inputStyle} /></div>
+                    </div>
+                  </div>
+
+                  <div style={sectionBoxStyle}>
+                    <div style={sectionHeaderStyle}><FileText size={18} color="#6366f1" /><span>4. Resume Attachment</span></div>
+                    <div style={{ border: '2px dashed #cbd5e1', padding: '1.5rem', borderRadius: '12px', textAlign: 'center', background: '#f8fafc' }}>
+                      <Upload size={26} color="#64748b" style={{ marginBottom: '6px' }} />
+                      <p style={{ margin: 0, fontSize: '0.9rem', color: '#334155', fontWeight: '600' }}>Upload Resume (PDF or DOCX)</p>
+                      <input type="file" required accept=".pdf,.docx" onChange={(e) => setResumeFile(e.target.files[0])} style={{ marginTop: '10px', fontSize: '0.85rem' }} />
+                    </div>
+                  </div>
+
+                  <button type="submit" disabled={isSubmitting} style={{ width: '100%', padding: '15px', borderRadius: '12px', border: 'none', background: isSubmitting ? '#94a3b8' : '#6366f1', color: '#ffffff', fontWeight: '700', fontSize: '1rem', cursor: isSubmitting ? 'not-allowed' : 'pointer', boxShadow: '0 10px 20px rgba(99, 102, 241, 0.25)' }}>
+                    {isSubmitting ? 'Submitting Application...' : 'Submit Career Application'}
+                  </button>
+                </form>
+              </div>
+            </motion.div>
+          )}
+
+          {currentPage === 'contact' && (
+            <motion.div key="contact-page" initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -15 }} style={{ maxWidth: '1000px', margin: '2rem auto', padding: '0 1.5rem' }}>
+              <button onClick={() => navigateTo('home')} style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#ffffff', border: '1px solid #cbd5e1', padding: '9px 18px', borderRadius: '10px', color: '#334155', fontWeight: '600', cursor: 'pointer', marginBottom: '1.8rem' }}>
+                <ArrowLeft size={18} /><span>Back to Home</span>
+              </button>
+
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '2rem' }}>
+                <div style={pastelCardStyle}>
+                  <Building size={32} color="#6366f1" style={{ marginBottom: '1rem' }} />
+                  <h2 style={{ fontSize: '1.8rem', fontWeight: '800', color: '#1e1b4b', margin: '0 0 1rem 0' }}>Corporate Desk</h2>
+                  <p style={{ color: '#475569', lineHeight: '1.6' }}><strong>SMU Nexora Technologies Pvt. Ltd.</strong><br />Indore, MP, India</p>
+
+                  <div style={{ marginTop: '1.5rem', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                    <a href="https://wa.me/918435299100" target="_blank" rel="noreferrer" style={socialBadgeStyle('#25D366')}>
+                      <MessageCircle size={20} color="#25D366" /><span style={{ fontSize: '0.9rem', fontWeight: '700', color: '#1e1b4b' }}>WhatsApp / Call: 8435299100</span>
+                    </a>
+                    <a href="https://instagram.com/smunextech" target="_blank" rel="noreferrer" style={socialBadgeStyle('#E1306C')}>
+                      <Camera size={20} color="#E1306C" /><span style={{ fontSize: '0.9rem', fontWeight: '700', color: '#1e1b4b' }}>Insta: @smunextech</span>
+                    </a>
+                  </div>
+                </div>
+
+                <div style={pastelCardStyle}>
+                  <h3 style={{ fontSize: '1.4rem', fontWeight: '800', color: '#1e1b4b', margin: '0 0 1rem 0' }}>Send Inquiry Message</h3>
+                  <form onSubmit={handleContactSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                    <div><label style={labelStyle}>Your Name *</label><input type="text" name="fullName" placeholder="Enter your full name" required value={contactData.fullName} onChange={handleContactInputChange} style={inputStyle} /></div>
+                    <div><label style={labelStyle}>Email Address *</label><input type="email" name="email" placeholder="Enter your email address" required value={contactData.email} onChange={handleContactInputChange} style={inputStyle} /></div>
+                    <div><label style={labelStyle}>Subject *</label><input type="text" name="subject" placeholder="Enter inquiry subject" required value={contactData.subject} onChange={handleContactInputChange} style={inputStyle} /></div>
+                    <div><label style={labelStyle}>Your Message *</label><textarea name="userMessage" rows="3" placeholder="Enter your message here..." required value={contactData.userMessage} onChange={handleContactInputChange} style={{ ...inputStyle, resize: 'vertical' }}></textarea></div>
+                    <button type="submit" disabled={isSubmitting} style={{ width: '100%', padding: '12px', borderRadius: '10px', border: 'none', background: '#6366f1', color: '#fff', fontWeight: '700', fontSize: '0.95rem', cursor: isSubmitting ? 'not-allowed' : 'pointer' }}>
+                      {isSubmitting ? 'Sending...' : 'Send Message'}
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </motion.div>
+          )}
+
+          {currentPage === 'what-we-do-detail' && selectedDetail && (
+            <motion.div key="what-we-do-page" initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -15 }} style={{ maxWidth: '900px', margin: '2rem auto', padding: '0 1.5rem' }}>
+              <button onClick={() => navigateTo('home')} style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#ffffff', border: '1px solid #cbd5e1', padding: '9px 18px', borderRadius: '10px', color: '#334155', fontWeight: '600', cursor: 'pointer', marginBottom: '1.8rem' }}>
+                <ArrowLeft size={18} /><span>Back to Home</span>
+              </button>
+
+              <div style={pastelCardStyle}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '1.5rem', borderBottom: '1px solid #e2e8f0', paddingBottom: '1.5rem' }}>
+                  <div style={{ width: '56px', height: '56px', borderRadius: '14px', background: '#e0e7ff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <selectedDetail.icon size={30} color="#6366f1" />
+                  </div>
+                  <div>
+                    <span style={{ fontSize: '0.8rem', color: '#6366f1', fontWeight: '800', textTransform: 'uppercase' }}>Industry Vertical</span>
+                    <h1 style={{ margin: 0, fontSize: '2rem', color: '#1e1b4b', fontWeight: '800' }}>{selectedDetail.name} Solutions</h1>
+                  </div>
+                </div>
+
+                <h3 style={{ fontSize: '1.25rem', color: '#6366f1', fontWeight: '700', marginBottom: '1rem' }}>{selectedDetail.tagline}</h3>
+                <p style={{ color: '#475569', fontSize: '1.05rem', lineHeight: '1.7', marginBottom: '2rem' }}>{selectedDetail.description}</p>
+
+                <h4 style={{ fontSize: '1.1rem', fontWeight: '700', color: '#1e1b4b', marginBottom: '1rem' }}>Key Capabilities:</h4>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '12px', marginBottom: '2.5rem' }}>
+                  {selectedDetail.features.map((feat, idx) => (
+                    <div key={idx} style={{ background: '#f8fafc', border: '1px solid #e2e8f0', padding: '12px 16px', borderRadius: '10px', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                      <CheckCircle2 size={18} color="#10b981" />
+                      <span style={{ fontSize: '0.9rem', fontWeight: '600', color: '#334155' }}>{feat}</span>
+                    </div>
+                  ))}
+                </div>
+
+                <button onClick={() => navigateTo('contact')} style={{ background: '#6366f1', color: '#fff', border: 'none', padding: '14px 28px', borderRadius: '10px', fontWeight: '700', fontSize: '0.95rem', cursor: 'pointer' }}>
+                  Inquire For {selectedDetail.name} Solutions
+                </button>
+              </div>
+            </motion.div>
+          )}
+
+        </AnimatePresence>
+      </div>
+
+      {/* POPUP MODAL */}
+      <AnimatePresence>
+        {modalState.isOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            style={{
+              position: 'fixed',
+              top: 0, left: 0, width: '100vw', height: '100vh',
+              backgroundColor: 'rgba(15, 23, 42, 0.65)',
+              backdropFilter: 'blur(8px)',
+              zIndex: 2000,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: '1.5rem'
+            }}
+          >
+            <motion.div
+              initial={{ scale: 0.85, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.85, y: 20 }}
+              style={{
+                background: '#ffffff',
+                borderRadius: '24px',
+                padding: '2.2rem 2rem',
+                maxWidth: '480px',
+                width: '100%',
+                boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+                textAlign: 'center',
+                position: 'relative',
+                border: modalState.type === 'success' ? '2px solid #10b981' : '2px solid #ef4444'
+              }}
+            >
+              <button
+                onClick={closeModal}
+                style={{
+                  position: 'absolute', top: '16px', right: '16px',
+                  background: '#f1f5f9', border: 'none', borderRadius: '50%',
+                  width: '32px', height: '32px', display: 'flex',
+                  alignItems: 'center', justifyContent: 'center', cursor: 'pointer'
+                }}
+              >
+                <X size={18} color="#64748b" />
+              </button>
+
+              {modalState.type === 'success' ? (
+                <div style={{ width: '70px', height: '70px', borderRadius: '50%', background: '#d1fae5', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.2rem auto' }}>
+                  <CheckCircle2 size={44} color="#10b981" />
+                </div>
+              ) : (
+                <div style={{ width: '70px', height: '70px', borderRadius: '50%', background: '#fee2e2', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.2rem auto' }}>
+                  <AlertCircle size={44} color="#ef4444" />
+                </div>
+              )}
+
+              <h2 style={{ fontSize: '1.6rem', fontWeight: '800', color: '#1e1b4b', margin: '0 0 8px 0' }}>
+                {modalState.type === 'success' ? 'Form Submitted Successfully!' : 'Submission Failed'}
+              </h2>
+
+              <p style={{ color: '#475569', fontSize: '0.95rem', margin: '0 0 1.2rem 0', lineHeight: '1.5' }}>
+                {modalState.type === 'success' ? (
+                  <>Thank you, <strong>{modalState.userName}</strong>! Your submission for <strong>{modalState.fieldTitle}</strong> has been logged.</>
+                ) : (
+                  <>Hello <strong>{modalState.userName}</strong>, we couldn't process your request for <strong>{modalState.fieldTitle}</strong>.</>
+                )}
+              </p>
+
+              <div style={{ background: '#f8fafc', padding: '12px', borderRadius: '12px', border: '1px solid #e2e8f0', fontSize: '0.88rem', color: '#334155', marginBottom: '1.5rem', textAlign: 'left' }}>
+                <strong>Status Message:</strong> {modalState.message}
+              </div>
+
+              <button
+                onClick={closeModal}
+                style={{
+                  width: '100%', padding: '12px', borderRadius: '10px',
+                  border: 'none', background: modalState.type === 'success' ? '#10b981' : '#ef4444',
+                  color: '#ffffff', fontWeight: '700', fontSize: '0.98rem', cursor: 'pointer'
+                }}
+              >
+                Close & Continue
+              </button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <footer style={{ background: '#0f172a', color: '#fff', padding: '2.5rem 1.5rem', textAlign: 'center', marginTop: '4rem' }}>
+        <p style={{ margin: 0, fontSize: '0.88rem', color: '#94a3b8' }}>
+          © {new Date().getFullYear()} SMU Nexora Technologies. All rights reserved.
+        </p>
       </footer>
+
     </div>
   );
 }
 
-export default App;
+const navLinkStyle = { background: 'none', border: 'none', color: '#334155', fontWeight: '600', fontSize: '0.92rem', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: '5px' };
+const dropdownContainerStyle = { position: 'absolute', top: '100%', left: 0, marginTop: '10px', background: '#ffffff', borderRadius: '16px', border: '1px solid #e0e7ff', boxShadow: '0 20px 30px -10px rgba(0,0,0,0.1)', padding: '12px', zIndex: 100, minWidth: '220px' };
+const dropdownItemStyle = { display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 14px', color: '#334155', fontSize: '0.88rem', fontWeight: '600', cursor: 'pointer', transition: 'all 0.2s ease' };
+const pastelCardStyle = { background: '#ffffff', padding: '2rem', borderRadius: '20px', border: '1px solid #e2e8f0', boxShadow: '0 4px 12px rgba(0,0,0,0.03)' };
+const sectionBoxStyle = { background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '14px', padding: '1.4rem' };
+const sectionHeaderStyle = { display: 'flex', alignItems: 'center', gap: '10px', fontWeight: '700', fontSize: '0.95rem', color: '#1e1b4b', marginBottom: '1.2rem', borderBottom: '1px solid #e2e8f0', paddingBottom: '8px' };
+const labelStyle = { display: 'block', fontWeight: '600', fontSize: '0.88rem', marginBottom: '6px', color: '#334155' };
+const inputStyle = { width: '100%', padding: '10px 14px', borderRadius: '8px', background: '#ffffff', border: '1px solid #cbd5e1', color: '#0f172a', fontSize: '0.95rem', outline: 'none', boxSizing: 'border-box' };
+
+const socialBadgeStyle = (borderColor) => ({
+  display: 'flex',
+  alignItems: 'center',
+  gap: '12px',
+  padding: '12px 16px',
+  background: '#f8fafc',
+  borderRadius: '12px',
+  border: `1px solid ${borderColor}40`,
+  textDecoration: 'none',
+  transition: 'all 0.2s ease'
+});
