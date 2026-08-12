@@ -27,8 +27,12 @@ os.makedirs(UPLOAD_DIR, exist_ok=True)
 
 SMTP_SERVER = "smtp.gmail.com"
 SMTP_PORT = 465
-SENDER_EMAIL = "smunextech@gmail.com"
-SENDER_PASSWORD = os.getenv("GMAIL_APP_PASSWORD", "").strip()
+
+# Auto-detect Environment Variables
+SENDER_EMAIL = os.getenv("SENDER_EMAIL", "smunextech@gmail.com").strip()
+SENDER_PASSWORD = (
+    os.getenv("GMAIL_APP_PASSWORD") or os.getenv("SENDER_PASSWORD") or ""
+).strip().replace(" ", "")
 
 def init_db():
     conn = sqlite3.connect("database.db")
@@ -58,8 +62,12 @@ def init_db():
 init_db()
 
 def send_email_notification(subject: str, body_text: str, attachment_path: str = None):
+    print("--------------------------------------------------")
+    print(f"DEBUG: Attempting email dispatch for {SENDER_EMAIL}")
+    
     if not SENDER_PASSWORD:
-        print("⚠️ [ENV NOTICE] GMAIL_APP_PASSWORD not found.")
+        print("❌ [CRITICAL ERROR] GMAIL_APP_PASSWORD / SENDER_PASSWORD is empty or missing in Render Environment!")
+        print("--------------------------------------------------")
         return
 
     try:
@@ -80,13 +88,15 @@ def send_email_notification(subject: str, body_text: str, attachment_path: str =
             )
             msg.attach(part)
 
-        server = smtplib.SMTP_SSL(SMTP_SERVER, SMTP_PORT, timeout=15)
+        print("DEBUG: Connecting to SSL SMTP Server...")
+        server = smtplib.SMTP_SSL(SMTP_SERVER, SMTP_PORT, timeout=20)
         server.login(SENDER_EMAIL, SENDER_PASSWORD)
         server.sendmail(SENDER_EMAIL, SENDER_EMAIL, msg.as_string())
         server.quit()
-        print(f"📧 [EMAIL DISPATCH SUCCESS] Notification sent to {SENDER_EMAIL}")
+        print(f"✅ [EMAIL DISPATCH SUCCESS] Notification sent to {SENDER_EMAIL}")
     except Exception as e:
-        print(f"❌ [EMAIL FAILED] SMTP Error: {e}")
+        print(f"❌ [EMAIL FAILED] SMTP Error: {str(e)}")
+    print("--------------------------------------------------")
 
 @app.get("/")
 def home():
@@ -142,7 +152,6 @@ async def submit_application(
 
 📎 Candidate resume is attached with this email notification.
         """
-        # Run email dispatch in background to prevent frontend waiting delay
         background_tasks.add_task(send_email_notification, f"[NEW CAREER APPLICATION] - {fullName} ({domain})", email_body, file_path)
 
         return {"success": True, "message": "Careers application submitted successfully!"}
