@@ -5,7 +5,7 @@ import {
   Cloud, Megaphone, GraduationCap, ArrowRight, ArrowLeft,
   Upload, CheckCircle2, MessageSquare, Briefcase, User, Mail, Phone, Award, FileText,
   ChevronDown, Building, Stethoscope, School, Compass, Hotel, BarChart3, ShoppingCart,
-  CheckCircle, Users, Target, Laptop, Send, Layers, MessageCircle, AlertCircle, X, Camera
+  CheckCircle, Users, Target, Laptop, Send, Layers, MessageCircle, AlertCircle, X, Camera, Menu
 } from 'lucide-react';
 
 export default function App() {
@@ -24,6 +24,7 @@ export default function App() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [whatWeDoOpen, setWhatWeDoOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const [careerData, setCareerData] = useState({
     domain: 'Web & Game Development',
@@ -53,15 +54,12 @@ export default function App() {
 
   // ==================== EXACT BACK BUTTON ROUTING LOGIC ====================
   useEffect(() => {
-    // Initial entry setup
     window.history.replaceState({ page: 'home' }, '', '#home');
 
     const handlePopState = (event) => {
-      // If user presses back from any non-home view, take them to 'home'
       if (currentPage !== 'home') {
         setCurrentPage('home');
         setSelectedDetail(null);
-        // Ensure browser history point stays at home
         window.history.pushState({ page: 'home' }, '', '#home');
       }
     };
@@ -80,6 +78,7 @@ export default function App() {
 
     setWhatWeDoOpen(false);
     setServicesOpen(false);
+    setMobileMenuOpen(false);
 
     if (pageName === 'home') {
       setCurrentPage('home');
@@ -87,7 +86,6 @@ export default function App() {
       window.history.pushState({ page: 'home' }, '', '#home');
     } else {
       setCurrentPage(pageName);
-      // Push sub-page entry into history stack
       window.history.pushState({ page: pageName }, '', `#${pageName}`);
     }
 
@@ -222,6 +220,8 @@ export default function App() {
   const scrollToSection = (id) => {
     setWhatWeDoOpen(false);
     setServicesOpen(false);
+    setMobileMenuOpen(false);
+
     if (currentPage !== 'home') {
       navigateTo('home');
       setTimeout(() => {
@@ -239,10 +239,94 @@ export default function App() {
   return (
     <div style={{ backgroundColor: pastelBg, color: '#1e293b', minHeight: '100vh', fontFamily: "'Plus Jakarta Sans', 'Inter', system-ui, sans-serif", position: 'relative', overflowX: 'hidden' }}>
 
+      {/* GLOBAL HOVER & RESPONSIVE STYLES */}
+      <style>{`
+        .nav-btn-hover {
+          position: relative;
+          transition: color 0.25s ease;
+        }
+        .nav-btn-hover:after {
+          content: '';
+          position: absolute;
+          width: 0%;
+          height: 2px;
+          bottom: -4px;
+          left: 0;
+          background-color: #6366f1;
+          transition: width 0.25s ease;
+        }
+        .nav-btn-hover:hover {
+          color: #6366f1 !important;
+        }
+        .nav-btn-hover:hover:after {
+          width: 100%;
+        }
+
+        .hover-card {
+          transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease !important;
+        }
+        .hover-card:hover {
+          transform: translateY(-6px) !important;
+          box-shadow: 0 14px 28px rgba(99, 102, 241, 0.12) !important;
+          border-color: #cbd5e1 !important;
+        }
+
+        .hover-btn {
+          transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease !important;
+        }
+        .hover-btn:hover {
+          transform: translateY(-2px) scale(1.02) !important;
+          box-shadow: 0 8px 16px rgba(99, 102, 241, 0.25) !important;
+        }
+
+        .hover-social {
+          transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease !important;
+        }
+        .hover-social:hover {
+          transform: translateX(4px) !important;
+          background: #ffffff !important;
+        }
+
+        .mobile-hamburger-btn {
+          display: none;
+          background: none;
+          border: none;
+          color: #1e1b4b;
+          cursor: pointer;
+          padding: 6px;
+        }
+
+        @media (max-width: 868px) {
+          .nav-items-container {
+            display: ${mobileMenuOpen ? 'flex' : 'none'} !important;
+            flex-direction: column !important;
+            width: 100% !important;
+            align-items: flex-start !important;
+            margin-top: 1rem !important;
+            padding-top: 1rem !important;
+            border-top: 1px solid #e0e7ff !important;
+            gap: 1rem !important;
+          }
+          .mobile-hamburger-btn {
+            display: block !important;
+          }
+          .dropdown-desktop-panel {
+            position: relative !important;
+            width: 100% !important;
+            box-shadow: none !important;
+            margin-top: 8px !important;
+          }
+          .services-desktop-panel {
+            flex-direction: column-reverse !important;
+          }
+        }
+      `}</style>
+
       {/* FIXED NAV BAR */}
       <nav style={{ position: 'fixed', top: 0, left: 0, width: '100%', zIndex: 1000, backgroundColor: 'rgba(255, 255, 255, 0.95)', backdropFilter: 'blur(12px)', borderBottom: '1px solid #e0e7ff', padding: '0.8rem 1.5rem', boxSizing: 'border-box' }}>
         <div style={{ maxWidth: '1300px', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap' }}>
 
+          {/* Company Logo & Title */}
           <div onClick={() => navigateTo('home')} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '10px' }}>
             <div style={{ width: '38px', height: '38px', borderRadius: '10px', background: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontWeight: 'bold', fontSize: '1.1rem', boxShadow: '0 4px 10px rgba(99, 102, 241, 0.25)' }}>
               SN
@@ -253,16 +337,24 @@ export default function App() {
             </div>
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1.2rem', flexWrap: 'wrap', position: 'relative' }}>
-            <button onClick={() => navigateTo('home')} style={navLinkStyle}>Home</button>
-            <button onClick={() => scrollToSection('about')} style={navLinkStyle}>About Us</button>
+          {/* Right Corner Hamburger Button (Only on Mobile) */}
+          <button className="mobile-hamburger-btn" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+            {mobileMenuOpen ? <X size={26} /> : <Menu size={26} />}
+          </button>
+
+          {/* Desktop & Mobile Menu Bar */}
+          <div className="nav-items-container" style={{ display: 'flex', alignItems: 'center', gap: '1.2rem', flexWrap: 'wrap', position: 'relative' }}>
+            <button onClick={() => navigateTo('home')} className="nav-btn-hover" style={navLinkStyle}>Home</button>
+            <button onClick={() => scrollToSection('about')} className="nav-btn-hover" style={navLinkStyle}>About Us</button>
 
             {/* What We Do Dropdown */}
             <div style={{ position: 'relative' }} onMouseEnter={() => setWhatWeDoOpen(true)} onMouseLeave={() => setWhatWeDoOpen(false)}>
-              <button style={navLinkStyle}>What We Do <ChevronDown size={14} /></button>
+              <button onClick={() => setWhatWeDoOpen(!whatWeDoOpen)} className="nav-btn-hover" style={navLinkStyle}>
+                What We Do <ChevronDown size={14} />
+              </button>
               <AnimatePresence>
                 {whatWeDoOpen && (
-                  <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 10 }} style={dropdownContainerStyle}>
+                  <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 10 }} className="dropdown-desktop-panel" style={dropdownContainerStyle}>
                     {whatWeDoList.map((item) => {
                       const IconComp = item.icon;
                       return (
@@ -278,10 +370,12 @@ export default function App() {
 
             {/* Services Dropdown */}
             <div style={{ position: 'relative' }} onMouseEnter={() => setServicesOpen(true)} onMouseLeave={() => setServicesOpen(false)}>
-              <button onClick={() => scrollToSection('services')} style={navLinkStyle}>Services <ChevronDown size={14} /></button>
+              <button onClick={() => { setServicesOpen(!servicesOpen); scrollToSection('services'); }} className="nav-btn-hover" style={navLinkStyle}>
+                Services <ChevronDown size={14} />
+              </button>
               <AnimatePresence>
                 {servicesOpen && (
-                  <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 10 }} style={{ ...dropdownContainerStyle, width: 'min(92vw, 680px)', right: 0, left: 'auto', display: 'flex', gap: '15px', flexDirection: 'row-reverse' }}>
+                  <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 10 }} className="dropdown-desktop-panel services-desktop-panel" style={{ ...dropdownContainerStyle, width: 'min(92vw, 680px)', right: 0, left: 'auto', display: 'flex', gap: '15px', flexDirection: 'row-reverse' }}>
                     <div style={{ flex: 1, borderLeft: '1px solid #e0e7ff', paddingLeft: '10px' }}>
                       {fields.map((f) => (
                         <div key={f.id} onMouseEnter={() => setActiveService(f.id)} onClick={() => scrollToSection('services')} style={{ ...dropdownItemStyle, backgroundColor: activeService === f.id ? '#e0e7ff' : 'transparent', borderRadius: '8px' }}>
@@ -305,7 +399,7 @@ export default function App() {
                               <span style={{ fontSize: '0.72rem', fontWeight: '700', color: '#6366f1', display: 'block' }}>TECH STACK:</span>
                               <span style={{ fontSize: '0.75rem', color: '#334155' }}>{curr.techStack}</span>
                             </div>
-                            <button onClick={() => navigateTo('careers', curr.title)} style={{ marginTop: '4px', background: curr.color, color: '#fff', border: 'none', padding: '8px 12px', borderRadius: '6px', fontSize: '0.78rem', fontWeight: '700', cursor: 'pointer' }}>
+                            <button onClick={() => navigateTo('careers', curr.title)} className="hover-btn" style={{ marginTop: '4px', background: curr.color, color: '#fff', border: 'none', padding: '8px 12px', borderRadius: '6px', fontSize: '0.78rem', fontWeight: '700', cursor: 'pointer' }}>
                               Apply / Inquire For {curr.title}
                             </button>
                           </div>
@@ -317,8 +411,8 @@ export default function App() {
               </AnimatePresence>
             </div>
 
-            <button onClick={() => navigateTo('careers')} style={navLinkStyle}>Careers</button>
-            <button onClick={() => navigateTo('contact')} style={navLinkStyle}>Contact Us</button>
+            <button onClick={() => navigateTo('careers')} className="nav-btn-hover" style={navLinkStyle}>Careers</button>
+            <button onClick={() => navigateTo('contact')} className="nav-btn-hover" style={navLinkStyle}>Contact Us</button>
           </div>
         </div>
       </nav>
@@ -335,7 +429,7 @@ export default function App() {
                     <div style={{ maxWidth: '750px', zIndex: 2, color: '#ffffff' }}>
                       <motion.h1 initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.2 }} style={{ fontSize: 'clamp(2rem, 3.8vw, 3.2rem)', fontWeight: '900', margin: '0 0 12px 0', lineHeight: '1.2' }}>{slides[currentSlide].title}</motion.h1>
                       <motion.p initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.4 }} style={{ fontSize: '1.1rem', color: '#e2e8f0', margin: '0 0 24px 0', lineHeight: '1.6' }}>{slides[currentSlide].subtitle}</motion.p>
-                      <motion.button initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ delay: 0.6 }} onClick={() => navigateTo('careers')} style={{ background: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)', color: '#fff', border: 'none', padding: '13px 26px', borderRadius: '10px', fontWeight: '700', fontSize: '0.95rem', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: '8px', boxShadow: '0 10px 20px rgba(99, 102, 241, 0.3)' }}>
+                      <motion.button initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ delay: 0.6 }} onClick={() => navigateTo('careers')} className="hover-btn" style={{ background: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)', color: '#fff', border: 'none', padding: '13px 26px', borderRadius: '10px', fontWeight: '700', fontSize: '0.95rem', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: '8px', boxShadow: '0 10px 20px rgba(99, 102, 241, 0.3)' }}>
                         <span>Apply For Opportunities</span><ArrowRight size={18} />
                       </motion.button>
                     </div>
@@ -348,7 +442,7 @@ export default function App() {
                   <span style={{ fontSize: '0.85rem', color: '#6366f1', fontWeight: '800', textTransform: 'uppercase' }}>Corporate Identity</span>
                   <h2 style={{ fontSize: '2.2rem', fontWeight: '800', margin: '8px 0 0 0', color: '#1e1b4b' }}>About SMU Nexora Technologies</h2>
                 </div>
-                <div style={{ ...pastelCardStyle, borderLeft: '5px solid #6366f1' }}>
+                <div className="hover-card" style={{ ...pastelCardStyle, borderLeft: '5px solid #6366f1' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '1rem' }}>
                     <Laptop size={28} color="#6366f1" />
                     <h3 style={{ fontSize: '1.4rem', fontWeight: '800', color: '#1e1b4b', margin: 0 }}>Who We Are</h3>
@@ -368,7 +462,7 @@ export default function App() {
 
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(270px, 1fr))', gap: '20px' }}>
                     {fields.map((field) => (
-                      <div key={field.id} style={{ ...pastelCardStyle, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                      <div key={field.id} className="hover-card" style={{ ...pastelCardStyle, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                         <div>
                           <div style={{ width: '46px', height: '46px', borderRadius: '12px', background: `${field.color}15`, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1rem' }}>
                             <field.icon size={24} color={field.color} />
@@ -376,7 +470,7 @@ export default function App() {
                           <h3 style={{ fontSize: '1.15rem', margin: '0 0 8px 0', color: '#1e1b4b', fontWeight: '700' }}>{field.title}</h3>
                           <p style={{ fontSize: '0.88rem', color: '#475569', margin: 0, lineHeight: '1.5' }}>{field.desc}</p>
                         </div>
-                        <button onClick={() => navigateTo('careers', field.title)} style={{ marginTop: '1.4rem', background: '#ffffff', border: `1px solid ${field.color}`, color: field.color, padding: '8px 16px', borderRadius: '8px', fontWeight: '700', fontSize: '0.82rem', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+                        <button onClick={() => navigateTo('careers', field.title)} className="hover-btn" style={{ marginTop: '1.4rem', background: '#ffffff', border: `1px solid ${field.color}`, color: field.color, padding: '8px 16px', borderRadius: '8px', fontWeight: '700', fontSize: '0.82rem', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
                           <span>Apply For Field</span><ArrowRight size={14} />
                         </button>
                       </div>
@@ -392,14 +486,14 @@ export default function App() {
                 </div>
 
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '2rem' }}>
-                  <div style={pastelCardStyle}>
+                  <div className="hover-card" style={pastelCardStyle}>
                     <h3 style={{ fontSize: '1.3rem', fontWeight: '800', color: '#1e1b4b', margin: '0 0 1.2rem 0' }}>Connect On Social Media</h3>
                     <p style={{ color: '#475569', fontSize: '0.92rem', lineHeight: '1.6', marginBottom: '1.5rem' }}>
                       Have a project query or internship doubt? Contact us directly via WhatsApp, Instagram, or Email.
                     </p>
 
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                      <a href="https://wa.me/918435299100" target="_blank" rel="noreferrer" style={socialBadgeStyle('#25D366')}>
+                      <a href="https://wa.me/918435299100" target="_blank" rel="noreferrer" className="hover-social" style={socialBadgeStyle('#25D366')}>
                         <MessageCircle size={22} color="#25D366" />
                         <div>
                           <span style={{ display: 'block', fontSize: '0.78rem', color: '#64748b' }}>WhatsApp / Call</span>
@@ -407,7 +501,7 @@ export default function App() {
                         </div>
                       </a>
 
-                      <a href="https://instagram.com/smunextech" target="_blank" rel="noreferrer" style={socialBadgeStyle('#E1306C')}>
+                      <a href="https://instagram.com/smunextech" target="_blank" rel="noreferrer" className="hover-social" style={socialBadgeStyle('#E1306C')}>
                         <Camera size={22} color="#E1306C" />
                         <div>
                           <span style={{ display: 'block', fontSize: '0.78rem', color: '#64748b' }}>Instagram Handle</span>
@@ -415,7 +509,7 @@ export default function App() {
                         </div>
                       </a>
 
-                      <a href="mailto:smunextech@gmail.com" style={socialBadgeStyle('#6366f1')}>
+                      <a href="mailto:smunextech@gmail.com" className="hover-social" style={socialBadgeStyle('#6366f1')}>
                         <Mail size={22} color="#6366f1" />
                         <div>
                           <span style={{ display: 'block', fontSize: '0.78rem', color: '#64748b' }}>Official Support Email</span>
@@ -425,7 +519,7 @@ export default function App() {
                     </div>
                   </div>
 
-                  <div style={pastelCardStyle}>
+                  <div className="hover-card" style={pastelCardStyle}>
                     <h3 style={{ fontSize: '1.3rem', fontWeight: '800', color: '#1e1b4b', margin: '0 0 1rem 0' }}>Send Inquiry Message</h3>
                     <form onSubmit={handleContactSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                       <div>
@@ -444,7 +538,7 @@ export default function App() {
                         <label style={labelStyle}>Your Message *</label>
                         <textarea name="userMessage" rows="3" placeholder="Enter your message here..." required value={contactData.userMessage} onChange={handleContactInputChange} style={{ ...inputStyle, resize: 'vertical' }}></textarea>
                       </div>
-                      <button type="submit" disabled={isSubmitting} style={{ width: '100%', padding: '12px', borderRadius: '10px', border: 'none', background: '#6366f1', color: '#fff', fontWeight: '700', fontSize: '0.95rem', cursor: isSubmitting ? 'not-allowed' : 'pointer' }}>
+                      <button type="submit" disabled={isSubmitting} className="hover-btn" style={{ width: '100%', padding: '12px', borderRadius: '10px', border: 'none', background: '#6366f1', color: '#fff', fontWeight: '700', fontSize: '0.95rem', cursor: isSubmitting ? 'not-allowed' : 'pointer' }}>
                         {isSubmitting ? 'Sending Message...' : 'Send Inquiry Message'}
                       </button>
                     </form>
@@ -456,7 +550,7 @@ export default function App() {
 
           {currentPage === 'careers' && (
             <motion.div key="careers-page" initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -15 }} style={{ maxWidth: '900px', margin: '2rem auto', padding: '0 1.5rem' }}>
-              <button onClick={() => navigateTo('home')} style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#ffffff', border: '1px solid #cbd5e1', padding: '9px 18px', borderRadius: '10px', color: '#334155', fontWeight: '600', cursor: 'pointer', marginBottom: '1.8rem' }}>
+              <button onClick={() => navigateTo('home')} className="hover-btn" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#ffffff', border: '1px solid #cbd5e1', padding: '9px 18px', borderRadius: '10px', color: '#334155', fontWeight: '600', cursor: 'pointer', marginBottom: '1.8rem' }}>
                 <ArrowLeft size={18} /><span>Back to Home</span>
               </button>
 
@@ -521,7 +615,7 @@ export default function App() {
                     </div>
                   </div>
 
-                  <button type="submit" disabled={isSubmitting} style={{ width: '100%', padding: '15px', borderRadius: '12px', border: 'none', background: isSubmitting ? '#94a3b8' : '#6366f1', color: '#ffffff', fontWeight: '700', fontSize: '1rem', cursor: isSubmitting ? 'not-allowed' : 'pointer', boxShadow: '0 10px 20px rgba(99, 102, 241, 0.25)' }}>
+                  <button type="submit" disabled={isSubmitting} className="hover-btn" style={{ width: '100%', padding: '15px', borderRadius: '12px', border: 'none', background: isSubmitting ? '#94a3b8' : '#6366f1', color: '#ffffff', fontWeight: '700', fontSize: '1rem', cursor: isSubmitting ? 'not-allowed' : 'pointer', boxShadow: '0 10px 20px rgba(99, 102, 241, 0.25)' }}>
                     {isSubmitting ? 'Submitting Application...' : 'Submit Career Application'}
                   </button>
                 </form>
@@ -531,34 +625,34 @@ export default function App() {
 
           {currentPage === 'contact' && (
             <motion.div key="contact-page" initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -15 }} style={{ maxWidth: '1000px', margin: '2rem auto', padding: '0 1.5rem' }}>
-              <button onClick={() => navigateTo('home')} style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#ffffff', border: '1px solid #cbd5e1', padding: '9px 18px', borderRadius: '10px', color: '#334155', fontWeight: '600', cursor: 'pointer', marginBottom: '1.8rem' }}>
+              <button onClick={() => navigateTo('home')} className="hover-btn" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#ffffff', border: '1px solid #cbd5e1', padding: '9px 18px', borderRadius: '10px', color: '#334155', fontWeight: '600', cursor: 'pointer', marginBottom: '1.8rem' }}>
                 <ArrowLeft size={18} /><span>Back to Home</span>
               </button>
 
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '2rem' }}>
-                <div style={pastelCardStyle}>
+                <div className="hover-card" style={pastelCardStyle}>
                   <Building size={32} color="#6366f1" style={{ marginBottom: '1rem' }} />
                   <h2 style={{ fontSize: '1.8rem', fontWeight: '800', color: '#1e1b4b', margin: '0 0 1rem 0' }}>Corporate Desk</h2>
                   <p style={{ color: '#475569', lineHeight: '1.6' }}><strong>SMU Nexora Technologies Pvt. Ltd.</strong><br />Indore, MP, India</p>
 
                   <div style={{ marginTop: '1.5rem', display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                    <a href="https://wa.me/918435299100" target="_blank" rel="noreferrer" style={socialBadgeStyle('#25D366')}>
+                    <a href="https://wa.me/918435299100" target="_blank" rel="noreferrer" className="hover-social" style={socialBadgeStyle('#25D366')}>
                       <MessageCircle size={20} color="#25D366" /><span style={{ fontSize: '0.9rem', fontWeight: '700', color: '#1e1b4b' }}>WhatsApp / Call: 8435299100</span>
                     </a>
-                    <a href="https://instagram.com/smunextech" target="_blank" rel="noreferrer" style={socialBadgeStyle('#E1306C')}>
+                    <a href="https://instagram.com/smunextech" target="_blank" rel="noreferrer" className="hover-social" style={socialBadgeStyle('#E1306C')}>
                       <Camera size={20} color="#E1306C" /><span style={{ fontSize: '0.9rem', fontWeight: '700', color: '#1e1b4b' }}>Insta: @smunextech</span>
                     </a>
                   </div>
                 </div>
 
-                <div style={pastelCardStyle}>
+                <div className="hover-card" style={pastelCardStyle}>
                   <h3 style={{ fontSize: '1.4rem', fontWeight: '800', color: '#1e1b4b', margin: '0 0 1rem 0' }}>Send Inquiry Message</h3>
                   <form onSubmit={handleContactSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                     <div><label style={labelStyle}>Your Name *</label><input type="text" name="fullName" placeholder="Enter your full name" required value={contactData.fullName} onChange={handleContactInputChange} style={inputStyle} /></div>
                     <div><label style={labelStyle}>Email Address *</label><input type="email" name="email" placeholder="Enter your email address" required value={contactData.email} onChange={handleContactInputChange} style={inputStyle} /></div>
                     <div><label style={labelStyle}>Subject *</label><input type="text" name="subject" placeholder="Enter inquiry subject" required value={contactData.subject} onChange={handleContactInputChange} style={inputStyle} /></div>
                     <div><label style={labelStyle}>Your Message *</label><textarea name="userMessage" rows="3" placeholder="Enter your message here..." required value={contactData.userMessage} onChange={handleContactInputChange} style={{ ...inputStyle, resize: 'vertical' }}></textarea></div>
-                    <button type="submit" disabled={isSubmitting} style={{ width: '100%', padding: '12px', borderRadius: '10px', border: 'none', background: '#6366f1', color: '#fff', fontWeight: '700', fontSize: '0.95rem', cursor: 'pointer' }}>
+                    <button type="submit" disabled={isSubmitting} className="hover-btn" style={{ width: '100%', padding: '12px', borderRadius: '10px', border: 'none', background: '#6366f1', color: '#fff', fontWeight: '700', fontSize: '0.95rem', cursor: 'pointer' }}>
                       {isSubmitting ? 'Sending...' : 'Send Message'}
                     </button>
                   </form>
@@ -569,7 +663,7 @@ export default function App() {
 
           {currentPage === 'what-we-do-detail' && selectedDetail && (
             <motion.div key="what-we-do-page" initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -15 }} style={{ maxWidth: '900px', margin: '2rem auto', padding: '0 1.5rem' }}>
-              <button onClick={() => navigateTo('home')} style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#ffffff', border: '1px solid #cbd5e1', padding: '9px 18px', borderRadius: '10px', color: '#334155', fontWeight: '600', cursor: 'pointer', marginBottom: '1.8rem' }}>
+              <button onClick={() => navigateTo('home')} className="hover-btn" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#ffffff', border: '1px solid #cbd5e1', padding: '9px 18px', borderRadius: '10px', color: '#334155', fontWeight: '600', cursor: 'pointer', marginBottom: '1.8rem' }}>
                 <ArrowLeft size={18} /><span>Back to Home</span>
               </button>
 
@@ -597,7 +691,7 @@ export default function App() {
                   ))}
                 </div>
 
-                <button onClick={() => navigateTo('contact')} style={{ background: '#6366f1', color: '#fff', border: 'none', padding: '14px 28px', borderRadius: '10px', fontWeight: '700', fontSize: '0.95rem', cursor: 'pointer' }}>
+                <button onClick={() => navigateTo('contact')} className="hover-btn" style={{ background: '#6366f1', color: '#fff', border: 'none', padding: '14px 28px', borderRadius: '10px', fontWeight: '700', fontSize: '0.95rem', cursor: 'pointer' }}>
                   Inquire For {selectedDetail.name} Solutions
                 </button>
               </div>
@@ -682,6 +776,7 @@ export default function App() {
 
               <button
                 onClick={closeModal}
+                className="hover-btn"
                 style={{
                   width: '100%', padding: '12px', borderRadius: '10px',
                   border: 'none', background: modalState.type === 'success' ? '#10b981' : '#ef4444',

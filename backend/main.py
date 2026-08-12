@@ -1,4 +1,4 @@
-from fastapi import FastAPI, File, UploadFile, Form, HTTPException
+from fastapi import FastAPI, File, UploadFile, Form, HTTPException, BackgroundTasks
 from fastapi.middleware.cors import CORSMiddleware
 import sqlite3
 import os
@@ -8,10 +8,12 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from email.mime.base import MIMEBase
 from email import encoders
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = FastAPI(title="SMU Nexora Backend API")
 
-# Enable CORS for React Frontend
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -23,13 +25,10 @@ app.add_middleware(
 UPLOAD_DIR = "uploads"
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 
-# GMAIL CONFIGURATION
 SMTP_SERVER = "smtp.gmail.com"
 SMTP_PORT = 465
 SENDER_EMAIL = "smunextech@gmail.com"
-
-# 👇 Aapka 16-digit App Password yahan rakhein:
-SENDER_PASSWORD = "athervrnbjqncmcd" 
+SENDER_PASSWORD = os.getenv("GMAIL_APP_PASSWORD", "").strip()
 
 def init_db():
     conn = sqlite3.connect("database.db")
@@ -59,8 +58,8 @@ def init_db():
 init_db()
 
 def send_email_notification(subject: str, body_text: str, attachment_path: str = None):
-    if not SENDER_PASSWORD or SENDER_PASSWORD == "YOUR_16_DIGIT_APP_PASSWORD":
-        print("⚠️ [PASSWORD NOTICE] Please set your 16-digit App Password in SENDER_PASSWORD!")
+    if not SENDER_PASSWORD:
+        print("⚠️ [ENV NOTICE] GMAIL_APP_PASSWORD not found.")
         return
 
     try:
@@ -70,7 +69,6 @@ def send_email_notification(subject: str, body_text: str, attachment_path: str =
         msg['Subject'] = subject
         msg.attach(MIMEText(body_text, 'plain'))
 
-        # Attach Resume PDF/DOCX if available
         if attachment_path and os.path.exists(attachment_path):
             with open(attachment_path, "rb") as attachment:
                 part = MIMEBase("application", "octet-stream")
@@ -82,8 +80,7 @@ def send_email_notification(subject: str, body_text: str, attachment_path: str =
             )
             msg.attach(part)
 
-        # Connect to Gmail SMTP via SSL
-        server = smtplib.SMTP_SSL(SMTP_SERVER, SMTP_PORT)
+        server = smtplib.SMTP_SSL(SMTP_SERVER, SMTP_PORT, timeout=15)
         server.login(SENDER_EMAIL, SENDER_PASSWORD)
         server.sendmail(SENDER_EMAIL, SENDER_EMAIL, msg.as_string())
         server.quit()
@@ -93,11 +90,11 @@ def send_email_notification(subject: str, body_text: str, attachment_path: str =
 
 @app.get("/")
 def home():
-    return {"status": "Active", "message": "SMU Nexora Technologies API with Direct Mail Service is running!"}
+    return {"status": "Active", "message": "SMU Nexora Technologies API is running!"}
 
-# 1. CAREERS APPLICATION ENDPOINT
 @app.post("/api/apply")
 async def submit_application(
+    background_tasks: BackgroundTasks,
     domain: str = Form(...),
     opportunityType: str = Form(...),
     experienceLevel: str = Form(...),
@@ -116,7 +113,6 @@ async def submit_application(
         with open(file_path, "wb") as buffer:
             shutil.copyfileobj(resume.file, buffer)
 
-        # Save into SQLite DB
         conn = sqlite3.connect("database.db")
         cursor = conn.cursor()
         cursor.execute("""
@@ -131,7 +127,6 @@ async def submit_application(
         conn.commit()
         conn.close()
 
-        # Email body
         email_body = f"""
 🚀 NEW CAREER APPLICATION RECEIVED!
 
@@ -145,18 +140,19 @@ async def submit_application(
 🛠️ Key Skills: {skills}
 📝 User Message: {userMessage}
 
-📎 Note: Candidate resume is attached with this email.
+📎 Candidate resume is attached with this email notification.
         """
-        send_email_notification(f"[NEW CAREER APPLICATION] - {fullName} ({domain})", email_body, file_path)
+        # Run email dispatch in background to prevent frontend waiting delay
+        background_tasks.add_task(send_email_notification, f"[NEW CAREER APPLICATION] - {fullName} ({domain})", email_body, file_path)
 
-        return {"success": True, "message": "Careers application submitted & email sent successfully!"}
+        return {"success": True, "message": "Careers application submitted successfully!"}
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-# 2. CONTACT INQUIRY ENDPOINT
 @app.post("/api/contact")
 async def submit_contact_inquiry(
+    background_tasks: BackgroundTasks,
     fullName: str = Form(...),
     email: str = Form(...),
     phone: str = Form(""),
@@ -185,9 +181,9 @@ async def submit_contact_inquiry(
 📌 Subject: {subject}
 💬 Message: {userMessage}
         """
-        send_email_notification(f"[NEW CONTACT INQUIRY] - {subject} from {fullName}", email_body)
+        background_tasks.add_task(send_email_notification, f"[NEW CONTACT INQUIRY] - {subject} from {fullName}", email_body)
 
-        return {"success": True, "message": "Inquiry submitted & email sent successfully!"}
+        return {"success": True, "message": "Inquiry submitted successfully!"}
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
