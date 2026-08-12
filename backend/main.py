@@ -25,14 +25,16 @@ app.add_middleware(
 UPLOAD_DIR = "uploads"
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 
+# SMTP Config (Port 587 with STARTTLS is best for Render)
 SMTP_SERVER = "smtp.gmail.com"
-SMTP_PORT = 465
+SMTP_PORT = 587
 
-# Auto-detect Environment Variables
+# Direct Match with Render Environment Variables
 SENDER_EMAIL = os.getenv("SENDER_EMAIL", "smunextech@gmail.com").strip()
-SENDER_PASSWORD = (
-    os.getenv("GMAIL_APP_PASSWORD") or os.getenv("SENDER_PASSWORD") or ""
-).strip().replace(" ", "")
+
+# Cleanup password (remove quotes, spaces, newlines)
+raw_pass = os.getenv("GMAIL_APP_PASSWORD", "") or os.getenv("SENDER_PASSWORD", "")
+SENDER_PASSWORD = raw_pass.replace(" ", "").replace('"', '').replace("'", "").strip()
 
 def init_db():
     conn = sqlite3.connect("database.db")
@@ -62,12 +64,13 @@ def init_db():
 init_db()
 
 def send_email_notification(subject: str, body_text: str, attachment_path: str = None):
-    print("--------------------------------------------------")
-    print(f"DEBUG: Attempting email dispatch for {SENDER_EMAIL}")
-    
+    print("\n=================== EMAIL DISPATCH LOG ===================")
+    print(f"📧 Sender: {SENDER_EMAIL}")
+    print(f"🔑 Password Detected: {'YES (Length: ' + str(len(SENDER_PASSWORD)) + ')' if SENDER_PASSWORD else 'NO (EMPTY!)'}")
+
     if not SENDER_PASSWORD:
-        print("❌ [CRITICAL ERROR] GMAIL_APP_PASSWORD / SENDER_PASSWORD is empty or missing in Render Environment!")
-        print("--------------------------------------------------")
+        print("❌ [ERROR] GMAIL_APP_PASSWORD is missing in Environment Variables!")
+        print("=========================================================\n")
         return
 
     try:
@@ -88,15 +91,24 @@ def send_email_notification(subject: str, body_text: str, attachment_path: str =
             )
             msg.attach(part)
 
-        print("DEBUG: Connecting to SSL SMTP Server...")
-        server = smtplib.SMTP_SSL(SMTP_SERVER, SMTP_PORT, timeout=20)
+        print("🔄 Connecting to SMTP Server (smtp.gmail.com:587)...")
+        server = smtplib.SMTP(SMTP_SERVER, SMTP_PORT, timeout=30)
+        server.ehlo()
+        server.starttls()  # Upgrade connection to Secure TLS
+        server.ehlo()
+
+        print("🔑 Logging in to Gmail SMTP...")
         server.login(SENDER_EMAIL, SENDER_PASSWORD)
+
+        print("📤 Sending Mail...")
         server.sendmail(SENDER_EMAIL, SENDER_EMAIL, msg.as_string())
         server.quit()
-        print(f"✅ [EMAIL DISPATCH SUCCESS] Notification sent to {SENDER_EMAIL}")
+        print("✅ [SUCCESS] Email dispatched successfully to " + SENDER_EMAIL)
+
     except Exception as e:
-        print(f"❌ [EMAIL FAILED] SMTP Error: {str(e)}")
-    print("--------------------------------------------------")
+        print(f"❌ [SMTP FAILED] Exact Error: {str(e)}")
+
+    print("=========================================================\n")
 
 @app.get("/")
 def home():
