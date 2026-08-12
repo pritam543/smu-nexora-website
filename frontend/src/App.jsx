@@ -48,6 +48,9 @@ export default function App() {
     userMessage: ''
   });
 
+  // LIVE RENDER BACKEND BASE URL
+  const API_BASE_URL = "https://smu-nexora-website.onrender.com";
+
   // ==================== EXACT BACK BUTTON ROUTING LOGIC ====================
   useEffect(() => {
     // Initial entry setup
@@ -171,7 +174,7 @@ export default function App() {
     submitData.append("resume", resumeFile);
 
     try {
-      const response = await fetch("http://127.0.0.1:8000/api/apply", { method: "POST", body: submitData });
+      const response = await fetch(`${API_BASE_URL}/api/apply`, { method: "POST", body: submitData });
       const result = await response.json();
       if (response.ok && result.success) {
         setModalState({ isOpen: true, type: 'success', userName: careerData.fullName, fieldTitle: careerData.domain, message: 'Your application has been received successfully. Email alert dispatched.' });
@@ -179,7 +182,7 @@ export default function App() {
         setModalState({ isOpen: true, type: 'error', userName: careerData.fullName || 'User', fieldTitle: careerData.domain, message: result.detail || 'Failed to submit application. Please check backend server.' });
       }
     } catch (err) {
-      setModalState({ isOpen: true, type: 'error', userName: careerData.fullName || 'User', fieldTitle: careerData.domain, message: 'Backend Connection Failed! Ensure Python Uvicorn server is running on port 8000.' });
+      setModalState({ isOpen: true, type: 'error', userName: careerData.fullName || 'User', fieldTitle: careerData.domain, message: 'Backend Connection Failed! Live server is starting up or unreachable.' });
     } finally {
       setIsSubmitting(false);
     }
@@ -197,7 +200,7 @@ export default function App() {
     submitData.append("userMessage", contactData.userMessage);
 
     try {
-      const response = await fetch("http://127.0.0.1:8000/api/contact", { method: "POST", body: submitData });
+      const response = await fetch(`${API_BASE_URL}/api/contact`, { method: "POST", body: submitData });
       const result = await response.json();
       if (response.ok && result.success) {
         setModalState({ isOpen: true, type: 'success', userName: contactData.fullName, fieldTitle: contactData.subject, message: 'Your inquiry message has been submitted. Email alert dispatched.' });
@@ -206,7 +209,7 @@ export default function App() {
         setModalState({ isOpen: true, type: 'error', userName: contactData.fullName || 'User', fieldTitle: contactData.subject, message: result.detail || 'Inquiry submission failed. Please try again.' });
       }
     } catch (err) {
-      setModalState({ isOpen: true, type: 'error', userName: contactData.fullName || 'User', fieldTitle: contactData.subject, message: 'Backend Connection Failed! Ensure Python Uvicorn server is running on port 8000.' });
+      setModalState({ isOpen: true, type: 'error', userName: contactData.fullName || 'User', fieldTitle: contactData.subject, message: 'Backend Connection Failed! Live server is starting up or unreachable.' });
     } finally {
       setIsSubmitting(false);
     }
@@ -555,7 +558,7 @@ export default function App() {
                     <div><label style={labelStyle}>Email Address *</label><input type="email" name="email" placeholder="Enter your email address" required value={contactData.email} onChange={handleContactInputChange} style={inputStyle} /></div>
                     <div><label style={labelStyle}>Subject *</label><input type="text" name="subject" placeholder="Enter inquiry subject" required value={contactData.subject} onChange={handleContactInputChange} style={inputStyle} /></div>
                     <div><label style={labelStyle}>Your Message *</label><textarea name="userMessage" rows="3" placeholder="Enter your message here..." required value={contactData.userMessage} onChange={handleContactInputChange} style={{ ...inputStyle, resize: 'vertical' }}></textarea></div>
-                    <button type="submit" disabled={isSubmitting} style={{ width: '100%', padding: '12px', borderRadius: '10px', border: 'none', background: '#6366f1', color: '#fff', fontWeight: '700', fontSize: '0.95rem', cursor: isSubmitting ? 'not-allowed' : 'pointer' }}>
+                    <button type="submit" disabled={isSubmitting} style={{ width: '100%', padding: '12px', borderRadius: '10px', border: 'none', background: '#6366f1', color: '#fff', fontWeight: '700', fontSize: '0.95rem', cursor: 'pointer' }}>
                       {isSubmitting ? 'Sending...' : 'Send Message'}
                     </button>
                   </form>
