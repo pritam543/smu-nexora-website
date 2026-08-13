@@ -1,9 +1,10 @@
-from fastapi import FastAPI, File, UploadFile, Form, HTTPException, BackgroundTasks
+from fastapi import FastAPI, File, UploadFile, Form, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 import sqlite3
 import os
 import shutil
 import smtplib
+import traceback
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from email.mime.base import MIMEBase
@@ -25,14 +26,8 @@ app.add_middleware(
 UPLOAD_DIR = "uploads"
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 
-# SMTP Config (Port 587 with STARTTLS is best for Render)
-SMTP_SERVER = "smtp.gmail.com"
-SMTP_PORT = 587
-
-# Direct Match with Render Environment Variables
+# Email Env Variables
 SENDER_EMAIL = os.getenv("SENDER_EMAIL", "smunextech@gmail.com").strip()
-
-# Cleanup password (remove quotes, spaces, newlines)
 raw_pass = os.getenv("GMAIL_APP_PASSWORD", "") or os.getenv("SENDER_PASSWORD", "")
 SENDER_PASSWORD = raw_pass.replace(" ", "").replace('"', '').replace("'", "").strip()
 
@@ -63,15 +58,15 @@ def init_db():
 
 init_db()
 
-def send_email_notification(subject: str, body_text: str, attachment_path: str = None):
-    print("\n=================== EMAIL DISPATCH LOG ===================")
+def dispatch_gmail(subject: str, body_text: str, attachment_path: str = None):
+    print("\n=================== STARTING EMAIL DISPATCH ===================")
     print(f"📧 Sender: {SENDER_EMAIL}")
-    print(f"🔑 Password Detected: {'YES (Length: ' + str(len(SENDER_PASSWORD)) + ')' if SENDER_PASSWORD else 'NO (EMPTY!)'}")
+    print(f"🔑 Password Length: {len(SENDER_PASSWORD)}")
 
     if not SENDER_PASSWORD:
-        print("❌ [ERROR] GMAIL_APP_PASSWORD is missing in Environment Variables!")
-        print("=========================================================\n")
-        return
+        print("❌ [CRITICAL ERROR] GMAIL_APP_PASSWORD Key is EMPTY in Render Environment!")
+        print("===============================================================\n")
+        return False, "GMAIL_APP_PASSWORD is empty in Render settings."
 
     try:
         msg = MIMEMultipart()
@@ -91,24 +86,35 @@ def send_email_notification(subject: str, body_text: str, attachment_path: str =
             )
             msg.attach(part)
 
-        print("🔄 Connecting to SMTP Server (smtp.gmail.com:587)...")
-        server = smtplib.SMTP(SMTP_SERVER, SMTP_PORT, timeout=30)
-        server.ehlo()
-        server.starttls()  # Upgrade connection to Secure TLS
-        server.ehlo()
+        # Try Port 587 first (STARTTLS)
+        try:
+            print("🔄 Connecting via Port 587 (STARTTLS)...")
+            server = smtplib.SMTP("smtp.gmail.com", 587, timeout=20)
+            server.ehlo()
+            server.starttls()
+            server.ehlo()
+            server.login(SENDER_EMAIL, SENDER_PASSWORD)
+            server.sendmail(SENDER_EMAIL, SENDER_EMAIL, msg.as_string())
+            server.quit()
+            print("✅ [SUCCESS] Email delivered via Port 587!")
+            print("===============================================================\n")
+            return True, "Email sent successfully"
+        except Exception as e587:
+            print(f"⚠️ Port 587 failed ({str(e587)}), trying Port 465 (SSL)...")
+            server_ssl = smtplib.SMTP_SSL("smtp.gmail.com", 465, timeout=20)
+            server_ssl.login(SENDER_EMAIL, SENDER_PASSWORD)
+            server_ssl.sendmail(SENDER_EMAIL, SENDER_EMAIL, msg.as_string())
+            server_ssl.quit()
+            print("✅ [SUCCESS] Email delivered via Port 465!")
+            print("===============================================================\n")
+            return True, "Email sent successfully"
 
-        print("🔑 Logging in to Gmail SMTP...")
-        server.login(SENDER_EMAIL, SENDER_PASSWORD)
-
-        print("📤 Sending Mail...")
-        server.sendmail(SENDER_EMAIL, SENDER_EMAIL, msg.as_string())
-        server.quit()
-        print("✅ [SUCCESS] Email dispatched successfully to " + SENDER_EMAIL)
-
-    except Exception as e:
-        print(f"❌ [SMTP FAILED] Exact Error: {str(e)}")
-
-    print("=========================================================\n")
+    except Exception as err:
+        error_msg = f"❌ [SMTP FAILED] {str(err)}"
+        print(error_msg)
+        print(traceback.format_exc())
+        print("===============================================================\n")
+        return False, error_msg
 
 @app.get("/")
 def home():
@@ -116,7 +122,6 @@ def home():
 
 @app.post("/api/apply")
 async def submit_application(
-    background_tasks: BackgroundTasks,
     domain: str = Form(...),
     opportunityType: str = Form(...),
     experienceLevel: str = Form(...),
@@ -164,16 +169,17 @@ async def submit_application(
 
 📎 Candidate resume is attached with this email notification.
         """
-        background_tasks.add_task(send_email_notification, f"[NEW CAREER APPLICATION] - {fullName} ({domain})", email_body, file_path)
+        
+        # Synchronous Email dispatch
+        email_sent, log_msg = dispatch_gmail(f"[NEW CAREER APPLICATION] - {fullName} ({domain})", email_body, file_path)
 
-        return {"success": True, "message": "Careers application submitted successfully!"}
+        return {"success": True, "message": "Application saved!", "email_status": log_msg}
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
 @app.post("/api/contact")
 async def submit_contact_inquiry(
-    background_tasks: BackgroundTasks,
     fullName: str = Form(...),
     email: str = Form(...),
     phone: str = Form(""),
@@ -202,9 +208,10 @@ async def submit_contact_inquiry(
 📌 Subject: {subject}
 💬 Message: {userMessage}
         """
-        background_tasks.add_task(send_email_notification, f"[NEW CONTACT INQUIRY] - {subject} from {fullName}", email_body)
+        
+        email_sent, log_msg = dispatch_gmail(f"[NEW CONTACT INQUIRY] - {subject} from {fullName}", email_body)
 
-        return {"success": True, "message": "Inquiry submitted successfully!"}
+        return {"success": True, "message": "Inquiry saved!", "email_status": log_msg}
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
