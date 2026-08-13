@@ -3,13 +3,8 @@ from fastapi.middleware.cors import CORSMiddleware
 import sqlite3
 import os
 import shutil
-import smtplib
-import threading
-import traceback
-from email.mime.text import MIMEText
-from email.mime.multipart import MIMEMultipart
-from email.mime.base import MIMEBase
-from email import encoders
+import base64
+import resend
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -27,10 +22,9 @@ app.add_middleware(
 UPLOAD_DIR = "uploads"
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 
-# Email Env Variables
-SENDER_EMAIL = os.getenv("SENDER_EMAIL", "smunextech@gmail.com").strip()
-raw_pass = os.getenv("GMAIL_APP_PASSWORD", "") or os.getenv("SENDER_PASSWORD", "")
-SENDER_PASSWORD = raw_pass.replace(" ", "").replace('"', '').replace("'", "").strip()
+# Resend API Key Setup
+resend.api_key = os.getenv("RESEND_API_KEY", "").strip()
+RECEIVER_EMAIL = "smunextech@gmail.com"
 
 def init_db():
     conn = sqlite3.connect("database.db")
@@ -59,54 +53,33 @@ def init_db():
 
 init_db()
 
-def send_email_thread(subject: str, body_text: str, attachment_path: str = None):
-    """ Runs in an isolated background thread so frontend never hangs """
-    print("\n=================== ASYNC THREAD EMAIL DISPATCH ===================")
-    print(f"📧 Target Receiver/Sender: {SENDER_EMAIL}")
-    print(f"🔑 Password Length: {len(SENDER_PASSWORD)}")
-
-    if not SENDER_PASSWORD:
-        print("❌ [CRITICAL ERROR] GMAIL_APP_PASSWORD Key is EMPTY in Render Environment!")
-        print("===================================================================\n")
-        return
-
+def send_resend_email(subject: str, body_text: str, attachment_path: str = None):
     try:
-        msg = MIMEMultipart()
-        msg['From'] = SENDER_EMAIL
-        msg['To'] = SENDER_EMAIL
-        msg['Subject'] = subject
-        msg.attach(MIMEText(body_text, 'plain'))
-
+        attachments = []
         if attachment_path and os.path.exists(attachment_path):
-            with open(attachment_path, "rb") as attachment:
-                part = MIMEBase("application", "octet-stream")
-                part.set_payload(attachment.read())
-            encoders.encode_base64(part)
-            part.add_header(
-                "Content-Disposition",
-                f"attachment; filename={os.path.basename(attachment_path)}",
-            )
-            msg.attach(part)
+            with open(attachment_path, "rb") as f:
+                file_data = f.read()
+                encoded_file = base64.b64encode(file_data).decode('utf-8')
+                attachments.append({
+                    "filename": os.path.basename(attachment_path),
+                    "content": encoded_file
+                })
 
-        # Connect via Port 465 SSL Direct (Faster for Render)
-        print("🔄 Connecting via SMTP SSL (smtp.gmail.com:465)...")
-        server = smtplib.SMTP_SSL("smtp.gmail.com", 465, timeout=15)
-        server.login(SENDER_EMAIL, SENDER_PASSWORD)
-        server.sendmail(SENDER_EMAIL, SENDER_EMAIL, msg.as_string())
-        server.quit()
-        print("✅ [SUCCESS] Email dispatched in background to " + SENDER_EMAIL)
-        print("===================================================================\n")
+        params = {
+            "from": "SMU Nexora Portal <onboarding@resend.dev>",
+            "to": [RECEIVER_EMAIL],
+            "subject": subject,
+            "text": body_text,
+        }
+        if attachments:
+            params["attachments"] = attachments
 
-    except Exception as err:
-        print(f"❌ [SMTP FAILED] Error: {str(err)}")
-        print(traceback.format_exc())
-        print("===================================================================\n")
-
-def trigger_background_mail(subject: str, body_text: str, attachment_path: str = None):
-    # Launch threading to ensure main HTTP thread responds immediately
-    t = threading.Thread(target=send_email_thread, args=(subject, body_text, attachment_path))
-    t.daemon = True
-    t.start()
+        email = resend.Emails.send(params)
+        print("✅ [RESEND SUCCESS] Email sent! ID:", email)
+        return True
+    except Exception as e:
+        print("❌ [RESEND FAILED] Error:", str(e))
+        return False
 
 @app.get("/")
 def home():
@@ -159,12 +132,9 @@ async def submit_application(
 🛠️ Key Skills: {skills}
 📝 User Message: {userMessage}
 
-📎 Candidate resume is attached with this email notification.
+📎 Candidate resume is attached.
         """
-        
-        # Trigger Non-blocking Thread
-        trigger_background_mail(f"[NEW CAREER APPLICATION] - {fullName} ({domain})", email_body, file_path)
-
+        send_resend_email(f"[NEW CAREER APPLICATION] - {fullName} ({domain})", email_body, file_path)
         return {"success": True, "message": "Application submitted successfully!"}
 
     except Exception as e:
@@ -200,10 +170,7 @@ async def submit_contact_inquiry(
 📌 Subject: {subject}
 💬 Message: {userMessage}
         """
-        
-        # Trigger Non-blocking Thread
-        trigger_background_mail(f"[NEW CONTACT INQUIRY] - {subject} from {fullName}", email_body)
-
+        send_resend_email(f"[NEW CONTACT INQUIRY] - {subject} from {fullName}", email_body)
         return {"success": True, "message": "Inquiry submitted successfully!"}
 
     except Exception as e:
