@@ -4,6 +4,7 @@ import sqlite3
 import os
 import shutil
 import smtplib
+import threading
 import traceback
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
@@ -58,15 +59,16 @@ def init_db():
 
 init_db()
 
-def dispatch_gmail(subject: str, body_text: str, attachment_path: str = None):
-    print("\n=================== STARTING EMAIL DISPATCH ===================")
-    print(f"📧 Sender: {SENDER_EMAIL}")
+def send_email_thread(subject: str, body_text: str, attachment_path: str = None):
+    """ Runs in an isolated background thread so frontend never hangs """
+    print("\n=================== ASYNC THREAD EMAIL DISPATCH ===================")
+    print(f"📧 Target Receiver/Sender: {SENDER_EMAIL}")
     print(f"🔑 Password Length: {len(SENDER_PASSWORD)}")
 
     if not SENDER_PASSWORD:
         print("❌ [CRITICAL ERROR] GMAIL_APP_PASSWORD Key is EMPTY in Render Environment!")
-        print("===============================================================\n")
-        return False, "GMAIL_APP_PASSWORD is empty in Render settings."
+        print("===================================================================\n")
+        return
 
     try:
         msg = MIMEMultipart()
@@ -86,35 +88,25 @@ def dispatch_gmail(subject: str, body_text: str, attachment_path: str = None):
             )
             msg.attach(part)
 
-        # Try Port 587 first (STARTTLS)
-        try:
-            print("🔄 Connecting via Port 587 (STARTTLS)...")
-            server = smtplib.SMTP("smtp.gmail.com", 587, timeout=20)
-            server.ehlo()
-            server.starttls()
-            server.ehlo()
-            server.login(SENDER_EMAIL, SENDER_PASSWORD)
-            server.sendmail(SENDER_EMAIL, SENDER_EMAIL, msg.as_string())
-            server.quit()
-            print("✅ [SUCCESS] Email delivered via Port 587!")
-            print("===============================================================\n")
-            return True, "Email sent successfully"
-        except Exception as e587:
-            print(f"⚠️ Port 587 failed ({str(e587)}), trying Port 465 (SSL)...")
-            server_ssl = smtplib.SMTP_SSL("smtp.gmail.com", 465, timeout=20)
-            server_ssl.login(SENDER_EMAIL, SENDER_PASSWORD)
-            server_ssl.sendmail(SENDER_EMAIL, SENDER_EMAIL, msg.as_string())
-            server_ssl.quit()
-            print("✅ [SUCCESS] Email delivered via Port 465!")
-            print("===============================================================\n")
-            return True, "Email sent successfully"
+        # Connect via Port 465 SSL Direct (Faster for Render)
+        print("🔄 Connecting via SMTP SSL (smtp.gmail.com:465)...")
+        server = smtplib.SMTP_SSL("smtp.gmail.com", 465, timeout=15)
+        server.login(SENDER_EMAIL, SENDER_PASSWORD)
+        server.sendmail(SENDER_EMAIL, SENDER_EMAIL, msg.as_string())
+        server.quit()
+        print("✅ [SUCCESS] Email dispatched in background to " + SENDER_EMAIL)
+        print("===================================================================\n")
 
     except Exception as err:
-        error_msg = f"❌ [SMTP FAILED] {str(err)}"
-        print(error_msg)
+        print(f"❌ [SMTP FAILED] Error: {str(err)}")
         print(traceback.format_exc())
-        print("===============================================================\n")
-        return False, error_msg
+        print("===================================================================\n")
+
+def trigger_background_mail(subject: str, body_text: str, attachment_path: str = None):
+    # Launch threading to ensure main HTTP thread responds immediately
+    t = threading.Thread(target=send_email_thread, args=(subject, body_text, attachment_path))
+    t.daemon = True
+    t.start()
 
 @app.get("/")
 def home():
@@ -170,10 +162,10 @@ async def submit_application(
 📎 Candidate resume is attached with this email notification.
         """
         
-        # Synchronous Email dispatch
-        email_sent, log_msg = dispatch_gmail(f"[NEW CAREER APPLICATION] - {fullName} ({domain})", email_body, file_path)
+        # Trigger Non-blocking Thread
+        trigger_background_mail(f"[NEW CAREER APPLICATION] - {fullName} ({domain})", email_body, file_path)
 
-        return {"success": True, "message": "Application saved!", "email_status": log_msg}
+        return {"success": True, "message": "Application submitted successfully!"}
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
@@ -209,9 +201,10 @@ async def submit_contact_inquiry(
 💬 Message: {userMessage}
         """
         
-        email_sent, log_msg = dispatch_gmail(f"[NEW CONTACT INQUIRY] - {subject} from {fullName}", email_body)
+        # Trigger Non-blocking Thread
+        trigger_background_mail(f"[NEW CONTACT INQUIRY] - {subject} from {fullName}", email_body)
 
-        return {"success": True, "message": "Inquiry saved!", "email_status": log_msg}
+        return {"success": True, "message": "Inquiry submitted successfully!"}
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
