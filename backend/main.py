@@ -38,7 +38,7 @@ def init_db():
             experience_level TEXT,
             full_name TEXT NOT NULL,
             email TEXT NOT NULL,
-            phone TEXT,
+            phone TEXT, 
             qualification TEXT,
             skills TEXT,
             portfolio_link TEXT,
