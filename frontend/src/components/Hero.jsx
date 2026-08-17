@@ -19,10 +19,10 @@ export default function Hero({ onNavigate }) {
 
   return (
     <section className="relative pt-36 pb-24 bg-gradient-to-b from-slate-50 via-white to-slate-100 overflow-hidden border-b border-slate-200">
-      
+
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         <div className="text-center max-w-4xl mx-auto space-y-6">
-          
+
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-xs md:text-sm font-bold uppercase tracking-wider">
             <span className="w-2.5 h-2.5 rounded-full bg-blue-600 animate-pulse"></span>
             SMU Nexora Technologies Pvt. Ltd.
@@ -42,13 +42,13 @@ export default function Hero({ onNavigate }) {
           </p>
 
           <div className="pt-6 flex flex-wrap items-center justify-center gap-4">
-            <button 
+            <button
               onClick={() => onNavigate('contact')}
               className="px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl shadow-lg shadow-blue-500/20 transition-all text-sm uppercase tracking-wider cursor-pointer"
             >
               Start Your Project
             </button>
-            <button 
+            <button
               onClick={() => onNavigate('services')}
               className="px-8 py-4 bg-white hover:bg-slate-50 text-slate-800 font-bold rounded-xl border border-slate-300 shadow-sm transition-all text-sm uppercase tracking-wider cursor-pointer"
             >
