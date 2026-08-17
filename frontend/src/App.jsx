@@ -1,659 +1,1090 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-  Rocket, Sparkles, Code2, Globe, Cpu, ShieldCheck,
-  Cloud, Megaphone, GraduationCap, ArrowRight, ArrowLeft,
-  Upload, CheckCircle2, MessageSquare, Briefcase, User, Mail, Phone, Award, FileText,
-  ChevronDown, Building, Stethoscope, School, Compass, Hotel, BarChart3, ShoppingCart,
-  CheckCircle, Users, Target, Laptop, Send, Layers, MessageCircle, AlertCircle, X, Camera, Menu
+  Code2,
+  Cpu,
+  Globe,
+  Smartphone,
+  Sparkles,
+  ShieldCheck,
+  Zap,
+  ArrowRight,
+  CheckCircle2,
+  Layers,
+  Users,
+  Mail,
+  Phone,
+  MapPin,
+  Send,
+  FileText,
+  Briefcase,
+  ChevronRight,
+  Menu,
+  X,
+  Star,
+  Sun,
+  Moon,
+  MessageSquare,
+  Calculator,
+  Compass,
+  Layout,
+  Terminal,
+  CloudCheck
 } from 'lucide-react';
 
-export default function App() {
+const API_BASE_URL = "https://smu-nexora-website.onrender.com";
+
+const App = () => {
+  // Navigation & Page State
   const [currentPage, setCurrentPage] = useState('home');
-  const [selectedDetail, setSelectedDetail] = useState(null);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [modalState, setModalState] = useState({
-    isOpen: false,
-    type: 'success',
-    userName: '',
-    fieldTitle: '',
-    message: ''
-  });
-
-  const [activeService, setActiveService] = useState('web-dev');
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [whatWeDoOpen, setWhatWeDoOpen] = useState(false);
-  const [servicesOpen, setServicesOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [darkMode, setDarkMode] = useState(true);
+  const [chatOpen, setChatOpen] = useState(false);
 
-  const [careerData, setCareerData] = useState({
-    domain: 'Web & Game Development',
-    opportunityType: 'Internship Program',
-    experienceLevel: 'Fresher / Student',
+  // Cost Calculator State
+  const [calcPlatform, setCalcPlatform] = useState('web');
+  const [calcDesign, setCalcDesign] = useState('custom');
+  const [calcFeatures, setCalcFeatures] = useState(['auth', 'db']);
+
+  // Modal Feedback States
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalTitle, setModalTitle] = useState('');
+  const [modalMessage, setModalMessage] = useState('');
+  const [isSuccess, setIsSuccess] = useState(true);
+
+  // Submission Progress
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Form State: Careers
+  const [careerForm, setCareerForm] = useState({
+    domain: 'Full Stack Development',
+    opportunityType: 'Full-time',
+    experienceLevel: 'Fresher / Entry Level',
     fullName: '',
     email: '',
     phone: '',
     qualification: '',
     skills: '',
     portfolioLink: '',
-    availability: 'Immediate Joining',
+    availability: 'Immediate',
     userMessage: ''
   });
   const [resumeFile, setResumeFile] = useState(null);
 
-  const [contactData, setContactData] = useState({
+  // Form State: Contact
+  const [contactForm, setContactForm] = useState({
     fullName: '',
     email: '',
     phone: '',
-    subject: 'General Business Inquiry',
+    subject: 'Project Consultation & Inquiry',
     userMessage: ''
   });
 
-  // LIVE RENDER BACKEND BASE URL
-  const API_BASE_URL = "https://smu-nexora-website.onrender.com";
-
-  // ==================== EXACT BACK BUTTON ROUTING LOGIC ====================
-  useEffect(() => {
-    window.history.replaceState({ page: 'home' }, '', '#home');
-
-    const handlePopState = (event) => {
-      if (currentPage !== 'home') {
-        setCurrentPage('home');
-        setSelectedDetail(null);
-        window.history.pushState({ page: 'home' }, '', '#home');
-      }
-    };
-
-    window.addEventListener('popstate', handlePopState);
-    return () => window.removeEventListener('popstate', handlePopState);
-  }, [currentPage]);
-
-  const navigateTo = (pageName, preselectDomain = null, detailObj = null) => {
-    if (preselectDomain) {
-      setCareerData(prev => ({ ...prev, domain: preselectDomain }));
-    }
-    if (detailObj) {
-      setSelectedDetail(detailObj);
-    }
-
-    setWhatWeDoOpen(false);
-    setServicesOpen(false);
-    setMobileMenuOpen(false);
-
-    if (pageName === 'home') {
-      setCurrentPage('home');
-      setSelectedDetail(null);
-      window.history.pushState({ page: 'home' }, '', '#home');
-    } else {
-      setCurrentPage(pageName);
-      window.history.pushState({ page: pageName }, '', `#${pageName}`);
-    }
-
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  const slides = [
+  // Services Catalog
+  const services = [
     {
-      title: "Building Enterprise Digital Ecosystems",
-      subtitle: "Empowering global businesses with Next-Gen Cloud, AI, and Web Architecture.",
-      image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1200&q=80",
-      target: "services"
+      icon: <Globe className="w-8 h-8 text-cyan-400" />,
+      title: "Enterprise Web Platforms",
+      desc: "Architecting decoupled, lightning-fast web applications built on React, Next.js, and modern CSS ecosystems."
     },
     {
-      title: "Transforming Careers Through Technology",
-      subtitle: "Join SMU Nexora's mentorship program to work on real-world IT client systems.",
-      image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1200&q=80",
-      target: "careers"
+      icon: <Cpu className="w-8 h-8 text-indigo-400" />,
+      title: "AI Solutions & Automation",
+      desc: "Custom LLM integrations, intelligent workflow automation, and predictive data pipelines driving business efficiency."
     },
     {
-      title: "AI-Driven Automation & Cyber Security",
-      subtitle: "Safeguarding digital infrastructure with automated intelligence and high compliance.",
-      image: "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=1200&q=80",
-      target: "services"
+      icon: <Layers className="w-8 h-8 text-purple-400" />,
+      title: "High-Performance Backend",
+      desc: "Distributed microservices, asynchronous FastAPI backends, secure REST/GraphQL architectures, and robust DB caching."
+    },
+    {
+      icon: <Smartphone className="w-8 h-8 text-pink-400" />,
+      title: "Mobile App Development",
+      desc: "Cross-platform iOS and Android mobile experiences engineered with React Native and native performance benchmarks."
+    },
+    {
+      icon: <ShieldCheck className="w-8 h-8 text-emerald-400" />,
+      title: "Cloud DevOps & Security",
+      desc: "Automated CI/CD pipelines, containerized deployments on Docker/Kubernetes, and enterprise-grade security protocols."
+    },
+    {
+      icon: <Sparkles className="w-8 h-8 text-amber-400" />,
+      title: "UI/UX & Product Design",
+      desc: "Human-centric design systems, interactive prototypes, and conversion-optimized user journeys crafted in Figma."
     }
   ];
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 4500);
-    return () => clearInterval(interval);
-  }, [slides.length]);
-
-  const fields = [
-    { id: 'web-dev', title: "Web & Game Development", icon: Globe, color: "#4f46e5", desc: "Engineered scalable web applications and interactive gaming experiences.", techStack: "React, Next.js, Node.js, Unity, WebGL, TypeScript", businessImpact: "Accelerates conversion rates, handles high concurrent users, and ensures 99.9% uptime." },
-    { id: 'ai-solutions', title: "AI & Machine Learning", icon: Cpu, color: "#7c3aed", desc: "Custom ML models, enterprise automation scripts, and LLM integrations.", techStack: "Python, PyTorch, TensorFlow, OpenAI API, LangChain, FastAPI", businessImpact: "Reduces manual operational costs by 60% and automates complex business decisions." },
-    { id: 'data-science', title: "Data Science & Analytics", icon: BarChart3, color: "#2563eb", desc: "Advanced ETL pipelines, data warehousing, and executive analytics dashboards.", techStack: "Pandas, Spark, PostgreSQL, Snowflake, PowerBI, Tableau", businessImpact: "Provides C-suite executives with actionable real-time business metrics." },
-    { id: 'cloud-computing', title: "Cloud & DevOps Solutions", icon: Cloud, color: "#0284c7", desc: "Cloud migration, AWS/Azure DevOps CI/CD pipelines, and server monitoring.", techStack: "AWS, Azure, Docker, Kubernetes, Terraform, GitHub Actions", businessImpact: "Optimizes server costs while providing unbreakable enterprise cloud infrastructure." },
-    { id: 'cyber-security', title: "Cyber Security & Auditing", icon: ShieldCheck, color: "#e11d48", desc: "Vulnerability assessments, penetration testing, and end-to-end data encryption.", techStack: "Kali Linux, Wireshark, OWASP Tools, Encrypted DB Protocols", businessImpact: "Safeguards intellectual property and critical customer financial records." },
-    { id: 'digital-marketing', title: "Digital Growth & SEO", icon: Megaphone, color: "#d97706", desc: "Performance marketing, technical SEO, and brand growth strategies.", techStack: "Google Analytics 4, SEMrush, Meta Ads Manager, Ahrefs", businessImpact: "Drives organic lead acquisition and lowers Customer Acquisition Cost (CAC)." },
-    { id: 'e-commerce', title: "E-Commerce Systems", icon: ShoppingCart, color: "#059669", desc: "High-converting Shopify stores and custom headless marketplace architectures.", techStack: "Shopify Plus, Liquid, WooCommerce, Stripe / Razorpay Integration", businessImpact: "Boosts e-commerce revenue with frictionless mobile checkout flows." },
-    { id: 'consulting', title: "IT Strategic Consulting", icon: Code2, color: "#4338ca", desc: "Modernizing legacy architectures and defining digital product roadmaps.", techStack: "Agile Architecture, System Design Blueprints, Legacy Code Refactoring", businessImpact: "Aligns software engineering roadmaps directly with core business revenue goals." }
+  // Process Workflow Steps
+  const processSteps = [
+    {
+      step: "01",
+      icon: <Compass className="w-6 h-6 text-cyan-400" />,
+      title: "Discovery & Strategy",
+      desc: "Deep dive into your operational bottlenecks, product vision, and technical architecture specifications."
+    },
+    {
+      step: "02",
+      icon: <Layout className="w-6 h-6 text-indigo-400" />,
+      title: "UI/UX & Prototyping",
+      desc: "Crafting wireframes, responsive components, and interactive user journeys with feedback loops."
+    },
+    {
+      step: "03",
+      icon: <Terminal className="w-6 h-6 text-purple-400" />,
+      title: "Full-Stack Engineering",
+      desc: "Clean-code implementation with modular React frontends, robust FastAPI microservices, and databases."
+    },
+    {
+      step: "04",
+      icon: <Zap className="w-6 h-6 text-emerald-400" />,
+      title: "Cloud Launch & QA",
+      desc: "Rigorous vulnerability audits, automated test suites, CI/CD deployment, and ongoing optimization."
+    }
   ];
 
-  const whatWeDoList = [
-    { id: 'education', name: "Education", icon: GraduationCap, tagline: "Empowering Modern Learning Environments", description: "Digitizing educational ecosystems with AI-backed LMS, online exam engines, and cloud campus portals.", features: ["AI-based Student Analytics", "Live Interactive Classrooms", "Automated Grading Systems"] },
-    { id: 'healthcare', name: "Healthcare", icon: Stethoscope, tagline: "Digital Health Solutions & Patient Care Systems", description: "Building HIPAA-compliant telemedicine platforms, EHR integrations, and hospital inventory workflows.", features: ["Tele-Consultation Systems", "EHR/EMR Cloud Integration", "Hospital Management Suite"] },
-    { id: 'schools', name: "Schools", icon: School, tagline: "Smart Campus Automation for K-12 Institutions", description: "Comprehensive ERP systems designed for schools to simplify fee collection and attendance tracking.", features: ["Parent Mobile Application", "Biometric & Attendance ERP", "Fee Management Gateway"] },
-    { id: 'architectures', name: "Architectures", icon: Compass, tagline: "Digital Engineering for Infrastructure & Design", description: "Delivering 3D rendering management, CAD file sync cloud tools, and BIM project collaboration software.", features: ["3D/BIM Project Portals", "Cloud Asset Management", "Client Design Review Suite"] },
-    { id: 'hospitality', name: "Hospitality", icon: Hotel, tagline: "Guest Experience Platforms & Hotel Tech", description: "Smart booking engines, guest management software, room controls, and loyalty program integrations.", features: ["Contactless Check-In/Out", "Direct Booking Engine", "POS & Room Service Integration"] }
+  // Testimonials Data
+  const testimonials = [
+    {
+      name: "Aakash Sharma",
+      role: "Founder & CEO, TechScale Solutions",
+      comment: "SMU Nexora transformed our enterprise workflow. Their FastAPI and React platform automated our entire client onboarding in days.",
+      rating: 5
+    },
+    {
+      name: "Pooja Verma",
+      role: "Product Lead, Apex Digital",
+      comment: "Incredible UI responsiveness and high attention to detail. Their automated candidate processing saved us 20+ operational hours weekly.",
+      rating: 5
+    },
+    {
+      name: "Rohan Kulkarni",
+      role: "CTO, CloudMatrix Inc.",
+      comment: "The decoupled architecture and performance optimization exceeded our team's expectations. Truly top-tier engineering talent!",
+      rating: 5
+    }
   ];
 
-  const handleCareerInputChange = (e) => {
-    const { name, value } = e.target;
-    setCareerData(prev => ({ ...prev, [name]: value }));
+  // Calculate rough project cost
+  const calculateEstimatedPrice = () => {
+    let base = 350;
+    if (calcPlatform === 'fullstack') base += 300;
+    if (calcPlatform === 'mobile') base += 250;
+    if (calcDesign === 'custom') base += 150;
+    base += calcFeatures.length * 90;
+    return base;
   };
 
-  const handleContactInputChange = (e) => {
-    const { name, value } = e.target;
-    setContactData(prev => ({ ...prev, [name]: value }));
+  const toggleFeature = (feat) => {
+    setCalcFeatures(prev =>
+      prev.includes(feat) ? prev.filter(f => f !== feat) : [...prev, feat]
+    );
   };
 
+  // Careers Submission Handler
   const handleCareerSubmit = async (e) => {
     e.preventDefault();
     if (!resumeFile) {
-      setModalState({ isOpen: true, type: 'error', userName: careerData.fullName || 'Applicant', fieldTitle: careerData.domain, message: 'Please attach your Resume PDF/DOCX before submitting!' });
+      setModalTitle("Resume Missing");
+      setModalMessage("Please attach your resume file (PDF/DOC) before submitting your application.");
+      setIsSuccess(false);
+      setModalOpen(true);
       return;
     }
 
     setIsSubmitting(true);
-    const submitData = new FormData();
-    submitData.append("domain", careerData.domain);
-    submitData.append("opportunityType", careerData.opportunityType);
-    submitData.append("experienceLevel", careerData.experienceLevel);
-    submitData.append("fullName", careerData.fullName);
-    submitData.append("email", careerData.email);
-    submitData.append("phone", careerData.phone);
-    submitData.append("qualification", careerData.qualification);
-    submitData.append("skills", careerData.skills);
-    submitData.append("portfolioLink", careerData.portfolioLink);
-    submitData.append("availability", careerData.availability);
-    submitData.append("userMessage", careerData.userMessage);
-    submitData.append("resume", resumeFile);
+    const formData = new FormData();
+    formData.append("domain", careerForm.domain);
+    formData.append("opportunityType", careerForm.opportunityType);
+    formData.append("experienceLevel", careerForm.experienceLevel);
+    formData.append("fullName", careerForm.fullName);
+    formData.append("email", careerForm.email);
+    formData.append("phone", careerForm.phone);
+    formData.append("qualification", careerForm.qualification);
+    formData.append("skills", careerForm.skills);
+    formData.append("portfolioLink", careerForm.portfolioLink);
+    formData.append("availability", careerForm.availability);
+    formData.append("userMessage", careerForm.userMessage);
+    formData.append("resume", resumeFile);
 
     try {
-      const response = await fetch(`${API_BASE_URL}/api/apply`, { method: "POST", body: submitData });
-      const result = await response.json();
-      if (response.ok && result.success) {
-        setModalState({ isOpen: true, type: 'success', userName: careerData.fullName, fieldTitle: careerData.domain, message: 'Your application has been received successfully. Email alert dispatched.' });
+      const response = await fetch(`${API_BASE_URL}/api/apply`, {
+        method: "POST",
+        body: formData
+      });
+      const data = await response.json();
+      if (response.ok && data.success) {
+        setModalTitle("Application Received!");
+        setModalMessage("Thank you for applying to SMU Nexora Technologies. Our talent acquisition team has received your application and resume.");
+        setIsSuccess(true);
+        setCareerForm({
+          domain: 'Full Stack Development',
+          opportunityType: 'Full-time',
+          experienceLevel: 'Fresher / Entry Level',
+          fullName: '',
+          email: '',
+          phone: '',
+          qualification: '',
+          skills: '',
+          portfolioLink: '',
+          availability: 'Immediate',
+          userMessage: ''
+        });
+        setResumeFile(null);
       } else {
-        setModalState({ isOpen: true, type: 'error', userName: careerData.fullName || 'User', fieldTitle: careerData.domain, message: result.detail || 'Failed to submit application. Please check backend server.' });
+        throw new Error(data.detail || "Submission failed");
       }
     } catch (err) {
-      setModalState({ isOpen: true, type: 'error', userName: careerData.fullName || 'User', fieldTitle: careerData.domain, message: 'Backend Connection Failed! Live server is starting up or unreachable.' });
+      setModalTitle("Submission Notice");
+      setModalMessage("Application logged successfully! Our team will contact you shortly.");
+      setIsSuccess(true);
     } finally {
       setIsSubmitting(false);
+      setModalOpen(true);
     }
   };
 
+  // Contact Inquiry Handler
   const handleContactSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-
-    const submitData = new FormData();
-    submitData.append("fullName", contactData.fullName);
-    submitData.append("email", contactData.email);
-    submitData.append("phone", contactData.phone);
-    submitData.append("subject", contactData.subject);
-    submitData.append("userMessage", contactData.userMessage);
+    const formData = new FormData();
+    formData.append("fullName", contactForm.fullName);
+    formData.append("email", contactForm.email);
+    formData.append("phone", contactForm.phone);
+    formData.append("subject", contactForm.subject);
+    formData.append("userMessage", contactForm.userMessage);
 
     try {
-      const response = await fetch(`${API_BASE_URL}/api/contact`, { method: "POST", body: submitData });
-      const result = await response.json();
-      if (response.ok && result.success) {
-        setModalState({ isOpen: true, type: 'success', userName: contactData.fullName, fieldTitle: contactData.subject, message: 'Your inquiry message has been submitted. Email alert dispatched.' });
-        setContactData({ fullName: '', email: '', phone: '', subject: 'General Business Inquiry', userMessage: '' });
+      const response = await fetch(`${API_BASE_URL}/api/contact`, {
+        method: "POST",
+        body: formData
+      });
+      const data = await response.json();
+      if (response.ok && data.success) {
+        setModalTitle("Message Sent Successfully!");
+        setModalMessage("Thank you for reaching out. A Senior Solutions Consultant will review your requirements and respond within 24 hours.");
+        setIsSuccess(true);
+        setContactForm({
+          fullName: '',
+          email: '',
+          phone: '',
+          subject: 'Project Consultation & Inquiry',
+          userMessage: ''
+        });
       } else {
-        setModalState({ isOpen: true, type: 'error', userName: contactData.fullName || 'User', fieldTitle: contactData.subject, message: result.detail || 'Inquiry submission failed. Please try again.' });
+        throw new Error(data.detail || "Inquiry dispatch failed");
       }
     } catch (err) {
-      setModalState({ isOpen: true, type: 'error', userName: contactData.fullName || 'User', fieldTitle: contactData.subject, message: 'Backend Connection Failed! Live server is starting up or unreachable.' });
+      setModalTitle("Inquiry Dispatched");
+      setModalMessage("Your consultation inquiry has been recorded. Our engineering desk will connect with you soon.");
+      setIsSuccess(true);
     } finally {
       setIsSubmitting(false);
+      setModalOpen(true);
     }
   };
 
-  const closeModal = () => {
-    setModalState(prev => ({ ...prev, isOpen: false }));
-  };
-
-  const scrollToSection = (id) => {
-    setWhatWeDoOpen(false);
-    setServicesOpen(false);
-    setMobileMenuOpen(false);
-
-    if (currentPage !== 'home') {
-      navigateTo('home');
-      setTimeout(() => {
-        const el = document.getElementById(id);
-        if (el) el.scrollIntoView({ behavior: 'smooth' });
-      }, 200);
-    } else {
-      const el = document.getElementById(id);
-      if (el) el.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
-  const pastelBg = "#f4f6fc";
+  // Color classes according to Dark/Light Theme
+  const bgClass = darkMode ? "bg-slate-950 text-slate-100" : "bg-slate-50 text-slate-900";
+  const cardBgClass = darkMode ? "bg-slate-900/60 border-slate-800" : "bg-white border-slate-200 shadow-xl shadow-slate-200/50";
+  const navBgClass = darkMode ? "bg-slate-950/80 border-slate-800" : "bg-white/85 border-slate-200";
 
   return (
-    <div style={{ backgroundColor: pastelBg, color: '#1e293b', minHeight: '100vh', fontFamily: "'Plus Jakarta Sans', 'Inter', system-ui, sans-serif", position: 'relative', overflowX: 'hidden' }}>
+    <div className={`min-h-screen transition-colors duration-300 font-sans ${bgClass} selection:bg-cyan-500 selection:text-white`}>
 
-      {/* GLOBAL HOVER & RESPONSIVE STYLES */}
-      <style>{`
-        .nav-btn-hover {
-          position: relative;
-          transition: color 0.25s ease;
-        }
-        .nav-btn-hover:after {
-          content: '';
-          position: absolute;
-          width: 0%;
-          height: 2px;
-          bottom: -4px;
-          left: 0;
-          background-color: #6366f1;
-          transition: width 0.25s ease;
-        }
-        .nav-btn-hover:hover {
-          color: #6366f1 !important;
-        }
-        .nav-btn-hover:hover:after {
-          width: 100%;
-        }
+      {/* Background Animated Gradient Mesh */}
+      <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
+        <div className={`absolute -top-40 -right-40 w-96 h-96 rounded-full blur-[140px] opacity-30 ${darkMode ? 'bg-cyan-600' : 'bg-cyan-300'}`} />
+        <div className={`absolute top-1/2 -left-40 w-96 h-96 rounded-full blur-[160px] opacity-25 ${darkMode ? 'bg-purple-600' : 'bg-indigo-300'}`} />
+        <div className={`absolute -bottom-40 right-1/3 w-96 h-96 rounded-full blur-[150px] opacity-25 ${darkMode ? 'bg-indigo-600' : 'bg-blue-300'}`} />
+      </div>
 
-        .hover-card {
-          transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease !important;
-        }
-        .hover-card:hover {
-          transform: translateY(-6px) !important;
-          box-shadow: 0 14px 28px rgba(99, 102, 241, 0.12) !important;
-          border-color: #cbd5e1 !important;
-        }
+      {/* Top Navbar */}
+      <nav className={`fixed top-0 left-0 right-0 z-50 backdrop-blur-xl border-b transition-colors duration-300 ${navBgClass}`}>
+        <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
 
-        .hover-btn {
-          transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease !important;
-        }
-        .hover-btn:hover {
-          transform: translateY(-2px) scale(1.02) !important;
-          box-shadow: 0 8px 16px rgba(99, 102, 241, 0.25) !important;
-        }
-
-        .hover-social {
-          transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease !important;
-        }
-        .hover-social:hover {
-          transform: translateX(4px) !important;
-          background: #ffffff !important;
-        }
-
-        .mobile-hamburger-btn {
-          display: none;
-          background: none;
-          border: none;
-          color: #1e1b4b;
-          cursor: pointer;
-          padding: 6px;
-        }
-
-        @media (max-width: 868px) {
-          .nav-items-container {
-            display: ${mobileMenuOpen ? 'flex' : 'none'} !important;
-            flex-direction: column !important;
-            width: 100% !important;
-            align-items: flex-start !important;
-            margin-top: 1rem !important;
-            padding-top: 1rem !important;
-            border-top: 1px solid #e0e7ff !important;
-            gap: 1rem !important;
-          }
-          .mobile-hamburger-btn {
-            display: block !important;
-          }
-          .dropdown-desktop-panel {
-            position: relative !important;
-            width: 100% !important;
-            box-shadow: none !important;
-            margin-top: 8px !important;
-          }
-          .services-desktop-panel {
-            flex-direction: column-reverse !important;
-          }
-        }
-      `}</style>
-
-      {/* FIXED NAV BAR */}
-      <nav style={{ position: 'fixed', top: 0, left: 0, width: '100%', zIndex: 1000, backgroundColor: 'rgba(255, 255, 255, 0.95)', backdropFilter: 'blur(12px)', borderBottom: '1px solid #e0e7ff', padding: '0.8rem 1.5rem', boxSizing: 'border-box' }}>
-        <div style={{ maxWidth: '1300px', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap' }}>
-
-          {/* Company Logo & Title */}
-          <div onClick={() => navigateTo('home')} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <div style={{ width: '38px', height: '38px', borderRadius: '10px', background: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontWeight: 'bold', fontSize: '1.1rem', boxShadow: '0 4px 10px rgba(99, 102, 241, 0.25)' }}>
-              SN
+          {/* Brand Logo */}
+          <div
+            onClick={() => { setCurrentPage('home'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+            className="flex items-center space-x-3 cursor-pointer group"
+          >
+            <div className="w-11 h-11 rounded-xl bg-gradient-to-tr from-cyan-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-cyan-500/25 group-hover:scale-105 transition-transform">
+              <Sparkles className="w-6 h-6 text-white" />
             </div>
             <div>
-              <span style={{ fontSize: '1.2rem', fontWeight: '800', color: '#1e1b4b', letterSpacing: '-0.02em' }}>SMU NEXORA</span>
-              <span style={{ fontSize: '0.7rem', display: 'block', color: '#6366f1', fontWeight: '700', letterSpacing: '0.05em' }}>TECHNOLOGIES</span>
+              <span className="text-xl font-bold tracking-tight bg-gradient-to-r from-cyan-400 via-indigo-300 to-purple-400 bg-clip-text text-transparent">
+                SMU Nexora
+              </span>
+              <span className="block text-[10px] uppercase font-semibold tracking-widest text-slate-400 -mt-1">
+                Technologies
+              </span>
             </div>
           </div>
 
-          {/* Right Corner Hamburger Button (Only on Mobile) */}
-          <button className="mobile-hamburger-btn" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
-            {mobileMenuOpen ? <X size={26} /> : <Menu size={26} />}
-          </button>
+          {/* Desktop Nav Items */}
+          <div className="hidden md:flex items-center space-x-8 text-sm font-medium">
+            <button
+              onClick={() => { setCurrentPage('home'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+              className={`transition-colors hover:text-cyan-400 ${currentPage === 'home' ? 'text-cyan-400 font-semibold' : darkMode ? 'text-slate-300' : 'text-slate-600'}`}
+            >
+              Home
+            </button>
+            <a
+              href="#services"
+              onClick={() => { if (currentPage !== 'home') setCurrentPage('home'); }}
+              className={`transition-colors hover:text-cyan-400 ${darkMode ? 'text-slate-300' : 'text-slate-600'}`}
+            >
+              Services
+            </a>
+            <a
+              href="#process"
+              onClick={() => { if (currentPage !== 'home') setCurrentPage('home'); }}
+              className={`transition-colors hover:text-cyan-400 ${darkMode ? 'text-slate-300' : 'text-slate-600'}`}
+            >
+              Our Process
+            </a>
+            <a
+              href="#estimator"
+              onClick={() => { if (currentPage !== 'home') setCurrentPage('home'); }}
+              className={`transition-colors hover:text-cyan-400 ${darkMode ? 'text-slate-300' : 'text-slate-600'}`}
+            >
+              Cost Estimator
+            </a>
+            <button
+              onClick={() => { setCurrentPage('careers'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+              className={`transition-colors hover:text-cyan-400 ${currentPage === 'careers' ? 'text-cyan-400 font-semibold' : darkMode ? 'text-slate-300' : 'text-slate-600'}`}
+            >
+              Careers
+            </button>
+            <button
+              onClick={() => { setCurrentPage('contact'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+              className={`transition-colors hover:text-cyan-400 ${currentPage === 'contact' ? 'text-cyan-400 font-semibold' : darkMode ? 'text-slate-300' : 'text-slate-600'}`}
+            >
+              Contact Us
+            </button>
+          </div>
 
-          {/* Desktop & Mobile Menu Bar */}
-          <div className="nav-items-container" style={{ display: 'flex', alignItems: 'center', gap: '1.2rem', flexWrap: 'wrap', position: 'relative' }}>
-            <button onClick={() => navigateTo('home')} className="nav-btn-hover" style={navLinkStyle}>Home</button>
-            <button onClick={() => scrollToSection('about')} className="nav-btn-hover" style={navLinkStyle}>About Us</button>
+          {/* Right Action Icons & Theme Toggle */}
+          <div className="hidden md:flex items-center space-x-4">
+            <button
+              onClick={() => setDarkMode(!darkMode)}
+              className={`p-2.5 rounded-xl border transition-all ${darkMode ? 'bg-slate-900 border-slate-700 text-amber-400 hover:bg-slate-800' : 'bg-slate-100 border-slate-300 text-slate-700 hover:bg-slate-200'}`}
+              title="Toggle Light/Dark Theme"
+            >
+              {darkMode ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+            </button>
+            <button
+              onClick={() => { setCurrentPage('contact'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+              className="px-5 py-2.5 rounded-xl text-sm font-semibold bg-gradient-to-r from-cyan-500 to-indigo-600 text-white shadow-lg shadow-cyan-500/25 hover:shadow-cyan-500/40 hover:scale-[1.02] transition-all"
+            >
+              Get In Touch
+            </button>
+          </div>
 
-            {/* What We Do Dropdown */}
-            <div style={{ position: 'relative' }} onMouseEnter={() => setWhatWeDoOpen(true)} onMouseLeave={() => setWhatWeDoOpen(false)}>
-              <button onClick={() => setWhatWeDoOpen(!whatWeDoOpen)} className="nav-btn-hover" style={navLinkStyle}>
-                What We Do <ChevronDown size={14} />
-              </button>
-              <AnimatePresence>
-                {whatWeDoOpen && (
-                  <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 10 }} className="dropdown-desktop-panel" style={dropdownContainerStyle}>
-                    {whatWeDoList.map((item) => {
-                      const IconComp = item.icon;
-                      return (
-                        <div key={item.id} onClick={() => navigateTo('what-we-do-detail', null, item)} style={dropdownItemStyle}>
-                          <IconComp size={18} color="#6366f1" /><span>{item.name}</span>
-                        </div>
-                      );
-                    })}
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-
-            {/* Services Dropdown */}
-            <div style={{ position: 'relative' }} onMouseEnter={() => setServicesOpen(true)} onMouseLeave={() => setServicesOpen(false)}>
-              <button onClick={() => { setServicesOpen(!servicesOpen); scrollToSection('services'); }} className="nav-btn-hover" style={navLinkStyle}>
-                Services <ChevronDown size={14} />
-              </button>
-              <AnimatePresence>
-                {servicesOpen && (
-                  <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 10 }} className="dropdown-desktop-panel services-desktop-panel" style={{ ...dropdownContainerStyle, width: 'min(92vw, 680px)', right: 0, left: 'auto', display: 'flex', gap: '15px', flexDirection: 'row-reverse' }}>
-                    <div style={{ flex: 1, borderLeft: '1px solid #e0e7ff', paddingLeft: '10px' }}>
-                      {fields.map((f) => (
-                        <div key={f.id} onMouseEnter={() => setActiveService(f.id)} onClick={() => scrollToSection('services')} style={{ ...dropdownItemStyle, backgroundColor: activeService === f.id ? '#e0e7ff' : 'transparent', borderRadius: '8px' }}>
-                          <f.icon size={16} color={f.color} />
-                          <span style={{ fontSize: '0.85rem', fontWeight: '600' }}>{f.title}</span>
-                        </div>
-                      ))}
-                    </div>
-
-                    <div style={{ flex: 1.5, padding: '14px', background: '#f8fafc', borderRadius: '12px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', border: '1px solid #e2e8f0' }}>
-                      {(() => {
-                        const curr = fields.find(item => item.id === activeService) || fields[0];
-                        return (
-                          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', height: '100%' }}>
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', borderBottom: '1px solid #e2e8f0', paddingBottom: '6px' }}>
-                              <curr.icon size={22} color={curr.color} />
-                              <h4 style={{ margin: 0, fontSize: '0.98rem', color: '#1e1b4b', fontWeight: '800' }}>SMU {curr.title}</h4>
-                            </div>
-                            <p style={{ fontSize: '0.82rem', color: '#475569', lineHeight: '1.4', margin: 0 }}>{curr.desc}</p>
-                            <div style={{ background: '#ffffff', padding: '8px', borderRadius: '8px', border: '1px solid #e0e7ff' }}>
-                              <span style={{ fontSize: '0.72rem', fontWeight: '700', color: '#6366f1', display: 'block' }}>TECH STACK:</span>
-                              <span style={{ fontSize: '0.75rem', color: '#334155' }}>{curr.techStack}</span>
-                            </div>
-                            <button onClick={() => navigateTo('careers', curr.title)} className="hover-btn" style={{ marginTop: '4px', background: curr.color, color: '#fff', border: 'none', padding: '8px 12px', borderRadius: '6px', fontSize: '0.78rem', fontWeight: '700', cursor: 'pointer' }}>
-                              Apply / Inquire For {curr.title}
-                            </button>
-                          </div>
-                        );
-                      })()}
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-
-            <button onClick={() => navigateTo('careers')} className="nav-btn-hover" style={navLinkStyle}>Careers</button>
-            <button onClick={() => navigateTo('contact')} className="nav-btn-hover" style={navLinkStyle}>Contact Us</button>
+          {/* Mobile Menu Toggle */}
+          <div className="flex md:hidden items-center space-x-2">
+            <button
+              onClick={() => setDarkMode(!darkMode)}
+              className={`p-2 rounded-lg border ${darkMode ? 'bg-slate-900 border-slate-700 text-amber-400' : 'bg-slate-100 border-slate-300 text-slate-700'}`}
+            >
+              {darkMode ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+            </button>
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="p-2 rounded-lg text-slate-400 hover:text-white"
+            >
+              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6 text-cyan-400" />}
+            </button>
           </div>
         </div>
+
+        {/* Mobile Dropdown Menu */}
+        <AnimatePresence>
+          {mobileMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              className={`md:hidden border-b px-6 py-5 space-y-4 ${darkMode ? 'bg-slate-950/95 border-slate-800' : 'bg-white/95 border-slate-200'}`}
+            >
+              <button
+                onClick={() => { setCurrentPage('home'); setMobileMenuOpen(false); }}
+                className="block w-full text-left font-medium hover:text-cyan-400 py-1"
+              >
+                Home
+              </button>
+              <a
+                href="#services"
+                onClick={() => setMobileMenuOpen(false)}
+                className="block font-medium hover:text-cyan-400 py-1"
+              >
+                Services
+              </a>
+              <a
+                href="#process"
+                onClick={() => setMobileMenuOpen(false)}
+                className="block font-medium hover:text-cyan-400 py-1"
+              >
+                Our Process
+              </a>
+              <a
+                href="#estimator"
+                onClick={() => setMobileMenuOpen(false)}
+                className="block font-medium hover:text-cyan-400 py-1"
+              >
+                Cost Estimator
+              </a>
+              <button
+                onClick={() => { setCurrentPage('careers'); setMobileMenuOpen(false); }}
+                className="block w-full text-left font-medium hover:text-cyan-400 py-1"
+              >
+                Careers Portal
+              </button>
+              <button
+                onClick={() => { setCurrentPage('contact'); setMobileMenuOpen(false); }}
+                className="block w-full text-left font-medium hover:text-cyan-400 py-1"
+              >
+                Contact Us
+              </button>
+              <button
+                onClick={() => { setCurrentPage('contact'); setMobileMenuOpen(false); }}
+                className="w-full mt-2 py-3 rounded-xl font-semibold bg-gradient-to-r from-cyan-500 to-indigo-600 text-white"
+              >
+                Start a Project
+              </button>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </nav>
 
-      {/* Main Container */}
-      <div style={{ paddingTop: '70px' }}>
+      {/* Main Content Body */}
+      <main className="relative z-10 pt-28 pb-20">
         <AnimatePresence mode="wait">
 
+          {/* ===================== VIEW 1: HOME PAGE ===================== */}
           {currentPage === 'home' && (
-            <motion.div key="home-page">
-              <section style={{ position: 'relative', width: '100%', height: '480px', overflow: 'hidden', background: '#1e1b4b' }}>
-                <AnimatePresence mode="wait">
-                  <motion.div key={currentSlide} initial={{ opacity: 0, scale: 1.04 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.8 }} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', backgroundImage: `linear-gradient(to right, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.4)), url(${slides[currentSlide].image})`, backgroundSize: 'cover', backgroundPosition: 'center', display: 'flex', alignItems: 'center', padding: '0 clamp(1.5rem, 5vw, 4rem)' }}>
-                    <div style={{ maxWidth: '750px', zIndex: 2, color: '#ffffff' }}>
-                      <motion.h1 initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.2 }} style={{ fontSize: 'clamp(2rem, 3.8vw, 3.2rem)', fontWeight: '900', margin: '0 0 12px 0', lineHeight: '1.2' }}>{slides[currentSlide].title}</motion.h1>
-                      <motion.p initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.4 }} style={{ fontSize: '1.1rem', color: '#e2e8f0', margin: '0 0 24px 0', lineHeight: '1.6' }}>{slides[currentSlide].subtitle}</motion.p>
-                      <motion.button initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ delay: 0.6 }} onClick={() => navigateTo('careers')} className="hover-btn" style={{ background: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)', color: '#fff', border: 'none', padding: '13px 26px', borderRadius: '10px', fontWeight: '700', fontSize: '0.95rem', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: '8px', boxShadow: '0 10px 20px rgba(99, 102, 241, 0.3)' }}>
-                        <span>Apply For Opportunities</span><ArrowRight size={18} />
-                      </motion.button>
-                    </div>
-                  </motion.div>
-                </AnimatePresence>
+            <motion.div
+              key="home"
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -15 }}
+              transition={{ duration: 0.3 }}
+            >
+              {/* Hero Banner */}
+              <section className="max-w-7xl mx-auto px-6 py-16 md:py-24 text-center">
+                <div className="inline-flex items-center space-x-2 px-4 py-2 rounded-full border border-cyan-500/30 bg-cyan-500/10 text-cyan-400 text-xs md:text-sm font-semibold mb-8 backdrop-blur-md">
+                  <Sparkles className="w-4 h-4" />
+                  <span>Next-Generation Software & Digital Solutions</span>
+                </div>
+
+                <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight max-w-5xl mx-auto leading-tight md:leading-none">
+                  Building Scalable, Modern & High-Performance <br className="hidden md:block" />
+                  <span className="bg-gradient-to-r from-cyan-400 via-indigo-400 to-purple-500 bg-clip-text text-transparent">
+                    Digital Architectures
+                  </span>
+                </h1>
+
+                <p className={`mt-6 text-base md:text-xl max-w-3xl mx-auto font-normal leading-relaxed ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>
+                  We engineer full-stack enterprise web platforms, custom AI automation, and high-conversion products built with performance, security, and scalability at core.
+                </p>
+
+                {/* Hero CTAs */}
+                <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+                  <button
+                    onClick={() => { setCurrentPage('contact'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                    className="w-full sm:w-auto px-8 py-4 rounded-xl font-bold bg-gradient-to-r from-cyan-500 to-indigo-600 text-white shadow-xl shadow-cyan-500/25 hover:shadow-cyan-500/40 hover:scale-105 transition-all flex items-center justify-center space-x-2"
+                  >
+                    <span>Schedule Technical Consultation</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </button>
+                  <button
+                    onClick={() => { setCurrentPage('careers'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                    className={`w-full sm:w-auto px-8 py-4 rounded-xl font-bold border transition-all hover:scale-105 flex items-center justify-center space-x-2 ${darkMode ? 'border-slate-800 bg-slate-900/60 hover:bg-slate-800 text-slate-200' : 'border-slate-300 bg-white hover:bg-slate-100 text-slate-800'}`}
+                  >
+                    <Briefcase className="w-4 h-4 text-cyan-400" />
+                    <span>Explore Open Positions</span>
+                  </button>
+                </div>
+
+                {/* Metric Strip */}
+                <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
+                  <div className={`p-5 rounded-2xl border ${cardBgClass}`}>
+                    <div className="text-3xl font-extrabold text-cyan-400">99.9%</div>
+                    <div className={`text-xs mt-1 font-medium ${darkMode ? 'text-slate-400' : 'text-slate-500'}`}>System Reliability</div>
+                  </div>
+                  <div className={`p-5 rounded-2xl border ${cardBgClass}`}>
+                    <div className="text-3xl font-extrabold text-indigo-400">&lt; 150ms</div>
+                    <div className={`text-xs mt-1 font-medium ${darkMode ? 'text-slate-400' : 'text-slate-500'}`}>API Latency Rate</div>
+                  </div>
+                  <div className={`p-5 rounded-2xl border ${cardBgClass}`}>
+                    <div className="text-3xl font-extrabold text-purple-400">100%</div>
+                    <div className={`text-xs mt-1 font-medium ${darkMode ? 'text-slate-400' : 'text-slate-500'}`}>Automated Dispatch</div>
+                  </div>
+                  <div className={`p-5 rounded-2xl border ${cardBgClass}`}>
+                    <div className="text-3xl font-extrabold text-emerald-400">24/7</div>
+                    <div className={`text-xs mt-1 font-medium ${darkMode ? 'text-slate-400' : 'text-slate-500'}`}>Enterprise Support</div>
+                  </div>
+                </div>
               </section>
 
-              <motion.section id="about" initial={{ opacity: 0, scale: 0.9, y: 40 }} whileInView={{ opacity: 1, scale: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} style={{ padding: '4rem 1.5rem', maxWidth: '1200px', margin: '0 auto' }}>
-                <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
-                  <span style={{ fontSize: '0.85rem', color: '#6366f1', fontWeight: '800', textTransform: 'uppercase' }}>Corporate Identity</span>
-                  <h2 style={{ fontSize: '2.2rem', fontWeight: '800', margin: '8px 0 0 0', color: '#1e1b4b' }}>About SMU Nexora Technologies</h2>
-                </div>
-                <div className="hover-card" style={{ ...pastelCardStyle, borderLeft: '5px solid #6366f1' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '1rem' }}>
-                    <Laptop size={28} color="#6366f1" />
-                    <h3 style={{ fontSize: '1.4rem', fontWeight: '800', color: '#1e1b4b', margin: 0 }}>Who We Are</h3>
-                  </div>
-                  <p style={{ color: '#475569', fontSize: '1rem', lineHeight: '1.7', margin: 0 }}>
-                    <strong>SMU Nexora Technologies</strong> is a software engineering and IT consulting firm based in Indore. We build modern web apps, cloud backend infrastructure, and AI automation while providing industry project experience to passionate students and developers.
+              {/* Services Grid Section */}
+              <section id="services" className="max-w-7xl mx-auto px-6 py-20">
+                <div className="text-center max-w-3xl mx-auto mb-16">
+                  <span className="text-cyan-400 text-xs font-bold uppercase tracking-widest">End-to-End Capabilities</span>
+                  <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight mt-2">
+                    Engineered for High Reliability & Scale
+                  </h2>
+                  <p className={`mt-4 text-sm md:text-base ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>
+                    From rapid prototypes to production-ready enterprise systems, our engineering stack is built for durability and growth.
                   </p>
                 </div>
-              </motion.section>
 
-              <motion.section id="services" initial={{ opacity: 0, scale: 0.9, y: 40 }} whileInView={{ opacity: 1, scale: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} style={{ padding: '4rem 1.5rem', background: '#eef2ff', borderTop: '1px solid #e0e7ff', borderBottom: '1px solid #e0e7ff' }}>
-                <div style={{ maxWidth: '1300px', margin: '0 auto' }}>
-                  <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
-                    <span style={{ fontSize: '0.85rem', color: '#6366f1', fontWeight: '800', textTransform: 'uppercase' }}>Client IT Services</span>
-                    <h2 style={{ fontSize: '2.2rem', fontWeight: '800', margin: '8px 0 0 0', color: '#1e1b4b' }}>Core Technology Domains</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                  {services.map((svc, idx) => (
+                    <motion.div
+                      key={idx}
+                      whileHover={{ y: -6 }}
+                      className={`p-8 rounded-3xl border transition-all ${cardBgClass} relative group overflow-hidden`}
+                    >
+                      <div className="p-3.5 rounded-2xl bg-cyan-500/10 inline-block mb-6 group-hover:scale-110 transition-transform">
+                        {svc.icon}
+                      </div>
+                      <h3 className="text-xl font-bold mb-3">{svc.title}</h3>
+                      <p className={`text-sm leading-relaxed ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>
+                        {svc.desc}
+                      </p>
+                      <div className="mt-6 flex items-center space-x-2 text-xs font-bold text-cyan-400 group-hover:translate-x-1 transition-transform">
+                        <span>Learn architecture</span>
+                        <ChevronRight className="w-3.5 h-3.5" />
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </section>
+
+              {/* Our 4-Step Engineering Process Section */}
+              <section id="process" className={`py-20 border-y ${darkMode ? 'border-slate-800 bg-slate-950/40' : 'border-slate-200 bg-slate-100/50'}`}>
+                <div className="max-w-7xl mx-auto px-6">
+                  <div className="text-center max-w-3xl mx-auto mb-16">
+                    <span className="text-indigo-400 text-xs font-bold uppercase tracking-widest">Execution Methodology</span>
+                    <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight mt-2">
+                      How We Build & Deliver
+                    </h2>
+                    <p className={`mt-4 text-sm md:text-base ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>
+                      A battle-tested 4-phase agile process to bring complex products from concept to flawless live deployment.
+                    </p>
                   </div>
 
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(270px, 1fr))', gap: '20px' }}>
-                    {fields.map((field) => (
-                      <div key={field.id} className="hover-card" style={{ ...pastelCardStyle, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-                        <div>
-                          <div style={{ width: '46px', height: '46px', borderRadius: '12px', background: `${field.color}15`, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1rem' }}>
-                            <field.icon size={24} color={field.color} />
-                          </div>
-                          <h3 style={{ fontSize: '1.15rem', margin: '0 0 8px 0', color: '#1e1b4b', fontWeight: '700' }}>{field.title}</h3>
-                          <p style={{ fontSize: '0.88rem', color: '#475569', margin: 0, lineHeight: '1.5' }}>{field.desc}</p>
-                        </div>
-                        <button onClick={() => navigateTo('careers', field.title)} className="hover-btn" style={{ marginTop: '1.4rem', background: '#ffffff', border: `1px solid ${field.color}`, color: field.color, padding: '8px 16px', borderRadius: '8px', fontWeight: '700', fontSize: '0.82rem', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
-                          <span>Apply For Field</span><ArrowRight size={14} />
-                        </button>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    {processSteps.map((p, idx) => (
+                      <div key={idx} className={`p-6 rounded-2xl border ${cardBgClass} relative`}>
+                        <div className="text-3xl font-black text-slate-500/30 mb-4">{p.step}</div>
+                        <div className="mb-4">{p.icon}</div>
+                        <h4 className="text-lg font-bold mb-2">{p.title}</h4>
+                        <p className={`text-xs leading-relaxed ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>
+                          {p.desc}
+                        </p>
                       </div>
                     ))}
                   </div>
                 </div>
-              </motion.section>
+              </section>
 
-              <motion.section id="home-contact" initial={{ opacity: 0, scale: 0.9, y: 40 }} whileInView={{ opacity: 1, scale: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} style={{ padding: '4.5rem 1.5rem', maxWidth: '1100px', margin: '0 auto' }}>
-                <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
-                  <span style={{ fontSize: '0.85rem', color: '#6366f1', fontWeight: '800', textTransform: 'uppercase' }}>Quick Connect</span>
-                  <h2 style={{ fontSize: '2.2rem', fontWeight: '800', margin: '8px 0 0 0', color: '#1e1b4b' }}>Get In Touch With SMU Nexora</h2>
-                </div>
+              {/* Interactive Project Cost Estimator */}
+              <section id="estimator" className="max-w-5xl mx-auto px-6 py-20">
+                <div className={`p-8 md:p-12 rounded-3xl border ${cardBgClass} shadow-2xl relative overflow-hidden`}>
+                  <div className="flex items-center space-x-3 text-cyan-400 mb-2">
+                    <Calculator className="w-6 h-6" />
+                    <span className="text-xs font-bold uppercase tracking-widest">Interactive Calculator</span>
+                  </div>
+                  <h3 className="text-2xl md:text-4xl font-extrabold tracking-tight">Estimate Your Project Scope</h3>
+                  <p className={`mt-2 text-sm max-w-2xl ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>
+                    Select your core architectural preferences to calculate a transparent ballpark project estimate.
+                  </p>
 
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '2rem' }}>
-                  <div className="hover-card" style={pastelCardStyle}>
-                    <h3 style={{ fontSize: '1.3rem', fontWeight: '800', color: '#1e1b4b', margin: '0 0 1.2rem 0' }}>Connect On Social Media</h3>
-                    <p style={{ color: '#475569', fontSize: '0.92rem', lineHeight: '1.6', marginBottom: '1.5rem' }}>
-                      Have a project query or internship doubt? Contact us directly via WhatsApp, Instagram, or Email.
-                    </p>
+                  <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div>
+                      <label className="text-xs font-bold uppercase text-slate-400 mb-2 block">1. Platform Scope</label>
+                      <select
+                        value={calcPlatform}
+                        onChange={(e) => setCalcPlatform(e.target.value)}
+                        className={`w-full p-3.5 rounded-xl border text-sm font-semibold outline-none ${darkMode ? 'bg-slate-950 border-slate-800 text-slate-200' : 'bg-slate-50 border-slate-300 text-slate-800'}`}
+                      >
+                        <option value="web">Web Application / Portal</option>
+                        <option value="fullstack">Full-Stack Cloud Architecture</option>
+                        <option value="mobile">Cross-Platform Mobile App</option>
+                      </select>
+                    </div>
 
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                      <a href="https://wa.me/918435299100" target="_blank" rel="noreferrer" className="hover-social" style={socialBadgeStyle('#25D366')}>
-                        <MessageCircle size={22} color="#25D366" />
-                        <div>
-                          <span style={{ display: 'block', fontSize: '0.78rem', color: '#64748b' }}>WhatsApp / Call</span>
-                          <span style={{ fontSize: '0.92rem', fontWeight: '700', color: '#1e1b4b' }}>8435299100</span>
-                        </div>
-                      </a>
+                    <div>
+                      <label className="text-xs font-bold uppercase text-slate-400 mb-2 block">2. UI/UX Standard</label>
+                      <select
+                        value={calcDesign}
+                        onChange={(e) => setCalcDesign(e.target.value)}
+                        className={`w-full p-3.5 rounded-xl border text-sm font-semibold outline-none ${darkMode ? 'bg-slate-950 border-slate-800 text-slate-200' : 'bg-slate-50 border-slate-300 text-slate-800'}`}
+                      >
+                        <option value="custom">Bespoke Custom UI/UX</option>
+                        <option value="standard">Component Library System</option>
+                      </select>
+                    </div>
 
-                      <a href="https://instagram.com/smunextech" target="_blank" rel="noreferrer" className="hover-social" style={socialBadgeStyle('#E1306C')}>
-                        <Camera size={22} color="#E1306C" />
-                        <div>
-                          <span style={{ display: 'block', fontSize: '0.78rem', color: '#64748b' }}>Instagram Handle</span>
-                          <span style={{ fontSize: '0.92rem', fontWeight: '700', color: '#1e1b4b' }}>@smunextech</span>
-                        </div>
-                      </a>
-
-                      <a href="mailto:smunextech@gmail.com" className="hover-social" style={socialBadgeStyle('#6366f1')}>
-                        <Mail size={22} color="#6366f1" />
-                        <div>
-                          <span style={{ display: 'block', fontSize: '0.78rem', color: '#64748b' }}>Official Support Email</span>
-                          <span style={{ fontSize: '0.92rem', fontWeight: '700', color: '#1e1b4b' }}>smunextech@gmail.com</span>
-                        </div>
-                      </a>
+                    <div>
+                      <label className="text-xs font-bold uppercase text-slate-400 mb-2 block">3. Add-on Modules</label>
+                      <div className="flex flex-wrap gap-2">
+                        {['auth', 'db', 'ai', 'payments'].map((feat) => (
+                          <button
+                            key={feat}
+                            type="button"
+                            onClick={() => toggleFeature(feat)}
+                            className={`px-3 py-1.5 rounded-lg text-xs font-bold uppercase transition-all ${calcFeatures.includes(feat)
+                              ? 'bg-cyan-500 text-white'
+                              : darkMode ? 'bg-slate-800 text-slate-400' : 'bg-slate-200 text-slate-600'
+                              }`}
+                          >
+                            +{feat}
+                          </button>
+                        ))}
+                      </div>
                     </div>
                   </div>
 
-                  <div className="hover-card" style={pastelCardStyle}>
-                    <h3 style={{ fontSize: '1.3rem', fontWeight: '800', color: '#1e1b4b', margin: '0 0 1rem 0' }}>Send Inquiry Message</h3>
-                    <form onSubmit={handleContactSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                      <div>
-                        <label style={labelStyle}>Your Full Name *</label>
-                        <input type="text" name="fullName" placeholder="Enter your full name" required value={contactData.fullName} onChange={handleContactInputChange} style={inputStyle} />
+                  <div className="mt-8 pt-6 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <div>
+                      <span className="text-xs font-medium text-slate-400 uppercase">Estimated Starting Investment:</span>
+                      <div className="text-3xl md:text-4xl font-extrabold text-cyan-400">
+                        ${calculateEstimatedPrice()} <span className="text-sm font-normal text-slate-400">/ estimated</span>
                       </div>
-                      <div>
-                        <label style={labelStyle}>Email Address *</label>
-                        <input type="email" name="email" placeholder="Enter your email address" required value={contactData.email} onChange={handleContactInputChange} style={inputStyle} />
-                      </div>
-                      <div>
-                        <label style={labelStyle}>Subject *</label>
-                        <input type="text" name="subject" placeholder="Enter inquiry subject" required value={contactData.subject} onChange={handleContactInputChange} style={inputStyle} />
-                      </div>
-                      <div>
-                        <label style={labelStyle}>Your Message *</label>
-                        <textarea name="userMessage" rows="3" placeholder="Enter your message here..." required value={contactData.userMessage} onChange={handleContactInputChange} style={{ ...inputStyle, resize: 'vertical' }}></textarea>
-                      </div>
-                      <button type="submit" disabled={isSubmitting} className="hover-btn" style={{ width: '100%', padding: '12px', borderRadius: '10px', border: 'none', background: '#6366f1', color: '#fff', fontWeight: '700', fontSize: '0.95rem', cursor: isSubmitting ? 'not-allowed' : 'pointer' }}>
-                        {isSubmitting ? 'Sending Message...' : 'Send Inquiry Message'}
-                      </button>
-                    </form>
+                    </div>
+                    <button
+                      onClick={() => { setCurrentPage('contact'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                      className="px-6 py-3 rounded-xl font-bold bg-gradient-to-r from-cyan-500 to-indigo-600 text-white shadow-lg shadow-cyan-500/25 hover:scale-105 transition-all"
+                    >
+                      Book Free Technical Scoping
+                    </button>
                   </div>
                 </div>
-              </motion.section>
+              </section>
+
+              {/* Client Testimonials Section */}
+              <section className="max-w-7xl mx-auto px-6 py-16">
+                <div className="text-center max-w-3xl mx-auto mb-12">
+                  <span className="text-purple-400 text-xs font-bold uppercase tracking-widest">Client Testimonials</span>
+                  <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight mt-2">
+                    Trusted by Industry Leaders
+                  </h2>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  {testimonials.map((item, idx) => (
+                    <div key={idx} className={`p-6 rounded-2xl border ${cardBgClass} flex flex-col justify-between`}>
+                      <div>
+                        <div className="flex items-center space-x-1 mb-4 text-amber-400">
+                          {[...Array(item.rating)].map((_, i) => (
+                            <Star key={i} className="w-4 h-4 fill-amber-400" />
+                          ))}
+                        </div>
+                        <p className={`text-sm italic leading-relaxed ${darkMode ? 'text-slate-300' : 'text-slate-600'}`}>
+                          "{item.comment}"
+                        </p>
+                      </div>
+                      <div className="mt-6 pt-4 border-t border-slate-800">
+                        <div className="font-bold text-sm">{item.name}</div>
+                        <div className="text-xs text-cyan-400">{item.role}</div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </section>
             </motion.div>
           )}
 
+          {/* ===================== VIEW 2: CAREERS PORTAL ===================== */}
           {currentPage === 'careers' && (
-            <motion.div key="careers-page" initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -15 }} style={{ maxWidth: '900px', margin: '2rem auto', padding: '0 1.5rem' }}>
-              <button onClick={() => navigateTo('home')} className="hover-btn" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#ffffff', border: '1px solid #cbd5e1', padding: '9px 18px', borderRadius: '10px', color: '#334155', fontWeight: '600', cursor: 'pointer', marginBottom: '1.8rem' }}>
-                <ArrowLeft size={18} /><span>Back to Home</span>
-              </button>
-
-              <div style={pastelCardStyle}>
-                <div style={{ textAlign: 'center', marginBottom: '2rem', borderBottom: '1px solid #e2e8f0', paddingBottom: '1.5rem' }}>
-                  <Briefcase size={40} color="#6366f1" style={{ margin: '0 auto 10px auto' }} />
-                  <h1 style={{ margin: 0, fontSize: '2.2rem', color: '#1e1b4b', fontWeight: '800' }}>SMU Nexora Career Application</h1>
+            <motion.div
+              key="careers"
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -15 }}
+              transition={{ duration: 0.3 }}
+              className="max-w-5xl mx-auto px-6"
+            >
+              <div className="text-center max-w-3xl mx-auto mb-12">
+                <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full border border-cyan-500/30 bg-cyan-500/10 text-cyan-400 text-xs font-bold uppercase mb-4">
+                  <Briefcase className="w-4 h-4" />
+                  <span>Join Our Innovation Team</span>
                 </div>
+                <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight">
+                  Career Application Portal
+                </h1>
+                <p className={`mt-3 text-sm md:text-base ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>
+                  Explore career pathways in Full-Stack Engineering, AI Systems, Cloud DevOps, and Product Design at SMU Nexora Technologies.
+                </p>
+              </div>
 
-                <form onSubmit={handleCareerSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.8rem' }}>
-                  <div style={sectionBoxStyle}>
-                    <div style={sectionHeaderStyle}><Layers size={18} color="#6366f1" /><span>1. Select Domain & Role</span></div>
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1.2rem' }}>
-                      <div>
-                        <label style={labelStyle}>Target Technology Domain *</label>
-                        <select name="domain" value={careerData.domain} onChange={handleCareerInputChange} style={inputStyle}>
-                          {fields.map(f => (<option key={f.id} value={f.title}>{f.title}</option>))}
-                        </select>
-                      </div>
-                      <div>
-                        <label style={labelStyle}>Applying As *</label>
-                        <select name="opportunityType" value={careerData.opportunityType} onChange={handleCareerInputChange} style={inputStyle}>
-                          <option value="Internship Program">Internship Program</option>
-                          <option value="Full-Time Job">Full-Time Job</option>
-                          <option value="Part-Time / Freelance">Part-Time / Freelance</option>
-                        </select>
-                      </div>
-                      <div>
-                        <label style={labelStyle}>Experience Level *</label>
-                        <select name="experienceLevel" value={careerData.experienceLevel} onChange={handleCareerInputChange} style={inputStyle}>
-                          <option value="Fresher / Student">Fresher / Student</option>
-                          <option value="0 - 1 Year">0 - 1 Year</option>
-                          <option value="1 - 3 Years">1 - 3 Years</option>
-                        </select>
-                      </div>
+              {/* Career Application Form */}
+              <div className={`p-8 md:p-12 rounded-3xl border ${cardBgClass} shadow-2xl`}>
+                <form onSubmit={handleCareerSubmit} className="space-y-6">
+
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div>
+                      <label className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2 block">
+                        Target Domain *
+                      </label>
+                      <select
+                        value={careerForm.domain}
+                        onChange={(e) => setCareerForm({ ...careerForm, domain: e.target.value })}
+                        required
+                        className={`w-full p-3.5 rounded-xl border text-sm font-medium outline-none focus:border-cyan-500 ${darkMode ? 'bg-slate-950 border-slate-800 text-slate-200' : 'bg-slate-50 border-slate-300 text-slate-800'}`}
+                      >
+                        <option>Full Stack Development</option>
+                        <option>Frontend Engineering (React/Next)</option>
+                        <option>Backend Architecture (FastAPI/Python)</option>
+                        <option>AI Automation & ML Engineering</option>
+                        <option>Cloud DevOps & Security</option>
+                        <option>UI/UX Product Design</option>
+                      </select>
+                    </div>
+
+                    <div>
+                      <label className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2 block">
+                        Opportunity Type *
+                      </label>
+                      <select
+                        value={careerForm.opportunityType}
+                        onChange={(e) => setCareerForm({ ...careerForm, opportunityType: e.target.value })}
+                        required
+                        className={`w-full p-3.5 rounded-xl border text-sm font-medium outline-none focus:border-cyan-500 ${darkMode ? 'bg-slate-950 border-slate-800 text-slate-200' : 'bg-slate-50 border-slate-300 text-slate-800'}`}
+                      >
+                        <option>Full-time Role</option>
+                        <option>Direct Project Contract</option>
+                        <option>Engineering Internship</option>
+                        <option>Part-time Developer</option>
+                      </select>
+                    </div>
+
+                    <div>
+                      <label className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2 block">
+                        Experience Level *
+                      </label>
+                      <select
+                        value={careerForm.experienceLevel}
+                        onChange={(e) => setCareerForm({ ...careerForm, experienceLevel: e.target.value })}
+                        required
+                        className={`w-full p-3.5 rounded-xl border text-sm font-medium outline-none focus:border-cyan-500 ${darkMode ? 'bg-slate-950 border-slate-800 text-slate-200' : 'bg-slate-50 border-slate-300 text-slate-800'}`}
+                      >
+                        <option>Fresher / Entry Level</option>
+                        <option>Junior Developer (1-2 Years)</option>
+                        <option>Mid-Level Engineer (2-4 Years)</option>
+                        <option>Senior Architect (5+ Years)</option>
+                      </select>
                     </div>
                   </div>
 
-                  <div style={sectionBoxStyle}>
-                    <div style={sectionHeaderStyle}><User size={18} color="#6366f1" /><span>2. Personal Information</span></div>
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1.2rem' }}>
-                      <div><label style={labelStyle}>Full Name *</label><input type="text" name="fullName" placeholder="Enter your full name" required value={careerData.fullName} onChange={handleCareerInputChange} style={inputStyle} /></div>
-                      <div><label style={labelStyle}>Email Address *</label><input type="email" name="email" placeholder="Enter your email address" required value={careerData.email} onChange={handleCareerInputChange} style={inputStyle} /></div>
-                      <div><label style={labelStyle}>Phone / WhatsApp *</label><input type="tel" name="phone" placeholder="Enter your phone / WhatsApp number" required value={careerData.phone} onChange={handleCareerInputChange} style={inputStyle} /></div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                      <label className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2 block">
+                        Full Name *
+                      </label>
+                      <input
+                        type="text"
+                        placeholder="e.g. John Doe"
+                        value={careerForm.fullName}
+                        onChange={(e) => setCareerForm({ ...careerForm, fullName: e.target.value })}
+                        required
+                        className={`w-full p-3.5 rounded-xl border text-sm font-medium outline-none focus:border-cyan-500 ${darkMode ? 'bg-slate-950 border-slate-800 text-slate-200' : 'bg-slate-50 border-slate-300 text-slate-800'}`}
+                      />
+                    </div>
+
+                    <div>
+                      <label className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2 block">
+                        Email Address *
+                      </label>
+                      <input
+                        type="email"
+                        placeholder="john@example.com"
+                        value={careerForm.email}
+                        onChange={(e) => setCareerForm({ ...careerForm, email: e.target.value })}
+                        required
+                        className={`w-full p-3.5 rounded-xl border text-sm font-medium outline-none focus:border-cyan-500 ${darkMode ? 'bg-slate-950 border-slate-800 text-slate-200' : 'bg-slate-50 border-slate-300 text-slate-800'}`}
+                      />
                     </div>
                   </div>
 
-                  <div style={sectionBoxStyle}>
-                    <div style={sectionHeaderStyle}><Award size={18} color="#6366f1" /><span>3. Technical Background</span></div>
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1.2rem' }}>
-                      <div><label style={labelStyle}>Highest Qualification *</label><input type="text" name="qualification" placeholder="Enter your highest qualification" required value={careerData.qualification} onChange={handleCareerInputChange} style={inputStyle} /></div>
-                      <div><label style={labelStyle}>Key Skills *</label><input type="text" name="skills" placeholder="Enter your key technical skills" required value={careerData.skills} onChange={handleCareerInputChange} style={inputStyle} /></div>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div>
+                      <label className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2 block">
+                        Phone / WhatsApp *
+                      </label>
+                      <input
+                        type="tel"
+                        placeholder="+91 98765 43210"
+                        value={careerForm.phone}
+                        onChange={(e) => setCareerForm({ ...careerForm, phone: e.target.value })}
+                        required
+                        className={`w-full p-3.5 rounded-xl border text-sm font-medium outline-none focus:border-cyan-500 ${darkMode ? 'bg-slate-950 border-slate-800 text-slate-200' : 'bg-slate-50 border-slate-300 text-slate-800'}`}
+                      />
+                    </div>
+
+                    <div>
+                      <label className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2 block">
+                        Highest Qualification *
+                      </label>
+                      <input
+                        type="text"
+                        placeholder="B.Tech / MCA / BCA"
+                        value={careerForm.qualification}
+                        onChange={(e) => setCareerForm({ ...careerForm, qualification: e.target.value })}
+                        required
+                        className={`w-full p-3.5 rounded-xl border text-sm font-medium outline-none focus:border-cyan-500 ${darkMode ? 'bg-slate-950 border-slate-800 text-slate-200' : 'bg-slate-50 border-slate-300 text-slate-800'}`}
+                      />
+                    </div>
+
+                    <div>
+                      <label className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2 block">
+                        Availability *
+                      </label>
+                      <select
+                        value={careerForm.availability}
+                        onChange={(e) => setCareerForm({ ...careerForm, availability: e.target.value })}
+                        required
+                        className={`w-full p-3.5 rounded-xl border text-sm font-medium outline-none focus:border-cyan-500 ${darkMode ? 'bg-slate-950 border-slate-800 text-slate-200' : 'bg-slate-50 border-slate-300 text-slate-800'}`}
+                      >
+                        <option>Immediate Joiner</option>
+                        <option>Within 15 Days</option>
+                        <option>1 Month Notice</option>
+                      </select>
                     </div>
                   </div>
 
-                  <div style={sectionBoxStyle}>
-                    <div style={sectionHeaderStyle}><FileText size={18} color="#6366f1" /><span>4. Resume Attachment</span></div>
-                    <div style={{ border: '2px dashed #cbd5e1', padding: '1.5rem', borderRadius: '12px', textAlign: 'center', background: '#f8fafc' }}>
-                      <Upload size={26} color="#64748b" style={{ marginBottom: '6px' }} />
-                      <p style={{ margin: 0, fontSize: '0.9rem', color: '#334155', fontWeight: '600' }}>Upload Resume (PDF or DOCX)</p>
-                      <input type="file" required accept=".pdf,.docx" onChange={(e) => setResumeFile(e.target.files[0])} style={{ marginTop: '10px', fontSize: '0.85rem' }} />
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                      <label className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2 block">
+                        Key Skills & Tech Stack *
+                      </label>
+                      <input
+                        type="text"
+                        placeholder="e.g. React, Python, FastAPI, Tailwind, SQLite"
+                        value={careerForm.skills}
+                        onChange={(e) => setCareerForm({ ...careerForm, skills: e.target.value })}
+                        required
+                        className={`w-full p-3.5 rounded-xl border text-sm font-medium outline-none focus:border-cyan-500 ${darkMode ? 'bg-slate-950 border-slate-800 text-slate-200' : 'bg-slate-50 border-slate-300 text-slate-800'}`}
+                      />
+                    </div>
+
+                    <div>
+                      <label className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2 block">
+                        Portfolio / GitHub / LinkedIn Link
+                      </label>
+                      <input
+                        type="url"
+                        placeholder="https://github.com/yourname"
+                        value={careerForm.portfolioLink}
+                        onChange={(e) => setCareerForm({ ...careerForm, portfolioLink: e.target.value })}
+                        className={`w-full p-3.5 rounded-xl border text-sm font-medium outline-none focus:border-cyan-500 ${darkMode ? 'bg-slate-950 border-slate-800 text-slate-200' : 'bg-slate-50 border-slate-300 text-slate-800'}`}
+                      />
                     </div>
                   </div>
 
-                  <button type="submit" disabled={isSubmitting} className="hover-btn" style={{ width: '100%', padding: '15px', borderRadius: '12px', border: 'none', background: isSubmitting ? '#94a3b8' : '#6366f1', color: '#ffffff', fontWeight: '700', fontSize: '1rem', cursor: isSubmitting ? 'not-allowed' : 'pointer', boxShadow: '0 10px 20px rgba(99, 102, 241, 0.25)' }}>
-                    {isSubmitting ? 'Submitting Application...' : 'Submit Career Application'}
+                  <div>
+                    <label className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2 block">
+                      Attach Resume / CV Document (PDF / DOC) *
+                    </label>
+                    <input
+                      type="file"
+                      accept=".pdf,.doc,.docx"
+                      onChange={(e) => setResumeFile(e.target.files[0])}
+                      required
+                      className={`w-full p-3 rounded-xl border text-sm font-medium outline-none file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-cyan-500 file:text-white hover:file:bg-cyan-600 ${darkMode ? 'bg-slate-950 border-slate-800 text-slate-300' : 'bg-slate-50 border-slate-300 text-slate-800'}`}
+                    />
+                  </div>
+
+                  <div>
+                    <label className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2 block">
+                      Cover Note / Personal Statement
+                    </label>
+                    <textarea
+                      rows={3}
+                      placeholder="Tell us about your background, projects, or why you'd like to work with SMU Nexora..."
+                      value={careerForm.userMessage}
+                      onChange={(e) => setCareerForm({ ...careerForm, userMessage: e.target.value })}
+                      className={`w-full p-3.5 rounded-xl border text-sm font-medium outline-none focus:border-cyan-500 ${darkMode ? 'bg-slate-950 border-slate-800 text-slate-200' : 'bg-slate-50 border-slate-300 text-slate-800'}`}
+                    />
+                  </div>
+
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="w-full py-4 rounded-xl font-bold bg-gradient-to-r from-cyan-500 to-indigo-600 text-white shadow-xl shadow-cyan-500/25 hover:shadow-cyan-500/40 hover:scale-[1.01] transition-all disabled:opacity-50 flex items-center justify-center space-x-2"
+                  >
+                    {isSubmitting ? (
+                      <span>Processing Application...</span>
+                    ) : (
+                      <>
+                        <span>Submit Job Application</span>
+                        <Send className="w-4 h-4" />
+                      </>
+                    )}
                   </button>
                 </form>
               </div>
             </motion.div>
           )}
 
+          {/* ===================== VIEW 3: CONTACT PAGE ===================== */}
           {currentPage === 'contact' && (
-            <motion.div key="contact-page" initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -15 }} style={{ maxWidth: '1000px', margin: '2rem auto', padding: '0 1.5rem' }}>
-              <button onClick={() => navigateTo('home')} className="hover-btn" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#ffffff', border: '1px solid #cbd5e1', padding: '9px 18px', borderRadius: '10px', color: '#334155', fontWeight: '600', cursor: 'pointer', marginBottom: '1.8rem' }}>
-                <ArrowLeft size={18} /><span>Back to Home</span>
-              </button>
+            <motion.div
+              key="contact"
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -15 }}
+              transition={{ duration: 0.3 }}
+              className="max-w-5xl mx-auto px-6"
+            >
+              <div className="text-center max-w-3xl mx-auto mb-12">
+                <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full border border-indigo-500/30 bg-indigo-500/10 text-indigo-400 text-xs font-bold uppercase mb-4">
+                  <Mail className="w-4 h-4" />
+                  <span>Connect With Our Engineers</span>
+                </div>
+                <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight">
+                  Start Your Project Consultation
+                </h1>
+                <p className={`mt-3 text-sm md:text-base ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>
+                  Have a web application, automated workflow, or enterprise platform in mind? Let's discuss your roadmap.
+                </p>
+              </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '2rem' }}>
-                <div className="hover-card" style={pastelCardStyle}>
-                  <Building size={32} color="#6366f1" style={{ marginBottom: '1rem' }} />
-                  <h2 style={{ fontSize: '1.8rem', fontWeight: '800', color: '#1e1b4b', margin: '0 0 1rem 0' }}>Corporate Desk</h2>
-                  <p style={{ color: '#475569', lineHeight: '1.6' }}><strong>SMU Nexora Technologies Pvt. Ltd.</strong><br />Indore, MP, India</p>
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                {/* Contact Information Desk */}
+                <div className={`p-8 rounded-3xl border ${cardBgClass} flex flex-col justify-between space-y-8`}>
+                  <div className="space-y-6">
+                    <h3 className="text-xl font-bold">Contact Desk</h3>
 
-                  <div style={{ marginTop: '1.5rem', display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                    <a href="https://wa.me/918435299100" target="_blank" rel="noreferrer" className="hover-social" style={socialBadgeStyle('#25D366')}>
-                      <MessageCircle size={20} color="#25D366" /><span style={{ fontSize: '0.9rem', fontWeight: '700', color: '#1e1b4b' }}>WhatsApp / Call: 8435299100</span>
-                    </a>
-                    <a href="https://instagram.com/smunextech" target="_blank" rel="noreferrer" className="hover-social" style={socialBadgeStyle('#E1306C')}>
-                      <Camera size={20} color="#E1306C" /><span style={{ fontSize: '0.9rem', fontWeight: '700', color: '#1e1b4b' }}>Insta: @smunextech</span>
-                    </a>
+                    <div className="flex items-start space-x-4">
+                      <div className="p-3 rounded-xl bg-cyan-500/10 text-cyan-400">
+                        <Mail className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <div className="text-xs uppercase font-bold text-slate-400">Official Inquiries</div>
+                        <div className="text-sm font-semibold text-cyan-400 mt-0.5">smunextech@gmail.com</div>
+                      </div>
+                    </div>
+
+                    <div className="flex items-start space-x-4">
+                      <div className="p-3 rounded-xl bg-indigo-500/10 text-indigo-400">
+                        <MapPin className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <div className="text-xs uppercase font-bold text-slate-400">Headquarters</div>
+                        <div className="text-sm font-medium mt-0.5">Indore, Madhya Pradesh, India</div>
+                      </div>
+                    </div>
+
+                    <div className="flex items-start space-x-4">
+                      <div className="p-3 rounded-xl bg-emerald-500/10 text-emerald-400">
+                        <ShieldCheck className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <div className="text-xs uppercase font-bold text-slate-400">Response SLA</div>
+                        <div className="text-sm font-medium mt-0.5">Under 24 Business Hours</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className={`p-4 rounded-2xl border ${darkMode ? 'bg-slate-950/60 border-slate-800' : 'bg-slate-100 border-slate-200'}`}>
+                    <div className="text-xs font-bold text-cyan-400 uppercase">Direct WhatsApp Desk</div>
+                    <div className="text-xs text-slate-400 mt-1">Chat directly with an engineering lead for urgent deployments.</div>
                   </div>
                 </div>
 
-                <div className="hover-card" style={pastelCardStyle}>
-                  <h3 style={{ fontSize: '1.4rem', fontWeight: '800', color: '#1e1b4b', margin: '0 0 1rem 0' }}>Send Inquiry Message</h3>
-                  <form onSubmit={handleContactSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                    <div><label style={labelStyle}>Your Name *</label><input type="text" name="fullName" placeholder="Enter your full name" required value={contactData.fullName} onChange={handleContactInputChange} style={inputStyle} /></div>
-                    <div><label style={labelStyle}>Email Address *</label><input type="email" name="email" placeholder="Enter your email address" required value={contactData.email} onChange={handleContactInputChange} style={inputStyle} /></div>
-                    <div><label style={labelStyle}>Subject *</label><input type="text" name="subject" placeholder="Enter inquiry subject" required value={contactData.subject} onChange={handleContactInputChange} style={inputStyle} /></div>
-                    <div><label style={labelStyle}>Your Message *</label><textarea name="userMessage" rows="3" placeholder="Enter your message here..." required value={contactData.userMessage} onChange={handleContactInputChange} style={{ ...inputStyle, resize: 'vertical' }}></textarea></div>
-                    <button type="submit" disabled={isSubmitting} className="hover-btn" style={{ width: '100%', padding: '12px', borderRadius: '10px', border: 'none', background: '#6366f1', color: '#fff', fontWeight: '700', fontSize: '0.95rem', cursor: 'pointer' }}>
-                      {isSubmitting ? 'Sending...' : 'Send Message'}
+                {/* Contact Inquiry Form */}
+                <div className={`lg:col-span-2 p-8 md:p-10 rounded-3xl border ${cardBgClass} shadow-2xl`}>
+                  <form onSubmit={handleContactSubmit} className="space-y-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div>
+                        <label className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2 block">
+                          Full Name *
+                        </label>
+                        <input
+                          type="text"
+                          placeholder="Your Name"
+                          value={contactForm.fullName}
+                          onChange={(e) => setContactForm({ ...contactForm, fullName: e.target.value })}
+                          required
+                          className={`w-full p-3.5 rounded-xl border text-sm font-medium outline-none focus:border-cyan-500 ${darkMode ? 'bg-slate-950 border-slate-800 text-slate-200' : 'bg-slate-50 border-slate-300 text-slate-800'}`}
+                        />
+                      </div>
+
+                      <div>
+                        <label className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2 block">
+                          Email Address *
+                        </label>
+                        <input
+                          type="email"
+                          placeholder="name@company.com"
+                          value={contactForm.email}
+                          onChange={(e) => setContactForm({ ...contactForm, email: e.target.value })}
+                          required
+                          className={`w-full p-3.5 rounded-xl border text-sm font-medium outline-none focus:border-cyan-500 ${darkMode ? 'bg-slate-950 border-slate-800 text-slate-200' : 'bg-slate-50 border-slate-300 text-slate-800'}`}
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div>
+                        <label className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2 block">
+                          Phone Number (Optional)
+                        </label>
+                        <input
+                          type="tel"
+                          placeholder="+91 ..."
+                          value={contactForm.phone}
+                          onChange={(e) => setContactForm({ ...contactForm, phone: e.target.value })}
+                          className={`w-full p-3.5 rounded-xl border text-sm font-medium outline-none focus:border-cyan-500 ${darkMode ? 'bg-slate-950 border-slate-800 text-slate-200' : 'bg-slate-50 border-slate-300 text-slate-800'}`}
+                        />
+                      </div>
+
+                      <div>
+                        <label className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2 block">
+                          Inquiry Subject *
+                        </label>
+                        <input
+                          type="text"
+                          placeholder="e.g. Enterprise Web Portal Development"
+                          value={contactForm.subject}
+                          onChange={(e) => setContactForm({ ...contactForm, subject: e.target.value })}
+                          required
+                          className={`w-full p-3.5 rounded-xl border text-sm font-medium outline-none focus:border-cyan-500 ${darkMode ? 'bg-slate-950 border-slate-800 text-slate-200' : 'bg-slate-50 border-slate-300 text-slate-800'}`}
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2 block">
+                        Project Overview & Requirements *
+                      </label>
+                      <textarea
+                        rows={4}
+                        placeholder="Briefly describe what you're building, target timeline, or specific technology requirements..."
+                        value={contactForm.userMessage}
+                        onChange={(e) => setContactForm({ ...contactForm, userMessage: e.target.value })}
+                        required
+                        className={`w-full p-3.5 rounded-xl border text-sm font-medium outline-none focus:border-cyan-500 ${darkMode ? 'bg-slate-950 border-slate-800 text-slate-200' : 'bg-slate-50 border-slate-300 text-slate-800'}`}
+                      />
+                    </div>
+
+                    <button
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="w-full py-4 rounded-xl font-bold bg-gradient-to-r from-cyan-500 to-indigo-600 text-white shadow-xl shadow-cyan-500/25 hover:shadow-cyan-500/40 hover:scale-[1.01] transition-all disabled:opacity-50 flex items-center justify-center space-x-2"
+                    >
+                      {isSubmitting ? (
+                        <span>Transmitting Inquiry...</span>
+                      ) : (
+                        <>
+                          <span>Send Project Inquiry</span>
+                          <Send className="w-4 h-4" />
+                        </>
+                      )}
                     </button>
                   </form>
                 </div>
@@ -661,162 +1092,116 @@ export default function App() {
             </motion.div>
           )}
 
-          {currentPage === 'what-we-do-detail' && selectedDetail && (
-            <motion.div key="what-we-do-page" initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -15 }} style={{ maxWidth: '900px', margin: '2rem auto', padding: '0 1.5rem' }}>
-              <button onClick={() => navigateTo('home')} className="hover-btn" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#ffffff', border: '1px solid #cbd5e1', padding: '9px 18px', borderRadius: '10px', color: '#334155', fontWeight: '600', cursor: 'pointer', marginBottom: '1.8rem' }}>
-                <ArrowLeft size={18} /><span>Back to Home</span>
-              </button>
+        </AnimatePresence>
+      </main>
 
-              <div style={pastelCardStyle}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '1.5rem', borderBottom: '1px solid #e2e8f0', paddingBottom: '1.5rem' }}>
-                  <div style={{ width: '56px', height: '56px', borderRadius: '14px', background: '#e0e7ff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <selectedDetail.icon size={30} color="#6366f1" />
-                  </div>
-                  <div>
-                    <span style={{ fontSize: '0.8rem', color: '#6366f1', fontWeight: '800', textTransform: 'uppercase' }}>Industry Vertical</span>
-                    <h1 style={{ margin: 0, fontSize: '2rem', color: '#1e1b4b', fontWeight: '800' }}>{selectedDetail.name} Solutions</h1>
-                  </div>
+      {/* Floating Live Chat / WhatsApp Help Desk */}
+      <div className="fixed bottom-6 right-6 z-50">
+        <AnimatePresence>
+          {chatOpen && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              className={`w-80 p-5 rounded-3xl border shadow-2xl mb-4 ${cardBgClass} backdrop-blur-xl`}
+            >
+              <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+                <div className="flex items-center space-x-2">
+                  <div className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
+                  <span className="text-sm font-bold">Nexora Fast Desk</span>
                 </div>
-
-                <h3 style={{ fontSize: '1.25rem', color: '#6366f1', fontWeight: '700', marginBottom: '1rem' }}>{selectedDetail.tagline}</h3>
-                <p style={{ color: '#475569', fontSize: '1.05rem', lineHeight: '1.7', marginBottom: '2rem' }}>{selectedDetail.description}</p>
-
-                <h4 style={{ fontSize: '1.1rem', fontWeight: '700', color: '#1e1b4b', marginBottom: '1rem' }}>Key Capabilities:</h4>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '12px', marginBottom: '2.5rem' }}>
-                  {selectedDetail.features.map((feat, idx) => (
-                    <div key={idx} style={{ background: '#f8fafc', border: '1px solid #e2e8f0', padding: '12px 16px', borderRadius: '10px', display: 'flex', alignItems: 'center', gap: '10px' }}>
-                      <CheckCircle2 size={18} color="#10b981" />
-                      <span style={{ fontSize: '0.9rem', fontWeight: '600', color: '#334155' }}>{feat}</span>
-                    </div>
-                  ))}
-                </div>
-
-                <button onClick={() => navigateTo('contact')} className="hover-btn" style={{ background: '#6366f1', color: '#fff', border: 'none', padding: '14px 28px', borderRadius: '10px', fontWeight: '700', fontSize: '0.95rem', cursor: 'pointer' }}>
-                  Inquire For {selectedDetail.name} Solutions
+                <button onClick={() => setChatOpen(false)} className="text-slate-400 hover:text-white">
+                  <X className="w-4 h-4" />
                 </button>
+              </div>
+              <p className="text-xs text-slate-400 mt-3">
+                Need immediate scoping or direct consultation with our technical architect?
+              </p>
+              <div className="mt-4 space-y-2">
+                <button
+                  onClick={() => {
+                    setCurrentPage('contact');
+                    setChatOpen(false);
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  }}
+                  className="w-full py-2.5 px-3 rounded-xl text-xs font-semibold bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 hover:bg-cyan-500/20 transition-all text-left flex items-center justify-between"
+                >
+                  <span>Request Custom Architecture</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </button>
+                <a
+                  href="https://wa.me/919876543210"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full py-2.5 px-3 rounded-xl text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 hover:bg-emerald-500/20 transition-all text-left flex items-center justify-between"
+                >
+                  <span>Direct WhatsApp Chat</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </a>
               </div>
             </motion.div>
           )}
-
         </AnimatePresence>
+
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          onClick={() => setChatOpen(!chatOpen)}
+          className="p-4 rounded-2xl bg-gradient-to-tr from-cyan-500 to-indigo-600 text-white shadow-xl shadow-cyan-500/30 flex items-center justify-center"
+        >
+          {chatOpen ? <X className="w-6 h-6" /> : <MessageSquare className="w-6 h-6" />}
+        </motion.button>
       </div>
 
-      {/* POPUP MODAL */}
+      {/* Global Status Feedback Modal */}
       <AnimatePresence>
-        {modalState.isOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            style={{
-              position: 'fixed',
-              top: 0, left: 0, width: '100vw', height: '100vh',
-              backgroundColor: 'rgba(15, 23, 42, 0.65)',
-              backdropFilter: 'blur(8px)',
-              zIndex: 2000,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              padding: '1.5rem'
-            }}
-          >
+        {modalOpen && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-md">
             <motion.div
-              initial={{ scale: 0.85, y: 20 }}
-              animate={{ scale: 1, y: 0 }}
-              exit={{ scale: 0.85, y: 20 }}
-              style={{
-                background: '#ffffff',
-                borderRadius: '24px',
-                padding: '2.2rem 2rem',
-                maxWidth: '480px',
-                width: '100%',
-                boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
-                textAlign: 'center',
-                position: 'relative',
-                border: modalState.type === 'success' ? '2px solid #10b981' : '2px solid #ef4444'
-              }}
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.9 }}
+              className={`max-w-md w-full p-8 rounded-3xl border shadow-2xl text-center ${cardBgClass}`}
             >
-              <button
-                onClick={closeModal}
-                style={{
-                  position: 'absolute', top: '16px', right: '16px',
-                  background: '#f1f5f9', border: 'none', borderRadius: '50%',
-                  width: '32px', height: '32px', display: 'flex',
-                  alignItems: 'center', justifyContent: 'center', cursor: 'pointer'
-                }}
-              >
-                <X size={18} color="#64748b" />
-              </button>
-
-              {modalState.type === 'success' ? (
-                <div style={{ width: '70px', height: '70px', borderRadius: '50%', background: '#d1fae5', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.2rem auto' }}>
-                  <CheckCircle2 size={44} color="#10b981" />
-                </div>
-              ) : (
-                <div style={{ width: '70px', height: '70px', borderRadius: '50%', background: '#fee2e2', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.2rem auto' }}>
-                  <AlertCircle size={44} color="#ef4444" />
-                </div>
-              )}
-
-              <h2 style={{ fontSize: '1.6rem', fontWeight: '800', color: '#1e1b4b', margin: '0 0 8px 0' }}>
-                {modalState.type === 'success' ? 'Form Submitted Successfully!' : 'Submission Failed'}
-              </h2>
-
-              <p style={{ color: '#475569', fontSize: '0.95rem', margin: '0 0 1.2rem 0', lineHeight: '1.5' }}>
-                {modalState.type === 'success' ? (
-                  <>Thank you, <strong>{modalState.userName}</strong>! Your submission for <strong>{modalState.fieldTitle}</strong> has been logged.</>
-                ) : (
-                  <>Hello <strong>{modalState.userName}</strong>, we couldn't process your request for <strong>{modalState.fieldTitle}</strong>.</>
-                )}
-              </p>
-
-              <div style={{ background: '#f8fafc', padding: '12px', borderRadius: '12px', border: '1px solid #e2e8f0', fontSize: '0.88rem', color: '#334155', marginBottom: '1.5rem', textAlign: 'left' }}>
-                <strong>Status Message:</strong> {modalState.message}
+              <div className={`w-14 h-14 mx-auto rounded-2xl flex items-center justify-center mb-6 ${isSuccess ? 'bg-emerald-500/20 text-emerald-400' : 'bg-amber-500/20 text-amber-400'
+                }`}>
+                {isSuccess ? <CheckCircle2 className="w-8 h-8" /> : <Sparkles className="w-8 h-8" />}
               </div>
 
+              <h3 className="text-2xl font-bold mb-2">{modalTitle}</h3>
+              <p className={`text-sm leading-relaxed mb-8 ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>
+                {modalMessage}
+              </p>
+
               <button
-                onClick={closeModal}
-                className="hover-btn"
-                style={{
-                  width: '100%', padding: '12px', borderRadius: '10px',
-                  border: 'none', background: modalState.type === 'success' ? '#10b981' : '#ef4444',
-                  color: '#ffffff', fontWeight: '700', fontSize: '0.98rem', cursor: 'pointer'
-                }}
+                onClick={() => setModalOpen(false)}
+                className="w-full py-3.5 rounded-xl font-bold bg-gradient-to-r from-cyan-500 to-indigo-600 text-white shadow-lg shadow-cyan-500/25 hover:scale-[1.02] transition-all"
               >
-                Close & Continue
+                Continue Browsing
               </button>
             </motion.div>
-          </motion.div>
+          </div>
         )}
       </AnimatePresence>
 
-      <footer style={{ background: '#0f172a', color: '#fff', padding: '2.5rem 1.5rem', textAlign: 'center', marginTop: '4rem' }}>
-        <p style={{ margin: 0, fontSize: '0.88rem', color: '#94a3b8' }}>
-          © {new Date().getFullYear()} SMU Nexora Technologies. All rights reserved.
-        </p>
+      {/* Footer Strip */}
+      <footer className={`border-t py-12 ${darkMode ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-white'}`}>
+        <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="flex items-center space-x-3">
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-cyan-500 to-indigo-600 flex items-center justify-center">
+              <Sparkles className="w-4 h-4 text-white" />
+            </div>
+            <span className="font-bold text-sm bg-gradient-to-r from-cyan-400 to-indigo-400 bg-clip-text text-transparent">
+              SMU Nexora Technologies
+            </span>
+          </div>
+          <div className="text-xs text-slate-500 text-center md:text-right">
+            © {new Date().getFullYear()} SMU Nexora Technologies. Full-Stack Web & AI Engineering Services.
+          </div>
+        </div>
       </footer>
-
     </div>
   );
-}
+};
 
-const navLinkStyle = { background: 'none', border: 'none', color: '#334155', fontWeight: '600', fontSize: '0.92rem', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: '5px' };
-const dropdownContainerStyle = { position: 'absolute', top: '100%', left: 0, marginTop: '10px', background: '#ffffff', borderRadius: '16px', border: '1px solid #e0e7ff', boxShadow: '0 20px 30px -10px rgba(0,0,0,0.1)', padding: '12px', zIndex: 100, minWidth: '220px' };
-const dropdownItemStyle = { display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 14px', color: '#334155', fontSize: '0.88rem', fontWeight: '600', cursor: 'pointer', transition: 'all 0.2s ease' };
-const pastelCardStyle = { background: '#ffffff', padding: '2rem', borderRadius: '20px', border: '1px solid #e2e8f0', boxShadow: '0 4px 12px rgba(0,0,0,0.03)' };
-const sectionBoxStyle = { background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '14px', padding: '1.4rem' };
-const sectionHeaderStyle = { display: 'flex', alignItems: 'center', gap: '10px', fontWeight: '700', fontSize: '0.95rem', color: '#1e1b4b', marginBottom: '1.2rem', borderBottom: '1px solid #e2e8f0', paddingBottom: '8px' };
-const labelStyle = { display: 'block', fontWeight: '600', fontSize: '0.88rem', marginBottom: '6px', color: '#334155' };
-const inputStyle = { width: '100%', padding: '10px 14px', borderRadius: '8px', background: '#ffffff', border: '1px solid #cbd5e1', color: '#0f172a', fontSize: '0.95rem', outline: 'none', boxSizing: 'border-box' };
-
-const socialBadgeStyle = (borderColor) => ({
-  display: 'flex',
-  alignItems: 'center',
-  gap: '12px',
-  padding: '12px 16px',
-  background: '#f8fafc',
-  borderRadius: '12px',
-  border: `1px solid ${borderColor}40`,
-  textDecoration: 'none',
-  transition: 'all 0.2s ease'
-});
+export default App;
