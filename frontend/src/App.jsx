@@ -7,11 +7,13 @@ import {
   ChevronDown, Building, Stethoscope, School, Compass, Hotel, BarChart3, ShoppingCart,
   CheckCircle, Users, Target, Laptop, Send, Layers, MessageCircle, AlertCircle, X, Camera, Menu
 } from 'lucide-react';
+import CorporateDeck from './components/CorporateDeck';
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState('home');
   const [selectedDetail, setSelectedDetail] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isDeckOpen, setIsDeckOpen] = useState(false);
   const [modalState, setModalState] = useState({
     isOpen: false,
     type: 'success',
@@ -413,6 +415,29 @@ export default function App() {
 
             <button onClick={() => navigateTo('careers')} className="nav-btn-hover" style={navLinkStyle}>Careers</button>
             <button onClick={() => navigateTo('contact')} className="nav-btn-hover" style={navLinkStyle}>Contact Us</button>
+
+            {/* Corporate Deck Action Button */}
+            <button
+              onClick={() => { setIsDeckOpen(true); setMobileMenuOpen(false); }}
+              className="hover-btn"
+              style={{
+                background: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)',
+                color: '#ffffff',
+                border: 'none',
+                padding: '8px 16px',
+                borderRadius: '8px',
+                fontWeight: '700',
+                fontSize: '0.82rem',
+                cursor: 'pointer',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '6px',
+                boxShadow: '0 4px 10px rgba(99, 102, 241, 0.25)'
+              }}
+            >
+              <FileText size={14} />
+              <span>Corporate Deck</span>
+            </button>
           </div>
         </div>
       </nav>
@@ -429,9 +454,16 @@ export default function App() {
                     <div style={{ maxWidth: '750px', zIndex: 2, color: '#ffffff' }}>
                       <motion.h1 initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.2 }} style={{ fontSize: 'clamp(2rem, 3.8vw, 3.2rem)', fontWeight: '900', margin: '0 0 12px 0', lineHeight: '1.2' }}>{slides[currentSlide].title}</motion.h1>
                       <motion.p initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.4 }} style={{ fontSize: '1.1rem', color: '#e2e8f0', margin: '0 0 24px 0', lineHeight: '1.6' }}>{slides[currentSlide].subtitle}</motion.p>
-                      <motion.button initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ delay: 0.6 }} onClick={() => navigateTo('careers')} className="hover-btn" style={{ background: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)', color: '#fff', border: 'none', padding: '13px 26px', borderRadius: '10px', fontWeight: '700', fontSize: '0.95rem', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: '8px', boxShadow: '0 10px 20px rgba(99, 102, 241, 0.3)' }}>
-                        <span>Apply For Opportunities</span><ArrowRight size={18} />
-                      </motion.button>
+
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
+                        <motion.button initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ delay: 0.6 }} onClick={() => navigateTo('careers')} className="hover-btn" style={{ background: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)', color: '#fff', border: 'none', padding: '13px 26px', borderRadius: '10px', fontWeight: '700', fontSize: '0.95rem', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: '8px', boxShadow: '0 10px 20px rgba(99, 102, 241, 0.3)' }}>
+                          <span>Apply For Opportunities</span><ArrowRight size={18} />
+                        </motion.button>
+
+                        <motion.button initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ delay: 0.7 }} onClick={() => setIsDeckOpen(true)} className="hover-btn" style={{ background: 'rgba(255, 255, 255, 0.15)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255,255,255,0.3)', color: '#fff', padding: '13px 22px', borderRadius: '10px', fontWeight: '700', fontSize: '0.95rem', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
+                          <FileText size={18} /><span>View Corporate Deck</span>
+                        </motion.button>
+                      </div>
                     </div>
                   </motion.div>
                 </AnimatePresence>
@@ -790,6 +822,10 @@ export default function App() {
         )}
       </AnimatePresence>
 
+      {/* 10-PAGE INTERACTIVE CORPORATE DECK COMPONENT */}
+      <CorporateDeck isOpen={isDeckOpen} onClose={() => setIsDeckOpen(false)} />
+
+      {/* Footer */}
       <footer style={{ background: '#0f172a', color: '#fff', padding: '2.5rem 1.5rem', textAlign: 'center', marginTop: '4rem' }}>
         <p style={{ margin: 0, fontSize: '0.88rem', color: '#94a3b8' }}>
           © {new Date().getFullYear()} SMU Nexora Technologies. All rights reserved.
