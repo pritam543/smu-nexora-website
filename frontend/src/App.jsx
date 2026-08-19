@@ -197,7 +197,7 @@ export default function App() {
     }
   ];
 
-  // 2. WORKING SQUAD (DEVELOPER, BACKEND DEVELOPER, DIGITAL MARKETING - LARGER IMAGES)
+  // 2. WORKING SQUAD (DEVELOPER, BACKEND DEVELOPER, DIGITAL MARKETING)
   const teamMembers = [
     {
       role: "Frontend Developer",
@@ -687,8 +687,8 @@ export default function App() {
                 </div>
               </motion.section>
 
-              {/* ==================== LEADERSHIP & CORE TEAM SECTION (BIG IMAGES + EXACT ORDER) ==================== */}
-              <motion.section id="team-and-testimonials" initial={{ opacity: 0, scale: 0.9, y: 40 }} whileInView={{ opacity: 1, scale: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} style={{ padding: '5rem 1.5rem', background: '#ffffff', borderTop: '1px solid #e0e7ff', borderBottom: '1px solid #e0e7ff' }}>
+              {/* ==================== LEADERSHIP & CORE TEAM SECTION (EXTRA LARGE IMAGES) ==================== */}
+              <motion.section id="team-and-testimonials" initial={{ opacity: 0, scale: 0.9, y: 40 }} whileInView={{ opacity: 1, scale: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} style={{ padding: '5.5rem 1.5rem', background: '#ffffff', borderTop: '1px solid #e0e7ff', borderBottom: '1px solid #e0e7ff' }}>
                 <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
 
                   {/* Section Title */}
@@ -696,7 +696,7 @@ export default function App() {
                     <span style={{ fontSize: '0.85rem', color: '#4f46e5', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.05em', background: '#e0e7ff', padding: '4px 14px', borderRadius: '9999px' }}>
                       Leadership & Execution Team
                     </span>
-                    <h2 style={{ fontSize: '2.4rem', fontWeight: '900', margin: '12px 0 0 0', color: '#1e1b4b' }}>
+                    <h2 style={{ fontSize: '2.5rem', fontWeight: '900', margin: '12px 0 0 0', color: '#1e1b4b' }}>
                       Executive Founders & Engineering Squad
                     </h2>
                     <p style={{ color: '#64748b', fontSize: '0.95rem', marginTop: '6px', maxWidth: '600px', margin: '6px auto 0 auto' }}>
@@ -704,8 +704,8 @@ export default function App() {
                     </p>
                   </div>
 
-                  {/* 1. FOUNDER & CO-FOUNDER (DISTINCT CARDS - IMAGE -> TITLE -> NAME) */}
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '2.5rem', marginBottom: '4.5rem' }}>
+                  {/* 1. FOUNDER & CO-FOUNDER (EXTRA LARGE IMAGES: 175px x 175px) */}
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: '2.5rem', marginBottom: '4.5rem' }}>
                     {leaders.map((leader, idx) => (
                       <div
                         key={idx}
@@ -714,8 +714,8 @@ export default function App() {
                           ...pastelCardStyle,
                           border: `1.5px solid ${leader.badgeColor}35`,
                           background: 'linear-gradient(135deg, #ffffff 0%, #f8faff 100%)',
-                          borderRadius: '24px',
-                          padding: '2.5rem 2rem',
+                          borderRadius: '26px',
+                          padding: '2.8rem 2.2rem',
                           position: 'relative',
                           overflow: 'hidden',
                           display: 'flex',
@@ -728,11 +728,11 @@ export default function App() {
                         </div>
 
                         <div>
-                          {/* Image -> Title -> Name Format */}
-                          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', marginBottom: '1.5rem' }}>
+                          {/* Image -> Title -> Name Layout */}
+                          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', marginBottom: '1.6rem' }}>
 
-                            {/* 1. Large Profile Photo (Size 135px x 135px) */}
-                            <div style={{ width: '135px', height: '135px', borderRadius: '50%', overflow: 'hidden', border: `4px solid ${leader.badgeColor}`, boxShadow: `0 12px 28px ${leader.badgeColor}35`, marginBottom: '14px' }}>
+                            {/* EXTRA LARGE PROFILE PHOTO (175px x 175px) */}
+                            <div style={{ width: '175px', height: '175px', borderRadius: '50%', overflow: 'hidden', border: `4px solid ${leader.badgeColor}`, boxShadow: `0 14px 32px ${leader.badgeColor}35`, marginBottom: '16px' }}>
                               <img
                                 src={leader.image}
                                 alt={leader.name}
@@ -740,13 +740,13 @@ export default function App() {
                               />
                             </div>
 
-                            {/* 2. Title: Founder / Co-Founder */}
-                            <div style={{ fontSize: '0.9rem', fontWeight: '800', color: leader.badgeColor, background: leader.badgeBg, padding: '4px 16px', borderRadius: '9999px', display: 'inline-block', border: `1px solid ${leader.badgeColor}30`, marginBottom: '6px' }}>
+                            {/* 1. Title: Founder / Co-Founder */}
+                            <div style={{ fontSize: '0.92rem', fontWeight: '800', color: leader.badgeColor, background: leader.badgeBg, padding: '5px 18px', borderRadius: '9999px', display: 'inline-block', border: `1px solid ${leader.badgeColor}30`, marginBottom: '6px' }}>
                               {leader.title}
                             </div>
 
-                            {/* 3. Name */}
-                            <h3 style={{ fontSize: '1.45rem', fontWeight: '900', color: '#1e1b4b', margin: '4px 0 0 0' }}>
+                            {/* 2. Name */}
+                            <h3 style={{ fontSize: '1.5rem', fontWeight: '900', color: '#1e1b4b', margin: '4px 0 0 0' }}>
                               {leader.name}
                             </h3>
                           </div>
@@ -755,42 +755,42 @@ export default function App() {
                             {[...Array(5)].map((_, i) => (
                               <Star key={i} size={16} fill="#f59e0b" />
                             ))}
-                            <span style={{ fontSize: '0.8rem', fontWeight: '800', color: '#1e1b4b', marginLeft: '6px' }}>Executive Perspective</span>
+                            <span style={{ fontSize: '0.82rem', fontWeight: '800', color: '#1e1b4b', marginLeft: '6px' }}>Executive Perspective</span>
                           </div>
 
-                          <p style={{ fontSize: '0.94rem', color: '#475569', lineHeight: '1.8', fontStyle: 'italic', margin: 0, textAlign: 'center' }}>
+                          <p style={{ fontSize: '0.96rem', color: '#475569', lineHeight: '1.8', fontStyle: 'italic', margin: 0, textAlign: 'center' }}>
                             "{leader.quote}"
                           </p>
                         </div>
 
-                        <div style={{ marginTop: '2rem', paddingTop: '1.2rem', borderTop: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.82rem' }}>
+                        <div style={{ marginTop: '2.2rem', paddingTop: '1.2rem', borderTop: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.84rem' }}>
                           <span style={{ fontWeight: '700', color: '#64748b' }}>SMU Nexora Technologies</span>
                           <span style={{ fontWeight: '800', color: '#16a34a', display: 'flex', alignItems: 'center', gap: '4px' }}>
-                            <CheckCircle2 size={15} /> Executive Office
+                            <CheckCircle2 size={16} /> Executive Office
                           </span>
                         </div>
                       </div>
                     ))}
                   </div>
 
-                  {/* 2. CORE WORKING TEAM (DEVELOPER, BACKEND DEVELOPER, DIGITAL MARKETING - LARGER IMAGES) */}
+                  {/* 2. CORE WORKING TEAM (EXTRA LARGE IMAGES: 145px x 145px) */}
                   <div>
-                    <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
-                      <span style={{ fontSize: '0.85rem', color: '#6366f1', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.05em', background: '#f0f4ff', padding: '5px 16px', borderRadius: '9999px' }}>
+                    <div style={{ textAlign: 'center', marginBottom: '2.8rem' }}>
+                      <span style={{ fontSize: '0.85rem', color: '#6366f1', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.05em', background: '#f0f4ff', padding: '5px 18px', borderRadius: '9999px' }}>
                         Core Development & Marketing Squad
                       </span>
                     </div>
 
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '2rem', maxWidth: '1050px', margin: '0 auto' }}>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2.2rem', maxWidth: '1080px', margin: '0 auto' }}>
                       {teamMembers.map((member, idx) => (
                         <div
                           key={idx}
                           className="hover-card"
                           style={{
                             ...pastelCardStyle,
-                            padding: '2.4rem 1.8rem',
+                            padding: '2.6rem 2rem',
                             textAlign: 'center',
-                            borderRadius: '22px',
+                            borderRadius: '24px',
                             border: '1px solid #e0e7ff',
                             background: '#ffffff',
                             display: 'flex',
@@ -800,28 +800,28 @@ export default function App() {
                           }}
                         >
                           <div>
-                            {/* Large Image (Size 115px x 115px) */}
-                            <div style={{ width: '115px', height: '115px', borderRadius: '50%', overflow: 'hidden', margin: '0 auto 1.4rem auto', border: `3.5px solid ${member.badgeColor}`, boxShadow: `0 10px 22px ${member.badgeColor}25` }}>
+                            {/* EXTRA LARGE SQUAD IMAGE (145px x 145px) */}
+                            <div style={{ width: '145px', height: '145px', borderRadius: '50%', overflow: 'hidden', margin: '0 auto 1.5rem auto', border: `4px solid ${member.badgeColor}`, boxShadow: `0 12px 24px ${member.badgeColor}25` }}>
                               <img src={member.image} alt={member.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                             </div>
 
                             {/* Role Title */}
-                            <div style={{ fontSize: '0.82rem', fontWeight: '800', color: member.badgeColor, background: member.badgeBg, padding: '4px 14px', borderRadius: '9999px', display: 'inline-block', marginBottom: '8px', border: `1px solid ${member.badgeColor}25` }}>
+                            <div style={{ fontSize: '0.84rem', fontWeight: '800', color: member.badgeColor, background: member.badgeBg, padding: '4px 14px', borderRadius: '9999px', display: 'inline-block', marginBottom: '8px', border: `1px solid ${member.badgeColor}25` }}>
                               {member.role}
                             </div>
 
                             {/* Member Name */}
-                            <h4 style={{ fontSize: '1.2rem', fontWeight: '900', color: '#1e1b4b', margin: '0 0 6px 0' }}>
+                            <h4 style={{ fontSize: '1.25rem', fontWeight: '900', color: '#1e1b4b', margin: '0 0 6px 0' }}>
                               {member.name}
                             </h4>
 
-                            <p style={{ fontSize: '0.85rem', color: '#64748b', margin: 0, fontWeight: '600' }}>
+                            <p style={{ fontSize: '0.86rem', color: '#64748b', margin: 0, fontWeight: '600' }}>
                               {member.field}
                             </p>
                           </div>
 
-                          <div style={{ marginTop: '1.6rem', paddingTop: '1rem', borderTop: '1px solid #f1f5f9', width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', color: '#16a34a', fontSize: '0.82rem', fontWeight: '700' }}>
-                            <CheckCircle2 size={15} />
+                          <div style={{ marginTop: '1.8rem', paddingTop: '1rem', borderTop: '1px solid #f1f5f9', width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', color: '#16a34a', fontSize: '0.84rem', fontWeight: '700' }}>
+                            <CheckCircle2 size={16} />
                             <span>Active Project Lead</span>
                           </div>
                         </div>
@@ -948,7 +948,7 @@ export default function App() {
                   </div>
 
                   <div className="hover-card" style={pastelCardStyle}>
-                    <h3 style={{ fontSize: '1.4rem', fontWeight: '800', color: '#1e1b4b', margin: '0 0 1rem 0' }}>Send Inquiry Message</h3>
+                    <h3 style={{ fontSize: '1.3rem', fontWeight: '800', color: '#1e1b4b', margin: '0 0 1rem 0' }}>Send Inquiry Message</h3>
                     <form onSubmit={handleContactSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                       <div>
                         <label style={labelStyle}>Your Full Name *</label>
@@ -1080,7 +1080,7 @@ export default function App() {
                     <div><label style={labelStyle}>Email Address *</label><input type="email" name="email" placeholder="Enter your email address" required value={contactData.email} onChange={handleContactInputChange} style={inputStyle} /></div>
                     <div><label style={labelStyle}>Subject *</label><input type="text" name="subject" placeholder="Enter inquiry subject" required value={contactData.subject} onChange={handleContactInputChange} style={inputStyle} /></div>
                     <div><label style={labelStyle}>Your Message *</label><textarea name="userMessage" rows="3" placeholder="Enter your message here..." required value={contactData.userMessage} onChange={handleContactInputChange} style={{ ...inputStyle, resize: 'vertical' }}></textarea></div>
-                    <button type="submit" disabled={isSubmitting} className="hover-btn" style={{ width: '100%', padding: '12px', borderRadius: '10px', border: 'none', background: '#6366f1', color: '#fff', fontWeight: '700', fontSize: '0.95rem', cursor: 'pointer' }}>
+                    <button type="submit" disabled={isSubmitting} className="hover-btn" style={{ width: '100%', padding: '12px', borderRadius: '10px', border: 'none', background: '#6366f1', color: '#fff', fontWeight: '700', fontSize: '0.95rem', cursor: isSubmitting ? 'not-allowed' : 'pointer' }}>
                       {isSubmitting ? 'Sending...' : 'Send Message'}
                     </button>
                   </form>
