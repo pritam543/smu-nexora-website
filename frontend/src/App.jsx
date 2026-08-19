@@ -181,8 +181,8 @@ export default function App() {
   const leaders = [
     {
       title: "Founder",
-      name: "Pritam Carpenter",
-      image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80",
+      name: "Sakshi Pare",
+      image: "founder.jpg",
       quote: "Our vision is to engineer resilient, high-speed digital platforms that accelerate client businesses while fostering next-generation IT engineering talent in Indore.",
       badgeColor: "#4f46e5",
       badgeBg: "#eef2ff"
@@ -697,7 +697,7 @@ export default function App() {
                       Leadership & Execution Team
                     </span>
                     <h2 style={{ fontSize: '2.5rem', fontWeight: '900', margin: '12px 0 0 0', color: '#1e1b4b' }}>
-                      Executive Founders & Engineering Squad
+                      Client Testimonial
                     </h2>
                     <p style={{ color: '#64748b', fontSize: '0.95rem', marginTop: '6px', maxWidth: '600px', margin: '6px auto 0 auto' }}>
                       The driving visionary and technical leadership powering SMU Nexora Technologies.
