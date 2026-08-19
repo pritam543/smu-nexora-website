@@ -5,7 +5,8 @@ import {
   Megaphone, GraduationCap, ArrowRight, ArrowLeft,
   Upload, CheckCircle2, MessageSquare, Briefcase, User, Mail, Phone, Award, FileText,
   ChevronDown, Building, Stethoscope, School, Compass, Hotel, ShoppingCart,
-  CheckCircle, Users, Target, Laptop, Send, Layers, MessageCircle, AlertCircle, X, Camera, Menu, Palette
+  CheckCircle, Users, Target, Laptop, Send, Layers, MessageCircle, AlertCircle, X, Camera, Menu,
+  Check, Lock, Zap
 } from 'lucide-react';
 import CorporateDeck from './components/CorporateDeck';
 
@@ -122,27 +123,17 @@ export default function App() {
     return () => clearInterval(interval);
   }, [slides.length]);
 
-  // BALANCED 6 FIELDS (3 TOP + 3 BOTTOM) IN SOFT PASTEL THEME
+  // EXACT 5 FIELDS (NO EXTRA SERVICES)
   const fields = [
     {
       id: 'web-dev',
-      title: "Web & Custom Systems",
+      title: "Web & Game Development",
       icon: Globe,
       color: "#4f46e5",
       pastelBg: "#eef2ff",
-      desc: "High-speed modern web applications, client dashboards, and modular React platforms.",
-      techStack: "React, Next.js, Node.js, TypeScript, Tailwind CSS",
-      businessImpact: "Accelerates conversion rates, handles high traffic, and ensures 99.9% uptime."
-    },
-    {
-      id: 'ui-ux-design',
-      title: "UI/UX & Product Design",
-      icon: Palette,
-      color: "#9333ea",
-      pastelBg: "#faf5ff",
-      desc: "Intuitive user journeys, responsive design systems, and high-conversion Figma mockups.",
-      techStack: "Figma, Adobe XD, Design Systems, Mobile Viewports",
-      businessImpact: "Increases user engagement time and reduces checkout/onboarding drop-offs."
+      desc: "Engineered scalable web applications, client dashboards, and interactive gaming experiences.",
+      techStack: "React, Next.js, Node.js, Unity, WebGL, TypeScript",
+      businessImpact: "Accelerates conversion rates, handles high concurrent traffic, and ensures 99.9% uptime."
     },
     {
       id: 'cyber-security',
@@ -150,7 +141,7 @@ export default function App() {
       icon: ShieldCheck,
       color: "#e11d48",
       pastelBg: "#fff1f2",
-      desc: "Vulnerability assessments, penetration testing, and end-to-end data encryption.",
+      desc: "Vulnerability assessments, penetration testing, and end-to-end data encryption protocols.",
       techStack: "Kali Linux, Wireshark, OWASP Protocols, Encrypted DBs",
       businessImpact: "Safeguards intellectual property and critical customer financial records."
     },
@@ -160,7 +151,7 @@ export default function App() {
       icon: Megaphone,
       color: "#d97706",
       pastelBg: "#fffbeb",
-      desc: "Performance marketing, technical on-page SEO, and ROI-driven conversion strategies.",
+      desc: "Performance marketing, technical on-page SEO, and brand ROI conversion strategies.",
       techStack: "Google Analytics 4, SEMrush, Meta Ads Manager, Ahrefs",
       businessImpact: "Drives organic lead acquisition and lowers Customer Acquisition Cost (CAC)."
     },
@@ -170,7 +161,7 @@ export default function App() {
       icon: ShoppingCart,
       color: "#059669",
       pastelBg: "#f0fdf4",
-      desc: "High-converting Shopify stores and custom headless marketplace architectures.",
+      desc: "High-converting Shopify Plus stores and custom headless marketplace architectures.",
       techStack: "Shopify Plus, Liquid, WooCommerce, Stripe / Razorpay",
       businessImpact: "Boosts online checkout conversions with frictionless mobile payment flows."
     },
@@ -181,7 +172,7 @@ export default function App() {
       color: "#0284c7",
       pastelBg: "#f0f9ff",
       desc: "Modernizing legacy architectures and defining digital product technical roadmaps.",
-      techStack: "System Design Blueprints, Modular APIs, Code Refactoring",
+      techStack: "System Design Blueprints, Modular APIs, Legacy Refactoring",
       businessImpact: "Aligns software engineering roadmaps directly with core business revenue goals."
     }
   ];
@@ -351,19 +342,33 @@ export default function App() {
           padding: 6px;
         }
 
-        /* 3x2 BALANCED DESKTOP GRID */
-        .services-balanced-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        /* 3 TOP + 2 BOTTOM CENTERED FLEX GRID */
+        .services-centered-flex {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
           gap: 24px;
           max-width: 1200px;
           margin: 0 auto;
-          justify-content: center;
         }
 
-        @media (min-width: 1024px) {
-          .services-balanced-grid {
-            grid-template-columns: repeat(3, 1fr) !important;
+        .services-flex-card {
+          flex: 0 1 100%;
+          width: 100%;
+          box-sizing: border-box;
+        }
+
+        @media (min-width: 768px) {
+          .services-flex-card {
+            flex: 0 1 calc(50% - 16px);
+            max-width: calc(50% - 16px);
+          }
+        }
+
+        @media (min-width: 1040px) {
+          .services-flex-card {
+            flex: 0 1 calc(33.333% - 18px);
+            max-width: calc(33.333% - 18px);
           }
         }
 
@@ -517,6 +522,8 @@ export default function App() {
 
           {currentPage === 'home' && (
             <motion.div key="home-page">
+
+              {/* HERO BANNER SLIDESHOW */}
               <section style={{ position: 'relative', width: '100%', height: '480px', overflow: 'hidden', background: '#1e1b4b' }}>
                 <AnimatePresence mode="wait">
                   <motion.div key={currentSlide} initial={{ opacity: 0, scale: 1.04 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.8 }} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', backgroundImage: `linear-gradient(to right, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.4)), url(${slides[currentSlide].image})`, backgroundSize: 'cover', backgroundPosition: 'center', display: 'flex', alignItems: 'center', padding: '0 clamp(1.5rem, 5vw, 4rem)' }}>
@@ -538,44 +545,121 @@ export default function App() {
                 </AnimatePresence>
               </section>
 
-              {/* ABOUT SECTION (PASTEL LIGHT) */}
-              <motion.section id="about" initial={{ opacity: 0, scale: 0.9, y: 40 }} whileInView={{ opacity: 1, scale: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} style={{ padding: '4rem 1.5rem', maxWidth: '1200px', margin: '0 auto' }}>
-                <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
-                  <span style={{ fontSize: '0.85rem', color: '#6366f1', fontWeight: '800', textTransform: 'uppercase' }}>Corporate Identity</span>
-                  <h2 style={{ fontSize: '2.2rem', fontWeight: '800', margin: '8px 0 0 0', color: '#1e1b4b' }}>About SMU Nexora Technologies</h2>
-                </div>
-                <div className="hover-card" style={{ ...pastelCardStyle, borderLeft: '5px solid #6366f1' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '1rem' }}>
-                    <Laptop size={28} color="#6366f1" />
-                    <h3 style={{ fontSize: '1.4rem', fontWeight: '800', color: '#1e1b4b', margin: 0 }}>Who We Are</h3>
-                  </div>
-                  <p style={{ color: '#475569', fontSize: '1rem', lineHeight: '1.7', margin: 0 }}>
-                    <strong>SMU Nexora Technologies</strong> is a software engineering and IT consulting firm based in Indore. We build modern web apps, e-commerce platforms, and secured backend architectures while providing industry project experience to passionate students and developers.
+              {/* ENRICHED ABOUT US SECTION (PASTEL LIGHT WITH FULL CORPORATE DETAILS) */}
+              <motion.section id="about" initial={{ opacity: 0, scale: 0.9, y: 40 }} whileInView={{ opacity: 1, scale: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} style={{ padding: '5rem 1.5rem', maxWidth: '1200px', margin: '0 auto' }}>
+                <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
+                  <span style={{ fontSize: '0.85rem', color: '#4f46e5', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.05em', background: '#e0e7ff', padding: '4px 14px', borderRadius: '9999px' }}>
+                    Corporate Profile & Values
+                  </span>
+                  <h2 style={{ fontSize: '2.4rem', fontWeight: '900', margin: '10px 0 0 0', color: '#1e1b4b' }}>
+                    About SMU Nexora Technologies
+                  </h2>
+                  <p style={{ color: '#64748b', fontSize: '1rem', marginTop: '6px', maxWidth: '650px', margin: '6px auto 0 auto' }}>
+                    A modern software development firm engineered for high reliability, digital growth, and professional tech incubation in Central India.
                   </p>
+                </div>
+
+                {/* Primary Overview Box */}
+                <div className="hover-card" style={{ ...pastelCardStyle, borderLeft: '5px solid #6366f1', marginBottom: '2rem' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '1.2rem' }}>
+                    <div style={{ width: '48px', height: '48px', borderRadius: '14px', background: '#eef2ff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      <Laptop size={26} color="#6366f1" />
+                    </div>
+                    <div>
+                      <h3 style={{ fontSize: '1.4rem', fontWeight: '800', color: '#1e1b4b', margin: 0 }}>Engineering Tomorrow's Platforms Today</h3>
+                      <span style={{ fontSize: '0.82rem', color: '#6366f1', fontWeight: '700' }}>Headquartered in Indore, Madhya Pradesh</span>
+                    </div>
+                  </div>
+                  <p style={{ color: '#475569', fontSize: '1rem', lineHeight: '1.8', margin: 0 }}>
+                    <strong>SMU Nexora Technologies Pvt. Ltd.</strong> is an enterprise software engineering and IT strategic consulting firm. We specialize in building decoupled React web systems, high-converting digital storefronts, and hardened API architectures. Simultaneously, we operate an active technology incubation environment in Indore, bridging the industry-academia divide by mentoring engineers on live production codebases.
+                  </p>
+                </div>
+
+                {/* 4 Multi-Dimensional Corporate Pillars */}
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1.5rem', marginBottom: '2rem' }}>
+                  <div className="hover-card" style={{ ...pastelCardStyle, padding: '1.6rem', border: '1px solid #e0e7ff', background: '#ffffff' }}>
+                    <div style={{ width: '42px', height: '42px', borderRadius: '12px', background: '#eef2ff', color: '#4f46e5', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1rem' }}>
+                      <Code2 size={22} />
+                    </div>
+                    <h4 style={{ fontSize: '1.15rem', fontWeight: '800', color: '#1e1b4b', margin: '0 0 6px 0' }}>Modern Engineering</h4>
+                    <p style={{ fontSize: '0.86rem', color: '#475569', lineHeight: '1.6', margin: 0 }}>
+                      Clean, modular React & Python FastAPI architectures built for low-latency non-blocking performance.
+                    </p>
+                  </div>
+
+                  <div className="hover-card" style={{ ...pastelCardStyle, padding: '1.6rem', border: '1px solid #e0e7ff', background: '#ffffff' }}>
+                    <div style={{ width: '42px', height: '42px', borderRadius: '12px', background: '#f0fdf4', color: '#16a34a', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1rem' }}>
+                      <Zap size={22} />
+                    </div>
+                    <h4 style={{ fontSize: '1.15rem', fontWeight: '800', color: '#1e1b4b', margin: '0 0 6px 0' }}>Agile Sprint Delivery</h4>
+                    <p style={{ fontSize: '0.86rem', color: '#475569', lineHeight: '1.6', margin: 0 }}>
+                      Two-week milestone sprints with transparent client demos, real-time code staging, and on-time launches.
+                    </p>
+                  </div>
+
+                  <div className="hover-card" style={{ ...pastelCardStyle, padding: '1.6rem', border: '1px solid #e0e7ff', background: '#ffffff' }}>
+                    <div style={{ width: '42px', height: '42px', borderRadius: '12px', background: '#fff1f2', color: '#e11d48', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1rem' }}>
+                      <Lock size={22} />
+                    </div>
+                    <h4 style={{ fontSize: '1.15rem', fontWeight: '800', color: '#1e1b4b', margin: '0 0 6px 0' }}>Security & Compliance</h4>
+                    <p style={{ fontSize: '0.86rem', color: '#475569', lineHeight: '1.6', margin: 0 }}>
+                      Parameterized SQL abstractions, HTTPS transport protection, and strict OWASP top-10 mitigation.
+                    </p>
+                  </div>
+
+                  <div className="hover-card" style={{ ...pastelCardStyle, padding: '1.6rem', border: '1px solid #e0e7ff', background: '#ffffff' }}>
+                    <div style={{ width: '42px', height: '42px', borderRadius: '12px', background: '#f0f9ff', color: '#0284c7', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1rem' }}>
+                      <Users size={22} />
+                    </div>
+                    <h4 style={{ fontSize: '1.15rem', fontWeight: '800', color: '#1e1b4b', margin: '0 0 6px 0' }}>Talent Incubation</h4>
+                    <p style={{ fontSize: '0.86rem', color: '#475569', lineHeight: '1.6', margin: 0 }}>
+                      Structured mentorship programs for junior developers and students to gain hands-on production experience.
+                    </p>
+                  </div>
+                </div>
+
+                {/* Corporate Metrics Strip */}
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.2rem', padding: '1.5rem', background: '#ffffff', borderRadius: '20px', border: '1px solid #e0e7ff', textAlign: 'center', boxShadow: '0 4px 12px rgba(99, 102, 241, 0.04)' }}>
+                  <div>
+                    <div style={{ fontSize: '2rem', fontWeight: '900', color: '#4f46e5' }}>99.9%</div>
+                    <div style={{ fontSize: '0.82rem', color: '#64748b', fontWeight: '700' }}>Platform Uptime</div>
+                  </div>
+                  <div>
+                    <div style={{ fontSize: '2rem', fontWeight: '900', color: '#16a34a' }}>&lt; 24 Hrs</div>
+                    <div style={{ fontSize: '0.82rem', color: '#64748b', fontWeight: '700' }}>Consultation SLA</div>
+                  </div>
+                  <div>
+                    <div style={{ fontSize: '2rem', fontWeight: '900', color: '#d97706' }}>100%</div>
+                    <div style={{ fontSize: '0.82rem', color: '#64748b', fontWeight: '700' }}>Code IP Ownership</div>
+                  </div>
+                  <div>
+                    <div style={{ fontSize: '2rem', fontWeight: '900', color: '#0284c7' }}>24/7</div>
+                    <div style={{ fontSize: '0.82rem', color: '#64748b', fontWeight: '700' }}>Support Desk</div>
+                  </div>
                 </div>
               </motion.section>
 
-              {/* CORE TECHNOLOGY DOMAINS (PERFECT 3X2 BALANCED PASTEL GRID) */}
-              <motion.section id="services" initial={{ opacity: 0, scale: 0.9, y: 40 }} whileInView={{ opacity: 1, scale: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} style={{ padding: '4.5rem 1.5rem', background: '#f0f4ff', borderTop: '1px solid #e0e7ff', borderBottom: '1px solid #e0e7ff' }}>
+              {/* CORE TECHNOLOGY DOMAINS (EXACT 5 FIELDS: 3 TOP + 2 BOTTOM CENTERED) */}
+              <motion.section id="services" initial={{ opacity: 0, scale: 0.9, y: 40 }} whileInView={{ opacity: 1, scale: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} style={{ padding: '5rem 1.5rem', background: '#eef2ff', borderTop: '1px solid #e0e7ff', borderBottom: '1px solid #e0e7ff' }}>
                 <div style={{ maxWidth: '1300px', margin: '0 auto' }}>
                   <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
                     <span style={{ fontSize: '0.85rem', color: '#4f46e5', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.05em', background: '#e0e7ff', padding: '4px 14px', borderRadius: '9999px' }}>
                       Client IT Services
                     </span>
-                    <h2 style={{ fontSize: '2.3rem', fontWeight: '900', margin: '12px 0 0 0', color: '#1e1b4b' }}>
+                    <h2 style={{ fontSize: '2.4rem', fontWeight: '900', margin: '12px 0 0 0', color: '#1e1b4b' }}>
                       Core Technology Domains
                     </h2>
                     <p style={{ color: '#64748b', fontSize: '0.95rem', marginTop: '6px', maxWidth: '600px', margin: '6px auto 0 auto' }}>
-                      End-to-end digital engineering services crafted for scale, reliability, and business growth.
+                      Specialized software engineering practices built for scale, reliability, and business growth.
                     </p>
                   </div>
 
-                  {/* 3 TOP + 3 BOTTOM BALANCED PASTEL CARDS */}
-                  <div className="services-balanced-grid">
+                  {/* 3 TOP + 2 BOTTOM CENTERED CONTAINER */}
+                  <div className="services-centered-flex">
                     {fields.map((field) => (
                       <div
                         key={field.id}
-                        className="hover-card"
+                        className="hover-card services-flex-card"
                         style={{
                           ...pastelCardStyle,
                           display: 'flex',
@@ -583,7 +667,8 @@ export default function App() {
                           justifyContent: 'space-between',
                           border: '1px solid #e0e7ff',
                           background: '#ffffff',
-                          borderRadius: '22px'
+                          borderRadius: '22px',
+                          padding: '2rem'
                         }}
                       >
                         <div>
@@ -598,7 +683,7 @@ export default function App() {
                           </p>
                         </div>
 
-                        <div style={{ marginTop: '1.5rem', paddingTop: '1rem', borderTop: '1px solid #f1f5f9' }}>
+                        <div style={{ marginTop: '1.6rem', paddingTop: '1.2rem', borderTop: '1px solid #f1f5f9' }}>
                           <button
                             onClick={() => navigateTo('careers', field.title)}
                             className="hover-btn"
@@ -607,10 +692,10 @@ export default function App() {
                               background: field.pastelBg,
                               border: `1px solid ${field.color}35`,
                               color: field.color,
-                              padding: '9px 16px',
+                              padding: '10px 16px',
                               borderRadius: '10px',
                               fontWeight: '700',
-                              fontSize: '0.82rem',
+                              fontSize: '0.84rem',
                               cursor: 'pointer',
                               display: 'flex',
                               alignItems: 'center',
@@ -629,7 +714,7 @@ export default function App() {
               </motion.section>
 
               {/* QUICK CONNECT SECTION */}
-              <motion.section id="home-contact" initial={{ opacity: 0, scale: 0.9, y: 40 }} whileInView={{ opacity: 1, scale: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} style={{ padding: '4.5rem 1.5rem', maxWidth: '1100px', margin: '0 auto' }}>
+              <motion.section id="home-contact" initial={{ opacity: 0, scale: 0.9, y: 40 }} whileInView={{ opacity: 1, scale: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} style={{ padding: '5rem 1.5rem', maxWidth: '1100px', margin: '0 auto' }}>
                 <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
                   <span style={{ fontSize: '0.85rem', color: '#6366f1', fontWeight: '800', textTransform: 'uppercase' }}>Quick Connect</span>
                   <h2 style={{ fontSize: '2.2rem', fontWeight: '800', margin: '8px 0 0 0', color: '#1e1b4b' }}>Get In Touch With SMU Nexora</h2>
