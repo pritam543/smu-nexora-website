@@ -5,7 +5,7 @@ import {
   Megaphone, GraduationCap, ArrowRight, ArrowLeft,
   Upload, CheckCircle2, MessageSquare, Briefcase, User, Mail, Phone, Award, FileText,
   ChevronDown, Building, Stethoscope, School, Compass, Hotel, ShoppingCart,
-  CheckCircle, Users, Target, Laptop, Send, Layers, MessageCircle, AlertCircle, X, Camera, Menu
+  CheckCircle, Users, Target, Laptop, Send, Layers, MessageCircle, AlertCircle, X, Camera, Menu, Palette
 } from 'lucide-react';
 import CorporateDeck from './components/CorporateDeck';
 
@@ -122,13 +122,68 @@ export default function App() {
     return () => clearInterval(interval);
   }, [slides.length]);
 
-  // REMOVED: AI & ML, Data Science, Cloud & DevOps
+  // BALANCED 6 FIELDS (3 TOP + 3 BOTTOM) IN SOFT PASTEL THEME
   const fields = [
-    { id: 'web-dev', title: "Web & Game Development", icon: Globe, color: "#4f46e5", desc: "Engineered scalable web applications and interactive gaming experiences.", techStack: "React, Next.js, Node.js, Unity, WebGL, TypeScript", businessImpact: "Accelerates conversion rates, handles high concurrent users, and ensures 99.9% uptime." },
-    { id: 'cyber-security', title: "Cyber Security & Auditing", icon: ShieldCheck, color: "#e11d48", desc: "Vulnerability assessments, penetration testing, and end-to-end data encryption.", techStack: "Kali Linux, Wireshark, OWASP Tools, Encrypted DB Protocols", businessImpact: "Safeguards intellectual property and critical customer financial records." },
-    { id: 'digital-marketing', title: "Digital Growth & SEO", icon: Megaphone, color: "#d97706", desc: "Performance marketing, technical SEO, and brand growth strategies.", techStack: "Google Analytics 4, SEMrush, Meta Ads Manager, Ahrefs", businessImpact: "Drives organic lead acquisition and lowers Customer Acquisition Cost (CAC)." },
-    { id: 'e-commerce', title: "E-Commerce Systems", icon: ShoppingCart, color: "#059669", desc: "High-converting Shopify stores and custom headless marketplace architectures.", techStack: "Shopify Plus, Liquid, WooCommerce, Stripe / Razorpay Integration", businessImpact: "Boosts e-commerce revenue with frictionless mobile checkout flows." },
-    { id: 'consulting', title: "IT Strategic Consulting", icon: Code2, color: "#4338ca", desc: "Modernizing legacy architectures and defining digital product roadmaps.", techStack: "Agile Architecture, System Design Blueprints, Legacy Code Refactoring", businessImpact: "Aligns software engineering roadmaps directly with core business revenue goals." }
+    {
+      id: 'web-dev',
+      title: "Web & Custom Systems",
+      icon: Globe,
+      color: "#4f46e5",
+      pastelBg: "#eef2ff",
+      desc: "High-speed modern web applications, client dashboards, and modular React platforms.",
+      techStack: "React, Next.js, Node.js, TypeScript, Tailwind CSS",
+      businessImpact: "Accelerates conversion rates, handles high traffic, and ensures 99.9% uptime."
+    },
+    {
+      id: 'ui-ux-design',
+      title: "UI/UX & Product Design",
+      icon: Palette,
+      color: "#9333ea",
+      pastelBg: "#faf5ff",
+      desc: "Intuitive user journeys, responsive design systems, and high-conversion Figma mockups.",
+      techStack: "Figma, Adobe XD, Design Systems, Mobile Viewports",
+      businessImpact: "Increases user engagement time and reduces checkout/onboarding drop-offs."
+    },
+    {
+      id: 'cyber-security',
+      title: "Cyber Security & Auditing",
+      icon: ShieldCheck,
+      color: "#e11d48",
+      pastelBg: "#fff1f2",
+      desc: "Vulnerability assessments, penetration testing, and end-to-end data encryption.",
+      techStack: "Kali Linux, Wireshark, OWASP Protocols, Encrypted DBs",
+      businessImpact: "Safeguards intellectual property and critical customer financial records."
+    },
+    {
+      id: 'digital-marketing',
+      title: "Digital Growth & SEO",
+      icon: Megaphone,
+      color: "#d97706",
+      pastelBg: "#fffbeb",
+      desc: "Performance marketing, technical on-page SEO, and ROI-driven conversion strategies.",
+      techStack: "Google Analytics 4, SEMrush, Meta Ads Manager, Ahrefs",
+      businessImpact: "Drives organic lead acquisition and lowers Customer Acquisition Cost (CAC)."
+    },
+    {
+      id: 'e-commerce',
+      title: "E-Commerce Systems",
+      icon: ShoppingCart,
+      color: "#059669",
+      pastelBg: "#f0fdf4",
+      desc: "High-converting Shopify stores and custom headless marketplace architectures.",
+      techStack: "Shopify Plus, Liquid, WooCommerce, Stripe / Razorpay",
+      businessImpact: "Boosts online checkout conversions with frictionless mobile payment flows."
+    },
+    {
+      id: 'consulting',
+      title: "IT Strategic Consulting",
+      icon: Code2,
+      color: "#0284c7",
+      pastelBg: "#f0f9ff",
+      desc: "Modernizing legacy architectures and defining digital product technical roadmaps.",
+      techStack: "System Design Blueprints, Modular APIs, Code Refactoring",
+      businessImpact: "Aligns software engineering roadmaps directly with core business revenue goals."
+    }
   ];
 
   const whatWeDoList = [
@@ -234,7 +289,7 @@ export default function App() {
     }
   };
 
-  const pastelBg = "#f4f6fc";
+  const pastelBg = "#f4f7fc";
 
   return (
     <div style={{ backgroundColor: pastelBg, color: '#1e293b', minHeight: '100vh', fontFamily: "'Plus Jakarta Sans', 'Inter', system-ui, sans-serif", position: 'relative', overflowX: 'hidden' }}>
@@ -267,7 +322,7 @@ export default function App() {
         }
         .hover-card:hover {
           transform: translateY(-6px) !important;
-          box-shadow: 0 14px 28px rgba(99, 102, 241, 0.12) !important;
+          box-shadow: 0 16px 32px rgba(99, 102, 241, 0.08) !important;
           border-color: #cbd5e1 !important;
         }
 
@@ -276,7 +331,7 @@ export default function App() {
         }
         .hover-btn:hover {
           transform: translateY(-2px) scale(1.02) !important;
-          box-shadow: 0 8px 16px rgba(99, 102, 241, 0.25) !important;
+          box-shadow: 0 8px 16px rgba(99, 102, 241, 0.2) !important;
         }
 
         .hover-social {
@@ -294,6 +349,22 @@ export default function App() {
           color: #1e1b4b;
           cursor: pointer;
           padding: 6px;
+        }
+
+        /* 3x2 BALANCED DESKTOP GRID */
+        .services-balanced-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+          gap: 24px;
+          max-width: 1200px;
+          margin: 0 auto;
+          justify-content: center;
+        }
+
+        @media (min-width: 1024px) {
+          .services-balanced-grid {
+            grid-template-columns: repeat(3, 1fr) !important;
+          }
         }
 
         @media (max-width: 868px) {
@@ -467,6 +538,7 @@ export default function App() {
                 </AnimatePresence>
               </section>
 
+              {/* ABOUT SECTION (PASTEL LIGHT) */}
               <motion.section id="about" initial={{ opacity: 0, scale: 0.9, y: 40 }} whileInView={{ opacity: 1, scale: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} style={{ padding: '4rem 1.5rem', maxWidth: '1200px', margin: '0 auto' }}>
                 <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
                   <span style={{ fontSize: '0.85rem', color: '#6366f1', fontWeight: '800', textTransform: 'uppercase' }}>Corporate Identity</span>
@@ -483,32 +555,80 @@ export default function App() {
                 </div>
               </motion.section>
 
-              <motion.section id="services" initial={{ opacity: 0, scale: 0.9, y: 40 }} whileInView={{ opacity: 1, scale: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} style={{ padding: '4rem 1.5rem', background: '#eef2ff', borderTop: '1px solid #e0e7ff', borderBottom: '1px solid #e0e7ff' }}>
+              {/* CORE TECHNOLOGY DOMAINS (PERFECT 3X2 BALANCED PASTEL GRID) */}
+              <motion.section id="services" initial={{ opacity: 0, scale: 0.9, y: 40 }} whileInView={{ opacity: 1, scale: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} style={{ padding: '4.5rem 1.5rem', background: '#f0f4ff', borderTop: '1px solid #e0e7ff', borderBottom: '1px solid #e0e7ff' }}>
                 <div style={{ maxWidth: '1300px', margin: '0 auto' }}>
-                  <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
-                    <span style={{ fontSize: '0.85rem', color: '#6366f1', fontWeight: '800', textTransform: 'uppercase' }}>Client IT Services</span>
-                    <h2 style={{ fontSize: '2.2rem', fontWeight: '800', margin: '8px 0 0 0', color: '#1e1b4b' }}>Core Technology Domains</h2>
+                  <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
+                    <span style={{ fontSize: '0.85rem', color: '#4f46e5', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.05em', background: '#e0e7ff', padding: '4px 14px', borderRadius: '9999px' }}>
+                      Client IT Services
+                    </span>
+                    <h2 style={{ fontSize: '2.3rem', fontWeight: '900', margin: '12px 0 0 0', color: '#1e1b4b' }}>
+                      Core Technology Domains
+                    </h2>
+                    <p style={{ color: '#64748b', fontSize: '0.95rem', marginTop: '6px', maxWidth: '600px', margin: '6px auto 0 auto' }}>
+                      End-to-end digital engineering services crafted for scale, reliability, and business growth.
+                    </p>
                   </div>
 
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(270px, 1fr))', gap: '20px' }}>
+                  {/* 3 TOP + 3 BOTTOM BALANCED PASTEL CARDS */}
+                  <div className="services-balanced-grid">
                     {fields.map((field) => (
-                      <div key={field.id} className="hover-card" style={{ ...pastelCardStyle, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                      <div
+                        key={field.id}
+                        className="hover-card"
+                        style={{
+                          ...pastelCardStyle,
+                          display: 'flex',
+                          flexDirection: 'column',
+                          justifyContent: 'space-between',
+                          border: '1px solid #e0e7ff',
+                          background: '#ffffff',
+                          borderRadius: '22px'
+                        }}
+                      >
                         <div>
-                          <div style={{ width: '46px', height: '46px', borderRadius: '12px', background: `${field.color}15`, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1rem' }}>
+                          <div style={{ width: '48px', height: '48px', borderRadius: '14px', background: field.pastelBg, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1.2rem', border: `1px solid ${field.color}25` }}>
                             <field.icon size={24} color={field.color} />
                           </div>
-                          <h3 style={{ fontSize: '1.15rem', margin: '0 0 8px 0', color: '#1e1b4b', fontWeight: '700' }}>{field.title}</h3>
-                          <p style={{ fontSize: '0.88rem', color: '#475569', margin: 0, lineHeight: '1.5' }}>{field.desc}</p>
+                          <h3 style={{ fontSize: '1.2rem', margin: '0 0 8px 0', color: '#1e1b4b', fontWeight: '800' }}>
+                            {field.title}
+                          </h3>
+                          <p style={{ fontSize: '0.88rem', color: '#475569', margin: 0, lineHeight: '1.6' }}>
+                            {field.desc}
+                          </p>
                         </div>
-                        <button onClick={() => navigateTo('careers', field.title)} className="hover-btn" style={{ marginTop: '1.4rem', background: '#ffffff', border: `1px solid ${field.color}`, color: field.color, padding: '8px 16px', borderRadius: '8px', fontWeight: '700', fontSize: '0.82rem', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
-                          <span>Apply For Field</span><ArrowRight size={14} />
-                        </button>
+
+                        <div style={{ marginTop: '1.5rem', paddingTop: '1rem', borderTop: '1px solid #f1f5f9' }}>
+                          <button
+                            onClick={() => navigateTo('careers', field.title)}
+                            className="hover-btn"
+                            style={{
+                              width: '100%',
+                              background: field.pastelBg,
+                              border: `1px solid ${field.color}35`,
+                              color: field.color,
+                              padding: '9px 16px',
+                              borderRadius: '10px',
+                              fontWeight: '700',
+                              fontSize: '0.82rem',
+                              cursor: 'pointer',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              gap: '6px'
+                            }}
+                          >
+                            <span>Explore & Inquire</span>
+                            <ArrowRight size={14} />
+                          </button>
+                        </div>
                       </div>
                     ))}
                   </div>
                 </div>
               </motion.section>
 
+              {/* QUICK CONNECT SECTION */}
               <motion.section id="home-contact" initial={{ opacity: 0, scale: 0.9, y: 40 }} whileInView={{ opacity: 1, scale: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} style={{ padding: '4.5rem 1.5rem', maxWidth: '1100px', margin: '0 auto' }}>
                 <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
                   <span style={{ fontSize: '0.85rem', color: '#6366f1', fontWeight: '800', textTransform: 'uppercase' }}>Quick Connect</span>
