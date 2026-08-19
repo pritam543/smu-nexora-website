@@ -123,7 +123,7 @@ export default function App() {
     return () => clearInterval(interval);
   }, [slides.length]);
 
-  // EXACT 5 CORE FIELDS (3 TOP + 2 BOTTOM)
+  // EXACT 5 CORE FIELDS (3 TOP + 2 BOTTOM CENTERED)
   const fields = [
     {
       id: 'web-dev',
@@ -177,49 +177,49 @@ export default function App() {
     }
   ];
 
-  // 1. FOUNDER & CO-FOUNDER (DISTINCT CARDS WITH NAMES & BIGGER IMAGES)
+  // 1. FOUNDER & CO-FOUNDER (DISTINCT CARDS - IMAGE -> TITLE -> NAME)
   const leaders = [
     {
+      title: "Founder",
       name: "Pritam Carpenter",
-      role: "Founder & CEO",
-      image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=500&q=80",
-      quote: "Our vision is to engineer resilient, high-speed digital platforms that accelerate client businesses while fostering next-generation IT engineering talent.",
+      image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80",
+      quote: "Our vision is to engineer resilient, high-speed digital platforms that accelerate client businesses while fostering next-generation IT engineering talent in Indore.",
       badgeColor: "#4f46e5",
       badgeBg: "#eef2ff"
     },
     {
-      name: "Executive Director",
-      role: "Co-Founder & CTO",
-      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=500&q=80",
+      title: "Co-Founder",
+      name: "Technical Co-Founder",
+      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80",
       quote: "We architect decoupled, asynchronous microservices and conversion-focused web systems engineered strictly for 99.9% uptime and bulletproof security.",
       badgeColor: "#0284c7",
       badgeBg: "#f0f9ff"
     }
   ];
 
-  // 2. WORKING SQUAD (DEVELOPER, BACKEND, DIGITAL MARKETING - LARGER IMAGES)
+  // 2. WORKING SQUAD (DEVELOPER, BACKEND DEVELOPER, DIGITAL MARKETING - LARGER IMAGES)
   const teamMembers = [
     {
-      name: "Senior Full-Stack Developer",
-      role: "Frontend & Web Developer",
+      role: "Frontend Developer",
+      name: "Lead Full-Stack Developer",
       field: "React.js, Next.js & TypeScript Systems",
-      image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=400&q=80",
+      image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=500&q=80",
       badgeColor: "#4f46e5",
       badgeBg: "#eef2ff"
     },
     {
+      role: "Backend Developer",
       name: "Backend Systems Engineer",
-      role: "Backend & API Developer",
       field: "Python, FastAPI & Relational Databases",
-      image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80",
+      image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=500&q=80",
       badgeColor: "#059669",
       badgeBg: "#f0fdf4"
     },
     {
-      name: "Digital Growth Specialist",
-      role: "Digital Marketing Lead",
+      role: "Digital Marketing Specialist",
+      name: "Digital Growth Strategist",
       field: "Performance Marketing, Ads & Technical SEO",
-      image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80",
+      image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=500&q=80",
       badgeColor: "#d97706",
       badgeBg: "#fffbeb"
     }
@@ -687,7 +687,7 @@ export default function App() {
                 </div>
               </motion.section>
 
-              {/* ==================== LEADERSHIP & CORE TEAM SECTION (DISTINCT FOUNDERS & BIGGER IMAGES) ==================== */}
+              {/* ==================== LEADERSHIP & CORE TEAM SECTION (BIG IMAGES + EXACT ORDER) ==================== */}
               <motion.section id="team-and-testimonials" initial={{ opacity: 0, scale: 0.9, y: 40 }} whileInView={{ opacity: 1, scale: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} style={{ padding: '5rem 1.5rem', background: '#ffffff', borderTop: '1px solid #e0e7ff', borderBottom: '1px solid #e0e7ff' }}>
                 <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
 
@@ -704,8 +704,8 @@ export default function App() {
                     </p>
                   </div>
 
-                  {/* 1. FOUNDER & CO-FOUNDER (DISTINCT SEPARATE PROMINENT CARDS) */}
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '2rem', marginBottom: '4rem' }}>
+                  {/* 1. FOUNDER & CO-FOUNDER (DISTINCT CARDS - IMAGE -> TITLE -> NAME) */}
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '2.5rem', marginBottom: '4.5rem' }}>
                     {leaders.map((leader, idx) => (
                       <div
                         key={idx}
@@ -715,7 +715,7 @@ export default function App() {
                           border: `1.5px solid ${leader.badgeColor}35`,
                           background: 'linear-gradient(135deg, #ffffff 0%, #f8faff 100%)',
                           borderRadius: '24px',
-                          padding: '2.4rem 2rem',
+                          padding: '2.5rem 2rem',
                           position: 'relative',
                           overflow: 'hidden',
                           display: 'flex',
@@ -728,9 +728,11 @@ export default function App() {
                         </div>
 
                         <div>
-                          {/* Profile Photo (Size 110px x 110px) */}
-                          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', marginBottom: '1.4rem' }}>
-                            <div style={{ width: '110px', height: '110px', borderRadius: '50%', overflow: 'hidden', border: `3.5px solid ${leader.badgeColor}`, boxShadow: `0 10px 24px ${leader.badgeColor}35`, marginBottom: '12px' }}>
+                          {/* Image -> Title -> Name Format */}
+                          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', marginBottom: '1.5rem' }}>
+
+                            {/* 1. Large Profile Photo (Size 135px x 135px) */}
+                            <div style={{ width: '135px', height: '135px', borderRadius: '50%', overflow: 'hidden', border: `4px solid ${leader.badgeColor}`, boxShadow: `0 12px 28px ${leader.badgeColor}35`, marginBottom: '14px' }}>
                               <img
                                 src={leader.image}
                                 alt={leader.name}
@@ -738,22 +740,22 @@ export default function App() {
                               />
                             </div>
 
-                            {/* Founder Name */}
-                            <h3 style={{ fontSize: '1.4rem', fontWeight: '900', color: '#1e1b4b', margin: '0 0 4px 0' }}>
+                            {/* 2. Title: Founder / Co-Founder */}
+                            <div style={{ fontSize: '0.9rem', fontWeight: '800', color: leader.badgeColor, background: leader.badgeBg, padding: '4px 16px', borderRadius: '9999px', display: 'inline-block', border: `1px solid ${leader.badgeColor}30`, marginBottom: '6px' }}>
+                              {leader.title}
+                            </div>
+
+                            {/* 3. Name */}
+                            <h3 style={{ fontSize: '1.45rem', fontWeight: '900', color: '#1e1b4b', margin: '4px 0 0 0' }}>
                               {leader.name}
                             </h3>
-
-                            {/* Founder / Co-Founder Designation Badge */}
-                            <div style={{ fontSize: '0.85rem', fontWeight: '800', color: leader.badgeColor, background: leader.badgeBg, padding: '4px 14px', borderRadius: '9999px', display: 'inline-block', border: `1px solid ${leader.badgeColor}30` }}>
-                              {leader.role}
-                            </div>
                           </div>
 
-                          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '3px', marginBottom: '12px', color: '#f59e0b' }}>
+                          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '4px', marginBottom: '14px', color: '#f59e0b' }}>
                             {[...Array(5)].map((_, i) => (
-                              <Star key={i} size={15} fill="#f59e0b" />
+                              <Star key={i} size={16} fill="#f59e0b" />
                             ))}
-                            <span style={{ fontSize: '0.78rem', fontWeight: '800', color: '#1e1b4b', marginLeft: '6px' }}>Leadership Note</span>
+                            <span style={{ fontSize: '0.8rem', fontWeight: '800', color: '#1e1b4b', marginLeft: '6px' }}>Executive Perspective</span>
                           </div>
 
                           <p style={{ fontSize: '0.94rem', color: '#475569', lineHeight: '1.8', fontStyle: 'italic', margin: 0, textAlign: 'center' }}>
@@ -761,7 +763,7 @@ export default function App() {
                           </p>
                         </div>
 
-                        <div style={{ marginTop: '1.8rem', paddingTop: '1rem', borderTop: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.82rem' }}>
+                        <div style={{ marginTop: '2rem', paddingTop: '1.2rem', borderTop: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.82rem' }}>
                           <span style={{ fontWeight: '700', color: '#64748b' }}>SMU Nexora Technologies</span>
                           <span style={{ fontWeight: '800', color: '#16a34a', display: 'flex', alignItems: 'center', gap: '4px' }}>
                             <CheckCircle2 size={15} /> Executive Office
@@ -771,22 +773,22 @@ export default function App() {
                     ))}
                   </div>
 
-                  {/* 2. CORE WORKING TEAM (DEVELOPER, BACKEND, DIGITAL MARKETING ONLY) */}
+                  {/* 2. CORE WORKING TEAM (DEVELOPER, BACKEND DEVELOPER, DIGITAL MARKETING - LARGER IMAGES) */}
                   <div>
-                    <div style={{ textAlign: 'center', marginBottom: '2.2rem' }}>
-                      <span style={{ fontSize: '0.85rem', color: '#6366f1', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.05em', background: '#f0f4ff', padding: '4px 14px', borderRadius: '9999px' }}>
+                    <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
+                      <span style={{ fontSize: '0.85rem', color: '#6366f1', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.05em', background: '#f0f4ff', padding: '5px 16px', borderRadius: '9999px' }}>
                         Core Development & Marketing Squad
                       </span>
                     </div>
 
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1.8rem', maxWidth: '1050px', margin: '0 auto' }}>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '2rem', maxWidth: '1050px', margin: '0 auto' }}>
                       {teamMembers.map((member, idx) => (
                         <div
                           key={idx}
                           className="hover-card"
                           style={{
                             ...pastelCardStyle,
-                            padding: '2.2rem 1.6rem',
+                            padding: '2.4rem 1.8rem',
                             textAlign: 'center',
                             borderRadius: '22px',
                             border: '1px solid #e0e7ff',
@@ -798,25 +800,27 @@ export default function App() {
                           }}
                         >
                           <div>
-                            {/* Bigger Member Image (Size 96px x 96px) */}
-                            <div style={{ width: '96px', height: '96px', borderRadius: '50%', overflow: 'hidden', margin: '0 auto 1.2rem auto', border: `3px solid ${member.badgeColor}`, boxShadow: `0 8px 18px ${member.badgeColor}25` }}>
+                            {/* Large Image (Size 115px x 115px) */}
+                            <div style={{ width: '115px', height: '115px', borderRadius: '50%', overflow: 'hidden', margin: '0 auto 1.4rem auto', border: `3.5px solid ${member.badgeColor}`, boxShadow: `0 10px 22px ${member.badgeColor}25` }}>
                               <img src={member.image} alt={member.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                             </div>
 
-                            <h4 style={{ fontSize: '1.15rem', fontWeight: '900', color: '#1e1b4b', margin: '0 0 6px 0' }}>
-                              {member.name}
-                            </h4>
-
-                            <div style={{ fontSize: '0.8rem', fontWeight: '800', color: member.badgeColor, background: member.badgeBg, padding: '3px 12px', borderRadius: '9999px', display: 'inline-block', marginBottom: '8px', border: `1px solid ${member.badgeColor}25` }}>
+                            {/* Role Title */}
+                            <div style={{ fontSize: '0.82rem', fontWeight: '800', color: member.badgeColor, background: member.badgeBg, padding: '4px 14px', borderRadius: '9999px', display: 'inline-block', marginBottom: '8px', border: `1px solid ${member.badgeColor}25` }}>
                               {member.role}
                             </div>
 
-                            <p style={{ fontSize: '0.84rem', color: '#64748b', margin: 0, fontWeight: '600' }}>
+                            {/* Member Name */}
+                            <h4 style={{ fontSize: '1.2rem', fontWeight: '900', color: '#1e1b4b', margin: '0 0 6px 0' }}>
+                              {member.name}
+                            </h4>
+
+                            <p style={{ fontSize: '0.85rem', color: '#64748b', margin: 0, fontWeight: '600' }}>
                               {member.field}
                             </p>
                           </div>
 
-                          <div style={{ marginTop: '1.4rem', paddingTop: '1rem', borderTop: '1px solid #f1f5f9', width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', color: '#16a34a', fontSize: '0.8rem', fontWeight: '700' }}>
+                          <div style={{ marginTop: '1.6rem', paddingTop: '1rem', borderTop: '1px solid #f1f5f9', width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', color: '#16a34a', fontSize: '0.82rem', fontWeight: '700' }}>
                             <CheckCircle2 size={15} />
                             <span>Active Project Lead</span>
                           </div>
@@ -1076,7 +1080,7 @@ export default function App() {
                     <div><label style={labelStyle}>Email Address *</label><input type="email" name="email" placeholder="Enter your email address" required value={contactData.email} onChange={handleContactInputChange} style={inputStyle} /></div>
                     <div><label style={labelStyle}>Subject *</label><input type="text" name="subject" placeholder="Enter inquiry subject" required value={contactData.subject} onChange={handleContactInputChange} style={inputStyle} /></div>
                     <div><label style={labelStyle}>Your Message *</label><textarea name="userMessage" rows="3" placeholder="Enter your message here..." required value={contactData.userMessage} onChange={handleContactInputChange} style={{ ...inputStyle, resize: 'vertical' }}></textarea></div>
-                    <button type="submit" disabled={isSubmitting} className="hover-btn" style={{ width: '100%', padding: '12px', borderRadius: '10px', border: 'none', background: '#6366f1', color: '#fff', fontWeight: '700', fontSize: '0.95rem', cursor: isSubmitting ? 'not-allowed' : 'pointer' }}>
+                    <button type="submit" disabled={isSubmitting} className="hover-btn" style={{ width: '100%', padding: '12px', borderRadius: '10px', border: 'none', background: '#6366f1', color: '#fff', fontWeight: '700', fontSize: '0.95rem', cursor: 'pointer' }}>
                       {isSubmitting ? 'Sending...' : 'Send Message'}
                     </button>
                   </form>
