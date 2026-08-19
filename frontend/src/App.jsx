@@ -123,7 +123,7 @@ export default function App() {
     return () => clearInterval(interval);
   }, [slides.length]);
 
-  // EXACT 5 CORE FIELDS
+  // EXACT 5 CORE FIELDS (3 TOP + 2 BOTTOM)
   const fields = [
     {
       id: 'web-dev',
@@ -177,39 +177,59 @@ export default function App() {
     }
   ];
 
-  // CORE WORKING TEAM DATA
+  // 1. FOUNDER & CO-FOUNDER DATA
+  const leaders = [
+    {
+      name: "Founder & Chief Executive",
+      role: "Founder & CEO",
+      image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=400&q=80",
+      quote: "Our mission is to build robust, scalable digital architectures that solve genuine enterprise operational challenges with speed and transparency.",
+      badgeColor: "#4f46e5",
+      badgeBg: "#eef2ff"
+    },
+    {
+      name: "Co-Founder & Tech Director",
+      role: "Co-Founder & CTO",
+      image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80",
+      quote: "We combine cutting-edge frontend micro-interactions with bulletproof asynchronous backend APIs to deliver exceptional digital experiences.",
+      badgeColor: "#0284c7",
+      badgeBg: "#f0f9ff"
+    }
+  ];
+
+  // 2. CORE WORKING TEAM (DEVELOPER, DESIGNER, MARKETING)
   const teamMembers = [
     {
-      name: "Aman Sharma",
-      role: "Lead Full-Stack Developer",
-      field: "React, Python & FastAPI",
+      name: "Senior Full-Stack Developer",
+      role: "Frontend & Web Engineer",
+      field: "React.js, Next.js & TypeScript",
       image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80",
       badgeColor: "#4f46e5",
       badgeBg: "#eef2ff"
     },
     {
-      name: "Sneha Patel",
-      role: "Lead UI/UX Product Designer",
-      field: "Design Systems & Figma",
-      image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80",
+      name: "Backend Systems Engineer",
+      role: "Python & API Specialist",
+      field: "FastAPI, PostgreSQL & Caching",
+      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80",
+      badgeColor: "#059669",
+      badgeBg: "#f0fdf4"
+    },
+    {
+      name: "Lead UI/UX Product Designer",
+      role: "UI/UX Designer",
+      field: "Figma, Prototyping & Design Systems",
+      image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=400&q=80",
       badgeColor: "#9333ea",
       badgeBg: "#faf5ff"
     },
     {
-      name: "Rohit Verma",
-      role: "Digital Marketing Strategist",
-      field: "Performance Marketing & SEO",
-      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80",
+      name: "Digital Growth Specialist",
+      role: "Marketing & SEO Lead",
+      field: "Technical SEO, Ads & Analytics",
+      image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80",
       badgeColor: "#d97706",
       badgeBg: "#fffbeb"
-    },
-    {
-      name: "Vikas Dubey",
-      role: "Backend & Security Engineer",
-      field: "APIs & Cyber Compliance",
-      image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80",
-      badgeColor: "#0284c7",
-      badgeBg: "#f0f9ff"
     }
   ];
 
@@ -675,11 +695,11 @@ export default function App() {
                 </div>
               </motion.section>
 
-              {/* ==================== NEW: FOUNDER TESTIMONIAL & CORE TEAM SECTION ==================== */}
+              {/* ==================== LEADERSHIP & CORE TEAM SECTION (PASTEL LIGHT) ==================== */}
               <motion.section id="team-and-testimonials" initial={{ opacity: 0, scale: 0.9, y: 40 }} whileInView={{ opacity: 1, scale: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} style={{ padding: '5rem 1.5rem', background: '#ffffff', borderTop: '1px solid #e0e7ff', borderBottom: '1px solid #e0e7ff' }}>
                 <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
 
-                  {/* Header */}
+                  {/* Section Title */}
                   <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
                     <span style={{ fontSize: '0.85rem', color: '#4f46e5', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.05em', background: '#e0e7ff', padding: '4px 14px', borderRadius: '9999px' }}>
                       Leadership & Execution Team
@@ -692,50 +712,74 @@ export default function App() {
                     </p>
                   </div>
 
-                  {/* 1. FOUNDER SPOTLIGHT CARD */}
-                  <div className="hover-card" style={{ ...pastelCardStyle, border: '1px solid #c7d2fe', background: 'linear-gradient(135deg, #f8faff 0%, #eef2ff 100%)', borderRadius: '24px', padding: '2.4rem', marginBottom: '3rem', position: 'relative', overflow: 'hidden' }}>
-                    <div style={{ position: 'absolute', top: '16px', right: '24px', opacity: 0.15 }}>
-                      <Quote size={80} color="#4f46e5" />
-                    </div>
+                  {/* 1. FOUNDER & CO-FOUNDER ROW (SIDE-BY-SIDE CARDS) */}
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1.8rem', marginBottom: '3.5rem' }}>
+                    {leaders.map((leader, idx) => (
+                      <div
+                        key={idx}
+                        className="hover-card"
+                        style={{
+                          ...pastelCardStyle,
+                          border: `1px solid ${leader.badgeColor}35`,
+                          background: 'linear-gradient(135deg, #ffffff 0%, #f8faff 100%)',
+                          borderRadius: '24px',
+                          padding: '2.2rem',
+                          position: 'relative',
+                          overflow: 'hidden',
+                          display: 'flex',
+                          flexDirection: 'column',
+                          justifyContent: 'space-between'
+                        }}
+                      >
+                        <div style={{ position: 'absolute', top: '14px', right: '20px', opacity: 0.12 }}>
+                          <Quote size={60} color={leader.badgeColor} />
+                        </div>
 
-                    <div style={{ display: 'flex', flexDirection: 'column', mdDirection: 'row', alignItems: 'center', gap: '2rem' }}>
-                      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', minWidth: '180px' }}>
-                        <div style={{ width: '96px', height: '96px', borderRadius: '50%', overflow: 'hidden', border: '3px solid #6366f1', boxShadow: '0 8px 20px rgba(99, 102, 241, 0.2)', marginBottom: '12px' }}>
-                          <img
-                            src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80"
-                            alt="Founder"
-                            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                          />
-                        </div>
-                        <h4 style={{ fontSize: '1.25rem', fontWeight: '900', color: '#1e1b4b', margin: 0 }}>Founder & Lead</h4>
-                        <span style={{ fontSize: '0.8rem', fontWeight: '700', color: '#4f46e5', background: '#e0e7ff', padding: '3px 10px', borderRadius: '9999px', marginTop: '6px' }}>
-                          Founder & CTO
-                        </span>
-                      </div>
+                        <div>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '1.2rem' }}>
+                            <div style={{ width: '80px', height: '80px', borderRadius: '50%', overflow: 'hidden', border: `3px solid ${leader.badgeColor}`, boxShadow: `0 8px 18px ${leader.badgeColor}30`, flexShrink: 0 }}>
+                              <img
+                                src={leader.image}
+                                alt={leader.name}
+                                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                              />
+                            </div>
+                            <div>
+                              <h4 style={{ fontSize: '1.2rem', fontWeight: '900', color: '#1e1b4b', margin: 0 }}>
+                                {leader.name}
+                              </h4>
+                              <div style={{ fontSize: '0.8rem', fontWeight: '800', color: leader.badgeColor, background: leader.badgeBg, padding: '3px 10px', borderRadius: '9999px', display: 'inline-block', marginTop: '4px' }}>
+                                {leader.role}
+                              </div>
+                            </div>
+                          </div>
 
-                      <div style={{ flex: 1 }}>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '4px', marginBottom: '8px', color: '#f59e0b' }}>
-                          {[...Array(5)].map((_, i) => (
-                            <Star key={i} size={16} fill="#f59e0b" />
-                          ))}
-                          <span style={{ fontSize: '0.82rem', fontWeight: '800', color: '#1e1b4b', marginLeft: '6px' }}>Founder's Vision</span>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '3px', marginBottom: '10px', color: '#f59e0b' }}>
+                            {[...Array(5)].map((_, i) => (
+                              <Star key={i} size={15} fill="#f59e0b" />
+                            ))}
+                            <span style={{ fontSize: '0.78rem', fontWeight: '800', color: '#1e1b4b', marginLeft: '6px' }}>Leadership Perspective</span>
+                          </div>
+
+                          <p style={{ fontSize: '0.92rem', color: '#475569', lineHeight: '1.7', fontStyle: 'italic', margin: 0 }}>
+                            "{leader.quote}"
+                          </p>
                         </div>
-                        <p style={{ fontSize: '1.02rem', color: '#334155', lineHeight: '1.8', fontStyle: 'italic', margin: '0 0 12px 0' }}>
-                          "At SMU Nexora Technologies, our goal is two-fold: providing businesses with dependable, scalable full-stack web and digital products, while simultaneously building a powerhouse of technical talent in Indore. We engineer every platform with clean code, robust security, and measurable client results."
-                        </p>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                          <span style={{ fontSize: '0.82rem', fontWeight: '700', color: '#64748b' }}>SMU Nexora Technologies Pvt. Ltd.</span>
-                          <span style={{ width: '4px', height: '4px', borderRadius: '50%', background: '#cbd5e1' }} />
-                          <span style={{ fontSize: '0.82rem', fontWeight: '600', color: '#16a34a' }}>Verified Management</span>
+
+                        <div style={{ marginTop: '1.5rem', paddingTop: '1rem', borderTop: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.8rem' }}>
+                          <span style={{ fontWeight: '700', color: '#64748b' }}>SMU Nexora Technologies</span>
+                          <span style={{ fontWeight: '700', color: '#16a34a', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                            <CheckCircle2 size={14} /> Executive Desk
+                          </span>
                         </div>
                       </div>
-                    </div>
+                    ))}
                   </div>
 
-                  {/* 2. CORE TEAM WORKING SQUAD (4 MEMBERS) */}
+                  {/* 2. CORE TEAM WORKING SQUAD (DEVELOPER, DESIGNER, MARKETING) */}
                   <div>
-                    <div style={{ textAlign: 'center', marginBottom: '1.8rem' }}>
-                      <span style={{ fontSize: '0.78rem', fontWeight: '800', color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                    <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
+                      <span style={{ fontSize: '0.82rem', fontWeight: '800', color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                         Core Engineering & Growth Squad
                       </span>
                     </div>
