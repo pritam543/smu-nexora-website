@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-  Rocket, Sparkles, Code2, Globe, Cpu, ShieldCheck,
-  Cloud, Megaphone, GraduationCap, ArrowRight, ArrowLeft,
+  Rocket, Sparkles, Code2, Globe, ShieldCheck,
+  Megaphone, GraduationCap, ArrowRight, ArrowLeft,
   Upload, CheckCircle2, MessageSquare, Briefcase, User, Mail, Phone, Award, FileText,
-  ChevronDown, Building, Stethoscope, School, Compass, Hotel, BarChart3, ShoppingCart,
+  ChevronDown, Building, Stethoscope, School, Compass, Hotel, ShoppingCart,
   CheckCircle, Users, Target, Laptop, Send, Layers, MessageCircle, AlertCircle, X, Camera, Menu
 } from 'lucide-react';
 import CorporateDeck from './components/CorporateDeck';
@@ -97,19 +97,19 @@ export default function App() {
   const slides = [
     {
       title: "Building Enterprise Digital Ecosystems",
-      subtitle: "Empowering global businesses with Next-Gen Cloud, AI, and Web Architecture.",
+      subtitle: "Empowering global businesses with high-performance Full-Stack Web Platforms and Microservices.",
       image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1200&q=80",
       target: "services"
     },
     {
       title: "Transforming Careers Through Technology",
-      subtitle: "Join SMU Nexora's mentorship program to work on real-world IT client systems.",
+      subtitle: "Join SMU Nexora's mentorship program to work on real-world IT client systems and platforms.",
       image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1200&q=80",
       target: "careers"
     },
     {
-      title: "AI-Driven Automation & Cyber Security",
-      subtitle: "Safeguarding digital infrastructure with automated intelligence and high compliance.",
+      title: "Security Hardened & Conversion Architectures",
+      subtitle: "Safeguarding digital systems with robust encryption protocols and performance web frameworks.",
       image: "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=1200&q=80",
       target: "services"
     }
@@ -122,11 +122,9 @@ export default function App() {
     return () => clearInterval(interval);
   }, [slides.length]);
 
+  // REMOVED: AI & ML, Data Science, Cloud & DevOps
   const fields = [
     { id: 'web-dev', title: "Web & Game Development", icon: Globe, color: "#4f46e5", desc: "Engineered scalable web applications and interactive gaming experiences.", techStack: "React, Next.js, Node.js, Unity, WebGL, TypeScript", businessImpact: "Accelerates conversion rates, handles high concurrent users, and ensures 99.9% uptime." },
-    { id: 'ai-solutions', title: "AI & Machine Learning", icon: Cpu, color: "#7c3aed", desc: "Custom ML models, enterprise automation scripts, and LLM integrations.", techStack: "Python, PyTorch, TensorFlow, OpenAI API, LangChain, FastAPI", businessImpact: "Reduces manual operational costs by 60% and automates complex business decisions." },
-    { id: 'data-science', title: "Data Science & Analytics", icon: BarChart3, color: "#2563eb", desc: "Advanced ETL pipelines, data warehousing, and executive analytics dashboards.", techStack: "Pandas, Spark, PostgreSQL, Snowflake, PowerBI, Tableau", businessImpact: "Provides C-suite executives with actionable real-time business metrics." },
-    { id: 'cloud-computing', title: "Cloud & DevOps Solutions", icon: Cloud, color: "#0284c7", desc: "Cloud migration, AWS/Azure DevOps CI/CD pipelines, and server monitoring.", techStack: "AWS, Azure, Docker, Kubernetes, Terraform, GitHub Actions", businessImpact: "Optimizes server costs while providing unbreakable enterprise cloud infrastructure." },
     { id: 'cyber-security', title: "Cyber Security & Auditing", icon: ShieldCheck, color: "#e11d48", desc: "Vulnerability assessments, penetration testing, and end-to-end data encryption.", techStack: "Kali Linux, Wireshark, OWASP Tools, Encrypted DB Protocols", businessImpact: "Safeguards intellectual property and critical customer financial records." },
     { id: 'digital-marketing', title: "Digital Growth & SEO", icon: Megaphone, color: "#d97706", desc: "Performance marketing, technical SEO, and brand growth strategies.", techStack: "Google Analytics 4, SEMrush, Meta Ads Manager, Ahrefs", businessImpact: "Drives organic lead acquisition and lowers Customer Acquisition Cost (CAC)." },
     { id: 'e-commerce', title: "E-Commerce Systems", icon: ShoppingCart, color: "#059669", desc: "High-converting Shopify stores and custom headless marketplace architectures.", techStack: "Shopify Plus, Liquid, WooCommerce, Stripe / Razorpay Integration", businessImpact: "Boosts e-commerce revenue with frictionless mobile checkout flows." },
@@ -134,10 +132,10 @@ export default function App() {
   ];
 
   const whatWeDoList = [
-    { id: 'education', name: "Education", icon: GraduationCap, tagline: "Empowering Modern Learning Environments", description: "Digitizing educational ecosystems with AI-backed LMS, online exam engines, and cloud campus portals.", features: ["AI-based Student Analytics", "Live Interactive Classrooms", "Automated Grading Systems"] },
+    { id: 'education', name: "Education", icon: GraduationCap, tagline: "Empowering Modern Learning Environments", description: "Digitizing educational ecosystems with modern LMS portals, online exam engines, and cloud campus portals.", features: ["Student Analytics Dashboard", "Live Interactive Classrooms", "Automated Grading Systems"] },
     { id: 'healthcare', name: "Healthcare", icon: Stethoscope, tagline: "Digital Health Solutions & Patient Care Systems", description: "Building HIPAA-compliant telemedicine platforms, EHR integrations, and hospital inventory workflows.", features: ["Tele-Consultation Systems", "EHR/EMR Cloud Integration", "Hospital Management Suite"] },
     { id: 'schools', name: "Schools", icon: School, tagline: "Smart Campus Automation for K-12 Institutions", description: "Comprehensive ERP systems designed for schools to simplify fee collection and attendance tracking.", features: ["Parent Mobile Application", "Biometric & Attendance ERP", "Fee Management Gateway"] },
-    { id: 'architectures', name: "Architectures", icon: Compass, tagline: "Digital Engineering for Infrastructure & Design", description: "Delivering 3D rendering management, CAD file sync cloud tools, and BIM project collaboration software.", features: ["3D/BIM Project Portals", "Cloud Asset Management", "Client Design Review Suite"] },
+    { id: 'architectures', name: "Architectures", icon: Compass, tagline: "Digital Engineering for Infrastructure & Design", description: "Delivering 3D rendering management, CAD file sync cloud tools, and project collaboration software.", features: ["3D Project Portals", "Cloud Asset Management", "Client Design Review Suite"] },
     { id: 'hospitality', name: "Hospitality", icon: Hotel, tagline: "Guest Experience Platforms & Hotel Tech", description: "Smart booking engines, guest management software, room controls, and loyalty program integrations.", features: ["Contactless Check-In/Out", "Direct Booking Engine", "POS & Room Service Integration"] }
   ];
 
@@ -480,7 +478,7 @@ export default function App() {
                     <h3 style={{ fontSize: '1.4rem', fontWeight: '800', color: '#1e1b4b', margin: 0 }}>Who We Are</h3>
                   </div>
                   <p style={{ color: '#475569', fontSize: '1rem', lineHeight: '1.7', margin: 0 }}>
-                    <strong>SMU Nexora Technologies</strong> is a software engineering and IT consulting firm based in Indore. We build modern web apps, cloud backend infrastructure, and AI automation while providing industry project experience to passionate students and developers.
+                    <strong>SMU Nexora Technologies</strong> is a software engineering and IT consulting firm based in Indore. We build modern web apps, e-commerce platforms, and secured backend architectures while providing industry project experience to passionate students and developers.
                   </p>
                 </div>
               </motion.section>
@@ -837,9 +835,9 @@ export default function App() {
 }
 
 const navLinkStyle = { background: 'none', border: 'none', color: '#334155', fontWeight: '600', fontSize: '0.92rem', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: '5px' };
-const dropdownContainerStyle = { position: 'absolute', top: '100%', left: 0, marginTop: '10px', background: '#ffffff', borderRadius: '16px', border: '1px solid #e0e7ff', boxShadow: '0 20px 30px -10px rgba(0,0,0,0.1)', padding: '12px', zIndex: 100, minWidth: '220px' };
+const dropdownContainerStyle = { position: 'absolute', top: '100%', left: 0, marginTop: '10px', background: '#ffffff', borderRadius: '16px', border: '1px solid #e0e7ff', boxShadow: '0 20px 30px -10px rgba(0,0,0,0.08)', padding: '12px', zIndex: 100, minWidth: '220px' };
 const dropdownItemStyle = { display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 14px', color: '#334155', fontSize: '0.88rem', fontWeight: '600', cursor: 'pointer', transition: 'all 0.2s ease' };
-const pastelCardStyle = { background: '#ffffff', padding: '2rem', borderRadius: '20px', border: '1px solid #e2e8f0', boxShadow: '0 4px 12px rgba(0,0,0,0.03)' };
+const pastelCardStyle = { background: '#ffffff', padding: '2rem', borderRadius: '20px', border: '1px solid #e2e8f0', boxShadow: '0 4px 12px rgba(99, 102, 241, 0.04)' };
 const sectionBoxStyle = { background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '14px', padding: '1.4rem' };
 const sectionHeaderStyle = { display: 'flex', alignItems: 'center', gap: '10px', fontWeight: '700', fontSize: '0.95rem', color: '#1e1b4b', marginBottom: '1.2rem', borderBottom: '1px solid #e2e8f0', paddingBottom: '8px' };
 const labelStyle = { display: 'block', fontWeight: '600', fontSize: '0.88rem', marginBottom: '6px', color: '#334155' };

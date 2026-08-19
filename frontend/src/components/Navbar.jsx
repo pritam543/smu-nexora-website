@@ -9,7 +9,7 @@ const Navbar = ({ onOpenDeck, onNavigate }) => {
         className="flex items-center space-x-3 cursor-pointer"
       >
         <div className="w-10 h-10 bg-gradient-to-tr from-blue-600 via-indigo-500 to-cyan-400 rounded-xl flex items-center justify-center font-extrabold text-xl shadow-lg shadow-blue-500/30">
-          SN
+          
         </div>
         <div>
           <span className="text-xl font-bold tracking-wider bg-gradient-to-r from-white via-slate-200 to-blue-400 bg-clip-text text-transparent">

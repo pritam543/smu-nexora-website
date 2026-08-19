@@ -1,20 +1,24 @@
-import React, { useState } from "react";
-import axios from "axios";
+import React, { useState } from 'react';
+import axios from 'axios';
 
-export default function Contact() {
+export default function Careers() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
-    service: "Digital Marketing",
+    service: "Job Application",
     message: ""
   });
-
+  const [resumeFile, setResumeFile] = useState(null);
   const [status, setStatus] = useState({ type: "", msg: "" });
   const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleFileChange = (e) => {
+    setResumeFile(e.target.files[0]);
   };
 
   const handleSubmit = async (e) => {
@@ -28,18 +32,22 @@ export default function Contact() {
     submitData.append("phone", formData.phone);
     submitData.append("service", formData.service);
     submitData.append("message", formData.message);
-    submitData.append("form_type", "General Contact");
+    submitData.append("form_type", "Application");
+    if (resumeFile) {
+      submitData.append("resume", resumeFile);
+    }
 
     try {
       const res = await axios.post("https://smu-nexora-website.onrender.com/api/contact", submitData, {
         headers: { "Content-Type": "multipart/form-data" }
       });
       setStatus({ type: "success", msg: res.data.message });
-      setFormData({ name: "", email: "", phone: "", service: "Digital Marketing", message: "" });
+      setFormData({ name: "", email: "", phone: "", service: "Job Application", message: "" });
+      setResumeFile(null);
     } catch (err) {
-      setStatus({ 
-        type: "error", 
-        msg: "❌ Server connection error. Please try again." 
+      setStatus({
+        type: "error",
+        msg: "❌ Application submission failed. Ensure backend API is online."
       });
     } finally {
       setLoading(false);
@@ -47,121 +55,87 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact-section" className="py-24 bg-white border-t border-slate-200">
-      <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-        
-        {/* Contact Info & Social Connections */}
-        <div>
-          <span className="text-blue-600 font-bold tracking-widest text-xs uppercase px-3 py-1 bg-blue-100 rounded-full">
-            Connect With Us
+    <section className="py-24 bg-slate-50/70 border-t border-slate-200">
+      <div className="max-w-7xl mx-auto px-6">
+
+        {/* Intro */}
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <span className="text-indigo-600 font-bold tracking-widest text-xs uppercase px-3 py-1 bg-indigo-100 rounded-full">
+            Careers at SMU Nexora
           </span>
-          <h2 className="text-3xl md:text-5xl font-black text-slate-900 mt-4 leading-tight">
-            Have a Project in Mind?
+          <h2 className="text-3xl md:text-5xl font-black text-slate-900 mt-4">
+            Build The Future With Us
           </h2>
-          <p className="text-slate-600 mt-4 text-base leading-relaxed">
-            Reach out to our team at SMU Nexora Technologies for custom software inquiries, digital marketing proposals, or technical partnerships.
+          <p className="text-slate-600 mt-4 text-base md:text-lg">
+            We are always looking for passionate frontend/backend engineers, digital marketers, designers, and problem solvers to join our team in Indore.
           </p>
+        </div>
 
-          <div className="mt-8 space-y-4">
-            
-            {/* WhatsApp */}
-            <a 
-              href="https://wa.me/919876543210" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="flex items-center justify-between p-4 bg-emerald-50 border border-emerald-200 rounded-2xl hover:bg-emerald-100/60 transition-all group"
-            >
-              <div className="flex items-center gap-4">
-                <div className="p-3 bg-emerald-200 text-emerald-800 rounded-xl text-2xl">💬</div>
-                <div>
-                  <h4 className="text-slate-900 font-bold group-hover:text-emerald-700 transition-colors">WhatsApp Business Chat</h4>
-                  <p className="text-xs text-slate-500">Instant messaging with support team</p>
-                </div>
-              </div>
-              <span className="text-emerald-700 text-sm font-bold">Chat Now →</span>
-            </a>
-
-            {/* Email */}
-            <a 
-              href="mailto:smunextech@gmail.com"
-              className="flex items-center justify-between p-4 bg-blue-50 border border-blue-200 rounded-2xl hover:bg-blue-100/60 transition-all group"
-            >
-              <div className="flex items-center gap-4">
-                <div className="p-3 bg-blue-200 text-blue-800 rounded-xl text-2xl">📧</div>
-                <div>
-                  <h4 className="text-slate-900 font-bold group-hover:text-blue-700 transition-colors">Official Email</h4>
-                  <p className="text-xs text-slate-500">smunextech@gmail.com</p>
-                </div>
-              </div>
-              <span className="text-blue-700 text-sm font-bold">Send Mail →</span>
-            </a>
-
-            {/* Instagram */}
-            <a 
-              href="https://instagram.com" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="flex items-center justify-between p-4 bg-pink-50 border border-pink-200 rounded-2xl hover:bg-pink-100/60 transition-all group"
-            >
-              <div className="flex items-center gap-4">
-                <div className="p-3 bg-pink-200 text-pink-800 rounded-xl text-2xl">📸</div>
-                <div>
-                  <h4 className="text-slate-900 font-bold group-hover:text-pink-700 transition-colors">Instagram Profile</h4>
-                  <p className="text-xs text-slate-500">Follow for official updates & announcements</p>
-                </div>
-              </div>
-              <span className="text-pink-700 text-sm font-bold">Follow Us →</span>
-            </a>
-
+        {/* Benefits Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+          <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+            <div className="text-3xl mb-3">🚀</div>
+            <h3 className="text-lg font-bold text-slate-900">Growth Environment</h3>
+            <p className="text-slate-600 text-sm mt-2">Work on cutting-edge web technologies and enterprise client projects with direct mentorship.</p>
+          </div>
+          <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+            <div className="text-3xl mb-3">💡</div>
+            <h3 className="text-lg font-bold text-slate-900">Innovation First</h3>
+            <p className="text-slate-600 text-sm mt-2">We encourage fresh ideas, creative problem solving, and continuous learning culture.</p>
+          </div>
+          <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+            <div className="text-3xl mb-3">🎯</div>
+            <h3 className="text-lg font-bold text-slate-900">Competitive Packages</h3>
+            <p className="text-slate-600 text-sm mt-2">Industry-standard compensation, performance rewards, and fast-track career elevation.</p>
           </div>
         </div>
 
-        {/* General Inquiry Form */}
-        <div className="bg-slate-50 border border-slate-200 rounded-3xl p-8 shadow-xl">
+        {/* Application Form */}
+        <div className="max-w-3xl mx-auto bg-white border border-slate-200 rounded-3xl p-8 md:p-10 shadow-xl">
           <div className="mb-6">
-            <h3 className="text-2xl font-bold text-slate-900">Send Direct Message</h3>
+            <h3 className="text-2xl font-bold text-slate-900">Submit Your Job Application</h3>
+            <p className="text-xs text-slate-500 mt-1">Attach your resume to get reviewed directly by our recruitment team.</p>
           </div>
 
           {status.msg && (
-            <div className={`p-4 mb-6 rounded-xl text-sm font-medium ${
-              status.type === 'success' 
-                ? 'bg-emerald-50 text-emerald-800 border border-emerald-200' 
-                : 'bg-rose-50 text-rose-800 border border-rose-200'
-            }`}>
+            <div className={`p-4 mb-6 rounded-xl text-sm font-medium ${status.type === 'success'
+              ? 'bg-emerald-50 text-emerald-800 border border-emerald-200'
+              : 'bg-rose-50 text-rose-800 border border-rose-200'
+              }`}>
               {status.msg}
             </div>
           )}
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-xs font-bold text-slate-600 uppercase mb-1">Your Name</label>
+              <label className="block text-xs font-bold text-slate-600 uppercase mb-1">Full Name</label>
               <input
                 type="text"
                 name="name"
                 required
                 value={formData.name}
                 onChange={handleChange}
-                placeholder="e.g. Alex"
-                className="w-full bg-white border border-slate-300 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:border-blue-600 transition-colors text-sm"
+                placeholder="e.g. Rahul Carpenter"
+                className="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:border-indigo-600 transition-colors text-sm"
               />
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-bold text-slate-600 uppercase mb-1">Email</label>
+                <label className="block text-xs font-bold text-slate-600 uppercase mb-1">Email Address</label>
                 <input
                   type="email"
                   name="email"
                   required
                   value={formData.email}
                   onChange={handleChange}
-                  placeholder="alex@email.com"
-                  className="w-full bg-white border border-slate-300 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:border-blue-600 transition-colors text-sm"
+                  placeholder="name@email.com"
+                  className="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:border-indigo-600 transition-colors text-sm"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-600 uppercase mb-1">Phone</label>
+                <label className="block text-xs font-bold text-slate-600 uppercase mb-1">Phone Number</label>
                 <input
                   type="tel"
                   name="phone"
@@ -169,46 +143,56 @@ export default function Contact() {
                   value={formData.phone}
                   onChange={handleChange}
                   placeholder="+91 98765 43210"
-                  className="w-full bg-white border border-slate-300 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:border-blue-600 transition-colors text-sm"
+                  className="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:border-indigo-600 transition-colors text-sm"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-600 uppercase mb-1">Interested Service</label>
+              <label className="block text-xs font-bold text-slate-600 uppercase mb-1">Applied Profile</label>
               <select
                 name="service"
                 value={formData.service}
                 onChange={handleChange}
-                className="w-full bg-white border border-slate-300 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:border-blue-600 transition-colors text-sm"
+                className="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:border-indigo-600 transition-colors text-sm"
               >
-                <option value="Digital Marketing">Digital Marketing & Growth</option>
-                <option value="Web Development">Web Application Development</option>
-                <option value="Mobile App">Mobile App Development</option>
-                <option value="Cloud Solutions">Cloud Infrastructure</option>
-                <option value="General Partnership">General Partnership</option>
+                <option value="Frontend Developer">Frontend / React Developer</option>
+                <option value="Backend Developer">Backend / Python Developer</option>
+                <option value="UI/UX Designer">UI/UX Product Designer</option>
+                <option value="Digital Marketing Role">Digital Growth & Marketing Specialist</option>
+                <option value="Business Developer">Business Development Executive</option>
               </select>
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-600 uppercase mb-1">Project Message</label>
+              <label className="block text-xs font-bold text-slate-600 uppercase mb-1">Upload Resume (PDF / Doc)</label>
+              <input
+                type="file"
+                accept=".pdf,.doc,.docx"
+                onChange={handleFileChange}
+                className="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-slate-700 text-xs file:mr-3 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-indigo-100 file:text-indigo-700 hover:file:bg-indigo-200 cursor-pointer"
+              />
+            </div>
+
+            <div>
+              <label className="block text-xs font-bold text-slate-600 uppercase mb-1">Cover Note / Experience Summary</label>
               <textarea
                 name="message"
                 required
                 rows="3"
                 value={formData.message}
                 onChange={handleChange}
-                placeholder="Describe your requirements..."
-                className="w-full bg-white border border-slate-300 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:border-blue-600 transition-colors text-sm"
+                placeholder="Briefly describe your skill set and experience..."
+                className="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:border-indigo-600 transition-colors text-sm"
               ></textarea>
             </div>
 
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-3.5 rounded-xl transition-all shadow-lg text-sm uppercase tracking-wider cursor-pointer"
+              className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3.5 rounded-xl transition-all shadow-lg shadow-indigo-500/20 text-sm uppercase tracking-wider cursor-pointer"
             >
-              {loading ? "Sending..." : "Submit Inquiry"}
+              {loading ? "Submitting Application..." : "Submit Application"}
             </button>
           </form>
         </div>
