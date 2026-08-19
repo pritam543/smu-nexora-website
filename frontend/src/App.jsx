@@ -6,7 +6,7 @@ import {
   Upload, CheckCircle2, MessageSquare, Briefcase, User, Mail, Phone, Award, FileText,
   ChevronDown, Building, Stethoscope, School, Compass, Hotel, ShoppingCart,
   CheckCircle, Users, Target, Laptop, Send, Layers, MessageCircle, AlertCircle, X, Camera, Menu,
-  Check, Lock, Zap
+  Check, Lock, Zap, Quote, Star, Palette
 } from 'lucide-react';
 import CorporateDeck from './components/CorporateDeck';
 
@@ -123,13 +123,13 @@ export default function App() {
     return () => clearInterval(interval);
   }, [slides.length]);
 
-  // EXACT 5 FIELDS (NO EXTRA SERVICES)
+  // EXACT 5 CORE FIELDS
   const fields = [
     {
       id: 'web-dev',
       title: "Web & Game Development",
       icon: Globe,
-      color: "#8580db",
+      color: "#4f46e5",
       pastelBg: "#eef2ff",
       desc: "Engineered scalable web applications, client dashboards, and interactive gaming experiences.",
       techStack: "React, Next.js, Node.js, Unity, WebGL, TypeScript",
@@ -139,7 +139,7 @@ export default function App() {
       id: 'cyber-security',
       title: "Cyber Security & Auditing",
       icon: ShieldCheck,
-      color: "#c34b65",
+      color: "#e11d48",
       pastelBg: "#fff1f2",
       desc: "Vulnerability assessments, penetration testing, and end-to-end data encryption protocols.",
       techStack: "Kali Linux, Wireshark, OWASP Protocols, Encrypted DBs",
@@ -159,7 +159,7 @@ export default function App() {
       id: 'e-commerce',
       title: "E-Commerce Systems",
       icon: ShoppingCart,
-      color: "#2c9f7b",
+      color: "#059669",
       pastelBg: "#f0fdf4",
       desc: "High-converting Shopify Plus stores and custom headless marketplace architectures.",
       techStack: "Shopify Plus, Liquid, WooCommerce, Stripe / Razorpay",
@@ -169,11 +169,47 @@ export default function App() {
       id: 'consulting',
       title: "IT Strategic Consulting",
       icon: Code2,
-      color: "#2c8cbc",
+      color: "#0284c7",
       pastelBg: "#f0f9ff",
       desc: "Modernizing legacy architectures and defining digital product technical roadmaps.",
       techStack: "System Design Blueprints, Modular APIs, Legacy Refactoring",
       businessImpact: "Aligns software engineering roadmaps directly with core business revenue goals."
+    }
+  ];
+
+  // CORE WORKING TEAM DATA
+  const teamMembers = [
+    {
+      name: "Aman Sharma",
+      role: "Lead Full-Stack Developer",
+      field: "React, Python & FastAPI",
+      image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80",
+      badgeColor: "#4f46e5",
+      badgeBg: "#eef2ff"
+    },
+    {
+      name: "Sneha Patel",
+      role: "Lead UI/UX Product Designer",
+      field: "Design Systems & Figma",
+      image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80",
+      badgeColor: "#9333ea",
+      badgeBg: "#faf5ff"
+    },
+    {
+      name: "Rohit Verma",
+      role: "Digital Marketing Strategist",
+      field: "Performance Marketing & SEO",
+      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80",
+      badgeColor: "#d97706",
+      badgeBg: "#fffbeb"
+    },
+    {
+      name: "Vikas Dubey",
+      role: "Backend & Security Engineer",
+      field: "APIs & Cyber Compliance",
+      image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80",
+      badgeColor: "#0284c7",
+      badgeBg: "#f0f9ff"
     }
   ];
 
@@ -298,7 +334,7 @@ export default function App() {
           height: 2px;
           bottom: -4px;
           left: 0;
-          background-color: #7a7bc8a5;
+          background-color: #6366f1;
           transition: width 0.25s ease;
         }
         .nav-btn-hover:hover {
@@ -380,7 +416,7 @@ export default function App() {
             align-items: flex-start !important;
             margin-top: 1rem !important;
             padding-top: 1rem !important;
-            border-top: 1px solid #c7d4ff !important;
+            border-top: 1px solid #e0e7ff !important;
             gap: 1rem !important;
           }
           .mobile-hamburger-btn {
@@ -495,7 +531,7 @@ export default function App() {
               onClick={() => { setIsDeckOpen(true); setMobileMenuOpen(false); }}
               className="hover-btn"
               style={{
-                background: 'linear-gradient(135deg, #6366f1 0%, #7974d9 100%)',
+                background: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)',
                 color: '#ffffff',
                 border: 'none',
                 padding: '8px 16px',
@@ -545,10 +581,10 @@ export default function App() {
                 </AnimatePresence>
               </section>
 
-              {/* ENRICHED ABOUT US SECTION (PASTEL LIGHT WITH FULL CORPORATE DETAILS) */}
+              {/* ABOUT US SECTION */}
               <motion.section id="about" initial={{ opacity: 0, scale: 0.9, y: 40 }} whileInView={{ opacity: 1, scale: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} style={{ padding: '5rem 1.5rem', maxWidth: '1200px', margin: '0 auto' }}>
                 <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
-                  <span style={{ fontSize: '0.85rem', color: '#6861e6', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.05em', background: '#e0e7ff', padding: '4px 14px', borderRadius: '9999px' }}>
+                  <span style={{ fontSize: '0.85rem', color: '#4f46e5', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.05em', background: '#e0e7ff', padding: '4px 14px', borderRadius: '9999px' }}>
                     Corporate Profile & Values
                   </span>
                   <h2 style={{ fontSize: '2.4rem', fontWeight: '900', margin: '10px 0 0 0', color: '#1e1b4b' }}>
@@ -636,6 +672,116 @@ export default function App() {
                     <div style={{ fontSize: '2rem', fontWeight: '900', color: '#0284c7' }}>24/7</div>
                     <div style={{ fontSize: '0.82rem', color: '#64748b', fontWeight: '700' }}>Support Desk</div>
                   </div>
+                </div>
+              </motion.section>
+
+              {/* ==================== NEW: FOUNDER TESTIMONIAL & CORE TEAM SECTION ==================== */}
+              <motion.section id="team-and-testimonials" initial={{ opacity: 0, scale: 0.9, y: 40 }} whileInView={{ opacity: 1, scale: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} style={{ padding: '5rem 1.5rem', background: '#ffffff', borderTop: '1px solid #e0e7ff', borderBottom: '1px solid #e0e7ff' }}>
+                <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+
+                  {/* Header */}
+                  <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
+                    <span style={{ fontSize: '0.85rem', color: '#4f46e5', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.05em', background: '#e0e7ff', padding: '4px 14px', borderRadius: '9999px' }}>
+                      Leadership & Execution Team
+                    </span>
+                    <h2 style={{ fontSize: '2.4rem', fontWeight: '900', margin: '12px 0 0 0', color: '#1e1b4b' }}>
+                      Meet The Minds Behind SMU Nexora
+                    </h2>
+                    <p style={{ color: '#64748b', fontSize: '0.95rem', marginTop: '6px', maxWidth: '600px', margin: '6px auto 0 auto' }}>
+                      Driven by engineering excellence, industry mentorship, and seamless client digital transformation.
+                    </p>
+                  </div>
+
+                  {/* 1. FOUNDER SPOTLIGHT CARD */}
+                  <div className="hover-card" style={{ ...pastelCardStyle, border: '1px solid #c7d2fe', background: 'linear-gradient(135deg, #f8faff 0%, #eef2ff 100%)', borderRadius: '24px', padding: '2.4rem', marginBottom: '3rem', position: 'relative', overflow: 'hidden' }}>
+                    <div style={{ position: 'absolute', top: '16px', right: '24px', opacity: 0.15 }}>
+                      <Quote size={80} color="#4f46e5" />
+                    </div>
+
+                    <div style={{ display: 'flex', flexDirection: 'column', mdDirection: 'row', alignItems: 'center', gap: '2rem' }}>
+                      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', minWidth: '180px' }}>
+                        <div style={{ width: '96px', height: '96px', borderRadius: '50%', overflow: 'hidden', border: '3px solid #6366f1', boxShadow: '0 8px 20px rgba(99, 102, 241, 0.2)', marginBottom: '12px' }}>
+                          <img
+                            src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80"
+                            alt="Founder"
+                            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                          />
+                        </div>
+                        <h4 style={{ fontSize: '1.25rem', fontWeight: '900', color: '#1e1b4b', margin: 0 }}>Founder & Lead</h4>
+                        <span style={{ fontSize: '0.8rem', fontWeight: '700', color: '#4f46e5', background: '#e0e7ff', padding: '3px 10px', borderRadius: '9999px', marginTop: '6px' }}>
+                          Founder & CTO
+                        </span>
+                      </div>
+
+                      <div style={{ flex: 1 }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '4px', marginBottom: '8px', color: '#f59e0b' }}>
+                          {[...Array(5)].map((_, i) => (
+                            <Star key={i} size={16} fill="#f59e0b" />
+                          ))}
+                          <span style={{ fontSize: '0.82rem', fontWeight: '800', color: '#1e1b4b', marginLeft: '6px' }}>Founder's Vision</span>
+                        </div>
+                        <p style={{ fontSize: '1.02rem', color: '#334155', lineHeight: '1.8', fontStyle: 'italic', margin: '0 0 12px 0' }}>
+                          "At SMU Nexora Technologies, our goal is two-fold: providing businesses with dependable, scalable full-stack web and digital products, while simultaneously building a powerhouse of technical talent in Indore. We engineer every platform with clean code, robust security, and measurable client results."
+                        </p>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                          <span style={{ fontSize: '0.82rem', fontWeight: '700', color: '#64748b' }}>SMU Nexora Technologies Pvt. Ltd.</span>
+                          <span style={{ width: '4px', height: '4px', borderRadius: '50%', background: '#cbd5e1' }} />
+                          <span style={{ fontSize: '0.82rem', fontWeight: '600', color: '#16a34a' }}>Verified Management</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* 2. CORE TEAM WORKING SQUAD (4 MEMBERS) */}
+                  <div>
+                    <div style={{ textAlign: 'center', marginBottom: '1.8rem' }}>
+                      <span style={{ fontSize: '0.78rem', fontWeight: '800', color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                        Core Engineering & Growth Squad
+                      </span>
+                    </div>
+
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1.5rem' }}>
+                      {teamMembers.map((member, idx) => (
+                        <div
+                          key={idx}
+                          className="hover-card"
+                          style={{
+                            ...pastelCardStyle,
+                            padding: '1.8rem 1.4rem',
+                            textAlign: 'center',
+                            borderRadius: '20px',
+                            border: '1px solid #e0e7ff',
+                            background: '#ffffff',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                            justifyContent: 'space-between'
+                          }}
+                        >
+                          <div>
+                            <div style={{ width: '74px', height: '74px', borderRadius: '50%', overflow: 'hidden', margin: '0 auto 1rem auto', border: `2px solid ${member.badgeColor}`, boxShadow: '0 6px 14px rgba(0,0,0,0.06)' }}>
+                              <img src={member.image} alt={member.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                            </div>
+                            <h4 style={{ fontSize: '1.1rem', fontWeight: '800', color: '#1e1b4b', margin: '0 0 4px 0' }}>
+                              {member.name}
+                            </h4>
+                            <div style={{ fontSize: '0.78rem', fontWeight: '700', color: member.badgeColor, background: member.badgeBg, padding: '3px 10px', borderRadius: '9999px', display: 'inline-block', marginBottom: '8px' }}>
+                              {member.role}
+                            </div>
+                            <p style={{ fontSize: '0.82rem', color: '#64748b', margin: 0, fontWeight: '500' }}>
+                              {member.field}
+                            </p>
+                          </div>
+
+                          <div style={{ marginTop: '1.2rem', paddingTop: '0.8rem', borderTop: '1px solid #f1f5f9', width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', color: '#16a34a', fontSize: '0.78rem', fontWeight: '700' }}>
+                            <CheckCircle2 size={14} />
+                            <span>Active Project Lead</span>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
                 </div>
               </motion.section>
 
