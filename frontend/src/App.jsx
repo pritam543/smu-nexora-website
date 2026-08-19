@@ -129,7 +129,7 @@ export default function App() {
       id: 'web-dev',
       title: "Web & Game Development",
       icon: Globe,
-      color: "#4f46e5",
+      color: "#8580db",
       pastelBg: "#eef2ff",
       desc: "Engineered scalable web applications, client dashboards, and interactive gaming experiences.",
       techStack: "React, Next.js, Node.js, Unity, WebGL, TypeScript",
@@ -139,7 +139,7 @@ export default function App() {
       id: 'cyber-security',
       title: "Cyber Security & Auditing",
       icon: ShieldCheck,
-      color: "#e11d48",
+      color: "#c34b65",
       pastelBg: "#fff1f2",
       desc: "Vulnerability assessments, penetration testing, and end-to-end data encryption protocols.",
       techStack: "Kali Linux, Wireshark, OWASP Protocols, Encrypted DBs",
@@ -159,7 +159,7 @@ export default function App() {
       id: 'e-commerce',
       title: "E-Commerce Systems",
       icon: ShoppingCart,
-      color: "#059669",
+      color: "#2c9f7b",
       pastelBg: "#f0fdf4",
       desc: "High-converting Shopify Plus stores and custom headless marketplace architectures.",
       techStack: "Shopify Plus, Liquid, WooCommerce, Stripe / Razorpay",
@@ -169,7 +169,7 @@ export default function App() {
       id: 'consulting',
       title: "IT Strategic Consulting",
       icon: Code2,
-      color: "#0284c7",
+      color: "#2c8cbc",
       pastelBg: "#f0f9ff",
       desc: "Modernizing legacy architectures and defining digital product technical roadmaps.",
       techStack: "System Design Blueprints, Modular APIs, Legacy Refactoring",
@@ -298,7 +298,7 @@ export default function App() {
           height: 2px;
           bottom: -4px;
           left: 0;
-          background-color: #6366f1;
+          background-color: #7a7bc8a5;
           transition: width 0.25s ease;
         }
         .nav-btn-hover:hover {
@@ -380,7 +380,7 @@ export default function App() {
             align-items: flex-start !important;
             margin-top: 1rem !important;
             padding-top: 1rem !important;
-            border-top: 1px solid #e0e7ff !important;
+            border-top: 1px solid #c7d4ff !important;
             gap: 1rem !important;
           }
           .mobile-hamburger-btn {
@@ -495,7 +495,7 @@ export default function App() {
               onClick={() => { setIsDeckOpen(true); setMobileMenuOpen(false); }}
               className="hover-btn"
               style={{
-                background: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)',
+                background: 'linear-gradient(135deg, #6366f1 0%, #7974d9 100%)',
                 color: '#ffffff',
                 border: 'none',
                 padding: '8px 16px',
@@ -548,7 +548,7 @@ export default function App() {
               {/* ENRICHED ABOUT US SECTION (PASTEL LIGHT WITH FULL CORPORATE DETAILS) */}
               <motion.section id="about" initial={{ opacity: 0, scale: 0.9, y: 40 }} whileInView={{ opacity: 1, scale: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} style={{ padding: '5rem 1.5rem', maxWidth: '1200px', margin: '0 auto' }}>
                 <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
-                  <span style={{ fontSize: '0.85rem', color: '#4f46e5', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.05em', background: '#e0e7ff', padding: '4px 14px', borderRadius: '9999px' }}>
+                  <span style={{ fontSize: '0.85rem', color: '#6861e6', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.05em', background: '#e0e7ff', padding: '4px 14px', borderRadius: '9999px' }}>
                     Corporate Profile & Values
                   </span>
                   <h2 style={{ fontSize: '2.4rem', fontWeight: '900', margin: '10px 0 0 0', color: '#1e1b4b' }}>
