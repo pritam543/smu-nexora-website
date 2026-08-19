@@ -177,57 +177,49 @@ export default function App() {
     }
   ];
 
-  // 1. FOUNDER & CO-FOUNDER DATA
+  // 1. FOUNDER & CO-FOUNDER (DISTINCT CARDS WITH NAMES & BIGGER IMAGES)
   const leaders = [
     {
-      name: "Founder & Chief Executive",
+      name: "Pritam Carpenter",
       role: "Founder & CEO",
-      image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=400&q=80",
-      quote: "Our mission is to build robust, scalable digital architectures that solve genuine enterprise operational challenges with speed and transparency.",
+      image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=500&q=80",
+      quote: "Our vision is to engineer resilient, high-speed digital platforms that accelerate client businesses while fostering next-generation IT engineering talent.",
       badgeColor: "#4f46e5",
       badgeBg: "#eef2ff"
     },
     {
-      name: "Co-Founder & Tech Director",
+      name: "Executive Director",
       role: "Co-Founder & CTO",
-      image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80",
-      quote: "We combine cutting-edge frontend micro-interactions with bulletproof asynchronous backend APIs to deliver exceptional digital experiences.",
+      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=500&q=80",
+      quote: "We architect decoupled, asynchronous microservices and conversion-focused web systems engineered strictly for 99.9% uptime and bulletproof security.",
       badgeColor: "#0284c7",
       badgeBg: "#f0f9ff"
     }
   ];
 
-  // 2. CORE WORKING TEAM (DEVELOPER, DESIGNER, MARKETING)
+  // 2. WORKING SQUAD (DEVELOPER, BACKEND, DIGITAL MARKETING - LARGER IMAGES)
   const teamMembers = [
     {
       name: "Senior Full-Stack Developer",
-      role: "Frontend & Web Engineer",
-      field: "React.js, Next.js & TypeScript",
-      image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80",
+      role: "Frontend & Web Developer",
+      field: "React.js, Next.js & TypeScript Systems",
+      image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=400&q=80",
       badgeColor: "#4f46e5",
       badgeBg: "#eef2ff"
     },
     {
       name: "Backend Systems Engineer",
-      role: "Python & API Specialist",
-      field: "FastAPI, PostgreSQL & Caching",
-      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80",
+      role: "Backend & API Developer",
+      field: "Python, FastAPI & Relational Databases",
+      image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80",
       badgeColor: "#059669",
       badgeBg: "#f0fdf4"
     },
     {
-      name: "Lead UI/UX Product Designer",
-      role: "UI/UX Designer",
-      field: "Figma, Prototyping & Design Systems",
-      image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=400&q=80",
-      badgeColor: "#9333ea",
-      badgeBg: "#faf5ff"
-    },
-    {
       name: "Digital Growth Specialist",
-      role: "Marketing & SEO Lead",
-      field: "Technical SEO, Ads & Analytics",
-      image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80",
+      role: "Digital Marketing Lead",
+      field: "Performance Marketing, Ads & Technical SEO",
+      image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80",
       badgeColor: "#d97706",
       badgeBg: "#fffbeb"
     }
@@ -695,35 +687,35 @@ export default function App() {
                 </div>
               </motion.section>
 
-              {/* ==================== LEADERSHIP & CORE TEAM SECTION (PASTEL LIGHT) ==================== */}
+              {/* ==================== LEADERSHIP & CORE TEAM SECTION (DISTINCT FOUNDERS & BIGGER IMAGES) ==================== */}
               <motion.section id="team-and-testimonials" initial={{ opacity: 0, scale: 0.9, y: 40 }} whileInView={{ opacity: 1, scale: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} style={{ padding: '5rem 1.5rem', background: '#ffffff', borderTop: '1px solid #e0e7ff', borderBottom: '1px solid #e0e7ff' }}>
                 <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
 
                   {/* Section Title */}
-                  <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
+                  <div style={{ textAlign: 'center', marginBottom: '3.5rem' }}>
                     <span style={{ fontSize: '0.85rem', color: '#4f46e5', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.05em', background: '#e0e7ff', padding: '4px 14px', borderRadius: '9999px' }}>
                       Leadership & Execution Team
                     </span>
                     <h2 style={{ fontSize: '2.4rem', fontWeight: '900', margin: '12px 0 0 0', color: '#1e1b4b' }}>
-                      Meet The Minds Behind SMU Nexora
+                      Executive Founders & Engineering Squad
                     </h2>
                     <p style={{ color: '#64748b', fontSize: '0.95rem', marginTop: '6px', maxWidth: '600px', margin: '6px auto 0 auto' }}>
-                      Driven by engineering excellence, industry mentorship, and seamless client digital transformation.
+                      The driving visionary and technical leadership powering SMU Nexora Technologies.
                     </p>
                   </div>
 
-                  {/* 1. FOUNDER & CO-FOUNDER ROW (SIDE-BY-SIDE CARDS) */}
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1.8rem', marginBottom: '3.5rem' }}>
+                  {/* 1. FOUNDER & CO-FOUNDER (DISTINCT SEPARATE PROMINENT CARDS) */}
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '2rem', marginBottom: '4rem' }}>
                     {leaders.map((leader, idx) => (
                       <div
                         key={idx}
                         className="hover-card"
                         style={{
                           ...pastelCardStyle,
-                          border: `1px solid ${leader.badgeColor}35`,
+                          border: `1.5px solid ${leader.badgeColor}35`,
                           background: 'linear-gradient(135deg, #ffffff 0%, #f8faff 100%)',
                           borderRadius: '24px',
-                          padding: '2.2rem',
+                          padding: '2.4rem 2rem',
                           position: 'relative',
                           overflow: 'hidden',
                           display: 'flex',
@@ -731,69 +723,72 @@ export default function App() {
                           justifyContent: 'space-between'
                         }}
                       >
-                        <div style={{ position: 'absolute', top: '14px', right: '20px', opacity: 0.12 }}>
-                          <Quote size={60} color={leader.badgeColor} />
+                        <div style={{ position: 'absolute', top: '16px', right: '20px', opacity: 0.12 }}>
+                          <Quote size={64} color={leader.badgeColor} />
                         </div>
 
                         <div>
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '1.2rem' }}>
-                            <div style={{ width: '80px', height: '80px', borderRadius: '50%', overflow: 'hidden', border: `3px solid ${leader.badgeColor}`, boxShadow: `0 8px 18px ${leader.badgeColor}30`, flexShrink: 0 }}>
+                          {/* Profile Photo (Size 110px x 110px) */}
+                          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', marginBottom: '1.4rem' }}>
+                            <div style={{ width: '110px', height: '110px', borderRadius: '50%', overflow: 'hidden', border: `3.5px solid ${leader.badgeColor}`, boxShadow: `0 10px 24px ${leader.badgeColor}35`, marginBottom: '12px' }}>
                               <img
                                 src={leader.image}
                                 alt={leader.name}
                                 style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                               />
                             </div>
-                            <div>
-                              <h4 style={{ fontSize: '1.2rem', fontWeight: '900', color: '#1e1b4b', margin: 0 }}>
-                                {leader.name}
-                              </h4>
-                              <div style={{ fontSize: '0.8rem', fontWeight: '800', color: leader.badgeColor, background: leader.badgeBg, padding: '3px 10px', borderRadius: '9999px', display: 'inline-block', marginTop: '4px' }}>
-                                {leader.role}
-                              </div>
+
+                            {/* Founder Name */}
+                            <h3 style={{ fontSize: '1.4rem', fontWeight: '900', color: '#1e1b4b', margin: '0 0 4px 0' }}>
+                              {leader.name}
+                            </h3>
+
+                            {/* Founder / Co-Founder Designation Badge */}
+                            <div style={{ fontSize: '0.85rem', fontWeight: '800', color: leader.badgeColor, background: leader.badgeBg, padding: '4px 14px', borderRadius: '9999px', display: 'inline-block', border: `1px solid ${leader.badgeColor}30` }}>
+                              {leader.role}
                             </div>
                           </div>
 
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '3px', marginBottom: '10px', color: '#f59e0b' }}>
+                          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '3px', marginBottom: '12px', color: '#f59e0b' }}>
                             {[...Array(5)].map((_, i) => (
                               <Star key={i} size={15} fill="#f59e0b" />
                             ))}
-                            <span style={{ fontSize: '0.78rem', fontWeight: '800', color: '#1e1b4b', marginLeft: '6px' }}>Leadership Perspective</span>
+                            <span style={{ fontSize: '0.78rem', fontWeight: '800', color: '#1e1b4b', marginLeft: '6px' }}>Leadership Note</span>
                           </div>
 
-                          <p style={{ fontSize: '0.92rem', color: '#475569', lineHeight: '1.7', fontStyle: 'italic', margin: 0 }}>
+                          <p style={{ fontSize: '0.94rem', color: '#475569', lineHeight: '1.8', fontStyle: 'italic', margin: 0, textAlign: 'center' }}>
                             "{leader.quote}"
                           </p>
                         </div>
 
-                        <div style={{ marginTop: '1.5rem', paddingTop: '1rem', borderTop: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.8rem' }}>
+                        <div style={{ marginTop: '1.8rem', paddingTop: '1rem', borderTop: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.82rem' }}>
                           <span style={{ fontWeight: '700', color: '#64748b' }}>SMU Nexora Technologies</span>
-                          <span style={{ fontWeight: '700', color: '#16a34a', display: 'flex', alignItems: 'center', gap: '4px' }}>
-                            <CheckCircle2 size={14} /> Executive Desk
+                          <span style={{ fontWeight: '800', color: '#16a34a', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                            <CheckCircle2 size={15} /> Executive Office
                           </span>
                         </div>
                       </div>
                     ))}
                   </div>
 
-                  {/* 2. CORE TEAM WORKING SQUAD (DEVELOPER, DESIGNER, MARKETING) */}
+                  {/* 2. CORE WORKING TEAM (DEVELOPER, BACKEND, DIGITAL MARKETING ONLY) */}
                   <div>
-                    <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-                      <span style={{ fontSize: '0.82rem', fontWeight: '800', color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                        Core Engineering & Growth Squad
+                    <div style={{ textAlign: 'center', marginBottom: '2.2rem' }}>
+                      <span style={{ fontSize: '0.85rem', color: '#6366f1', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.05em', background: '#f0f4ff', padding: '4px 14px', borderRadius: '9999px' }}>
+                        Core Development & Marketing Squad
                       </span>
                     </div>
 
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1.5rem' }}>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1.8rem', maxWidth: '1050px', margin: '0 auto' }}>
                       {teamMembers.map((member, idx) => (
                         <div
                           key={idx}
                           className="hover-card"
                           style={{
                             ...pastelCardStyle,
-                            padding: '1.8rem 1.4rem',
+                            padding: '2.2rem 1.6rem',
                             textAlign: 'center',
-                            borderRadius: '20px',
+                            borderRadius: '22px',
                             border: '1px solid #e0e7ff',
                             background: '#ffffff',
                             display: 'flex',
@@ -803,22 +798,26 @@ export default function App() {
                           }}
                         >
                           <div>
-                            <div style={{ width: '74px', height: '74px', borderRadius: '50%', overflow: 'hidden', margin: '0 auto 1rem auto', border: `2px solid ${member.badgeColor}`, boxShadow: '0 6px 14px rgba(0,0,0,0.06)' }}>
+                            {/* Bigger Member Image (Size 96px x 96px) */}
+                            <div style={{ width: '96px', height: '96px', borderRadius: '50%', overflow: 'hidden', margin: '0 auto 1.2rem auto', border: `3px solid ${member.badgeColor}`, boxShadow: `0 8px 18px ${member.badgeColor}25` }}>
                               <img src={member.image} alt={member.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                             </div>
-                            <h4 style={{ fontSize: '1.1rem', fontWeight: '800', color: '#1e1b4b', margin: '0 0 4px 0' }}>
+
+                            <h4 style={{ fontSize: '1.15rem', fontWeight: '900', color: '#1e1b4b', margin: '0 0 6px 0' }}>
                               {member.name}
                             </h4>
-                            <div style={{ fontSize: '0.78rem', fontWeight: '700', color: member.badgeColor, background: member.badgeBg, padding: '3px 10px', borderRadius: '9999px', display: 'inline-block', marginBottom: '8px' }}>
+
+                            <div style={{ fontSize: '0.8rem', fontWeight: '800', color: member.badgeColor, background: member.badgeBg, padding: '3px 12px', borderRadius: '9999px', display: 'inline-block', marginBottom: '8px', border: `1px solid ${member.badgeColor}25` }}>
                               {member.role}
                             </div>
-                            <p style={{ fontSize: '0.82rem', color: '#64748b', margin: 0, fontWeight: '500' }}>
+
+                            <p style={{ fontSize: '0.84rem', color: '#64748b', margin: 0, fontWeight: '600' }}>
                               {member.field}
                             </p>
                           </div>
 
-                          <div style={{ marginTop: '1.2rem', paddingTop: '0.8rem', borderTop: '1px solid #f1f5f9', width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', color: '#16a34a', fontSize: '0.78rem', fontWeight: '700' }}>
-                            <CheckCircle2 size={14} />
+                          <div style={{ marginTop: '1.4rem', paddingTop: '1rem', borderTop: '1px solid #f1f5f9', width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', color: '#16a34a', fontSize: '0.8rem', fontWeight: '700' }}>
+                            <CheckCircle2 size={15} />
                             <span>Active Project Lead</span>
                           </div>
                         </div>
@@ -945,7 +944,7 @@ export default function App() {
                   </div>
 
                   <div className="hover-card" style={pastelCardStyle}>
-                    <h3 style={{ fontSize: '1.3rem', fontWeight: '800', color: '#1e1b4b', margin: '0 0 1rem 0' }}>Send Inquiry Message</h3>
+                    <h3 style={{ fontSize: '1.4rem', fontWeight: '800', color: '#1e1b4b', margin: '0 0 1rem 0' }}>Send Inquiry Message</h3>
                     <form onSubmit={handleContactSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                       <div>
                         <label style={labelStyle}>Your Full Name *</label>
@@ -1077,7 +1076,7 @@ export default function App() {
                     <div><label style={labelStyle}>Email Address *</label><input type="email" name="email" placeholder="Enter your email address" required value={contactData.email} onChange={handleContactInputChange} style={inputStyle} /></div>
                     <div><label style={labelStyle}>Subject *</label><input type="text" name="subject" placeholder="Enter inquiry subject" required value={contactData.subject} onChange={handleContactInputChange} style={inputStyle} /></div>
                     <div><label style={labelStyle}>Your Message *</label><textarea name="userMessage" rows="3" placeholder="Enter your message here..." required value={contactData.userMessage} onChange={handleContactInputChange} style={{ ...inputStyle, resize: 'vertical' }}></textarea></div>
-                    <button type="submit" disabled={isSubmitting} className="hover-btn" style={{ width: '100%', padding: '12px', borderRadius: '10px', border: 'none', background: '#6366f1', color: '#fff', fontWeight: '700', fontSize: '0.95rem', cursor: 'pointer' }}>
+                    <button type="submit" disabled={isSubmitting} className="hover-btn" style={{ width: '100%', padding: '12px', borderRadius: '10px', border: 'none', background: '#6366f1', color: '#fff', fontWeight: '700', fontSize: '0.95rem', cursor: isSubmitting ? 'not-allowed' : 'pointer' }}>
                       {isSubmitting ? 'Sending...' : 'Send Message'}
                     </button>
                   </form>
