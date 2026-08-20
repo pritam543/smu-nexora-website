@@ -472,7 +472,7 @@ export default function App() {
               SN
             </div>
             <div>
-              <span style={{ fontSize: '1.2rem', fontWeight: '800', color: '#1e1b4b', letterSpacing: '-0.02em' }}>SMU NEXORA</span>
+              <span style={{ fontSize: '1.2rem', fontWeight: '800', color: '#1e293b', letterSpacing: '-0.02em' }}>SMU NEXORA</span>
               <span style={{ fontSize: '0.7rem', display: 'block', color: '#0284c7', fontWeight: '700', letterSpacing: '0.05em' }}>TECHNOLOGIES</span>
             </div>
           </div>
@@ -532,14 +532,14 @@ export default function App() {
                           <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', height: '100%' }}>
                             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', borderBottom: '1px solid #e2edf8', paddingBottom: '6px' }}>
                               <curr.icon size={22} color={curr.color} />
-                              <h4 style={{ margin: 0, fontSize: '0.98rem', color: '#1e1b4b', fontWeight: '800' }}>SMU {curr.title}</h4>
+                              <h4 style={{ margin: 0, fontSize: '0.98rem', color: '#1e293b', fontWeight: '800' }}>SMU {curr.title}</h4>
                             </div>
                             <p style={{ fontSize: '0.82rem', color: '#475569', lineHeight: '1.4', margin: 0 }}>{curr.desc}</p>
                             <div style={{ background: '#ffffff', padding: '8px', borderRadius: '8px', border: '1px solid #e0f2fe' }}>
                               <span style={{ fontSize: '0.72rem', fontWeight: '700', color: '#0284c7', display: 'block' }}>TECH STACK:</span>
                               <span style={{ fontSize: '0.75rem', color: '#334155' }}>{curr.techStack}</span>
                             </div>
-                            <button onClick={() => navigateTo('careers', curr.title)} className="hover-btn" style={{ marginTop: '4px', background: 'linear-gradient(135deg, #dbeafe 0%, #fce7f3 100%)', color: '#1e1b4b', border: '1px solid #bfdbfe', padding: '8px 12px', borderRadius: '8px', fontSize: '0.78rem', fontWeight: '700', cursor: 'pointer' }}>
+                            <button onClick={() => navigateTo('careers', curr.title)} className="hover-btn" style={{ marginTop: '4px', background: 'linear-gradient(135deg, #dbeafe 0%, #fce7f3 100%)', color: '#1e293b', border: '1px solid #bfdbfe', padding: '8px 12px', borderRadius: '8px', fontSize: '0.78rem', fontWeight: '700', cursor: 'pointer' }}>
                               Apply / Inquire For {curr.title}
                             </button>
                           </div>
@@ -587,7 +587,7 @@ export default function App() {
           {currentPage === 'home' && (
             <motion.div key="home-page">
 
-              {/* ==================== RESTORED HERO BANNER SLIDESHOW WITH IMAGES ==================== */}
+              {/* ==================== DIRECTIONAL GRADIENT SLIDESHOW (OPAQUE LEFT -> CLEAR PHOTO RIGHT) ==================== */}
               <section style={{ position: 'relative', width: '100%', height: '520px', overflow: 'hidden', borderBottom: '1px solid #e2edf8' }}>
                 <AnimatePresence mode="wait">
                   <motion.div
@@ -602,16 +602,16 @@ export default function App() {
                       left: 0,
                       width: '100%',
                       height: '100%',
-                      backgroundImage: `linear-gradient(to right, rgba(253, 242, 248, 0.90) 0%, rgba(250, 248, 242, 0.84) 50%, rgba(239, 246, 255, 0.65) 100%), url(${slides[currentSlide].image})`,
+                      backgroundImage: `linear-gradient(90deg, rgba(253, 242, 248, 0.98) 0%, rgba(250, 248, 242, 0.90) 35%, rgba(239, 246, 255, 0.30) 70%, rgba(255, 255, 255, 0.05) 100%), url(${slides[currentSlide].image})`,
                       backgroundSize: 'cover',
-                      backgroundPosition: 'center',
+                      backgroundPosition: 'center right',
                       display: 'flex',
                       alignItems: 'center',
                       padding: '0 clamp(1.5rem, 5vw, 4rem)',
                       boxSizing: 'border-box'
                     }}
                   >
-                    <div style={{ maxWidth: '800px', zIndex: 2 }}>
+                    <div style={{ maxWidth: '750px', zIndex: 2 }}>
 
                       {/* Soft Pastel Badge */}
                       <motion.div
@@ -639,7 +639,7 @@ export default function App() {
                         initial={{ y: 20, opacity: 0 }}
                         animate={{ y: 0, opacity: 1 }}
                         transition={{ delay: 0.35 }}
-                        style={{ fontSize: '1.1rem', color: '#475569', margin: '0 0 28px 0', lineHeight: '1.7', maxWidth: '680px' }}
+                        style={{ fontSize: '1.1rem', color: '#475569', margin: '0 0 28px 0', lineHeight: '1.7', maxWidth: '650px' }}
                       >
                         {slides[currentSlide].subtitle}
                       </motion.p>
@@ -1059,7 +1059,7 @@ export default function App() {
                   </div>
 
                   <div className="hover-card" style={pastelCardStyle}>
-                    <h3 style={{ fontSize: '1.3rem', fontWeight: '800', color: '#1e1b4b', margin: '0 0 1rem 0' }}>Send Inquiry Message</h3>
+                    <h3 style={{ fontSize: '1.4rem', fontWeight: '800', color: '#1e1b4b', margin: '0 0 1rem 0' }}>Send Inquiry Message</h3>
                     <form onSubmit={handleContactSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                       <div>
                         <label style={labelStyle}>Your Full Name *</label>
