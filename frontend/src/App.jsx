@@ -10,10 +10,6 @@ import {
 } from 'lucide-react';
 import CorporateDeck from './components/CorporateDeck';
 
-// PROPER ASSET IMPORTS FOR REACT
-import founderImg from './assets/founder.jpg';
-import coFounderImg from './assets/co-founder.jpg';
-
 export default function App() {
   const [currentPage, setCurrentPage] = useState('home');
   const [selectedDetail, setSelectedDetail] = useState(null);
@@ -191,7 +187,7 @@ export default function App() {
     {
       title: "Founder",
       name: "Sakshi Pare",
-      image: founderImg, // Imported asset variable
+      image: "/images/founder.jpg",
       quote: "Our vision is to engineer resilient, high-speed digital platforms that accelerate client businesses while fostering next-generation IT engineering talent in Indore.",
       badgeColor: "#db2777",
       badgeBg: "#fce7f3",
@@ -200,8 +196,8 @@ export default function App() {
     },
     {
       title: "Co-Founder",
-      name: "Technical Co-Founder",
-      image: coFounderImg, // Imported asset variable
+      name: "Shashank pare",
+      image: "/images/co-founder.jpg",
       quote: "We architect decoupled, asynchronous microservices and conversion-focused web systems engineered strictly for 99.9% uptime and bulletproof security.",
       badgeColor: "#0284c7",
       badgeBg: "#e0f2fe",
@@ -216,7 +212,7 @@ export default function App() {
       role: "Frontend Developer",
       name: "Lead Full-Stack Developer",
       field: "React.js, Next.js & TypeScript Systems",
-      image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=500&q=80",
+      image: "",
       badgeColor: "#0284c7",
       badgeBg: "#e0f2fe",
       borderColor: "#7dd3fc",
@@ -226,7 +222,7 @@ export default function App() {
       role: "Backend Developer",
       name: "Backend Systems Engineer",
       field: "Python, FastAPI & Relational Databases",
-      image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=500&q=80",
+      image: "",
       badgeColor: "#059669",
       badgeBg: "#d1fae5",
       borderColor: "#6ee7b7",
@@ -236,12 +232,11 @@ export default function App() {
       role: "Digital Marketing Specialist",
       name: "Digital Growth Strategist",
       field: "Performance Marketing, Ads & Technical SEO",
-      image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=500&q=80",
+      image: "",
       badgeColor: "#db2777",
       badgeBg: "#fce7f3",
       borderColor: "#f472b6",
       glowShadow: "rgba(244, 114, 182, 0.3)"
-    }
   ];
 
   const whatWeDoList = [
@@ -536,7 +531,7 @@ export default function App() {
                           <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', height: '100%' }}>
                             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', borderBottom: '1px solid #e2edf8', paddingBottom: '6px' }}>
                               <curr.icon size={22} color={curr.color} />
-                              <h4 style={{ margin: 0, fontSize: '0.98rem', color: '#1e1b4b', fontWeight: '800' }}>SMU {curr.title}</h4>
+                              <h4 style={{ margin: 0, fontSize: '0.98rem', color: '#1e293b', fontWeight: '800' }}>SMU {curr.title}</h4>
                             </div>
                             <p style={{ fontSize: '0.82rem', color: '#475569', lineHeight: '1.4', margin: 0 }}>{curr.desc}</p>
                             <div style={{ background: '#ffffff', padding: '8px', borderRadius: '8px', border: '1px solid #e0f2fe' }}>
@@ -591,119 +586,73 @@ export default function App() {
           {currentPage === 'home' && (
             <motion.div key="home-page">
 
-              {/* ==================== DIRECTIONAL GRADIENT SLIDESHOW (OPAQUE LEFT -> CLEAR PHOTO RIGHT) ==================== */}
-              <section style={{ position: 'relative', width: '100%', height: '520px', overflow: 'hidden', borderBottom: '1px solid #e2edf8' }}>
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={currentSlide}
-                    initial={{ opacity: 0, scale: 1.04 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.8 }}
-                    style={{
-                      position: 'absolute',
-                      top: 0,
-                      left: 0,
-                      width: '100%',
-                      height: '100%',
-                      backgroundImage: `linear-gradient(90deg, rgba(253, 242, 248, 0.98) 0%, rgba(250, 248, 242, 0.88) 35%, rgba(239, 246, 255, 0.20) 70%, rgba(255, 255, 255, 0) 100%), url(${slides[currentSlide].image})`,
-                      backgroundSize: 'cover',
-                      backgroundPosition: 'center right',
-                      display: 'flex',
-                      alignItems: 'center',
-                      padding: '0 clamp(1.5rem, 5vw, 4rem)',
-                      boxSizing: 'border-box'
-                    }}
-                  >
-                    <div style={{ maxWidth: '750px', zIndex: 2 }}>
+              {/* HERO BANNER (LIGHT PASTEL FROSTED) */}
+              <section style={{ position: 'relative', width: '100%', minHeight: '480px', overflow: 'hidden', background: 'linear-gradient(135deg, #fdf2f8 0%, #faf8f2 50%, #eff6ff 100%)', borderBottom: '1px solid #e2edf8', display: 'flex', alignItems: 'center' }}>
+                <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '4rem 1.5rem', width: '100%' }}>
+                  <div style={{ maxWidth: '800px' }}>
 
-                      {/* Soft Pastel Badge */}
-                      <motion.div
-                        initial={{ y: 15, opacity: 0 }}
-                        animate={{ y: 0, opacity: 1 }}
-                        transition={{ delay: 0.1 }}
-                        style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#ffffff', border: '1px solid #bfdbfe', padding: '6px 16px', borderRadius: '9999px', fontSize: '0.82rem', fontWeight: '800', color: '#0284c7', marginBottom: '1.2rem', boxShadow: '0 2px 8px rgba(191, 219, 254, 0.3)' }}
-                      >
-                        <Sparkles size={16} color="#0284c7" />
-                        <span>Enterprise Digital Engineering</span>
-                      </motion.div>
-
-                      {/* Animated Title */}
-                      <motion.h1
-                        initial={{ y: 20, opacity: 0 }}
-                        animate={{ y: 0, opacity: 1 }}
-                        transition={{ delay: 0.2 }}
-                        style={{ fontSize: 'clamp(2.2rem, 4vw, 3.4rem)', fontWeight: '900', color: '#1e293b', margin: '0 0 16px 0', lineHeight: '1.2', letterSpacing: '-0.02em' }}
-                      >
-                        {slides[currentSlide].title}
-                      </motion.h1>
-
-                      {/* Animated Subtitle */}
-                      <motion.p
-                        initial={{ y: 20, opacity: 0 }}
-                        animate={{ y: 0, opacity: 1 }}
-                        transition={{ delay: 0.35 }}
-                        style={{ fontSize: '1.1rem', color: '#475569', margin: '0 0 28px 0', lineHeight: '1.7', maxWidth: '650px' }}
-                      >
-                        {slides[currentSlide].subtitle}
-                      </motion.p>
-
-                      {/* Pastel Action Buttons */}
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '14px', flexWrap: 'wrap' }}>
-                        <motion.button
-                          initial={{ scale: 0.95, opacity: 0 }}
-                          animate={{ scale: 1, opacity: 1 }}
-                          transition={{ delay: 0.5 }}
-                          onClick={() => navigateTo('careers')}
-                          className="hover-btn"
-                          style={{
-                            background: 'linear-gradient(135deg, #dbeafe 0%, #ffffff 50%, #fce7f3 100%)',
-                            color: '#1e293b',
-                            border: '1px solid #bfdbfe',
-                            padding: '13px 26px',
-                            borderRadius: '12px',
-                            fontWeight: '800',
-                            fontSize: '0.95rem',
-                            cursor: 'pointer',
-                            display: 'inline-flex',
-                            alignItems: 'center',
-                            gap: '8px',
-                            boxShadow: '0 6px 18px rgba(191, 219, 254, 0.4)'
-                          }}
-                        >
-                          <span>Apply For Opportunities</span>
-                          <ArrowRight size={18} color="#0284c7" />
-                        </motion.button>
-
-                        <motion.button
-                          initial={{ scale: 0.95, opacity: 0 }}
-                          animate={{ scale: 1, opacity: 1 }}
-                          transition={{ delay: 0.6 }}
-                          onClick={() => setIsDeckOpen(true)}
-                          className="hover-btn"
-                          style={{
-                            background: '#ffffff',
-                            border: '1px solid #cbd5e1',
-                            color: '#334155',
-                            padding: '13px 22px',
-                            borderRadius: '12px',
-                            fontWeight: '700',
-                            fontSize: '0.95rem',
-                            cursor: 'pointer',
-                            display: 'inline-flex',
-                            alignItems: 'center',
-                            gap: '8px',
-                            boxShadow: '0 2px 8px rgba(0,0,0,0.03)'
-                          }}
-                        >
-                          <FileText size={18} color="#0284c7" />
-                          <span>View Corporate Deck</span>
-                        </motion.button>
-                      </div>
-
+                    {/* Badge */}
+                    <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#ffffff', border: '1px solid #bfdbfe', padding: '6px 16px', borderRadius: '9999px', fontSize: '0.82rem', fontWeight: '800', color: '#0284c7', marginBottom: '1.2rem', boxShadow: '0 2px 8px rgba(191, 219, 254, 0.3)' }}>
+                      <Sparkles size={16} color="#0284c7" />
+                      <span>Enterprise Digital Engineering</span>
                     </div>
-                  </motion.div>
-                </AnimatePresence>
+
+                    <h1 style={{ fontSize: 'clamp(2.2rem, 4vw, 3.4rem)', fontWeight: '900', color: '#1e293b', margin: '0 0 16px 0', lineHeight: '1.2', letterSpacing: '-0.02em' }}>
+                      {slides[currentSlide].title}
+                    </h1>
+                    <p style={{ fontSize: '1.1rem', color: '#475569', margin: '0 0 28px 0', lineHeight: '1.7', maxWidth: '680px' }}>
+                      {slides[currentSlide].subtitle}
+                    </p>
+
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '14px', flexWrap: 'wrap' }}>
+                      {/* Pastel Action Button 1 */}
+                      <button
+                        onClick={() => navigateTo('careers')}
+                        className="hover-btn"
+                        style={{
+                          background: 'linear-gradient(135deg, #dbeafe 0%, #ffffff 50%, #fce7f3 100%)',
+                          color: '#1e293b',
+                          border: '1px solid #bfdbfe',
+                          padding: '13px 26px',
+                          borderRadius: '12px',
+                          fontWeight: '800',
+                          fontSize: '0.95rem',
+                          cursor: 'pointer',
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '8px',
+                          boxShadow: '0 6px 18px rgba(191, 219, 254, 0.4)'
+                        }}
+                      >
+                        <span>Apply For Opportunities</span>
+                        <ArrowRight size={18} color="#0284c7" />
+                      </button>
+
+                      {/* Pastel Action Button 2 */}
+                      <button
+                        onClick={() => setIsDeckOpen(true)}
+                        className="hover-btn"
+                        style={{
+                          background: '#ffffff',
+                          border: '1px solid #cbd5e1',
+                          color: '#334155',
+                          padding: '13px 22px',
+                          borderRadius: '12px',
+                          fontWeight: '700',
+                          fontSize: '0.95rem',
+                          cursor: 'pointer',
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '8px',
+                          boxShadow: '0 2px 8px rgba(0,0,0,0.03)'
+                        }}
+                      >
+                        <FileText size={18} color="#0284c7" />
+                        <span>View Corporate Deck</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
               </section>
 
               {/* ABOUT US SECTION */}
@@ -800,7 +749,7 @@ export default function App() {
                 </div>
               </motion.section>
 
-              {/* ==================== LEADERSHIP & CORE TEAM SECTION ==================== */}
+              {/* ==================== LEADERSHIP & CORE TEAM SECTION (PASTEL BORDERS & EXTRA LARGE IMAGES) ==================== */}
               <motion.section id="team-and-testimonials" initial={{ opacity: 0, scale: 0.9, y: 40 }} whileInView={{ opacity: 1, scale: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} style={{ padding: '5.5rem 1.5rem', background: 'linear-gradient(180deg, #ffffff 0%, #faf8f5 100%)', borderTop: '1px solid #e2edf8', borderBottom: '1px solid #e2edf8' }}>
                 <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
 
@@ -1199,7 +1148,7 @@ export default function App() {
                     <div><label style={labelStyle}>Your Message *</label><textarea name="userMessage" rows="3" placeholder="Enter your message here..." required value={contactData.userMessage} onChange={handleContactInputChange} style={{ ...inputStyle, resize: 'vertical' }}></textarea></div>
                     {/* Pastel Blue/White Action Button */}
                     <button type="submit" disabled={isSubmitting} className="hover-btn" style={{ width: '100%', padding: '13px', borderRadius: '12px', border: '1px solid #bfdbfe', background: 'linear-gradient(135deg, #e0f2fe 0%, #ffffff 50%, #fce7f3 100%)', color: '#1e293b', fontWeight: '800', fontSize: '0.95rem', cursor: isSubmitting ? 'not-allowed' : 'pointer', boxShadow: '0 4px 14px rgba(191, 219, 254, 0.4)' }}>
-                      {isSubmitting ? 'Sending...' : 'Send Message'}
+                      {isSubmitting ? 'Sending Message...' : 'Send Inquiry Message'}
                     </button>
                   </form>
                 </div>
