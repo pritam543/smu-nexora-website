@@ -186,8 +186,7 @@ export default function App() {
   const leaders = [
     {
       title: "Founder",
-      name: "Sakshi Pare",
-      image: "/images/founder.jpg",
+      name: "founder.jpg",
       quote: "Our vision is to engineer resilient, high-speed digital platforms that accelerate client businesses while fostering next-generation IT engineering talent in Indore.",
       badgeColor: "#db2777",
       badgeBg: "#fce7f3",
