@@ -237,6 +237,7 @@ export default function App() {
       badgeBg: "#fce7f3",
       borderColor: "#f472b6",
       glowShadow: "rgba(244, 114, 182, 0.3)"
+    }
   ];
 
   const whatWeDoList = [
@@ -531,14 +532,14 @@ export default function App() {
                           <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', height: '100%' }}>
                             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', borderBottom: '1px solid #e2edf8', paddingBottom: '6px' }}>
                               <curr.icon size={22} color={curr.color} />
-                              <h4 style={{ margin: 0, fontSize: '0.98rem', color: '#1e293b', fontWeight: '800' }}>SMU {curr.title}</h4>
+                              <h4 style={{ margin: 0, fontSize: '0.98rem', color: '#1e1b4b', fontWeight: '800' }}>SMU {curr.title}</h4>
                             </div>
                             <p style={{ fontSize: '0.82rem', color: '#475569', lineHeight: '1.4', margin: 0 }}>{curr.desc}</p>
                             <div style={{ background: '#ffffff', padding: '8px', borderRadius: '8px', border: '1px solid #e0f2fe' }}>
                               <span style={{ fontSize: '0.72rem', fontWeight: '700', color: '#0284c7', display: 'block' }}>TECH STACK:</span>
                               <span style={{ fontSize: '0.75rem', color: '#334155' }}>{curr.techStack}</span>
                             </div>
-                            <button onClick={() => navigateTo('careers', curr.title)} className="hover-btn" style={{ marginTop: '4px', background: 'linear-gradient(135deg, #dbeafe 0%, #fce7f3 100%)', color: '#1e293b', border: '1px solid #bfdbfe', padding: '8px 12px', borderRadius: '8px', fontSize: '0.78rem', fontWeight: '700', cursor: 'pointer' }}>
+                            <button onClick={() => navigateTo('careers', curr.title)} className="hover-btn" style={{ marginTop: '4px', background: 'linear-gradient(135deg, #dbeafe 0%, #fce7f3 100%)', color: '#1e1b4b', border: '1px solid #bfdbfe', padding: '8px 12px', borderRadius: '8px', fontSize: '0.78rem', fontWeight: '700', cursor: 'pointer' }}>
                               Apply / Inquire For {curr.title}
                             </button>
                           </div>
@@ -835,7 +836,7 @@ export default function App() {
                     ))}
                   </div>
 
-                  {/* 2. CORE WORKING TEAM (EXTRA LARGE IMAGES: 145px x 145px WITH PASTEL BORDERS) */}
+                  {/* 2. CORE WORKING TEAM (SUBTLE 1.5PX BORDER & SOFT SHADOW) */}
                   <div>
                     <div style={{ textAlign: 'center', marginBottom: '2.8rem' }}>
                       <span style={{ fontSize: '0.85rem', color: '#0284c7', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.05em', background: '#e0f2fe', padding: '5px 18px', borderRadius: '9999px', border: '1px solid #bae6fd' }}>
@@ -862,8 +863,8 @@ export default function App() {
                           }}
                         >
                           <div>
-                            {/* EXTRA LARGE SQUAD IMAGE (145px x 145px) */}
-                            <div style={{ width: '145px', height: '145px', borderRadius: '50%', overflow: 'hidden', margin: '0 auto 1.5rem auto', border: `4px solid ${member.borderColor}`, boxShadow: `0 10px 22px ${member.glowShadow}` }}>
+                            {/* SQUAD IMAGE - LOW SUBTLE BORDER (1.5px) */}
+                            <div style={{ width: '145px', height: '145px', borderRadius: '50%', overflow: 'hidden', margin: '0 auto 1.5rem auto', border: `1.5px solid ${member.borderColor}`, boxShadow: `0 4px 14px ${member.glowShadow}` }}>
                               <img src={member.image} alt={member.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                             </div>
 
@@ -1012,7 +1013,7 @@ export default function App() {
                   </div>
 
                   <div className="hover-card" style={pastelCardStyle}>
-                    <h3 style={{ fontSize: '1.3rem', fontWeight: '800', color: '#1e1b4b', margin: '0 0 1rem 0' }}>Send Inquiry Message</h3>
+                    <h3 style={{ fontSize: '1.4rem', fontWeight: '800', color: '#1e1b4b', margin: '0 0 1rem 0' }}>Send Inquiry Message</h3>
                     <form onSubmit={handleContactSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                       <div>
                         <label style={labelStyle}>Your Full Name *</label>
@@ -1148,7 +1149,7 @@ export default function App() {
                     <div><label style={labelStyle}>Your Message *</label><textarea name="userMessage" rows="3" placeholder="Enter your message here..." required value={contactData.userMessage} onChange={handleContactInputChange} style={{ ...inputStyle, resize: 'vertical' }}></textarea></div>
                     {/* Pastel Blue/White Action Button */}
                     <button type="submit" disabled={isSubmitting} className="hover-btn" style={{ width: '100%', padding: '13px', borderRadius: '12px', border: '1px solid #bfdbfe', background: 'linear-gradient(135deg, #e0f2fe 0%, #ffffff 50%, #fce7f3 100%)', color: '#1e293b', fontWeight: '800', fontSize: '0.95rem', cursor: isSubmitting ? 'not-allowed' : 'pointer', boxShadow: '0 4px 14px rgba(191, 219, 254, 0.4)' }}>
-                      {isSubmitting ? 'Sending Message...' : 'Send Inquiry Message'}
+                      {isSubmitting ? 'Sending...' : 'Send Message'}
                     </button>
                   </form>
                 </div>
