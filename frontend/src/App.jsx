@@ -10,6 +10,10 @@ import {
 } from 'lucide-react';
 import CorporateDeck from './components/CorporateDeck';
 
+// PROPER ASSET IMPORTS FOR REACT
+import founderImg from './assets/founder.jpg';
+import coFounderImg from './assets/co-founder.jpg';
+
 export default function App() {
   const [currentPage, setCurrentPage] = useState('home');
   const [selectedDetail, setSelectedDetail] = useState(null);
@@ -187,7 +191,7 @@ export default function App() {
     {
       title: "Founder",
       name: "Sakshi Pare",
-      image: "/images/founder.jpg",  // <-- Exact yahi path likhna hai
+      image: founderImg, // Imported asset variable
       quote: "Our vision is to engineer resilient, high-speed digital platforms that accelerate client businesses while fostering next-generation IT engineering talent in Indore.",
       badgeColor: "#db2777",
       badgeBg: "#fce7f3",
@@ -197,7 +201,7 @@ export default function App() {
     {
       title: "Co-Founder",
       name: "Technical Co-Founder",
-      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80",
+      image: coFounderImg, // Imported asset variable
       quote: "We architect decoupled, asynchronous microservices and conversion-focused web systems engineered strictly for 99.9% uptime and bulletproof security.",
       badgeColor: "#0284c7",
       badgeBg: "#e0f2fe",
@@ -532,7 +536,7 @@ export default function App() {
                           <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', height: '100%' }}>
                             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', borderBottom: '1px solid #e2edf8', paddingBottom: '6px' }}>
                               <curr.icon size={22} color={curr.color} />
-                              <h4 style={{ margin: 0, fontSize: '0.98rem', color: '#1e293b', fontWeight: '800' }}>SMU {curr.title}</h4>
+                              <h4 style={{ margin: 0, fontSize: '0.98rem', color: '#1e1b4b', fontWeight: '800' }}>SMU {curr.title}</h4>
                             </div>
                             <p style={{ fontSize: '0.82rem', color: '#475569', lineHeight: '1.4', margin: 0 }}>{curr.desc}</p>
                             <div style={{ background: '#ffffff', padding: '8px', borderRadius: '8px', border: '1px solid #e0f2fe' }}>
@@ -602,7 +606,7 @@ export default function App() {
                       left: 0,
                       width: '100%',
                       height: '100%',
-                      backgroundImage: `linear-gradient(90deg, rgba(253, 242, 248, 0.98) 0%, rgba(250, 248, 242, 0.90) 35%, rgba(239, 246, 255, 0.30) 70%, rgba(255, 255, 255, 0.05) 100%), url(${slides[currentSlide].image})`,
+                      backgroundImage: `linear-gradient(90deg, rgba(253, 242, 248, 0.98) 0%, rgba(250, 248, 242, 0.88) 35%, rgba(239, 246, 255, 0.20) 70%, rgba(255, 255, 255, 0) 100%), url(${slides[currentSlide].image})`,
                       backgroundSize: 'cover',
                       backgroundPosition: 'center right',
                       display: 'flex',
@@ -1059,7 +1063,7 @@ export default function App() {
                   </div>
 
                   <div className="hover-card" style={pastelCardStyle}>
-                    <h3 style={{ fontSize: '1.4rem', fontWeight: '800', color: '#1e1b4b', margin: '0 0 1rem 0' }}>Send Inquiry Message</h3>
+                    <h3 style={{ fontSize: '1.3rem', fontWeight: '800', color: '#1e1b4b', margin: '0 0 1rem 0' }}>Send Inquiry Message</h3>
                     <form onSubmit={handleContactSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                       <div>
                         <label style={labelStyle}>Your Full Name *</label>
