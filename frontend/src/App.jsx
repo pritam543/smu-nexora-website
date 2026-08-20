@@ -123,14 +123,15 @@ export default function App() {
     return () => clearInterval(interval);
   }, [slides.length]);
 
-  // EXACT 5 CORE FIELDS (3 TOP + 2 BOTTOM CENTERED)
+  // EXACT 5 CORE FIELDS (3 TOP + 2 BOTTOM CENTERED) - PASTEL PALETTE
   const fields = [
     {
       id: 'web-dev',
       title: "Web & Game Development",
       icon: Globe,
-      color: "#3b82f6",
-      pastelBg: "#dbeafe",
+      color: "#0284c7",
+      pastelBg: "#e0f2fe",
+      borderGlow: "#bae6fd",
       desc: "Engineered scalable web applications, client dashboards, and interactive gaming experiences.",
       techStack: "React, Next.js, Node.js, Unity, WebGL, TypeScript",
       businessImpact: "Accelerates conversion rates, handles high concurrent traffic, and ensures 99.9% uptime."
@@ -139,8 +140,9 @@ export default function App() {
       id: 'cyber-security',
       title: "Cyber Security & Auditing",
       icon: ShieldCheck,
-      color: "#ec4899",
+      color: "#db2777",
       pastelBg: "#fce7f3",
+      borderGlow: "#fbcfe8",
       desc: "Vulnerability assessments, penetration testing, and end-to-end data encryption protocols.",
       techStack: "Kali Linux, Wireshark, OWASP Protocols, Encrypted DBs",
       businessImpact: "Safeguards intellectual property and critical customer financial records."
@@ -151,6 +153,7 @@ export default function App() {
       icon: Megaphone,
       color: "#d97706",
       pastelBg: "#fef3c7",
+      borderGlow: "#fde68a",
       desc: "Performance marketing, technical on-page SEO, and brand ROI conversion strategies.",
       techStack: "Google Analytics 4, SEMrush, Meta Ads Manager, Ahrefs",
       businessImpact: "Drives organic lead acquisition and lowers Customer Acquisition Cost (CAC)."
@@ -159,8 +162,9 @@ export default function App() {
       id: 'e-commerce',
       title: "E-Commerce Systems",
       icon: ShoppingCart,
-      color: "#10b981",
+      color: "#059669",
       pastelBg: "#d1fae5",
+      borderGlow: "#a7f3d0",
       desc: "High-converting Shopify Plus stores and custom headless marketplace architectures.",
       techStack: "Shopify Plus, Liquid, WooCommerce, Stripe / Razorpay",
       businessImpact: "Boosts online checkout conversions with frictionless mobile payment flows."
@@ -169,43 +173,50 @@ export default function App() {
       id: 'consulting',
       title: "IT Strategic Consulting",
       icon: Code2,
-      color: "#0284c7",
-      pastelBg: "#e0f2fe",
+      color: "#2563eb",
+      pastelBg: "#dbeafe",
+      borderGlow: "#bfdbfe",
       desc: "Modernizing legacy architectures and defining digital product technical roadmaps.",
       techStack: "System Design Blueprints, Modular APIs, Legacy Refactoring",
       businessImpact: "Aligns software engineering roadmaps directly with core business revenue goals."
     }
   ];
 
-  // 1. FOUNDER & CO-FOUNDER (DISTINCT CARDS - IMAGE -> TITLE -> NAME)
+  // 1. FOUNDER & CO-FOUNDER (PASTEL PINK & POWDER BLUE BORDERS)
   const leaders = [
     {
       title: "Founder",
       name: "Sakshi Pare",
       image: "/images/founder.jpg",
       quote: "Our vision is to engineer resilient, high-speed digital platforms that accelerate client businesses while fostering next-generation IT engineering talent in Indore.",
-      badgeColor: "#2563eb",
-      badgeBg: "#dbeafe"
+      badgeColor: "#db2777",
+      badgeBg: "#fce7f3",
+      borderColor: "#f472b6",
+      glowShadow: "rgba(244, 114, 182, 0.35)"
     },
     {
       title: "Co-Founder",
       name: "Technical Co-Founder",
       image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80",
       quote: "We architect decoupled, asynchronous microservices and conversion-focused web systems engineered strictly for 99.9% uptime and bulletproof security.",
-      badgeColor: "#db2777",
-      badgeBg: "#fce7f3"
+      badgeColor: "#0284c7",
+      badgeBg: "#e0f2fe",
+      borderColor: "#38bdf8",
+      glowShadow: "rgba(56, 189, 248, 0.35)"
     }
   ];
 
-  // 2. WORKING SQUAD (DEVELOPER, BACKEND DEVELOPER, DIGITAL MARKETING)
+  // 2. WORKING SQUAD (PASTEL BORDERS & EXTRA LARGE PHOTOS)
   const teamMembers = [
     {
       role: "Frontend Developer",
       name: "Lead Full-Stack Developer",
       field: "React.js, Next.js & TypeScript Systems",
       image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=500&q=80",
-      badgeColor: "#2563eb",
-      badgeBg: "#dbeafe"
+      badgeColor: "#0284c7",
+      badgeBg: "#e0f2fe",
+      borderColor: "#7dd3fc",
+      glowShadow: "rgba(125, 211, 252, 0.3)"
     },
     {
       role: "Backend Developer",
@@ -213,7 +224,9 @@ export default function App() {
       field: "Python, FastAPI & Relational Databases",
       image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=500&q=80",
       badgeColor: "#059669",
-      badgeBg: "#d1fae5"
+      badgeBg: "#d1fae5",
+      borderColor: "#6ee7b7",
+      glowShadow: "rgba(110, 231, 183, 0.3)"
     },
     {
       role: "Digital Marketing Specialist",
@@ -221,7 +234,9 @@ export default function App() {
       field: "Performance Marketing, Ads & Technical SEO",
       image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=500&q=80",
       badgeColor: "#db2777",
-      badgeBg: "#fce7f3"
+      badgeBg: "#fce7f3",
+      borderColor: "#f472b6",
+      glowShadow: "rgba(244, 114, 182, 0.3)"
     }
   ];
 
@@ -328,8 +343,8 @@ export default function App() {
     }
   };
 
-  // Pure Pastel Color Blend (Light Pink -> Off-White Cream -> Light Blue)
-  const pastelMainBg = "linear-gradient(135deg, #fdf2f8 0%, #faf8f5 45%, #eff6ff 100%)";
+  // Pure Pastel Palette from User's Image
+  const pastelMainBg = "linear-gradient(135deg, #fdf2f8 0%, #faf8f2 50%, #eff6ff 100%)";
 
   return (
     <div style={{ background: pastelMainBg, color: '#1e293b', minHeight: '100vh', fontFamily: "'Plus Jakarta Sans', 'Inter', system-ui, sans-serif", position: 'relative', overflowX: 'hidden' }}>
@@ -362,8 +377,8 @@ export default function App() {
         }
         .hover-card:hover {
           transform: translateY(-6px) !important;
-          box-shadow: 0 16px 32px rgba(186, 230, 253, 0.4) !important;
-          border-color: #bfdbfe !important;
+          box-shadow: 0 16px 32px rgba(186, 230, 253, 0.45) !important;
+          border-color: #bae6fd !important;
         }
 
         .hover-btn {
@@ -448,7 +463,7 @@ export default function App() {
       `}</style>
 
       {/* FIXED NAV BAR (PASTEL FROSTED) */}
-      <nav style={{ position: 'fixed', top: 0, left: 0, width: '100%', zIndex: 1000, backgroundColor: 'rgba(255, 255, 255, 0.92)', backdropFilter: 'blur(16px)', borderBottom: '1px solid #e2edf8', padding: '0.8rem 1.5rem', boxSizing: 'border-box' }}>
+      <nav style={{ position: 'fixed', top: 0, left: 0, width: '100%', zIndex: 1000, backgroundColor: 'rgba(255, 255, 255, 0.94)', backdropFilter: 'blur(16px)', borderBottom: '1px solid #e2edf8', padding: '0.8rem 1.5rem', boxSizing: 'border-box' }}>
         <div style={{ maxWidth: '1300px', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap' }}>
 
           {/* Company Logo & Title */}
@@ -539,7 +554,7 @@ export default function App() {
             <button onClick={() => navigateTo('careers')} className="nav-btn-hover" style={navLinkStyle}>Careers</button>
             <button onClick={() => navigateTo('contact')} className="nav-btn-hover" style={navLinkStyle}>Contact Us</button>
 
-            {/* Corporate Deck Action Button (Light Blue / White Frosted) */}
+            {/* Corporate Deck Action Button (Pastel Frosted) */}
             <button
               onClick={() => { setIsDeckOpen(true); setMobileMenuOpen(false); }}
               className="hover-btn"
@@ -572,27 +587,73 @@ export default function App() {
           {currentPage === 'home' && (
             <motion.div key="home-page">
 
-              {/* HERO BANNER SLIDESHOW */}
-              <section style={{ position: 'relative', width: '100%', height: '480px', overflow: 'hidden', background: '#1e293b' }}>
-                <AnimatePresence mode="wait">
-                  <motion.div key={currentSlide} initial={{ opacity: 0, scale: 1.04 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.8 }} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', backgroundImage: `linear-gradient(to right, rgba(15, 23, 42, 0.88), rgba(15, 23, 42, 0.45)), url(${slides[currentSlide].image})`, backgroundSize: 'cover', backgroundPosition: 'center', display: 'flex', alignItems: 'center', padding: '0 clamp(1.5rem, 5vw, 4rem)' }}>
-                    <div style={{ maxWidth: '750px', zIndex: 2, color: '#ffffff' }}>
-                      <motion.h1 initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.2 }} style={{ fontSize: 'clamp(2rem, 3.8vw, 3.2rem)', fontWeight: '900', margin: '0 0 12px 0', lineHeight: '1.2' }}>{slides[currentSlide].title}</motion.h1>
-                      <motion.p initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.4 }} style={{ fontSize: '1.1rem', color: '#e2e8f0', margin: '0 0 24px 0', lineHeight: '1.6' }}>{slides[currentSlide].subtitle}</motion.p>
+              {/* HERO BANNER (LIGHT PASTEL FROSTED) */}
+              <section style={{ position: 'relative', width: '100%', minHeight: '480px', overflow: 'hidden', background: 'linear-gradient(135deg, #fdf2f8 0%, #faf8f2 50%, #eff6ff 100%)', borderBottom: '1px solid #e2edf8', display: 'flex', alignItems: 'center' }}>
+                <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '4rem 1.5rem', width: '100%' }}>
+                  <div style={{ maxWidth: '800px' }}>
 
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
-                        {/* Light Blue / White Pastel Primary Button */}
-                        <motion.button initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ delay: 0.6 }} onClick={() => navigateTo('careers')} className="hover-btn" style={{ background: 'linear-gradient(135deg, #e0f2fe 0%, #ffffff 50%, #fce7f3 100%)', color: '#1e293b', border: '1px solid #ffffff', padding: '13px 26px', borderRadius: '12px', fontWeight: '800', fontSize: '0.95rem', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: '8px', boxShadow: '0 8px 20px rgba(0,0,0,0.15)' }}>
-                          <span>Apply For Opportunities</span><ArrowRight size={18} color="#0284c7" />
-                        </motion.button>
-
-                        <motion.button initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ delay: 0.7 }} onClick={() => setIsDeckOpen(true)} className="hover-btn" style={{ background: 'rgba(255, 255, 255, 0.18)', backdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.4)', color: '#fff', padding: '13px 22px', borderRadius: '12px', fontWeight: '700', fontSize: '0.95rem', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
-                          <FileText size={18} /><span>View Corporate Deck</span>
-                        </motion.button>
-                      </div>
+                    {/* Badge */}
+                    <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#ffffff', border: '1px solid #bfdbfe', padding: '6px 16px', borderRadius: '9999px', fontSize: '0.82rem', fontWeight: '800', color: '#0284c7', marginBottom: '1.2rem', boxShadow: '0 2px 8px rgba(191, 219, 254, 0.3)' }}>
+                      <Sparkles size={16} color="#0284c7" />
+                      <span>Enterprise Digital Engineering</span>
                     </div>
-                  </motion.div>
-                </AnimatePresence>
+
+                    <h1 style={{ fontSize: 'clamp(2.2rem, 4vw, 3.4rem)', fontWeight: '900', color: '#1e293b', margin: '0 0 16px 0', lineHeight: '1.2', letterSpacing: '-0.02em' }}>
+                      {slides[currentSlide].title}
+                    </h1>
+                    <p style={{ fontSize: '1.1rem', color: '#475569', margin: '0 0 28px 0', lineHeight: '1.7', maxWidth: '680px' }}>
+                      {slides[currentSlide].subtitle}
+                    </p>
+
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '14px', flexWrap: 'wrap' }}>
+                      {/* Pastel Action Button 1 */}
+                      <button
+                        onClick={() => navigateTo('careers')}
+                        className="hover-btn"
+                        style={{
+                          background: 'linear-gradient(135deg, #dbeafe 0%, #ffffff 50%, #fce7f3 100%)',
+                          color: '#1e293b',
+                          border: '1px solid #bfdbfe',
+                          padding: '13px 26px',
+                          borderRadius: '12px',
+                          fontWeight: '800',
+                          fontSize: '0.95rem',
+                          cursor: 'pointer',
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '8px',
+                          boxShadow: '0 6px 18px rgba(191, 219, 254, 0.4)'
+                        }}
+                      >
+                        <span>Apply For Opportunities</span>
+                        <ArrowRight size={18} color="#0284c7" />
+                      </button>
+
+                      {/* Pastel Action Button 2 */}
+                      <button
+                        onClick={() => setIsDeckOpen(true)}
+                        className="hover-btn"
+                        style={{
+                          background: '#ffffff',
+                          border: '1px solid #cbd5e1',
+                          color: '#334155',
+                          padding: '13px 22px',
+                          borderRadius: '12px',
+                          fontWeight: '700',
+                          fontSize: '0.95rem',
+                          cursor: 'pointer',
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '8px',
+                          boxShadow: '0 2px 8px rgba(0,0,0,0.03)'
+                        }}
+                      >
+                        <FileText size={18} color="#0284c7" />
+                        <span>View Corporate Deck</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
               </section>
 
               {/* ABOUT US SECTION */}
@@ -601,7 +662,7 @@ export default function App() {
                   <span style={{ fontSize: '0.85rem', color: '#0284c7', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.05em', background: '#e0f2fe', padding: '5px 16px', borderRadius: '9999px', border: '1px solid #bae6fd' }}>
                     Corporate Profile & Values
                   </span>
-                  <h2 style={{ fontSize: '2.4rem', fontWeight: '900', margin: '10px 0 0 0', color: '#1e293b' }}>
+                  <h2 style={{ fontSize: '2.4rem', fontWeight: '900', margin: '10px 0 0 0', color: '#1e1b4b' }}>
                     About SMU Nexora Technologies
                   </h2>
                   <p style={{ color: '#64748b', fontSize: '1rem', marginTop: '6px', maxWidth: '650px', margin: '6px auto 0 auto' }}>
@@ -616,7 +677,7 @@ export default function App() {
                       <Laptop size={26} color="#0284c7" />
                     </div>
                     <div>
-                      <h3 style={{ fontSize: '1.4rem', fontWeight: '800', color: '#1e293b', margin: 0 }}>Engineering Tomorrow's Platforms Today</h3>
+                      <h3 style={{ fontSize: '1.4rem', fontWeight: '800', color: '#1e1b4b', margin: 0 }}>Engineering Tomorrow's Platforms Today</h3>
                       <span style={{ fontSize: '0.82rem', color: '#0284c7', fontWeight: '700' }}>Headquartered in Indore, Madhya Pradesh</span>
                     </div>
                   </div>
@@ -631,7 +692,7 @@ export default function App() {
                     <div style={{ width: '42px', height: '42px', borderRadius: '12px', background: '#e0f2fe', color: '#0284c7', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1rem' }}>
                       <Code2 size={22} />
                     </div>
-                    <h4 style={{ fontSize: '1.15rem', fontWeight: '800', color: '#1e293b', margin: '0 0 6px 0' }}>Modern Engineering</h4>
+                    <h4 style={{ fontSize: '1.15rem', fontWeight: '800', color: '#1e1b4b', margin: '0 0 6px 0' }}>Modern Engineering</h4>
                     <p style={{ fontSize: '0.86rem', color: '#475569', lineHeight: '1.6', margin: 0 }}>
                       Clean, modular React & Python FastAPI architectures built for low-latency non-blocking performance.
                     </p>
@@ -641,7 +702,7 @@ export default function App() {
                     <div style={{ width: '42px', height: '42px', borderRadius: '12px', background: '#d1fae5', color: '#059669', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1rem' }}>
                       <Zap size={22} />
                     </div>
-                    <h4 style={{ fontSize: '1.15rem', fontWeight: '800', color: '#1e293b', margin: '0 0 6px 0' }}>Agile Sprint Delivery</h4>
+                    <h4 style={{ fontSize: '1.15rem', fontWeight: '800', color: '#1e1b4b', margin: '0 0 6px 0' }}>Agile Sprint Delivery</h4>
                     <p style={{ fontSize: '0.86rem', color: '#475569', lineHeight: '1.6', margin: 0 }}>
                       Two-week milestone sprints with transparent client demos, real-time code staging, and on-time launches.
                     </p>
@@ -651,7 +712,7 @@ export default function App() {
                     <div style={{ width: '42px', height: '42px', borderRadius: '12px', background: '#fce7f3', color: '#db2777', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1rem' }}>
                       <Lock size={22} />
                     </div>
-                    <h4 style={{ fontSize: '1.15rem', fontWeight: '800', color: '#1e293b', margin: '0 0 6px 0' }}>Security & Compliance</h4>
+                    <h4 style={{ fontSize: '1.15rem', fontWeight: '800', color: '#1e1b4b', margin: '0 0 6px 0' }}>Security & Compliance</h4>
                     <p style={{ fontSize: '0.86rem', color: '#475569', lineHeight: '1.6', margin: 0 }}>
                       Parameterized SQL abstractions, HTTPS transport protection, and strict OWASP top-10 mitigation.
                     </p>
@@ -661,7 +722,7 @@ export default function App() {
                     <div style={{ width: '42px', height: '42px', borderRadius: '12px', background: '#e0f2fe', color: '#0284c7', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1rem' }}>
                       <Users size={22} />
                     </div>
-                    <h4 style={{ fontSize: '1.15rem', fontWeight: '800', color: '#1e293b', margin: '0 0 6px 0' }}>Talent Incubation</h4>
+                    <h4 style={{ fontSize: '1.15rem', fontWeight: '800', color: '#1e1b4b', margin: '0 0 6px 0' }}>Talent Incubation</h4>
                     <p style={{ fontSize: '0.86rem', color: '#475569', lineHeight: '1.6', margin: 0 }}>
                       Structured mentorship programs for junior developers and students to gain hands-on production experience.
                     </p>
@@ -689,7 +750,7 @@ export default function App() {
                 </div>
               </motion.section>
 
-              {/* ==================== LEADERSHIP & CORE TEAM SECTION (PASTEL LIGHT) ==================== */}
+              {/* ==================== LEADERSHIP & CORE TEAM SECTION (PASTEL BORDERS & EXTRA LARGE IMAGES) ==================== */}
               <motion.section id="team-and-testimonials" initial={{ opacity: 0, scale: 0.9, y: 40 }} whileInView={{ opacity: 1, scale: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} style={{ padding: '5.5rem 1.5rem', background: 'linear-gradient(180deg, #ffffff 0%, #faf8f5 100%)', borderTop: '1px solid #e2edf8', borderBottom: '1px solid #e2edf8' }}>
                 <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
 
@@ -698,7 +759,7 @@ export default function App() {
                     <span style={{ fontSize: '0.85rem', color: '#0284c7', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.05em', background: '#e0f2fe', padding: '5px 16px', borderRadius: '9999px', border: '1px solid #bae6fd' }}>
                       Leadership & Execution Team
                     </span>
-                    <h2 style={{ fontSize: '2.5rem', fontWeight: '900', margin: '12px 0 0 0', color: '#1e293b' }}>
+                    <h2 style={{ fontSize: '2.5rem', fontWeight: '900', margin: '12px 0 0 0', color: '#1e1b4b' }}>
                       Client Testimonial
                     </h2>
                     <p style={{ color: '#64748b', fontSize: '0.95rem', marginTop: '6px', maxWidth: '600px', margin: '6px auto 0 auto' }}>
@@ -706,7 +767,7 @@ export default function App() {
                     </p>
                   </div>
 
-                  {/* 1. FOUNDER & CO-FOUNDER (DISTINCT CARDS - IMAGE -> TITLE -> NAME) */}
+                  {/* 1. FOUNDER & CO-FOUNDER (EXTRA LARGE IMAGES WITH PASTEL BORDERS) */}
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: '2.5rem', marginBottom: '4.5rem' }}>
                     {leaders.map((leader, idx) => (
                       <div
@@ -714,7 +775,7 @@ export default function App() {
                         className="hover-card"
                         style={{
                           ...pastelCardStyle,
-                          border: `1.5px solid ${leader.badgeColor}30`,
+                          border: `1.5px solid ${leader.borderColor}40`,
                           background: 'linear-gradient(135deg, #ffffff 0%, #faf8f5 50%, #f0f7ff 100%)',
                           borderRadius: '26px',
                           padding: '2.8rem 2.2rem',
@@ -734,7 +795,7 @@ export default function App() {
                           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', marginBottom: '1.6rem' }}>
 
                             {/* EXTRA LARGE PROFILE PHOTO (175px x 175px) */}
-                            <div style={{ width: '175px', height: '175px', borderRadius: '50%', overflow: 'hidden', border: `4px solid ${leader.badgeColor}`, boxShadow: `0 12px 28px ${leader.badgeColor}25`, marginBottom: '16px', background: '#f8fafc' }}>
+                            <div style={{ width: '175px', height: '175px', borderRadius: '50%', overflow: 'hidden', border: `4px solid ${leader.borderColor}`, boxShadow: `0 12px 28px ${leader.glowShadow}`, marginBottom: '16px', background: '#f8fafc' }}>
                               <img
                                 src={leader.image}
                                 alt={leader.name}
@@ -743,12 +804,12 @@ export default function App() {
                             </div>
 
                             {/* 1. Title: Founder / Co-Founder */}
-                            <div style={{ fontSize: '0.92rem', fontWeight: '800', color: leader.badgeColor, background: leader.badgeBg, padding: '5px 18px', borderRadius: '9999px', display: 'inline-block', border: `1px solid ${leader.badgeColor}25`, marginBottom: '6px' }}>
+                            <div style={{ fontSize: '0.92rem', fontWeight: '800', color: leader.badgeColor, background: leader.badgeBg, padding: '5px 18px', borderRadius: '9999px', display: 'inline-block', border: `1px solid ${leader.borderColor}50`, marginBottom: '6px' }}>
                               {leader.title}
                             </div>
 
                             {/* 2. Name */}
-                            <h3 style={{ fontSize: '1.5rem', fontWeight: '900', color: '#1e293b', margin: '4px 0 0 0' }}>
+                            <h3 style={{ fontSize: '1.5rem', fontWeight: '900', color: '#1e1b4b', margin: '4px 0 0 0' }}>
                               {leader.name}
                             </h3>
                           </div>
@@ -757,7 +818,7 @@ export default function App() {
                             {[...Array(5)].map((_, i) => (
                               <Star key={i} size={16} fill="#f59e0b" />
                             ))}
-                            <span style={{ fontSize: '0.82rem', fontWeight: '800', color: '#1e293b', marginLeft: '6px' }}>Executive Perspective</span>
+                            <span style={{ fontSize: '0.82rem', fontWeight: '800', color: '#1e1b4b', marginLeft: '6px' }}>Executive Perspective</span>
                           </div>
 
                           <p style={{ fontSize: '0.96rem', color: '#475569', lineHeight: '1.8', fontStyle: 'italic', margin: 0, textAlign: 'center' }}>
@@ -775,7 +836,7 @@ export default function App() {
                     ))}
                   </div>
 
-                  {/* 2. CORE WORKING TEAM (EXTRA LARGE IMAGES: 145px x 145px) */}
+                  {/* 2. CORE WORKING TEAM (EXTRA LARGE IMAGES: 145px x 145px WITH PASTEL BORDERS) */}
                   <div>
                     <div style={{ textAlign: 'center', marginBottom: '2.8rem' }}>
                       <span style={{ fontSize: '0.85rem', color: '#0284c7', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.05em', background: '#e0f2fe', padding: '5px 18px', borderRadius: '9999px', border: '1px solid #bae6fd' }}>
@@ -793,7 +854,7 @@ export default function App() {
                             padding: '2.6rem 2rem',
                             textAlign: 'center',
                             borderRadius: '24px',
-                            border: '1px solid #e2edf8',
+                            border: `1px solid ${member.borderColor}40`,
                             background: '#ffffff',
                             display: 'flex',
                             flexDirection: 'column',
@@ -803,17 +864,17 @@ export default function App() {
                         >
                           <div>
                             {/* EXTRA LARGE SQUAD IMAGE (145px x 145px) */}
-                            <div style={{ width: '145px', height: '145px', borderRadius: '50%', overflow: 'hidden', margin: '0 auto 1.5rem auto', border: `4px solid ${member.badgeColor}`, boxShadow: `0 10px 22px ${member.badgeColor}20` }}>
+                            <div style={{ width: '145px', height: '145px', borderRadius: '50%', overflow: 'hidden', margin: '0 auto 1.5rem auto', border: `4px solid ${member.borderColor}`, boxShadow: `0 10px 22px ${member.glowShadow}` }}>
                               <img src={member.image} alt={member.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                             </div>
 
                             {/* Role Title */}
-                            <div style={{ fontSize: '0.84rem', fontWeight: '800', color: member.badgeColor, background: member.badgeBg, padding: '4px 14px', borderRadius: '9999px', display: 'inline-block', marginBottom: '8px', border: `1px solid ${member.badgeColor}20` }}>
+                            <div style={{ fontSize: '0.84rem', fontWeight: '800', color: member.badgeColor, background: member.badgeBg, padding: '4px 14px', borderRadius: '9999px', display: 'inline-block', marginBottom: '8px', border: `1px solid ${member.borderColor}50` }}>
                               {member.role}
                             </div>
 
                             {/* Member Name */}
-                            <h4 style={{ fontSize: '1.25rem', fontWeight: '900', color: '#1e293b', margin: '0 0 6px 0' }}>
+                            <h4 style={{ fontSize: '1.25rem', fontWeight: '900', color: '#1e1b4b', margin: '0 0 6px 0' }}>
                               {member.name}
                             </h4>
 
@@ -841,7 +902,7 @@ export default function App() {
                     <span style={{ fontSize: '0.85rem', color: '#0284c7', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.05em', background: '#e0f2fe', padding: '5px 16px', borderRadius: '9999px', border: '1px solid #bae6fd' }}>
                       Client IT Services
                     </span>
-                    <h2 style={{ fontSize: '2.4rem', fontWeight: '900', margin: '12px 0 0 0', color: '#1e293b' }}>
+                    <h2 style={{ fontSize: '2.4rem', fontWeight: '900', margin: '12px 0 0 0', color: '#1e1b4b' }}>
                       Core Technology Domains
                     </h2>
                     <p style={{ color: '#64748b', fontSize: '0.95rem', marginTop: '6px', maxWidth: '600px', margin: '6px auto 0 auto' }}>
@@ -860,17 +921,17 @@ export default function App() {
                           display: 'flex',
                           flexDirection: 'column',
                           justifyContent: 'space-between',
-                          border: '1px solid #dbeafe',
+                          border: `1px solid ${field.borderGlow}`,
                           background: '#ffffff',
                           borderRadius: '22px',
                           padding: '2rem'
                         }}
                       >
                         <div>
-                          <div style={{ width: '48px', height: '48px', borderRadius: '14px', background: field.pastelBg, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1.2rem', border: `1px solid ${field.color}25` }}>
+                          <div style={{ width: '48px', height: '48px', borderRadius: '14px', background: field.pastelBg, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1.2rem', border: `1px solid ${field.borderGlow}` }}>
                             <field.icon size={24} color={field.color} />
                           </div>
-                          <h3 style={{ fontSize: '1.2rem', margin: '0 0 8px 0', color: '#1e293b', fontWeight: '800' }}>
+                          <h3 style={{ fontSize: '1.2rem', margin: '0 0 8px 0', color: '#1e1b4b', fontWeight: '800' }}>
                             {field.title}
                           </h3>
                           <p style={{ fontSize: '0.88rem', color: '#475569', margin: 0, lineHeight: '1.6' }}>
@@ -914,12 +975,12 @@ export default function App() {
                   <span style={{ fontSize: '0.85rem', color: '#0284c7', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.05em', background: '#e0f2fe', padding: '5px 16px', borderRadius: '9999px', border: '1px solid #bae6fd' }}>
                     Quick Connect
                   </span>
-                  <h2 style={{ fontSize: '2.2rem', fontWeight: '800', margin: '8px 0 0 0', color: '#1e293b' }}>Get In Touch With SMU Nexora</h2>
+                  <h2 style={{ fontSize: '2.2rem', fontWeight: '800', margin: '8px 0 0 0', color: '#1e1b4b' }}>Get In Touch With SMU Nexora</h2>
                 </div>
 
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '2rem' }}>
                   <div className="hover-card" style={pastelCardStyle}>
-                    <h3 style={{ fontSize: '1.3rem', fontWeight: '800', color: '#1e293b', margin: '0 0 1.2rem 0' }}>Connect On Social Media</h3>
+                    <h3 style={{ fontSize: '1.3rem', fontWeight: '800', color: '#1e1b4b', margin: '0 0 1.2rem 0' }}>Connect On Social Media</h3>
                     <p style={{ color: '#475569', fontSize: '0.92rem', lineHeight: '1.6', marginBottom: '1.5rem' }}>
                       Have a project query or internship doubt? Contact us directly via WhatsApp, Instagram, or Email.
                     </p>
@@ -929,7 +990,7 @@ export default function App() {
                         <MessageCircle size={22} color="#25D366" />
                         <div>
                           <span style={{ display: 'block', fontSize: '0.78rem', color: '#64748b' }}>WhatsApp / Call</span>
-                          <span style={{ fontSize: '0.92rem', fontWeight: '700', color: '#1e293b' }}>8435299100</span>
+                          <span style={{ fontSize: '0.92rem', fontWeight: '700', color: '#1e1b4b' }}>8435299100</span>
                         </div>
                       </a>
 
@@ -937,7 +998,7 @@ export default function App() {
                         <Camera size={22} color="#E1306C" />
                         <div>
                           <span style={{ display: 'block', fontSize: '0.78rem', color: '#64748b' }}>Instagram Handle</span>
-                          <span style={{ fontSize: '0.92rem', fontWeight: '700', color: '#1e293b' }}>@smunextech</span>
+                          <span style={{ fontSize: '0.92rem', fontWeight: '700', color: '#1e1b4b' }}>@smunextech</span>
                         </div>
                       </a>
 
@@ -945,14 +1006,14 @@ export default function App() {
                         <Mail size={22} color="#0284c7" />
                         <div>
                           <span style={{ display: 'block', fontSize: '0.78rem', color: '#64748b' }}>Official Support Email</span>
-                          <span style={{ fontSize: '0.92rem', fontWeight: '700', color: '#1e293b' }}>smunextech@gmail.com</span>
+                          <span style={{ fontSize: '0.92rem', fontWeight: '700', color: '#1e1b4b' }}>smunextech@gmail.com</span>
                         </div>
                       </a>
                     </div>
                   </div>
 
                   <div className="hover-card" style={pastelCardStyle}>
-                    <h3 style={{ fontSize: '1.3rem', fontWeight: '800', color: '#1e293b', margin: '0 0 1rem 0' }}>Send Inquiry Message</h3>
+                    <h3 style={{ fontSize: '1.3rem', fontWeight: '800', color: '#1e1b4b', margin: '0 0 1rem 0' }}>Send Inquiry Message</h3>
                     <form onSubmit={handleContactSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                       <div>
                         <label style={labelStyle}>Your Full Name *</label>
@@ -990,7 +1051,7 @@ export default function App() {
               <div style={pastelCardStyle}>
                 <div style={{ textAlign: 'center', marginBottom: '2rem', borderBottom: '1px solid #e2edf8', paddingBottom: '1.5rem' }}>
                   <Briefcase size={40} color="#0284c7" style={{ margin: '0 auto 10px auto' }} />
-                  <h1 style={{ margin: 0, fontSize: '2.2rem', color: '#1e293b', fontWeight: '800' }}>SMU Nexora Career Application</h1>
+                  <h1 style={{ margin: 0, fontSize: '2.2rem', color: '#1e1b4b', fontWeight: '800' }}>SMU Nexora Career Application</h1>
                 </div>
 
                 <form onSubmit={handleCareerSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.8rem' }}>
@@ -1066,15 +1127,15 @@ export default function App() {
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '2rem' }}>
                 <div className="hover-card" style={pastelCardStyle}>
                   <Building size={32} color="#0284c7" style={{ marginBottom: '1rem' }} />
-                  <h2 style={{ fontSize: '1.8rem', fontWeight: '800', color: '#1e293b', margin: '0 0 1rem 0' }}>Corporate Desk</h2>
+                  <h2 style={{ fontSize: '1.8rem', fontWeight: '800', color: '#1e1b4b', margin: '0 0 1rem 0' }}>Corporate Desk</h2>
                   <p style={{ color: '#475569', lineHeight: '1.6' }}><strong>SMU Nexora Technologies Pvt. Ltd.</strong><br />Indore, MP, India</p>
 
                   <div style={{ marginTop: '1.5rem', display: 'flex', flexDirection: 'column', gap: '10px' }}>
                     <a href="https://wa.me/918435299100" target="_blank" rel="noreferrer" className="hover-social" style={socialBadgeStyle('#25D366')}>
-                      <MessageCircle size={20} color="#25D366" /><span style={{ fontSize: '0.9rem', fontWeight: '700', color: '#1e293b' }}>WhatsApp / Call: 8435299100</span>
+                      <MessageCircle size={20} color="#25D366" /><span style={{ fontSize: '0.9rem', fontWeight: '700', color: '#1e1b4b' }}>WhatsApp / Call: 8435299100</span>
                     </a>
                     <a href="https://instagram.com/smunextech" target="_blank" rel="noreferrer" className="hover-social" style={socialBadgeStyle('#E1306C')}>
-                      <Camera size={20} color="#E1306C" /><span style={{ fontSize: '0.9rem', fontWeight: '700', color: '#1e293b' }}>Insta: @smunextech</span>
+                      <Camera size={20} color="#E1306C" /><span style={{ fontSize: '0.9rem', fontWeight: '700', color: '#1e1b4b' }}>Insta: @smunextech</span>
                     </a>
                   </div>
                 </div>
@@ -1088,7 +1149,7 @@ export default function App() {
                     <div><label style={labelStyle}>Your Message *</label><textarea name="userMessage" rows="3" placeholder="Enter your message here..." required value={contactData.userMessage} onChange={handleContactInputChange} style={{ ...inputStyle, resize: 'vertical' }}></textarea></div>
                     {/* Pastel Blue/White Action Button */}
                     <button type="submit" disabled={isSubmitting} className="hover-btn" style={{ width: '100%', padding: '13px', borderRadius: '12px', border: '1px solid #bfdbfe', background: 'linear-gradient(135deg, #e0f2fe 0%, #ffffff 50%, #fce7f3 100%)', color: '#1e293b', fontWeight: '800', fontSize: '0.95rem', cursor: isSubmitting ? 'not-allowed' : 'pointer', boxShadow: '0 4px 14px rgba(191, 219, 254, 0.4)' }}>
-                      {isSubmitting ? 'Sending...' : 'Send Message'}
+                      {isSubmitting ? 'Sending Message...' : 'Send Inquiry Message'}
                     </button>
                   </form>
                 </div>
@@ -1109,14 +1170,14 @@ export default function App() {
                   </div>
                   <div>
                     <span style={{ fontSize: '0.8rem', color: '#0284c7', fontWeight: '800', textTransform: 'uppercase' }}>Industry Vertical</span>
-                    <h1 style={{ margin: 0, fontSize: '2rem', color: '#1e293b', fontWeight: '800' }}>{selectedDetail.name} Solutions</h1>
+                    <h1 style={{ margin: 0, fontSize: '2rem', color: '#1e1b4b', fontWeight: '800' }}>{selectedDetail.name} Solutions</h1>
                   </div>
                 </div>
 
                 <h3 style={{ fontSize: '1.25rem', color: '#0284c7', fontWeight: '700', marginBottom: '1rem' }}>{selectedDetail.tagline}</h3>
                 <p style={{ color: '#475569', fontSize: '1.05rem', lineHeight: '1.7', marginBottom: '2rem' }}>{selectedDetail.description}</p>
 
-                <h4 style={{ fontSize: '1.1rem', fontWeight: '700', color: '#1e293b', marginBottom: '1rem' }}>Key Capabilities:</h4>
+                <h4 style={{ fontSize: '1.1rem', fontWeight: '700', color: '#1e1b4b', marginBottom: '1rem' }}>Key Capabilities:</h4>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '12px', marginBottom: '2.5rem' }}>
                   {selectedDetail.features.map((feat, idx) => (
                     <div key={idx} style={{ background: '#faf9f5', border: '1px solid #e2edf8', padding: '12px 16px', borderRadius: '10px', display: 'flex', alignItems: 'center', gap: '10px' }}>
@@ -1136,7 +1197,7 @@ export default function App() {
         </AnimatePresence>
       </div>
 
-      {/* POPUP MODAL */}
+      {/* POPUP MODAL (FROSTED PASTEL LIGHT) */}
       <AnimatePresence>
         {modalState.isOpen && (
           <motion.div
@@ -1146,8 +1207,8 @@ export default function App() {
             style={{
               position: 'fixed',
               top: 0, left: 0, width: '100vw', height: '100vh',
-              backgroundColor: 'rgba(15, 23, 42, 0.65)',
-              backdropFilter: 'blur(8px)',
+              backgroundColor: 'rgba(240, 244, 255, 0.65)',
+              backdropFilter: 'blur(12px)',
               zIndex: 2000,
               display: 'flex',
               alignItems: 'center',
@@ -1165,17 +1226,17 @@ export default function App() {
                 padding: '2.2rem 2rem',
                 maxWidth: '480px',
                 width: '100%',
-                boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+                boxShadow: '0 25px 50px -12px rgba(191, 219, 254, 0.45)',
                 textAlign: 'center',
                 position: 'relative',
-                border: modalState.type === 'success' ? '2px solid #10b981' : '2px solid #ef4444'
+                border: modalState.type === 'success' ? '2px solid #bbf7d0' : '2px solid #fecdd3'
               }}
             >
               <button
                 onClick={closeModal}
                 style={{
                   position: 'absolute', top: '16px', right: '16px',
-                  background: '#f1f5f9', border: 'none', borderRadius: '50%',
+                  background: '#f8fafc', border: 'none', borderRadius: '50%',
                   width: '32px', height: '32px', display: 'flex',
                   alignItems: 'center', justifyContent: 'center', cursor: 'pointer'
                 }}
@@ -1184,16 +1245,16 @@ export default function App() {
               </button>
 
               {modalState.type === 'success' ? (
-                <div style={{ width: '70px', height: '70px', borderRadius: '50%', background: '#d1fae5', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.2rem auto' }}>
-                  <CheckCircle2 size={44} color="#10b981" />
+                <div style={{ width: '70px', height: '70px', borderRadius: '50%', background: '#dcfce7', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.2rem auto' }}>
+                  <CheckCircle2 size={44} color="#16a34a" />
                 </div>
               ) : (
-                <div style={{ width: '70px', height: '70px', borderRadius: '50%', background: '#fee2e2', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.2rem auto' }}>
-                  <AlertCircle size={44} color="#ef4444" />
+                <div style={{ width: '70px', height: '70px', borderRadius: '50%', background: '#ffe4e6', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.2rem auto' }}>
+                  <AlertCircle size={44} color="#e11d48" />
                 </div>
               )}
 
-              <h2 style={{ fontSize: '1.6rem', fontWeight: '800', color: '#1e293b', margin: '0 0 8px 0' }}>
+              <h2 style={{ fontSize: '1.6rem', fontWeight: '800', color: '#1e1b4b', margin: '0 0 8px 0' }}>
                 {modalState.type === 'success' ? 'Form Submitted Successfully!' : 'Submission Failed'}
               </h2>
 
@@ -1214,8 +1275,8 @@ export default function App() {
                 className="hover-btn"
                 style={{
                   width: '100%', padding: '12px', borderRadius: '10px',
-                  border: 'none', background: modalState.type === 'success' ? '#10b981' : '#ef4444',
-                  color: '#ffffff', fontWeight: '700', fontSize: '0.98rem', cursor: 'pointer'
+                  border: '1px solid #bfdbfe', background: modalState.type === 'success' ? 'linear-gradient(135deg, #dcfce7 0%, #dbeafe 100%)' : 'linear-gradient(135deg, #ffe4e6 0%, #dbeafe 100%)',
+                  color: '#1e293b', fontWeight: '800', fontSize: '0.98rem', cursor: 'pointer'
                 }}
               >
                 Close & Continue
@@ -1228,9 +1289,9 @@ export default function App() {
       {/* 10-PAGE INTERACTIVE CORPORATE DECK COMPONENT */}
       <CorporateDeck isOpen={isDeckOpen} onClose={() => setIsDeckOpen(false)} />
 
-      {/* Footer */}
-      <footer style={{ background: '#1e293b', color: '#fff', padding: '2.5rem 1.5rem', textAlign: 'center', marginTop: '4rem' }}>
-        <p style={{ margin: 0, fontSize: '0.88rem', color: '#94a3b8' }}>
+      {/* Footer (Pastel Light Tone) */}
+      <footer style={{ background: 'linear-gradient(135deg, #fce7f3 0%, #faf8f2 50%, #e0f2fe 100%)', color: '#334155', padding: '2.5rem 1.5rem', textAlign: 'center', marginTop: '4rem', borderTop: '1px solid #e2edf8' }}>
+        <p style={{ margin: 0, fontSize: '0.88rem', color: '#64748b', fontWeight: '600' }}>
           © {new Date().getFullYear()} SMU Nexora Technologies. All rights reserved.
         </p>
       </footer>
@@ -1244,7 +1305,7 @@ const dropdownContainerStyle = { position: 'absolute', top: '100%', left: 0, mar
 const dropdownItemStyle = { display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 14px', color: '#334155', fontSize: '0.88rem', fontWeight: '600', cursor: 'pointer', transition: 'all 0.2s ease' };
 const pastelCardStyle = { background: '#ffffff', padding: '2rem', borderRadius: '20px', border: '1px solid #e2edf8', boxShadow: '0 6px 16px rgba(186, 230, 253, 0.25)' };
 const sectionBoxStyle = { background: '#faf9f5', border: '1px solid #e2edf8', borderRadius: '14px', padding: '1.4rem' };
-const sectionHeaderStyle = { display: 'flex', alignItems: 'center', gap: '10px', fontWeight: '700', fontSize: '0.95rem', color: '#1e293b', marginBottom: '1.2rem', borderBottom: '1px solid #e2edf8', paddingBottom: '8px' };
+const sectionHeaderStyle = { display: 'flex', alignItems: 'center', gap: '10px', fontWeight: '700', fontSize: '0.95rem', color: '#1e1b4b', marginBottom: '1.2rem', borderBottom: '1px solid #e2edf8', paddingBottom: '8px' };
 const labelStyle = { display: 'block', fontWeight: '600', fontSize: '0.88rem', marginBottom: '6px', color: '#334155' };
 const inputStyle = { width: '100%', padding: '10px 14px', borderRadius: '8px', background: '#ffffff', border: '1px solid #cbd5e1', color: '#0f172a', fontSize: '0.95rem', outline: 'none', boxSizing: 'border-box' };
 
