@@ -184,7 +184,7 @@ export default function App() {
     }
   ];
 
-  // 1. FOUNDER & CO-FOUNDER (RELATIVE PATHS CORRECTED)
+  // 1. FOUNDER & CO-FOUNDER (RELATIVE PATHS FIXED FOR VITE & GITHUB PAGES)
   const leaders = [
     {
       title: "Founder",
@@ -208,7 +208,7 @@ export default function App() {
     }
   ];
 
-  // 2. WORKING SQUAD (PRITAM CARPENTER IMAGE PATH CORRECTED)
+  // 2. WORKING SQUAD (PRITAM CARPENTER IMAGE PATH FIXED)
   const teamMembers = [
     {
       role: "Full Stack Developer",
