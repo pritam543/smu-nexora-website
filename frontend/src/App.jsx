@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+// force update 
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Rocket, Sparkles, Code2, Globe, ShieldCheck,
@@ -209,10 +210,10 @@ export default function App() {
   // 2. WORKING SQUAD (PASTEL BORDERS & EXTRA LARGE PHOTOS)
   const teamMembers = [
     {
-      role: "Frontend Developer",
-      name: "Lead Full-Stack Developer",
+      role: "Full Stack Developer",
+      name: "Pritam carpenter",
       field: "React.js, Next.js & TypeScript Systems",
-      image: "",
+      image: "c:\Users\ASUS\Documents\resume img.jpg",
       badgeColor: "#0284c7",
       badgeBg: "#e0f2fe",
       borderColor: "#7dd3fc",
