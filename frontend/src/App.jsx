@@ -96,23 +96,24 @@ export default function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  // FIXED WORKING SLIDESHOW IMAGES
   const slides = [
     {
       title: "Building Enterprise Digital Ecosystems",
       subtitle: "Empowering global businesses with high-performance Full-Stack Web Platforms and Microservices.",
-      image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1200&q=80",
+      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80",
       target: "services"
     },
     {
       title: "Transforming Careers Through Technology",
       subtitle: "Join SMU Nexora's mentorship program to work on real-world IT client systems and platforms.",
-      image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1200&q=80",
+      image: "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=1200&q=80",
       target: "careers"
     },
     {
       title: "Security Hardened & Conversion Architectures",
       subtitle: "Safeguarding digital systems with robust encryption protocols and performance web frameworks.",
-      image: "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=1200&q=80",
+      image: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1200&q=80",
       target: "services"
     }
   ];
@@ -207,13 +208,13 @@ export default function App() {
     }
   ];
 
-  // 2. WORKING SQUAD (PASTEL BORDERS & EXTRA LARGE PHOTOS)
+  // 2. WORKING SQUAD (FIXED PRITAM CARPENTER LOCAL PATH)
   const teamMembers = [
     {
       role: "Full Stack Developer",
       name: "Pritam carpenter",
       field: "React.js, Next.js & TypeScript Systems",
-      image: "c:\Users\ASUS\Documents\resume img.jpg",
+      image: "/images/founder.jpg",
       badgeColor: "#0284c7",
       badgeBg: "#e0f2fe",
       borderColor: "#7dd3fc",
@@ -223,7 +224,7 @@ export default function App() {
       role: "Backend Developer",
       name: "Backend Systems Engineer",
       field: "Python, FastAPI & Relational Databases",
-      image: "",
+      image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80",
       badgeColor: "#059669",
       badgeBg: "#d1fae5",
       borderColor: "#6ee7b7",
@@ -233,7 +234,7 @@ export default function App() {
       role: "Digital Marketing Specialist",
       name: "Digital Growth Strategist",
       field: "Performance Marketing, Ads & Technical SEO",
-      image: "",
+      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80",
       badgeColor: "#db2777",
       badgeBg: "#fce7f3",
       borderColor: "#f472b6",
@@ -344,13 +345,11 @@ export default function App() {
     }
   };
 
-  // Pure Pastel Palette from User's Image
   const pastelMainBg = "linear-gradient(135deg, #fdf2f8 0%, #faf8f2 50%, #eff6ff 100%)";
 
   return (
     <div style={{ background: pastelMainBg, color: '#1e293b', minHeight: '100vh', fontFamily: "'Plus Jakarta Sans', 'Inter', system-ui, sans-serif", position: 'relative', overflowX: 'hidden' }}>
 
-      {/* GLOBAL HOVER & RESPONSIVE STYLES */}
       <style>{`
         .nav-btn-hover {
           position: relative;
@@ -407,7 +406,6 @@ export default function App() {
           padding: 6px;
         }
 
-        /* 3 TOP + 2 BOTTOM CENTERED FLEX GRID */
         .services-centered-flex {
           display: flex;
           flex-wrap: wrap;
@@ -467,7 +465,6 @@ export default function App() {
       <nav style={{ position: 'fixed', top: 0, left: 0, width: '100%', zIndex: 1000, backgroundColor: 'rgba(255, 255, 255, 0.94)', backdropFilter: 'blur(16px)', borderBottom: '1px solid #e2edf8', padding: '0.8rem 1.5rem', boxSizing: 'border-box' }}>
         <div style={{ maxWidth: '1300px', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap' }}>
 
-          {/* Company Logo & Title */}
           <div onClick={() => navigateTo('home')} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '10px' }}>
             <div style={{ width: '38px', height: '38px', borderRadius: '10px', background: 'linear-gradient(135deg, #fbcfe8 0%, #bfdbfe 100%)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#1e293b', fontWeight: 'bold', fontSize: '1.1rem', boxShadow: '0 4px 12px rgba(191, 219, 254, 0.35)', border: '1px solid #ffffff' }}>
               SN
@@ -478,17 +475,14 @@ export default function App() {
             </div>
           </div>
 
-          {/* Right Corner Hamburger Button (Only on Mobile) */}
           <button className="mobile-hamburger-btn" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
             {mobileMenuOpen ? <X size={26} /> : <Menu size={26} />}
           </button>
 
-          {/* Desktop & Mobile Menu Bar */}
           <div className="nav-items-container" style={{ display: 'flex', alignItems: 'center', gap: '1.2rem', flexWrap: 'wrap', position: 'relative' }}>
             <button onClick={() => navigateTo('home')} className="nav-btn-hover" style={navLinkStyle}>Home</button>
             <button onClick={() => scrollToSection('about')} className="nav-btn-hover" style={navLinkStyle}>About Us</button>
 
-            {/* What We Do Dropdown */}
             <div style={{ position: 'relative' }} onMouseEnter={() => setWhatWeDoOpen(true)} onMouseLeave={() => setWhatWeDoOpen(false)}>
               <button onClick={() => setWhatWeDoOpen(!whatWeDoOpen)} className="nav-btn-hover" style={navLinkStyle}>
                 What We Do <ChevronDown size={14} />
@@ -509,7 +503,6 @@ export default function App() {
               </AnimatePresence>
             </div>
 
-            {/* Services Dropdown */}
             <div style={{ position: 'relative' }} onMouseEnter={() => setServicesOpen(true)} onMouseLeave={() => setServicesOpen(false)}>
               <button onClick={() => { setServicesOpen(!servicesOpen); scrollToSection('services'); }} className="nav-btn-hover" style={navLinkStyle}>
                 Services <ChevronDown size={14} />
@@ -555,7 +548,6 @@ export default function App() {
             <button onClick={() => navigateTo('careers')} className="nav-btn-hover" style={navLinkStyle}>Careers</button>
             <button onClick={() => navigateTo('contact')} className="nav-btn-hover" style={navLinkStyle}>Contact Us</button>
 
-            {/* Corporate Deck Action Button (Pastel Frosted) */}
             <button
               onClick={() => { setIsDeckOpen(true); setMobileMenuOpen(false); }}
               className="hover-btn"
@@ -588,33 +580,40 @@ export default function App() {
           {currentPage === 'home' && (
             <motion.div key="home-page">
 
-              {/* HERO BANNER (LIGHT PASTEL FROSTED) */}
-              <section style={{ position: 'relative', width: '100%', minHeight: '480px', overflow: 'hidden', background: 'linear-gradient(135deg, #fdf2f8 0%, #faf8f2 50%, #eff6ff 100%)', borderBottom: '1px solid #e2edf8', display: 'flex', alignItems: 'center' }}>
-                <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '4rem 1.5rem', width: '100%' }}>
+              {/* HERO BANNER WITH WORKING SLIDESHOW IMAGES */}
+              <section style={{ position: 'relative', width: '100%', minHeight: '520px', overflow: 'hidden', background: '#0f172a', display: 'flex', alignItems: 'center' }}>
+                <div style={{ position: 'absolute', inset: 0, zIndex: 1 }}>
+                  <img
+                    src={slides[currentSlide].image}
+                    alt="Slide Banner"
+                    style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.45, transition: 'opacity 0.5s ease-in-out' }}
+                  />
+                  <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(90deg, rgba(15,23,42,0.95) 0%, rgba(15,23,42,0.65) 100%)' }}></div>
+                </div>
+
+                <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '4rem 1.5rem', width: '100%', position: 'relative', zIndex: 2 }}>
                   <div style={{ maxWidth: '800px' }}>
 
-                    {/* Badge */}
-                    <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#ffffff', border: '1px solid #bfdbfe', padding: '6px 16px', borderRadius: '9999px', fontSize: '0.82rem', fontWeight: '800', color: '#0284c7', marginBottom: '1.2rem', boxShadow: '0 2px 8px rgba(191, 219, 254, 0.3)' }}>
-                      <Sparkles size={16} color="#0284c7" />
+                    <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', padding: '6px 16px', borderRadius: '9999px', fontSize: '0.82rem', fontWeight: '800', color: '#38bdf8', marginBottom: '1.2rem', backdropFilter: 'blur(8px)' }}>
+                      <Sparkles size={16} color="#38bdf8" />
                       <span>Enterprise Digital Engineering</span>
                     </div>
 
-                    <h1 style={{ fontSize: 'clamp(2.2rem, 4vw, 3.4rem)', fontWeight: '900', color: '#1e293b', margin: '0 0 16px 0', lineHeight: '1.2', letterSpacing: '-0.02em' }}>
+                    <h1 style={{ fontSize: 'clamp(2.2rem, 4vw, 3.4rem)', fontWeight: '900', color: '#ffffff', margin: '0 0 16px 0', lineHeight: '1.2', letterSpacing: '-0.02em' }}>
                       {slides[currentSlide].title}
                     </h1>
-                    <p style={{ fontSize: '1.1rem', color: '#475569', margin: '0 0 28px 0', lineHeight: '1.7', maxWidth: '680px' }}>
+                    <p style={{ fontSize: '1.1rem', color: '#cbd5e1', margin: '0 0 28px 0', lineHeight: '1.7', maxWidth: '680px' }}>
                       {slides[currentSlide].subtitle}
                     </p>
 
                     <div style={{ display: 'flex', alignItems: 'center', gap: '14px', flexWrap: 'wrap' }}>
-                      {/* Pastel Action Button 1 */}
                       <button
                         onClick={() => navigateTo('careers')}
                         className="hover-btn"
                         style={{
-                          background: 'linear-gradient(135deg, #dbeafe 0%, #ffffff 50%, #fce7f3 100%)',
-                          color: '#1e293b',
-                          border: '1px solid #bfdbfe',
+                          background: 'linear-gradient(135deg, #38bdf8 0%, #0284c7 100%)',
+                          color: '#ffffff',
+                          border: 'none',
                           padding: '13px 26px',
                           borderRadius: '12px',
                           fontWeight: '800',
@@ -623,21 +622,20 @@ export default function App() {
                           display: 'inline-flex',
                           alignItems: 'center',
                           gap: '8px',
-                          boxShadow: '0 6px 18px rgba(191, 219, 254, 0.4)'
+                          boxShadow: '0 6px 18px rgba(56, 189, 248, 0.4)'
                         }}
                       >
                         <span>Apply For Opportunities</span>
-                        <ArrowRight size={18} color="#0284c7" />
+                        <ArrowRight size={18} color="#ffffff" />
                       </button>
 
-                      {/* Pastel Action Button 2 */}
                       <button
                         onClick={() => setIsDeckOpen(true)}
                         className="hover-btn"
                         style={{
-                          background: '#ffffff',
-                          border: '1px solid #cbd5e1',
-                          color: '#334155',
+                          background: 'rgba(255,255,255,0.1)',
+                          border: '1px solid rgba(255,255,255,0.3)',
+                          color: '#ffffff',
                           padding: '13px 22px',
                           borderRadius: '12px',
                           fontWeight: '700',
@@ -646,10 +644,10 @@ export default function App() {
                           display: 'inline-flex',
                           alignItems: 'center',
                           gap: '8px',
-                          boxShadow: '0 2px 8px rgba(0,0,0,0.03)'
+                          backdropFilter: 'blur(8px)'
                         }}
                       >
-                        <FileText size={18} color="#0284c7" />
+                        <FileText size={18} color="#38bdf8" />
                         <span>View Corporate Deck</span>
                       </button>
                     </div>
@@ -671,7 +669,6 @@ export default function App() {
                   </p>
                 </div>
 
-                {/* Primary Overview Box */}
                 <div className="hover-card" style={{ ...pastelCardStyle, borderLeft: '5px solid #38bdf8', marginBottom: '2rem' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '1.2rem' }}>
                     <div style={{ width: '48px', height: '48px', borderRadius: '14px', background: '#e0f2fe', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -687,7 +684,6 @@ export default function App() {
                   </p>
                 </div>
 
-                {/* 4 Multi-Dimensional Corporate Pillars */}
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1.5rem', marginBottom: '2rem' }}>
                   <div className="hover-card" style={{ ...pastelCardStyle, padding: '1.6rem', border: '1px solid #dbeafe', background: '#ffffff' }}>
                     <div style={{ width: '42px', height: '42px', borderRadius: '12px', background: '#e0f2fe', color: '#0284c7', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1rem' }}>
@@ -730,7 +726,6 @@ export default function App() {
                   </div>
                 </div>
 
-                {/* Corporate Metrics Strip (Pastel Tone) */}
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.2rem', padding: '1.6rem', background: 'linear-gradient(135deg, #ffffff 0%, #f0f7ff 100%)', borderRadius: '20px', border: '1px solid #dbeafe', textAlign: 'center', boxShadow: '0 4px 16px rgba(191, 219, 254, 0.25)' }}>
                   <div>
                     <div style={{ fontSize: '2rem', fontWeight: '900', color: '#0284c7' }}>99.9%</div>
@@ -751,11 +746,10 @@ export default function App() {
                 </div>
               </motion.section>
 
-              {/* ==================== LEADERSHIP & CORE TEAM SECTION (PASTEL BORDERS & EXTRA LARGE IMAGES) ==================== */}
+              {/* LEADERSHIP & CORE TEAM SECTION (FIXED IMAGE PATHS) */}
               <motion.section id="team-and-testimonials" initial={{ opacity: 0, scale: 0.9, y: 40 }} whileInView={{ opacity: 1, scale: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} style={{ padding: '5.5rem 1.5rem', background: 'linear-gradient(180deg, #ffffff 0%, #faf8f5 100%)', borderTop: '1px solid #e2edf8', borderBottom: '1px solid #e2edf8' }}>
                 <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
 
-                  {/* Section Title */}
                   <div style={{ textAlign: 'center', marginBottom: '3.5rem' }}>
                     <span style={{ fontSize: '0.85rem', color: '#0284c7', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.05em', background: '#e0f2fe', padding: '5px 16px', borderRadius: '9999px', border: '1px solid #bae6fd' }}>
                       Leadership & Execution Team
@@ -768,7 +762,7 @@ export default function App() {
                     </p>
                   </div>
 
-                  {/* 1. FOUNDER & CO-FOUNDER (EXTRA LARGE IMAGES WITH PASTEL BORDERS) */}
+                  {/* 1. FOUNDER & CO-FOUNDER */}
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: '2.5rem', marginBottom: '4.5rem' }}>
                     {leaders.map((leader, idx) => (
                       <div
@@ -792,24 +786,18 @@ export default function App() {
                         </div>
 
                         <div>
-                          {/* Image -> Title -> Name Layout */}
                           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', marginBottom: '1.6rem' }}>
-
-                            {/* EXTRA LARGE PROFILE PHOTO (175px x 175px) */}
                             <div style={{ width: '175px', height: '175px', borderRadius: '50%', overflow: 'hidden', border: `4px solid ${leader.borderColor}`, boxShadow: `0 12px 28px ${leader.glowShadow}`, marginBottom: '16px', background: '#f8fafc' }}>
                               <img
                                 src={leader.image}
                                 alt={leader.name}
                                 style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                                onError={(e) => { e.target.src = "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80" }}
                               />
                             </div>
-
-                            {/* 1. Title: Founder / Co-Founder */}
                             <div style={{ fontSize: '0.92rem', fontWeight: '800', color: leader.badgeColor, background: leader.badgeBg, padding: '5px 18px', borderRadius: '9999px', display: 'inline-block', border: `1px solid ${leader.borderColor}50`, marginBottom: '6px' }}>
                               {leader.title}
                             </div>
-
-                            {/* 2. Name */}
                             <h3 style={{ fontSize: '1.5rem', fontWeight: '900', color: '#1e1b4b', margin: '4px 0 0 0' }}>
                               {leader.name}
                             </h3>
@@ -837,7 +825,7 @@ export default function App() {
                     ))}
                   </div>
 
-                  {/* 2. CORE WORKING TEAM (SUBTLE 1.5PX BORDER & SOFT SHADOW) */}
+                  {/* 2. CORE WORKING TEAM (FIXED PRITAM CARPENTER IMAGE) */}
                   <div>
                     <div style={{ textAlign: 'center', marginBottom: '2.8rem' }}>
                       <span style={{ fontSize: '0.85rem', color: '#0284c7', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.05em', background: '#e0f2fe', padding: '5px 18px', borderRadius: '9999px', border: '1px solid #bae6fd' }}>
@@ -864,21 +852,20 @@ export default function App() {
                           }}
                         >
                           <div>
-                            {/* SQUAD IMAGE - LOW SUBTLE BORDER (1.5px) */}
                             <div style={{ width: '145px', height: '145px', borderRadius: '50%', overflow: 'hidden', margin: '0 auto 1.5rem auto', border: `1.5px solid ${member.borderColor}`, boxShadow: `0 4px 14px ${member.glowShadow}` }}>
-                              <img src={member.image} alt={member.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                              <img
+                                src={member.image}
+                                alt={member.name}
+                                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                                onError={(e) => { e.target.src = "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80" }}
+                              />
                             </div>
-
-                            {/* Role Title */}
                             <div style={{ fontSize: '0.84rem', fontWeight: '800', color: member.badgeColor, background: member.badgeBg, padding: '4px 14px', borderRadius: '9999px', display: 'inline-block', marginBottom: '8px', border: `1px solid ${member.borderColor}50` }}>
                               {member.role}
                             </div>
-
-                            {/* Member Name */}
                             <h4 style={{ fontSize: '1.25rem', fontWeight: '900', color: '#1e1b4b', margin: '0 0 6px 0' }}>
                               {member.name}
                             </h4>
-
                             <p style={{ fontSize: '0.86rem', color: '#64748b', margin: 0, fontWeight: '600' }}>
                               {member.field}
                             </p>
@@ -896,7 +883,7 @@ export default function App() {
                 </div>
               </motion.section>
 
-              {/* CORE TECHNOLOGY DOMAINS (PASTEL CARDS: 3 TOP + 2 BOTTOM CENTERED) */}
+              {/* CORE TECHNOLOGY DOMAINS */}
               <motion.section id="services" initial={{ opacity: 0, scale: 0.9, y: 40 }} whileInView={{ opacity: 1, scale: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} style={{ padding: '5rem 1.5rem', background: 'linear-gradient(180deg, #fdf2f8 0%, #f0f7ff 100%)', borderTop: '1px solid #e2edf8', borderBottom: '1px solid #e2edf8' }}>
                 <div style={{ maxWidth: '1300px', margin: '0 auto' }}>
                   <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
@@ -911,7 +898,6 @@ export default function App() {
                     </p>
                   </div>
 
-                  {/* 3 TOP + 2 BOTTOM CENTERED CONTAINER */}
                   <div className="services-centered-flex">
                     {fields.map((field) => (
                       <div
@@ -1032,7 +1018,6 @@ export default function App() {
                         <label style={labelStyle}>Your Message *</label>
                         <textarea name="userMessage" rows="3" placeholder="Enter your message here..." required value={contactData.userMessage} onChange={handleContactInputChange} style={{ ...inputStyle, resize: 'vertical' }}></textarea>
                       </div>
-                      {/* Pastel Blue/White Action Button */}
                       <button type="submit" disabled={isSubmitting} className="hover-btn" style={{ width: '100%', padding: '13px', borderRadius: '12px', border: '1px solid #bfdbfe', background: 'linear-gradient(135deg, #e0f2fe 0%, #ffffff 50%, #fce7f3 100%)', color: '#1e293b', fontWeight: '800', fontSize: '0.95rem', cursor: isSubmitting ? 'not-allowed' : 'pointer', boxShadow: '0 4px 14px rgba(191, 219, 254, 0.4)' }}>
                         {isSubmitting ? 'Sending Message...' : 'Send Inquiry Message'}
                       </button>
@@ -1043,6 +1028,7 @@ export default function App() {
             </motion.div>
           )}
 
+          {/* CAREERS PAGE */}
           {currentPage === 'careers' && (
             <motion.div key="careers-page" initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -15 }} style={{ maxWidth: '900px', margin: '2rem auto', padding: '0 1.5rem' }}>
               <button onClick={() => navigateTo('home')} className="hover-btn" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#ffffff', border: '1px solid #cbd5e1', padding: '9px 18px', borderRadius: '10px', color: '#334155', fontWeight: '600', cursor: 'pointer', marginBottom: '1.8rem' }}>
@@ -1110,7 +1096,6 @@ export default function App() {
                     </div>
                   </div>
 
-                  {/* Pastel Blue/White Action Button */}
                   <button type="submit" disabled={isSubmitting} className="hover-btn" style={{ width: '100%', padding: '15px', borderRadius: '12px', border: '1px solid #bfdbfe', background: 'linear-gradient(135deg, #e0f2fe 0%, #ffffff 50%, #fce7f3 100%)', color: '#1e293b', fontWeight: '800', fontSize: '1rem', cursor: isSubmitting ? 'not-allowed' : 'pointer', boxShadow: '0 8px 20px rgba(191, 219, 254, 0.4)' }}>
                     {isSubmitting ? 'Submitting Application...' : 'Submit Career Application'}
                   </button>
@@ -1119,6 +1104,7 @@ export default function App() {
             </motion.div>
           )}
 
+          {/* CONTACT PAGE */}
           {currentPage === 'contact' && (
             <motion.div key="contact-page" initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -15 }} style={{ maxWidth: '1000px', margin: '2rem auto', padding: '0 1.5rem' }}>
               <button onClick={() => navigateTo('home')} className="hover-btn" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#ffffff', border: '1px solid #cbd5e1', padding: '9px 18px', borderRadius: '10px', color: '#334155', fontWeight: '600', cursor: 'pointer', marginBottom: '1.8rem' }}>
@@ -1148,7 +1134,6 @@ export default function App() {
                     <div><label style={labelStyle}>Email Address *</label><input type="email" name="email" placeholder="Enter your email address" required value={contactData.email} onChange={handleContactInputChange} style={inputStyle} /></div>
                     <div><label style={labelStyle}>Subject *</label><input type="text" name="subject" placeholder="Enter inquiry subject" required value={contactData.subject} onChange={handleContactInputChange} style={inputStyle} /></div>
                     <div><label style={labelStyle}>Your Message *</label><textarea name="userMessage" rows="3" placeholder="Enter your message here..." required value={contactData.userMessage} onChange={handleContactInputChange} style={{ ...inputStyle, resize: 'vertical' }}></textarea></div>
-                    {/* Pastel Blue/White Action Button */}
                     <button type="submit" disabled={isSubmitting} className="hover-btn" style={{ width: '100%', padding: '13px', borderRadius: '12px', border: '1px solid #bfdbfe', background: 'linear-gradient(135deg, #e0f2fe 0%, #ffffff 50%, #fce7f3 100%)', color: '#1e293b', fontWeight: '800', fontSize: '0.95rem', cursor: isSubmitting ? 'not-allowed' : 'pointer', boxShadow: '0 4px 14px rgba(191, 219, 254, 0.4)' }}>
                       {isSubmitting ? 'Sending...' : 'Send Message'}
                     </button>
@@ -1158,6 +1143,7 @@ export default function App() {
             </motion.div>
           )}
 
+          {/* WHAT WE DO DETAIL PAGE */}
           {currentPage === 'what-we-do-detail' && selectedDetail && (
             <motion.div key="what-we-do-page" initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -15 }} style={{ maxWidth: '900px', margin: '2rem auto', padding: '0 1.5rem' }}>
               <button onClick={() => navigateTo('home')} className="hover-btn" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#ffffff', border: '1px solid #cbd5e1', padding: '9px 18px', borderRadius: '10px', color: '#334155', fontWeight: '600', cursor: 'pointer', marginBottom: '1.8rem' }}>
@@ -1198,99 +1184,27 @@ export default function App() {
         </AnimatePresence>
       </div>
 
-      {/* POPUP MODAL (FROSTED PASTEL LIGHT) */}
+      {/* POPUP MODAL */}
       <AnimatePresence>
         {modalState.isOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            style={{
-              position: 'fixed',
-              top: 0, left: 0, width: '100vw', height: '100vh',
-              backgroundColor: 'rgba(240, 244, 255, 0.65)',
-              backdropFilter: 'blur(12px)',
-              zIndex: 2000,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              padding: '1.5rem'
-            }}
-          >
-            <motion.div
-              initial={{ scale: 0.85, y: 20 }}
-              animate={{ scale: 1, y: 0 }}
-              exit={{ scale: 0.85, y: 20 }}
-              style={{
-                background: '#ffffff',
-                borderRadius: '24px',
-                padding: '2.2rem 2rem',
-                maxWidth: '480px',
-                width: '100%',
-                boxShadow: '0 25px 50px -12px rgba(191, 219, 254, 0.45)',
-                textAlign: 'center',
-                position: 'relative',
-                border: modalState.type === 'success' ? '2px solid #bbf7d0' : '2px solid #fecdd3'
-              }}
-            >
-              <button
-                onClick={closeModal}
-                style={{
-                  position: 'absolute', top: '16px', right: '16px',
-                  background: '#f8fafc', border: 'none', borderRadius: '50%',
-                  width: '32px', height: '32px', display: 'flex',
-                  alignItems: 'center', justifyContent: 'center', cursor: 'pointer'
-                }}
-              >
-                <X size={18} color="#64748b" />
-              </button>
-
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', backgroundColor: 'rgba(240, 244, 255, 0.65)', backdropFilter: 'blur(12px)', zIndex: 2000, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1.5rem' }}>
+            <motion.div initial={{ scale: 0.85, y: 20 }} animate={{ scale: 1, y: 0 }} exit={{ scale: 0.85, y: 20 }} style={{ background: '#ffffff', borderRadius: '24px', padding: '2.2rem 2rem', maxWidth: '480px', width: '100%', boxShadow: '0 25px 50px -12px rgba(191, 219, 254, 0.45)', textAlign: 'center', position: 'relative', border: modalState.type === 'success' ? '2px solid #bbf7d0' : '2px solid #fecdd3' }}>
+              <button onClick={closeModal} style={{ position: 'absolute', top: '16px', right: '16px', background: '#f8fafc', border: 'none', borderRadius: '50%', width: '32px', height: '32px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}><X size={18} color="#64748b" /></button>
               {modalState.type === 'success' ? (
-                <div style={{ width: '70px', height: '70px', borderRadius: '50%', background: '#dcfce7', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.2rem auto' }}>
-                  <CheckCircle2 size={44} color="#16a34a" />
-                </div>
+                <div style={{ width: '70px', height: '70px', borderRadius: '50%', background: '#dcfce7', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.2rem auto' }}><CheckCircle2 size={44} color="#16a34a" /></div>
               ) : (
-                <div style={{ width: '70px', height: '70px', borderRadius: '50%', background: '#ffe4e6', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.2rem auto' }}>
-                  <AlertCircle size={44} color="#e11d48" />
-                </div>
+                <div style={{ width: '70px', height: '70px', borderRadius: '50%', background: '#ffe4e6', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.2rem auto' }}><AlertCircle size={44} color="#e11d48" /></div>
               )}
-
-              <h2 style={{ fontSize: '1.6rem', fontWeight: '800', color: '#1e1b4b', margin: '0 0 8px 0' }}>
-                {modalState.type === 'success' ? 'Form Submitted Successfully!' : 'Submission Failed'}
-              </h2>
-
-              <p style={{ color: '#475569', fontSize: '0.95rem', margin: '0 0 1.2rem 0', lineHeight: '1.5' }}>
-                {modalState.type === 'success' ? (
-                  <>Thank you, <strong>{modalState.userName}</strong>! Your submission for <strong>{modalState.fieldTitle}</strong> has been logged.</>
-                ) : (
-                  <>Hello <strong>{modalState.userName}</strong>, we couldn't process your request for <strong>{modalState.fieldTitle}</strong>.</>
-                )}
-              </p>
-
-              <div style={{ background: '#faf9f5', padding: '12px', borderRadius: '12px', border: '1px solid #e2edf8', fontSize: '0.88rem', color: '#334155', marginBottom: '1.5rem', textAlign: 'left' }}>
-                <strong>Status Message:</strong> {modalState.message}
-              </div>
-
-              <button
-                onClick={closeModal}
-                className="hover-btn"
-                style={{
-                  width: '100%', padding: '12px', borderRadius: '10px',
-                  border: '1px solid #bfdbfe', background: modalState.type === 'success' ? 'linear-gradient(135deg, #dcfce7 0%, #dbeafe 100%)' : 'linear-gradient(135deg, #ffe4e6 0%, #dbeafe 100%)',
-                  color: '#1e293b', fontWeight: '800', fontSize: '0.98rem', cursor: 'pointer'
-                }}
-              >
-                Close & Continue
-              </button>
+              <h2 style={{ fontSize: '1.6rem', fontWeight: '800', color: '#1e1b4b', margin: '0 0 8px 0' }}>{modalState.type === 'success' ? 'Form Submitted Successfully!' : 'Submission Failed'}</h2>
+              <p style={{ color: '#475569', fontSize: '0.95rem', margin: '0 0 1.2rem 0', lineHeight: '1.5' }}>{modalState.message}</p>
+              <button onClick={closeModal} className="hover-btn" style={{ width: '100%', padding: '12px', borderRadius: '10px', border: '1px solid #bfdbfe', background: '#e0f2fe', color: '#1e293b', fontWeight: '800', cursor: 'pointer' }}>Close & Continue</button>
             </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* 10-PAGE INTERACTIVE CORPORATE DECK COMPONENT */}
       <CorporateDeck isOpen={isDeckOpen} onClose={() => setIsDeckOpen(false)} />
 
-      {/* Footer (Pastel Light Tone) */}
       <footer style={{ background: 'linear-gradient(135deg, #fce7f3 0%, #faf8f2 50%, #e0f2fe 100%)', color: '#334155', padding: '2.5rem 1.5rem', textAlign: 'center', marginTop: '4rem', borderTop: '1px solid #e2edf8' }}>
         <p style={{ margin: 0, fontSize: '0.88rem', color: '#64748b', fontWeight: '600' }}>
           © {new Date().getFullYear()} SMU Nexora Technologies. All rights reserved.
