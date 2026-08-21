@@ -11,6 +11,11 @@ import {
 } from 'lucide-react';
 import CorporateDeck from './components/CorporateDeck';
 
+// IMPORT ONLY THE 3 REQUIRED IMAGES
+import founderImg from './assets/images/founder.jpg';
+import coFounderImg from './assets/images/co-founder.jpg';
+import pritamImg from './assets/images/pritam.jpg';
+
 export default function App() {
   const [currentPage, setCurrentPage] = useState('home');
   const [selectedDetail, setSelectedDetail] = useState(null);
@@ -184,12 +189,12 @@ export default function App() {
     }
   ];
 
-  // 1. FOUNDER & CO-FOUNDER (RELATIVE PATHS FIXED FOR VITE & GITHUB PAGES)
+  // 1. FOUNDER & CO-FOUNDER (REAL IMAGES)
   const leaders = [
     {
       title: "Founder",
       name: "Sakshi Pare",
-      image: "./images/founder.jpg",
+      image: "founderImg",
       quote: "Our vision is to engineer resilient, high-speed digital platforms that accelerate client businesses while fostering next-generation IT engineering talent in Indore.",
       badgeColor: "#db2777",
       badgeBg: "#fce7f3",
@@ -199,7 +204,7 @@ export default function App() {
     {
       title: "Co-Founder",
       name: "Shashank pare",
-      image: "./images/co-founder.jpg",
+      image: "coFounderImg",
       quote: "We architect decoupled, asynchronous microservices and conversion-focused web systems engineered strictly for 99.9% uptime and bulletproof security.",
       badgeColor: "#0284c7",
       badgeBg: "#e0f2fe",
@@ -208,13 +213,13 @@ export default function App() {
     }
   ];
 
-  // 2. WORKING SQUAD (PRITAM CARPENTER IMAGE PATH FIXED)
+  // 2. WORKING SQUAD (PRITAM WITH REAL IMAGE, OTHERS EMPTY PLACEHOLDERS)
   const teamMembers = [
     {
       role: "Full Stack Developer",
       name: "Pritam carpenter",
       field: "React.js, Next.js & TypeScript Systems",
-      image: "./images/pritam.jpg",
+      image: " pritamImg",
       badgeColor: "#0284c7",
       badgeBg: "#e0f2fe",
       borderColor: "#7dd3fc",
@@ -224,7 +229,7 @@ export default function App() {
       role: "Backend Developer",
       name: "Backend Systems Engineer",
       field: "Python, FastAPI & Relational Databases",
-      image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80",
+      image: null, // Left empty intentionally
       badgeColor: "#059669",
       badgeBg: "#d1fae5",
       borderColor: "#6ee7b7",
@@ -234,7 +239,7 @@ export default function App() {
       role: "Digital Marketing Specialist",
       name: "Digital Growth Strategist",
       field: "Performance Marketing, Ads & Technical SEO",
-      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80",
+      image: null, // Left empty intentionally
       badgeColor: "#db2777",
       badgeBg: "#fce7f3",
       borderColor: "#f472b6",
@@ -851,13 +856,16 @@ export default function App() {
                           }}
                         >
                           <div>
-                            <div style={{ width: '145px', height: '145px', borderRadius: '50%', overflow: 'hidden', margin: '0 auto 1.5rem auto', border: `1.5px solid ${member.borderColor}`, boxShadow: `0 4px 14px ${member.glowShadow}` }}>
-                              <img
-                                src={member.image}
-                                alt={member.name}
-                                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                                onError={(e) => { e.target.src = "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80" }}
-                              />
+                            <div style={{ width: '145px', height: '145px', borderRadius: '50%', overflow: 'hidden', margin: '0 auto 1.5rem auto', border: `1.5px solid ${member.borderColor}`, boxShadow: `0 4px 14px ${member.glowShadow}`, background: member.image ? '#f8fafc' : '#f1f5f9', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                              {member.image ? (
+                                <img
+                                  src={member.image}
+                                  alt={member.name}
+                                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                                />
+                              ) : (
+                                <User size={48} color="#94a3b8" />
+                              )}
                             </div>
                             <div style={{ fontSize: '0.84rem', fontWeight: '800', color: member.badgeColor, background: member.badgeBg, padding: '4px 14px', borderRadius: '9999px', display: 'inline-block', marginBottom: '8px', border: `1px solid ${member.borderColor}50` }}>
                               {member.role}
@@ -1210,7 +1218,7 @@ export default function App() {
         </p>
       </footer>
 
-    </div>
+    </div >
   );
 }
 
