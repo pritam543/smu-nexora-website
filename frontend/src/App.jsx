@@ -96,7 +96,7 @@ export default function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  // FIXED WORKING SLIDESHOW IMAGES
+  // 100% WORKING SLIDESHOW IMAGES
   const slides = [
     {
       title: "Building Enterprise Digital Ecosystems",
@@ -184,12 +184,12 @@ export default function App() {
     }
   ];
 
-  // 1. FOUNDER & CO-FOUNDER (PASTEL PINK & POWDER BLUE BORDERS)
+  // 1. FOUNDER & CO-FOUNDER (RELATIVE PATHS CORRECTED)
   const leaders = [
     {
       title: "Founder",
       name: "Sakshi Pare",
-      image: "/images/founder.jpg",
+      image: "./images/founder.jpg",
       quote: "Our vision is to engineer resilient, high-speed digital platforms that accelerate client businesses while fostering next-generation IT engineering talent in Indore.",
       badgeColor: "#db2777",
       badgeBg: "#fce7f3",
@@ -199,7 +199,7 @@ export default function App() {
     {
       title: "Co-Founder",
       name: "Shashank pare",
-      image: "/images/co-founder.jpg",
+      image: "./images/co-founder.jpg",
       quote: "We architect decoupled, asynchronous microservices and conversion-focused web systems engineered strictly for 99.9% uptime and bulletproof security.",
       badgeColor: "#0284c7",
       badgeBg: "#e0f2fe",
@@ -208,13 +208,13 @@ export default function App() {
     }
   ];
 
-  // 2. WORKING SQUAD (FIXED PRITAM CARPENTER LOCAL PATH)
+  // 2. WORKING SQUAD (PRITAM CARPENTER IMAGE PATH CORRECTED)
   const teamMembers = [
     {
       role: "Full Stack Developer",
       name: "Pritam carpenter",
       field: "React.js, Next.js & TypeScript Systems",
-      image: "/images/founder.jpg",
+      image: "./images/pritam.jpg",
       badgeColor: "#0284c7",
       badgeBg: "#e0f2fe",
       borderColor: "#7dd3fc",
@@ -461,7 +461,7 @@ export default function App() {
         }
       `}</style>
 
-      {/* FIXED NAV BAR (PASTEL FROSTED) */}
+      {/* FIXED NAV BAR */}
       <nav style={{ position: 'fixed', top: 0, left: 0, width: '100%', zIndex: 1000, backgroundColor: 'rgba(255, 255, 255, 0.94)', backdropFilter: 'blur(16px)', borderBottom: '1px solid #e2edf8', padding: '0.8rem 1.5rem', boxSizing: 'border-box' }}>
         <div style={{ maxWidth: '1300px', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap' }}>
 
@@ -580,7 +580,7 @@ export default function App() {
           {currentPage === 'home' && (
             <motion.div key="home-page">
 
-              {/* HERO BANNER WITH WORKING SLIDESHOW IMAGES */}
+              {/* HERO BANNER WITH SLIDESHOW */}
               <section style={{ position: 'relative', width: '100%', minHeight: '520px', overflow: 'hidden', background: '#0f172a', display: 'flex', alignItems: 'center' }}>
                 <div style={{ position: 'absolute', inset: 0, zIndex: 1 }}>
                   <img
@@ -593,7 +593,6 @@ export default function App() {
 
                 <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '4rem 1.5rem', width: '100%', position: 'relative', zIndex: 2 }}>
                   <div style={{ maxWidth: '800px' }}>
-
                     <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', padding: '6px 16px', borderRadius: '9999px', fontSize: '0.82rem', fontWeight: '800', color: '#38bdf8', marginBottom: '1.2rem', backdropFilter: 'blur(8px)' }}>
                       <Sparkles size={16} color="#38bdf8" />
                       <span>Enterprise Digital Engineering</span>
@@ -746,7 +745,7 @@ export default function App() {
                 </div>
               </motion.section>
 
-              {/* LEADERSHIP & CORE TEAM SECTION (FIXED IMAGE PATHS) */}
+              {/* LEADERSHIP & CORE TEAM SECTION */}
               <motion.section id="team-and-testimonials" initial={{ opacity: 0, scale: 0.9, y: 40 }} whileInView={{ opacity: 1, scale: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} style={{ padding: '5.5rem 1.5rem', background: 'linear-gradient(180deg, #ffffff 0%, #faf8f5 100%)', borderTop: '1px solid #e2edf8', borderBottom: '1px solid #e2edf8' }}>
                 <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
 
@@ -825,7 +824,7 @@ export default function App() {
                     ))}
                   </div>
 
-                  {/* 2. CORE WORKING TEAM (FIXED PRITAM CARPENTER IMAGE) */}
+                  {/* 2. CORE WORKING TEAM */}
                   <div>
                     <div style={{ textAlign: 'center', marginBottom: '2.8rem' }}>
                       <span style={{ fontSize: '0.85rem', color: '#0284c7', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.05em', background: '#e0f2fe', padding: '5px 18px', borderRadius: '9999px', border: '1px solid #bae6fd' }}>
