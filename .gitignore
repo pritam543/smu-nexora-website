@@ -1,0 +1,19 @@
+# Sensitive & Local Files
+.env
+*.env
+database.db
+*.db
+backend/.env
+backend/database.db
+
+# Python Dependencies & Cache
+backend/venv/
+backend/__pycache__/
+__pycache__/
+*.pyc
+
+# Node & Frontend Build
+frontend/node_modules/
+frontend/dist/
+node_modules/
+.DS_Store
