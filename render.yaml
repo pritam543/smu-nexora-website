@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: smu-nexora-website
+    env: python
+    buildCommand: pip install fastapi uvicorn python-multipart python-dotenv resend && npm --prefix frontend install && npm --prefix frontend run build
+    startCommand: uvicorn backend.main:app --host 0.0.0.0 --port $PORT
