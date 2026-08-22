@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-// force update 
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Rocket, Sparkles, Code2, Globe, ShieldCheck,
@@ -184,12 +183,12 @@ export default function App() {
     }
   ];
 
-  // 1. FOUNDER & CO-FOUNDER (EXACT IMAGES EMBEDDED)
+  // 1. FOUNDER & CO-FOUNDER (CLEAN PATHS)
   const leaders = [
     {
       title: "Founder",
       name: "Sakshi Pare",
-      image: "/founder.jpg"
+      image: "/founder.jpg",
       quote: "Our vision is to engineer resilient, high-speed digital platforms that accelerate client businesses while fostering next-generation IT engineering talent in Indore.",
       badgeColor: "#db2777",
       badgeBg: "#fce7f3",
@@ -199,7 +198,7 @@ export default function App() {
     {
       title: "Co-Founder",
       name: "Shashank pare",
-      image: "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/4QAiRXhpZgAATU0AKgAAAAgAAQESAAMAAAABAAEAAAAAAAD/2wCEAAgICAgJCAkKCgkNDgkODRMQExMWFRQUFRQXGBgWGBgWGBcWGBgWGBgWGBgXGBgWGBgWGBgWGBgWGBgWGBgWGBgBCAgICQgKCgkKDQ4JDg0TExMTExUVFRUVFRcYGBgYGBgYFhYWGBgWGBgWGBgWGBgWGBgWGBgWGBgWGBgWGBgWGP/CABEIAZgBmAMBIgACEQEDEQH/xAAfAAABBQEBAQEBAQAAAAAAAAAAAQIDBAUGBwgJCgv/xAC1EAACAQMDAgQDBQUEBAAAAX0BAgMABBEFEiExQQYTUWEHInEUMoGRoQgjQrHBFVLR8CQzYnKCCQoWFxgZGiUmJygpKjQkNjc4OTpDREVGR0hJSlNUVVZXWFhY2Rl6ekl6h4iTVFVWV1hYmNkZWVqKsvpabq6prqO3p6i5knT1MRqXk9Rq66lrKNs4Wprq8k3ax0k4Wpnm58k5gaXq7kjw6k7n6shgpejxy4pQRAiI4QIg==",
+      image: "/shashank.jpg",
       quote: "We architect decoupled, asynchronous microservices and conversion-focused web systems engineered strictly for 99.9% uptime and bulletproof security.",
       badgeColor: "#0284c7",
       badgeBg: "#e0f2fe",
@@ -208,13 +207,13 @@ export default function App() {
     }
   ];
 
-  // 2. WORKING SQUAD (PRITAM CARPENTER WITH EXACT IMAGE)
+  // 2. WORKING SQUAD (PRITAM CARPENTER)
   const teamMembers = [
     {
       role: "Full Stack Developer",
       name: "Pritam carpenter",
       field: "React.js, Next.js & TypeScript Systems",
-      image: "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/4QAiRXhpZgAATU0AKgAAAAgAAQESAAMAAAABAAEAAAAAAAD/2wCEAAgICAgJCAkKCgkNDgkODRMQExMWFRQUFRQXGBgWGBgWGBcWGBgWGBgWGBgXGBgWGBgWGBgWGBgWGBgWGBgWGBgBCAgICQgKCgkKDQ4JDg0TExMTExUVFRUVFRcYGBgYGBgYFhYWGBgWGBgWGBgWGBgWGBgWGBgWGBgWGBgWGBgWGP/CABEIAZgBmAMBIgACEQEDEQH/xAAfAAABBQEBAQEBAQAAAAAAAAAAAQIDBAUGBwgJCgv/xAC1EAACAQMDAgQDBQUEBAAAAX0BAgMABBEFEiExQQYTUWEHInEUMoGRoQgjQrHBFVLR8CQzYnKCCQoWFxgZGiUmJygpKjQkNjc4OTpDREVGR0hJSlNUVVZXWFhY2Rl6ekl6h4iTVFVWV1hYmNkZWVqKsvpabq6prqO3p6i5knT1MRqXk9Rq66lrKNs4Wprq8k3ax0k4Wpnm58k5gaXq7kjw6k7n6shgpejxy4pQRAiI4QIg==",
+      image: "/pritam.jpg",
       badgeColor: "#0284c7",
       badgeBg: "#e0f2fe",
       borderColor: "#7dd3fc",
