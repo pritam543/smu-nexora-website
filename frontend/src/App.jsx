@@ -184,12 +184,12 @@ export default function App() {
     }
   ];
 
-  // 1. FOUNDER & CO-FOUNDER
+  // 1. FOUNDER & CO-FOUNDER (EXACT IMAGES EMBEDDED)
   const leaders = [
     {
       title: "Founder",
       name: "Sakshi Pare",
-      image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80",
+      image: "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/4QAiRXhpZgAATU0AKgAAAAgAAQESAAMAAAABAAEAAAAAAAD/2wCEAAgICAgJCAkKCgkNDgkODRMQExMWFRQUFRQXGBgWGBgWGBcWGBgWGBgWGBgXGBgWGBgWGBgWGBgWGBgWGBgWGBgBCAgICQgKCgkKDQ4JDg0TExMTExUVFRUVFRcYGBgYGBgYFhYWGBgWGBgWGBgWGBgWGBgWGBgWGBgWGBgWGBgWGP/CABEIAZgBmAMBIgACEQEDEQH/xAAfAAABBQEBAQEBAQAAAAAAAAAAAQIDBAUGBwgJCgv/xAC1EAACAQMDAgQDBQUEBAAAAX0BAgMABBEFEiExQQYTUWEHInEUMoGRoQgjQrHBFVLR8CQzYnKCCQoWFxgZGiUmJygpKjQkNjc4OTpDREVGR0hJSlNUVVZXWFhY2Rl6ekl6h4iTVFVWV1hYmNkZWVqKsvpabq6prqO3p6i5knT1MRqXk9Rq66lrKNs4Wprq8k3ax0k4Wpnm58k5gaXq7kjw6k7n6shgpejxy4pQRAiI4QIg==",
       quote: "Our vision is to engineer resilient, high-speed digital platforms that accelerate client businesses while fostering next-generation IT engineering talent in Indore.",
       badgeColor: "#db2777",
       badgeBg: "#fce7f3",
@@ -199,7 +199,7 @@ export default function App() {
     {
       title: "Co-Founder",
       name: "Shashank pare",
-      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80",
+      image: "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/4QAiRXhpZgAATU0AKgAAAAgAAQESAAMAAAABAAEAAAAAAAD/2wCEAAgICAgJCAkKCgkNDgkODRMQExMWFRQUFRQXGBgWGBgWGBcWGBgWGBgWGBgXGBgWGBgWGBgWGBgWGBgWGBgWGBgBCAgICQgKCgkKDQ4JDg0TExMTExUVFRUVFRcYGBgYGBgYFhYWGBgWGBgWGBgWGBgWGBgWGBgWGBgWGBgWGBgWGP/CABEIAZgBmAMBIgACEQEDEQH/xAAfAAABBQEBAQEBAQAAAAAAAAAAAQIDBAUGBwgJCgv/xAC1EAACAQMDAgQDBQUEBAAAAX0BAgMABBEFEiExQQYTUWEHInEUMoGRoQgjQrHBFVLR8CQzYnKCCQoWFxgZGiUmJygpKjQkNjc4OTpDREVGR0hJSlNUVVZXWFhY2Rl6ekl6h4iTVFVWV1hYmNkZWVqKsvpabq6prqO3p6i5knT1MRqXk9Rq66lrKNs4Wprq8k3ax0k4Wpnm58k5gaXq7kjw6k7n6shgpejxy4pQRAiI4QIg==",
       quote: "We architect decoupled, asynchronous microservices and conversion-focused web systems engineered strictly for 99.9% uptime and bulletproof security.",
       badgeColor: "#0284c7",
       badgeBg: "#e0f2fe",
@@ -208,13 +208,13 @@ export default function App() {
     }
   ];
 
-  // 2. WORKING SQUAD (PRITAM CARPENTER)
+  // 2. WORKING SQUAD (PRITAM CARPENTER WITH EXACT IMAGE)
   const teamMembers = [
     {
       role: "Full Stack Developer",
       name: "Pritam carpenter",
       field: "React.js, Next.js & TypeScript Systems",
-      image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80",
+      image: "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/4QAiRXhpZgAATU0AKgAAAAgAAQESAAMAAAABAAEAAAAAAAD/2wCEAAgICAgJCAkKCgkNDgkODRMQExMWFRQUFRQXGBgWGBgWGBcWGBgWGBgWGBgXGBgWGBgWGBgWGBgWGBgWGBgWGBgBCAgICQgKCgkKDQ4JDg0TExMTExUVFRUVFRcYGBgYGBgYFhYWGBgWGBgWGBgWGBgWGBgWGBgWGBgWGBgWGBgWGP/CABEIAZgBmAMBIgACEQEDEQH/xAAfAAABBQEBAQEBAQAAAAAAAAAAAQIDBAUGBwgJCgv/xAC1EAACAQMDAgQDBQUEBAAAAX0BAgMABBEFEiExQQYTUWEHInEUMoGRoQgjQrHBFVLR8CQzYnKCCQoWFxgZGiUmJygpKjQkNjc4OTpDREVGR0hJSlNUVVZXWFhY2Rl6ekl6h4iTVFVWV1hYmNkZWVqKsvpabq6prqO3p6i5knT1MRqXk9Rq66lrKNs4Wprq8k3ax0k4Wpnm58k5gaXq7kjw6k7n6shgpejxy4pQRAiI4QIg==",
       badgeColor: "#0284c7",
       badgeBg: "#e0f2fe",
       borderColor: "#7dd3fc",
