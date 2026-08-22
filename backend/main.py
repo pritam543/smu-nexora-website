@@ -2,6 +2,7 @@ from fastapi import FastAPI, File, UploadFile, Form, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
+from pathlib import Path
 import sqlite3
 import os
 import shutil
@@ -150,20 +151,23 @@ async def submit_contact_inquiry(
         ))
         conn.commit()
         conn.close()
-        return {"success": True, "message": "Inquiry submitted successfully!"}
+        return {"success": True, "message": "Inquiry successfully submitted!"}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
 # ==================== SERVE REACT FRONTEND ====================
-if os.path.exists("frontend/frontend/dist"):
-    app.mount("/assets", StaticFiles(directory="frontend/frontend/dist/assets"), name="assets")
+FRONTEND_DIST = Path("frontend/dist")
+
+if FRONTEND_DIST.exists():
+    if (FRONTEND_DIST / "assets").exists():
+        app.mount("/assets", StaticFiles(directory=FRONTEND_DIST / "assets"), name="assets")
 
     @app.get("/{full_path:path}")
     async def serve_react_app(full_path: str):
         if full_path.startswith("api"):
             raise HTTPException(status_code=404, detail="Not found")
             
-        file_path = os.path.join("frontend/frontend/dist", full_path)
-        if full_path and os.path.exists(file_path):
+        file_path = FRONTEND_DIST / full_path
+        if full_path and file_path.is_file():
             return FileResponse(file_path)
-        return FileResponse("frontend/frontend/dist/index.html")
+        return FileResponse(FRONTEND_DIST / "index.html")
