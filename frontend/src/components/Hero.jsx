@@ -7,6 +7,7 @@ const headlines = [
   "Architecting Cloud & AI Solutions for Tomorrow"
 ];
 
+
 export default function Hero({ onNavigate }) {
   const [currentHeadline, setCurrentHeadline] = useState(0);
 

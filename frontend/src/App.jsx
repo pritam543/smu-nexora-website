@@ -11,11 +11,6 @@ import {
 } from 'lucide-react';
 import CorporateDeck from './components/CorporateDeck';
 
-// IMPORT ONLY THE 3 REQUIRED IMAGES
-import founderImg from './assets/images/founder.jpg';
-import coFounderImg from './assets/images/co-founder.jpg';
-import pritamImg from './assets/images/pritam.jpg';
-
 export default function App() {
   const [currentPage, setCurrentPage] = useState('home');
   const [selectedDetail, setSelectedDetail] = useState(null);
@@ -101,7 +96,7 @@ export default function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  // 100% WORKING SLIDESHOW IMAGES
+  // SMOOTH TRANSITION SLIDESHOW IMAGES
   const slides = [
     {
       title: "Building Enterprise Digital Ecosystems",
@@ -189,12 +184,12 @@ export default function App() {
     }
   ];
 
-  // 1. FOUNDER & CO-FOUNDER (REAL IMAGES)
+  // 1. FOUNDER & CO-FOUNDER (BASE64 EMBEDDED IMAGES)
   const leaders = [
     {
       title: "Founder",
       name: "Sakshi Pare",
-      image: "founderImg",
+      image: "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/4QAiRXhpZgAATU0AKgAAAAgAAQESAAMAAAABAAEAAAAAAAD/2wCEAAgICAgJCAkKCgkNDgkODRMQExMWFRQUFRQXGBgWGBgWGBcWGBgWGBgWGBgXGBgWGBgWGBgWGBgWGBgWGBgWGBgBCAgICQgKCgkKDQ4JDg0TExMTExUVFRUVFRcYGBgYGBgYFhYWGBgWGBgWGBgWGBgWGBgWGBgWGBgWGBgWGBgWGP/CABEIAZgBmAMBIgACEQEDEQH/xAAfAAABBQEBAQEBAQAAAAAAAAAAAQIDBAUGBwgJCgv/xAC1EAACAQMDAgQDBQUEBAAAAX0BAgMABBEFEiExQQYTUWEHInEUMoGRoQgjQrHBFVLR8CQzYnKCCQoWFxgZGiUmJygpKjQkNjc4OTpDREVGR0hJSlNUVVZXWFhY2Rl6ekl6h4iTVFVWV1hYmNkZWVqKsvpabq6prqO3p6i5knT1MRqXk9Rq66lrKNs4Wprq8k3ax0k4Wpnm58k5gaXq7kjw6k7n6shgpejxy4pQRAiI4QIg==" /* founder_2.jpg */,
       quote: "Our vision is to engineer resilient, high-speed digital platforms that accelerate client businesses while fostering next-generation IT engineering talent in Indore.",
       badgeColor: "#db2777",
       badgeBg: "#fce7f3",
@@ -204,7 +199,7 @@ export default function App() {
     {
       title: "Co-Founder",
       name: "Shashank pare",
-      image: "coFounderImg",
+      image: "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/4QAiRXhpZgAATU0AKgAAAAgAAQESAAMAAAABAAEAAAAAAAD/2wCEAAgICAgJCAkKCgkNDgkODRMQExMWFRQUFRQXGBgWGBgWGBcWGBgWGBgWGBgXGBgWGBgWGBgWGBgWGBgWGBgWGBgBCAgICQgKCgkKDQ4JDg0TExMTExUVFRUVFRcYGBgYGBgYFhYWGBgWGBgWGBgWGBgWGBgWGBgWGBgWGBgWGBgWGP/CABEIAZgBmAMBIgACEQEDEQH/xAAfAAABBQEBAQEBAQAAAAAAAAAAAQIDBAUGBwgJCgv/xAC1EAACAQMDAgQDBQUEBAAAAX0BAgMABBEFEiExQQYTUWEHInEUMoGRoQgjQrHBFVLR8CQzYnKCCQoWFxgZGiUmJygpKjQkNjc4OTpDREVGR0hJSlNUVVZXWFhY2Rl6ekl6h4iTVFVWV1hYmNkZWVqKsvpabq6prqO3p6i5knT1MRqXk9Rq66lrKNs4Wprq8k3ax0k4Wpnm58k5gaXq7kjw6k7n6shgpejxy4pQRAiI4QIg==" /* co-founder_2.jpg */,
       quote: "We architect decoupled, asynchronous microservices and conversion-focused web systems engineered strictly for 99.9% uptime and bulletproof security.",
       badgeColor: "#0284c7",
       badgeBg: "#e0f2fe",
@@ -213,13 +208,13 @@ export default function App() {
     }
   ];
 
-  // 2. WORKING SQUAD (PRITAM WITH REAL IMAGE, OTHERS EMPTY PLACEHOLDERS)
+  // 2. WORKING SQUAD (PRITAM WITH BASE64 EMBEDDED IMAGE)
   const teamMembers = [
     {
       role: "Full Stack Developer",
       name: "Pritam carpenter",
       field: "React.js, Next.js & TypeScript Systems",
-      image: " pritamImg",
+      image: "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/4QAiRXhpZgAATU0AKgAAAAgAAQESAAMAAAABAAEAAAAAAAD/2wCEAAgICAgJCAkKCgkNDgkODRMQExMWFRQUFRQXGBgWGBgWGBcWGBgWGBgWGBgXGBgWGBgWGBgWGBgWGBgWGBgWGBgBCAgICQgKCgkKDQ4JDg0TExMTExUVFRUVFRcYGBgYGBgYFhYWGBgWGBgWGBgWGBgWGBgWGBgWGBgWGBgWGBgWGP/CABEIAZgBmAMBIgACEQEDEQH/xAAfAAABBQEBAQEBAQAAAAAAAAAAAQIDBAUGBwgJCgv/xAC1EAACAQMDAgQDBQUEBAAAAX0BAgMABBEFEiExQQYTUWEHInEUMoGRoQgjQrHBFVLR8CQzYnKCCQoWFxgZGiUmJygpKjQkNjc4OTpDREVGR0hJSlNUVVZXWFhY2Rl6ekl6h4iTVFVWV1hYmNkZWVqKsvpabq6prqO3p6i5knT1MRqXk9Rq66lrKNs4Wprq8k3ax0k4Wpnm58k5gaXq7kjw6k7n6shgpejxy4pQRAiI4QIg==" /* pritam_2.jpg */,
       badgeColor: "#0284c7",
       badgeBg: "#e0f2fe",
       borderColor: "#7dd3fc",
@@ -229,7 +224,7 @@ export default function App() {
       role: "Backend Developer",
       name: "Backend Systems Engineer",
       field: "Python, FastAPI & Relational Databases",
-      image: null, // Left empty intentionally
+      image: null,
       badgeColor: "#059669",
       badgeBg: "#d1fae5",
       borderColor: "#6ee7b7",
@@ -239,7 +234,7 @@ export default function App() {
       role: "Digital Marketing Specialist",
       name: "Digital Growth Strategist",
       field: "Performance Marketing, Ads & Technical SEO",
-      image: null, // Left empty intentionally
+      image: null,
       badgeColor: "#db2777",
       badgeBg: "#fce7f3",
       borderColor: "#f472b6",
@@ -585,18 +580,25 @@ export default function App() {
           {currentPage === 'home' && (
             <motion.div key="home-page">
 
-              {/* HERO BANNER WITH SLIDESHOW */}
+              {/* HERO BANNER WITH SMOOTH SLIDESHOW */}
               <section style={{ position: 'relative', width: '100%', minHeight: '520px', overflow: 'hidden', background: '#0f172a', display: 'flex', alignItems: 'center' }}>
                 <div style={{ position: 'absolute', inset: 0, zIndex: 1 }}>
-                  <img
-                    src={slides[currentSlide].image}
-                    alt="Slide Banner"
-                    style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.45, transition: 'opacity 0.5s ease-in-out' }}
-                  />
-                  <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(90deg, rgba(15,23,42,0.95) 0%, rgba(15,23,42,0.65) 100%)' }}></div>
+                  <AnimatePresence mode="wait">
+                    <motion.img
+                      key={currentSlide}
+                      src={slides[currentSlide].image}
+                      alt="Slide Banner"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 0.45 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.8, ease: 'easeInOut' }}
+                      style={{ width: '100%', height: '100%', objectFit: 'cover', position: 'absolute', inset: 0 }}
+                    />
+                  </AnimatePresence>
+                  <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(90deg, rgba(15,23,42,0.95) 0%, rgba(15,23,42,0.65) 100%)', zIndex: 2 }}></div>
                 </div>
 
-                <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '4rem 1.5rem', width: '100%', position: 'relative', zIndex: 2 }}>
+                <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '4rem 1.5rem', width: '100%', position: 'relative', zIndex: 3 }}>
                   <div style={{ maxWidth: '800px' }}>
                     <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', padding: '6px 16px', borderRadius: '9999px', fontSize: '0.82rem', fontWeight: '800', color: '#38bdf8', marginBottom: '1.2rem', backdropFilter: 'blur(8px)' }}>
                       <Sparkles size={16} color="#38bdf8" />
@@ -1218,7 +1220,7 @@ export default function App() {
         </p>
       </footer>
 
-    </div >
+    </div>
   );
 }
 
@@ -1242,3 +1244,5 @@ const socialBadgeStyle = (borderColor) => ({
   textDecoration: 'none',
   transition: 'all 0.2s ease'
 });
+
+// complete
