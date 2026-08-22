@@ -11,6 +11,11 @@ import {
 } from 'lucide-react';
 import CorporateDeck from './components/CorporateDeck';
 
+// IMPORT EXACT IMAGES
+import founderImg from './assets/founder.jpg';
+import coFounderImg from './assets/co-founder.jpg';
+import pritamImg from './assets/pritam.jpg';
+
 export default function App() {
   const [currentPage, setCurrentPage] = useState('home');
   const [selectedDetail, setSelectedDetail] = useState(null);
@@ -184,12 +189,12 @@ export default function App() {
     }
   ];
 
-  // 1. FOUNDER & CO-FOUNDER (BASE64 EMBEDDED IMAGES)
+  // 1. FOUNDER & CO-FOUNDER (WITH IMPORTED ASSETS)
   const leaders = [
     {
       title: "Founder",
       name: "Sakshi Pare",
-      image: "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/4QAiRXhpZgAATU0AKgAAAAgAAQESAAMAAAABAAEAAAAAAAD/2wCEAAgICAgJCAkKCgkNDgkODRMQExMWFRQUFRQXGBgWGBgWGBcWGBgWGBgWGBgXGBgWGBgWGBgWGBgWGBgWGBgWGBgBCAgICQgKCgkKDQ4JDg0TExMTExUVFRUVFRcYGBgYGBgYFhYWGBgWGBgWGBgWGBgWGBgWGBgWGBgWGBgWGBgWGP/CABEIAZgBmAMBIgACEQEDEQH/xAAfAAABBQEBAQEBAQAAAAAAAAAAAQIDBAUGBwgJCgv/xAC1EAACAQMDAgQDBQUEBAAAAX0BAgMABBEFEiExQQYTUWEHInEUMoGRoQgjQrHBFVLR8CQzYnKCCQoWFxgZGiUmJygpKjQkNjc4OTpDREVGR0hJSlNUVVZXWFhY2Rl6ekl6h4iTVFVWV1hYmNkZWVqKsvpabq6prqO3p6i5knT1MRqXk9Rq66lrKNs4Wprq8k3ax0k4Wpnm58k5gaXq7kjw6k7n6shgpejxy4pQRAiI4QIg==" /* founder_2.jpg */,
+      image: founderImg,
       quote: "Our vision is to engineer resilient, high-speed digital platforms that accelerate client businesses while fostering next-generation IT engineering talent in Indore.",
       badgeColor: "#db2777",
       badgeBg: "#fce7f3",
@@ -199,7 +204,7 @@ export default function App() {
     {
       title: "Co-Founder",
       name: "Shashank pare",
-      image: "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/4QAiRXhpZgAATU0AKgAAAAgAAQESAAMAAAABAAEAAAAAAAD/2wCEAAgICAgJCAkKCgkNDgkODRMQExMWFRQUFRQXGBgWGBgWGBcWGBgWGBgWGBgXGBgWGBgWGBgWGBgWGBgWGBgWGBgBCAgICQgKCgkKDQ4JDg0TExMTExUVFRUVFRcYGBgYGBgYFhYWGBgWGBgWGBgWGBgWGBgWGBgWGBgWGBgWGBgWGP/CABEIAZgBmAMBIgACEQEDEQH/xAAfAAABBQEBAQEBAQAAAAAAAAAAAQIDBAUGBwgJCgv/xAC1EAACAQMDAgQDBQUEBAAAAX0BAgMABBEFEiExQQYTUWEHInEUMoGRoQgjQrHBFVLR8CQzYnKCCQoWFxgZGiUmJygpKjQkNjc4OTpDREVGR0hJSlNUVVZXWFhY2Rl6ekl6h4iTVFVWV1hYmNkZWVqKsvpabq6prqO3p6i5knT1MRqXk9Rq66lrKNs4Wprq8k3ax0k4Wpnm58k5gaXq7kjw6k7n6shgpejxy4pQRAiI4QIg==" /* co-founder_2.jpg */,
+      image: coFounderImg,
       quote: "We architect decoupled, asynchronous microservices and conversion-focused web systems engineered strictly for 99.9% uptime and bulletproof security.",
       badgeColor: "#0284c7",
       badgeBg: "#e0f2fe",
@@ -208,13 +213,13 @@ export default function App() {
     }
   ];
 
-  // 2. WORKING SQUAD (PRITAM WITH BASE64 EMBEDDED IMAGE)
+  // 2. WORKING SQUAD (PRITAM WITH IMPORTED ASSET, OTHERS PLACEHOLDER)
   const teamMembers = [
     {
       role: "Full Stack Developer",
       name: "Pritam carpenter",
       field: "React.js, Next.js & TypeScript Systems",
-      image: "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/4QAiRXhpZgAATU0AKgAAAAgAAQESAAMAAAABAAEAAAAAAAD/2wCEAAgICAgJCAkKCgkNDgkODRMQExMWFRQUFRQXGBgWGBgWGBcWGBgWGBgWGBgXGBgWGBgWGBgWGBgWGBgWGBgWGBgBCAgICQgKCgkKDQ4JDg0TExMTExUVFRUVFRcYGBgYGBgYFhYWGBgWGBgWGBgWGBgWGBgWGBgWGBgWGBgWGBgWGP/CABEIAZgBmAMBIgACEQEDEQH/xAAfAAABBQEBAQEBAQAAAAAAAAAAAQIDBAUGBwgJCgv/xAC1EAACAQMDAgQDBQUEBAAAAX0BAgMABBEFEiExQQYTUWEHInEUMoGRoQgjQrHBFVLR8CQzYnKCCQoWFxgZGiUmJygpKjQkNjc4OTpDREVGR0hJSlNUVVZXWFhY2Rl6ekl6h4iTVFVWV1hYmNkZWVqKsvpabq6prqO3p6i5knT1MRqXk9Rq66lrKNs4Wprq8k3ax0k4Wpnm58k5gaXq7kjw6k7n6shgpejxy4pQRAiI4QIg==" /* pritam_2.jpg */,
+      image: pritamImg,
       badgeColor: "#0284c7",
       badgeBg: "#e0f2fe",
       borderColor: "#7dd3fc",
@@ -1244,5 +1249,3 @@ const socialBadgeStyle = (borderColor) => ({
   textDecoration: 'none',
   transition: 'all 0.2s ease'
 });
-
-// complete
