@@ -189,7 +189,7 @@ export default function App() {
     {
       title: "Founder",
       name: "Sakshi Pare",
-      image: "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/4QAiRXhpZgAATU0AKgAAAAgAAQESAAMAAAABAAEAAAAAAAD/2wCEAAgICAgJCAkKCgkNDgkODRMQExMWFRQUFRQXGBgWGBgWGBcWGBgWGBgWGBgXGBgWGBgWGBgWGBgWGBgWGBgWGBgBCAgICQgKCgkKDQ4JDg0TExMTExUVFRUVFRcYGBgYGBgYFhYWGBgWGBgWGBgWGBgWGBgWGBgWGBgWGBgWGBgWGP/CABEIAZgBmAMBIgACEQEDEQH/xAAfAAABBQEBAQEBAQAAAAAAAAAAAQIDBAUGBwgJCgv/xAC1EAACAQMDAgQDBQUEBAAAAX0BAgMABBEFEiExQQYTUWEHInEUMoGRoQgjQrHBFVLR8CQzYnKCCQoWFxgZGiUmJygpKjQkNjc4OTpDREVGR0hJSlNUVVZXWFhY2Rl6ekl6h4iTVFVWV1hYmNkZWVqKsvpabq6prqO3p6i5knT1MRqXk9Rq66lrKNs4Wprq8k3ax0k4Wpnm58k5gaXq7kjw6k7n6shgpejxy4pQRAiI4QIg==",
+      image: "/founder.jpg"
       quote: "Our vision is to engineer resilient, high-speed digital platforms that accelerate client businesses while fostering next-generation IT engineering talent in Indore.",
       badgeColor: "#db2777",
       badgeBg: "#fce7f3",
