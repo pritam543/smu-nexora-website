@@ -192,7 +192,7 @@ export default function App() {
       quote: "Our vision is to engineer resilient, high-speed digital platforms that accelerate client businesses while fostering next-generation IT engineering talent in Indore.",
       badgeColor: "#db2777",
       badgeBg: "#fce7f3",
-      borderColor: "#f472b6",
+      borderColor: "#f798c9",
       glowShadow: "rgba(244, 114, 182, 0.35)"
     },
     {
