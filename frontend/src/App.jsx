@@ -188,7 +188,7 @@ export default function App() {
     {
       title: "Founder",
       name: "Sakshi Pare",
-      image: "/images/founder.jpg", // <--- Yahan /images/ joda hai
+      image: "", // <--- Yahan /images/ joda hai
       quote: "Our vision is to engineer resilient, high-speed digital platforms that accelerate client businesses while fostering next-generation IT engineering talent in Indore.",
       badgeColor: "#db2777",
       badgeBg: "#fce7f3",
@@ -198,7 +198,7 @@ export default function App() {
     {
       title: "Co-Founder",
       name: "Shashank pare",
-      image: "/images/co-founder.jpg", // <--- Yahan bhi /images/ aur naam co-founder.jpg kiya hai
+      image: "", // <--- Yahan bhi /images/ aur naam co-founder.jpg kiya hai
       quote: "We architect decoupled, asynchronous microservices and conversion-focused web systems engineered strictly for 99.9% uptime and bulletproof security.",
       badgeColor: "#0284c7",
       badgeBg: "#e0f2fe",
