@@ -793,12 +793,12 @@ export default function App() {
                         <div>
                           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', marginBottom: '1.6rem' }}>
                             <div style={{ width: '175px', height: '175px', borderRadius: '50%', overflow: 'hidden', border: `4px solid ${leader.borderColor}`, boxShadow: `0 12px 28px ${leader.glowShadow}`, marginBottom: '16px', background: '#f8fafc' }}>
-                              {/* <img
+                              <img
                                 src={leader.image}
                                 alt={leader.name}
                                 style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                                onError={(e) => { e.target.src = "" }}
-                              /> */}
+                                onError={(e) => { e.target.src = "e:\smu\frontend\public\images\founder.jpg" }}
+                              />
                             </div>
                             <div style={{ fontSize: '0.92rem', fontWeight: '800', color: leader.badgeColor, background: leader.badgeBg, padding: '5px 18px', borderRadius: '9999px', display: 'inline-block', border: `1px solid ${leader.borderColor}50`, marginBottom: '6px' }}>
                               {leader.title}
