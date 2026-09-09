@@ -1,7 +1,3 @@
-
-import founderImg from './assets/images/founder.jpg';
-import coFounderImg from './assets/images/co-founder.jpg';
-
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
@@ -192,7 +188,7 @@ export default function App() {
     {
       title: "Founder",
       name: "Sakshi Pare",
-      image: founderImg, // <--- Yahan bhi /images/ aur naam founder.jpg kiya hai
+      image: "/images/founder.jpg", // <--- Yahan bhi /images/ aur naam founder.jpg kiya hai
       quote: "Our vision is to engineer resilient, high-speed digital platforms that accelerate client businesses while fostering next-generation IT engineering talent in Indore.",
       badgeColor: "#db2777",
       badgeBg: "#fce7f3",
@@ -202,7 +198,7 @@ export default function App() {
     {
       title: "Co-Founder",
       name: "Shashank pare",
-      image: coFounderImg, // <--- Yahan bhi /images/ aur naam co-founder.jpg kiya hai
+      image: "", // <--- Yahan bhi /images/ aur naam co-founder.jpg kiya hai
       quote: "We architect decoupled, asynchronous microservices and conversion-focused web systems engineered strictly for 99.9% uptime and bulletproof security.",
       badgeColor: "#0284c7",
       badgeBg: "#e0f2fe",
@@ -801,6 +797,7 @@ export default function App() {
                                 src={leader.image}
                                 alt={leader.name}
                                 style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+
                               />
                             </div>
                             <div style={{ fontSize: '0.92rem', fontWeight: '800', color: leader.badgeColor, background: leader.badgeBg, padding: '5px 18px', borderRadius: '9999px', display: 'inline-block', border: `1px solid ${leader.borderColor}50`, marginBottom: '6px' }}>
