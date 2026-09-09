@@ -1,3 +1,8 @@
+
+import founderImg from './assets/images/founder.jpg';
+import coFounderImg from './assets/images/co-founder.jpg';
+import pritamImg from './assets/images/pritam.jpg';
+
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
@@ -188,8 +193,8 @@ export default function App() {
     {
       title: "Founder",
       name: "Sakshi Pare",
-      image: "public/images/founder.jpg", // <--- Yahan bhi /images/ aur naam founder.jpg kiya hai
-      quote: "Our vision is to engineer resilient, high-speed digital platforms that accelerate client businesses while fostering next-generation IT engineering talent in Indore..",
+      image: founderImg, // <--- Yahan bhi /images/ aur naam founder.jpg kiya hai
+      quote: "Our vision is to engineer resilient, high-speed digital platforms that accelerate client businesses while fostering next-generation IT engineering talent in Indore.",
       badgeColor: "#db2777",
       badgeBg: "#fce7f3",
       borderColor: "#f798c9",
@@ -198,7 +203,7 @@ export default function App() {
     {
       title: "Co-Founder",
       name: "Shashank pare",
-      image: "", // <--- Yahan bhi /images/ aur naam co-founder.jpg kiya hai
+      image: coFounderImg, // <--- Yahan bhi /images/ aur naam co-founder.jpg kiya hai
       quote: "We architect decoupled, asynchronous microservices and conversion-focused web systems engineered strictly for 99.9% uptime and bulletproof security.",
       badgeColor: "#0284c7",
       badgeBg: "#e0f2fe",
@@ -213,7 +218,7 @@ export default function App() {
       role: "Full Stack Developer",
       name: "Pritam carpenter",
       field: "React.js, Next.js & TypeScript Systems",
-      image: "public/images/pritam.jpg", // <--- Yahan bhi /images/ joda hai
+      image: pritamImg, // <--- Yahan bhi /images/ joda hai
       badgeColor: "#0284c7",
       badgeBg: "#e0f2fe",
       borderColor: "#7dd3fc",
