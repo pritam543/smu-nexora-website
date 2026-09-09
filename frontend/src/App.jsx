@@ -218,7 +218,7 @@ export default function App() {
       role: "Full Stack Developer",
       name: "Pritam carpenter",
       field: "React.js, Next.js & TypeScript Systems",
-      image: pritamImg, // <--- Yahan bhi /images/ joda hai
+      image: pritamImg,
       badgeColor: "#0284c7",
       badgeBg: "#e0f2fe",
       borderColor: "#7dd3fc",
