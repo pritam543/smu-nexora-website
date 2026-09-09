@@ -797,7 +797,6 @@ export default function App() {
                                 src={leader.image}
                                 alt={leader.name}
                                 style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                                onError={(e) => { e.target.src = "/images/founder.jpg" }}
                               />
                             </div>
                             <div style={{ fontSize: '0.92rem', fontWeight: '800', color: leader.badgeColor, background: leader.badgeBg, padding: '5px 18px', borderRadius: '9999px', display: 'inline-block', border: `1px solid ${leader.borderColor}50`, marginBottom: '6px' }}>
