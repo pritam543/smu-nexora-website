@@ -188,7 +188,7 @@ export default function App() {
     {
       title: "Founder",
       name: "Sakshi Pare",
-      image: "e:\smu\frontend\public\images\founder.jpg", // <--- Yahan bhi /images/ aur naam founder.jpg kiya hai
+      image: "/images/founder.jpg", // <--- Yahan bhi /images/ aur naam founder.jpg kiya hai
       quote: "Our vision is to engineer resilient, high-speed digital platforms that accelerate client businesses while fostering next-generation IT engineering talent in Indore.",
       badgeColor: "#db2777",
       badgeBg: "#fce7f3",
@@ -797,7 +797,7 @@ export default function App() {
                                 src={leader.image}
                                 alt={leader.name}
                                 style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                                onError={(e) => { e.target.src = "e:\smu\frontend\public\images\founder.jpg" }}
+                                onError={(e) => { e.target.src = "/images/founder.jpg" }}
                               />
                             </div>
                             <div style={{ fontSize: '0.92rem', fontWeight: '800', color: leader.badgeColor, background: leader.badgeBg, padding: '5px 18px', borderRadius: '9999px', display: 'inline-block', border: `1px solid ${leader.borderColor}50`, marginBottom: '6px' }}>
