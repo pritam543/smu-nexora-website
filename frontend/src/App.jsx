@@ -1,7 +1,7 @@
 
 import founderImg from './assets/images/founder.jpg';
 import coFounderImg from './assets/images/co-founder.jpg';
-import pritamImg from './assets/images/pritam.jpg';
+
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -218,12 +218,13 @@ export default function App() {
       role: "Full Stack Developer",
       name: "Pritam carpenter",
       field: "React.js, Next.js & TypeScript Systems",
-      image: pritamImg,
+      image: "/images/pritam.jpg", // <--- Seedha string path dein (public folder ke liye)
       badgeColor: "#0284c7",
       badgeBg: "#e0f2fe",
       borderColor: "#7dd3fc",
       glowShadow: "rgba(125, 211, 252, 0.3)"
     },
+
     {
       role: "Backend Developer",
       name: "Backend Systems Engineer",
