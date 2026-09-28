@@ -5,7 +5,7 @@ const Navbar = ({ onOpenDeck, onNavigate }) => {
   const [whatWeDoOpen, setWhatWeDoOpen] = useState(false);
 
   const whatWeDoList = [
-    { id: 'architectures', name: "Architectures" },
+    { id: 'architectures', name: "Architecture" },
     { id: 'education', name: "Education" },
     { id: 'healthcare', name: "Healthcare" },
     { id: 'schools', name: "Schools" },
@@ -23,7 +23,7 @@ const Navbar = ({ onOpenDeck, onNavigate }) => {
         </div>
         <div>
           <span className="text-xl font-bold tracking-wider">
-            SMU <span className="bg-gradient-to-r from-sky-400 via-indigo-400 to-purple-400 bg-clip-text text-transparent">NEXORA</span>
+            <span className="bg-gradient-to-r from-sky-400 via-indigo-400 to-purple-400 bg-clip-text text-transparent"> SMU NEXORA</span>
           </span>
           <p className="text-[9px] text-slate-400 tracking-widest font-semibold uppercase">
             TECHNOLOGIES PVT. LTD.
@@ -33,9 +33,9 @@ const Navbar = ({ onOpenDeck, onNavigate }) => {
 
       <ul className="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-300">
         <li onClick={() => onNavigate && onNavigate('home')} className="hover:text-blue-400 cursor-pointer transition-colors">Home</li>
-        
+
         {/* What We Do Dropdown with Architectures 1st */}
-        <li 
+        <li
           className="relative group cursor-pointer"
           onMouseEnter={() => setWhatWeDoOpen(true)}
           onMouseLeave={() => setWhatWeDoOpen(false)}
@@ -47,8 +47,8 @@ const Navbar = ({ onOpenDeck, onNavigate }) => {
           {whatWeDoOpen && (
             <div className="absolute top-full left-0 w-48 bg-slate-900 border border-slate-800 rounded-xl shadow-xl py-2 mt-1 z-50">
               {whatWeDoList.map((item) => (
-                <div 
-                  key={item.id} 
+                <div
+                  key={item.id}
                   onClick={() => {
                     setWhatWeDoOpen(false);
                     if (onNavigate) onNavigate(item.id);
@@ -63,6 +63,7 @@ const Navbar = ({ onOpenDeck, onNavigate }) => {
         </li>
 
         <li onClick={() => onNavigate && onNavigate('services')} className="hover:text-blue-400 cursor-pointer transition-colors">Services</li>
+        <li onClick={() => onNavigate && onNavigate('services')} className="hover:text-blue-400 cursor-pointer transition-colors">Projects</li>
         <li onClick={() => onNavigate && onNavigate('careers')} className="hover:text-blue-400 cursor-pointer transition-colors">Careers</li>
         <li onClick={() => onNavigate && onNavigate('contact')} className="hover:text-blue-400 cursor-pointer transition-colors">Contact</li>
       </ul>

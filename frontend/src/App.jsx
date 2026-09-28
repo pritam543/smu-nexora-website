@@ -207,7 +207,7 @@ export default function App() {
     },
     {
       title: "Director",
-      name: "Pritam Carpenter",
+      name: "Nidhi pare",
       image: "/images/pritam.jpg",
       quote: "Driving cutting-edge frontend architectures, full-stack systems, and robust technical implementations.",
       badgeColor: "#059669",
@@ -1279,7 +1279,7 @@ export default function App() {
       {/* 3-PART PROFESSIONAL FOOTER */}
       <footer style={{ background: 'linear-gradient(135deg, #fce7f3 0%, #faf8f2 50%, #e0f2fe 100%)', color: '#334155', padding: '3.5rem 1.5rem 2rem 1.5rem', borderTop: '1px solid #e2edf8', marginTop: '4rem' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '2.5rem', paddingBottom: '2.5rem', borderBottom: '1px solid #cbd5e1' }}>
-          
+
           {/* Part 1: Company Name & Intro */}
           <div>
             <h3 style={{ fontSize: '1.3rem', fontWeight: '900', color: '#1e1b4b', marginBottom: '10px' }}>
