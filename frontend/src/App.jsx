@@ -188,7 +188,7 @@ export default function App() {
     {
       title: "Founder",
       name: "Sakshi Pare",
-      image: "/images/founder.jpg",
+      image: "frontend/src/assets/founder.jpg",
       quote: "Our vision is to engineer resilient, high-speed digital platforms that accelerate client businesses while fostering next-generation IT engineering talent in Indore.",
       badgeColor: "#db2777",
       badgeBg: "#fce7f3",
@@ -206,8 +206,8 @@ export default function App() {
       glowShadow: "rgba(56, 189, 248, 0.35)"
     },
     {
-      title: "Director",
-      name: "Nidhi pare",
+      title: "Management Head",
+      name: "Vidhi Naramdeo",
       image: "/images/pritam.jpg",
       quote: "Driving cutting-edge frontend architectures, full-stack systems, and robust technical implementations.",
       badgeColor: "#059669",
