@@ -110,7 +110,7 @@ export default function App() {
       target: "careers"
     },
     {
-      title: "Security Hardened & Architectures",
+      title: "Security Hardened & BEST SEO Architectures",
       subtitle: "Safeguarding digital systems with robust encryption protocols and high-performance web frameworks.",
       image: "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=1200&q=80",
       target: "services"
