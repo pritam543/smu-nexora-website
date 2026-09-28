@@ -354,7 +354,7 @@ export default function App() {
   };
 
   // ORIGINAL SUBTLE PASTEL BACKGROUND RESTORED
-  const pastelMainBg = "linear-gradient(135deg, #fdf2f8 0%, #faf8f2 50%, #eff6ff 100%)";
+  const pastelMainBg = "linear-gradient(135deg, #ffcbe8 0%, #fff3d0 50%, #c5deff 100%)";
 
   return (
     <div style={{ background: pastelMainBg, color: '#1e293b', minHeight: '100vh', fontFamily: "'Plus Jakarta Sans', 'Inter', system-ui, sans-serif", position: 'relative', overflowX: 'hidden' }}>
