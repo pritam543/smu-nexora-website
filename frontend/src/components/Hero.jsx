@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 const headlines = [
   "Building Scalable Enterprise Software",
-  "Accelerating Brands via Data-Driven Digital Marketing",
+  "Accelerating Brands via BEST SEO & Data-Driven Digital Marketing",
   "Engineering Next-Gen Mobile & Web Applications",
   "Architecting Cloud & AI Solutions for Tomorrow"
 ];
@@ -28,7 +28,7 @@ export default function Hero({ onNavigate }) {
             SMU Nexora Technologies Pvt. Ltd.
           </div>
 
-          {/* Dynamic Rotating Headline */}
+          {/* Dynamic Rotating Headline with BEST SEO Highlight */}
           <div className="h-28 md:h-36 flex items-center justify-center">
             <h1 className="text-3xl md:text-6xl font-black text-slate-900 tracking-tight leading-tight transition-all duration-500">
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-700 via-sky-600 to-indigo-700">
@@ -38,7 +38,7 @@ export default function Hero({ onNavigate }) {
           </div>
 
           <p className="text-slate-600 text-base md:text-xl leading-relaxed max-w-3xl mx-auto font-normal">
-            We empower global startups, growing enterprises, and industry leaders with bespoke digital products, high-velocity web development, and ROI-focused digital marketing campaigns.
+            We empower global startups, growing enterprises, and industry leaders with bespoke digital products, high-velocity web development, and ROI-focused BEST SEO and digital marketing campaigns.
           </p>
 
           <div className="pt-6 flex flex-wrap items-center justify-center gap-4">

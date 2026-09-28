@@ -2,28 +2,36 @@ import React, { useState } from 'react';
 
 const services = [
   {
-    id: "web",
-    title: "Web Application Development",
-    desc: "Custom, ultra-fast web apps built with modern React, Next.js, and Python microservices.",
+    id: "web-app",
+    title: "Web & App Application Development",
+    desc: "Custom, ultra-fast web and mobile app solutions built with modern React, Next.js, and Python microservices.",
     icon: "💻",
     tag: "High Performance",
-    details: "At SMU Nexora, we engineer enterprise-grade web applications tailored to your business operations. Our web solutions prioritize speed, SEO-ready architecture, robust security protocols, and seamless API integrations to give your brand a competitive digital edge."
+    details: "At SMU Nexora, we engineer enterprise-grade web and mobile applications tailored to your business operations. Our solutions prioritize speed, SEO-ready architecture, robust security protocols, and seamless API integrations to give your brand a competitive digital edge."
+  },
+  {
+    id: "consulting",
+    title: "IT Strategic Consulting",
+    desc: "Modernizing legacy architectures and defining digital product technical roadmaps for scalable growth.",
+    icon: "📈",
+    tag: "Strategic Tech",
+    details: "Expert technical guidance to optimize your tech stack, streamline workflows, and scale your operations efficiently. We align software engineering roadmaps directly with core business revenue goals."
+  },
+  {
+    id: "cyber-security",
+    title: "Cyber Security & Auditing",
+    desc: "Vulnerability assessments, penetration testing, and end-to-end data encryption protocols.",
+    icon: "🛡️",
+    tag: "Core Security",
+    details: "Advanced protection protocols, vulnerability assessments, and secure system design to safeguard intellectual property, sensitive corporate data, and critical customer financial records."
   },
   {
     id: "digital-marketing",
-    title: "Digital Marketing & Brand Growth",
-    desc: "Data-driven SEO, Performance Ads, Content Strategy, and Targeted Social Media Campaigns.",
-    icon: "📈",
+    title: "Digital Growth & BEST SEO",
+    desc: "Data-driven BEST SEO, Performance Ads, Content Strategy, and Targeted Social Media Campaigns.",
+    icon: "🚀",
     tag: "ROI Focused",
-    details: "We scale your brand's online presence through targeted lead generation, search engine dominance (SEO), PPC advertising (Google & Meta Ads), and high-converting funnel design. Our analytical approach ensures every marketing rupee delivers measurable growth."
-  },
-  {
-    id: "mobile",
-    title: "Mobile App Development",
-    desc: "Cross-platform iOS and Android applications with intuitive UI/UX and seamless performance.",
-    icon: "📱",
-    tag: "iOS & Android",
-    details: "From concept to App Store deployment, SMU Nexora crafts native-feel iOS and Android mobile applications. We focus on frictionless user onboarding, real-time sync, and fluid UI/UX design to keep your customers engaged."
+    details: "We scale your brand's online presence through targeted lead generation, search engine dominance (BEST SEO), PPC advertising (Google & Meta Ads), and high-converting funnel design."
   },
   {
     id: "cloud-devops",
@@ -31,7 +39,7 @@ const services = [
     desc: "Scalable cloud infrastructure setup, automated CI/CD pipelines, and 24/7 server monitoring.",
     icon: "☁️",
     tag: "AWS & Docker",
-    details: "Modernize your IT infrastructure with automated cloud deployments on AWS, Google Cloud, or Azure. We reduce downtime, optimize server costs, and ensure zero-friction scaling during high traffic spikes."
+    details: "Modernize your IT infrastructure with automated cloud deployments on AWS, Google Cloud, or Azure. We reduce downtime, optimize server costs, and ensure zero-friction scaling."
   },
   {
     id: "ai-software",

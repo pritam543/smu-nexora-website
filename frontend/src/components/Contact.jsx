@@ -1,202 +1,122 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 
-export default function Careers() {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    service: "Job Application",
-    message: ""
-  });
-  const [resumeFile, setResumeFile] = useState(null);
-  const [status, setStatus] = useState({ type: "", msg: "" });
-  const [loading, setLoading] = useState(false);
+export default function Contact() {
+  const [formData, setFormData] = useState({ fullName: '', email: '', phone: '', subject: 'General Business Inquiry', userMessage: '' });
+  const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+
+  const API_BASE_URL = "https://smu-nexora-website.onrender.com";
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const handleFileChange = (e) => {
-    setResumeFile(e.target.files[0]);
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
-    setStatus({ type: "", msg: "" });
+    setIsSubmitting(true);
+    setErrorMessage('');
 
     const submitData = new FormData();
-    submitData.append("name", formData.name);
+    submitData.append("fullName", formData.fullName);
     submitData.append("email", formData.email);
-    submitData.append("phone", formData.phone);
-    submitData.append("service", formData.service);
-    submitData.append("message", formData.message);
-    submitData.append("form_type", "Application");
-    if (resumeFile) {
-      submitData.append("resume", resumeFile);
-    }
+    submitData.append("phone", formData.phone || "Not Provided");
+    submitData.append("subject", formData.subject);
+    submitData.append("userMessage", formData.userMessage);
 
     try {
-      const res = await axios.post("https://smu-nexora-website.onrender.com/api/contact", submitData, {
-        headers: { "Content-Type": "multipart/form-data" }
+      const response = await fetch(`${API_BASE_URL}/api/contact`, {
+        method: "POST",
+        body: submitData
       });
-      setStatus({ type: "success", msg: res.data.message });
-      setFormData({ name: "", email: "", phone: "", service: "Job Application", message: "" });
-      setResumeFile(null);
+      const result = await response.json();
+
+      if (response.ok && result.success) {
+        setSubmitted(true);
+        setTimeout(() => setSubmitted(false), 4000);
+        setFormData({ fullName: '', email: '', phone: '', subject: 'General Business Inquiry', userMessage: '' });
+      } else {
+        setErrorMessage(result.detail || 'Failed to submit inquiry. Please try again.');
+      }
     } catch (err) {
-      setStatus({
-        type: "error",
-        msg: "❌ Application submission failed. Ensure backend API is online."
-      });
+      setErrorMessage('Backend Connection Failed! Live server is starting up or unreachable.');
     } finally {
-      setLoading(false);
+      setIsSubmitting(false);
     }
   };
 
   return (
-    <section className="py-24 bg-slate-50/70 border-t border-slate-200">
-      <div className="max-w-7xl mx-auto px-6">
-
-        {/* Intro */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <span className="text-indigo-600 font-bold tracking-widest text-xs uppercase px-3 py-1 bg-indigo-100 rounded-full">
-            Careers at SMU Nexora
-          </span>
-          <h2 className="text-3xl md:text-5xl font-black text-slate-900 mt-4">
-            Build The Future With Us
-          </h2>
-          <p className="text-slate-600 mt-4 text-base md:text-lg">
-            We are always looking for passionate frontend/backend engineers, digital marketers, designers, and problem solvers to join our team in Indore.
-          </p>
+    <section id="contact" className="max-w-5xl mx-auto px-6 py-20">
+      <div className="text-center mb-14">
+        <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">Get In Touch With SMU Nexora</h2>
+        <p className="text-gray-300 text-base">Have an enterprise requirement? Reach out to our team in Indore.</p>
+      </div>
+      
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-10 bg-[#0b101d] p-10 rounded-3xl border border-gray-800 shadow-2xl">
+        <div>
+          <h3 className="text-xl font-bold text-white mb-6">Contact Information</h3>
+          <p className="text-gray-300 mb-4"><strong>Location:</strong> Indore, Madhya Pradesh, India</p>
+          <p className="text-gray-300 mb-4"><strong>Email:</strong> contact@smunexora.com / smunextech@gmail.com</p>
+          <p className="text-gray-300 mb-4"><strong>Phone / WhatsApp:</strong> +91 8435299100</p>
+          <p className="text-gray-300"><strong>Support Hours:</strong> Mon - Sat (9:00 AM - 7:00 PM)</p>
         </div>
 
-        {/* Benefits Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-          <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
-            <div className="text-3xl mb-3">🚀</div>
-            <h3 className="text-lg font-bold text-slate-900">Growth Environment</h3>
-            <p className="text-slate-600 text-sm mt-2">Work on cutting-edge web technologies and enterprise client projects with direct mentorship.</p>
-          </div>
-          <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
-            <div className="text-3xl mb-3">💡</div>
-            <h3 className="text-lg font-bold text-slate-900">Innovation First</h3>
-            <p className="text-slate-600 text-sm mt-2">We encourage fresh ideas, creative problem solving, and continuous learning culture.</p>
-          </div>
-          <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
-            <div className="text-3xl mb-3">🎯</div>
-            <h3 className="text-lg font-bold text-slate-900">Competitive Packages</h3>
-            <p className="text-slate-600 text-sm mt-2">Industry-standard compensation, performance rewards, and fast-track career elevation.</p>
-          </div>
-        </div>
-
-        {/* Application Form */}
-        <div className="max-w-3xl mx-auto bg-white border border-slate-200 rounded-3xl p-8 md:p-10 shadow-xl">
-          <div className="mb-6">
-            <h3 className="text-2xl font-bold text-slate-900">Submit Your Job Application</h3>
-            <p className="text-xs text-slate-500 mt-1">Attach your resume to get reviewed directly by our recruitment team.</p>
-          </div>
-
-          {status.msg && (
-            <div className={`p-4 mb-6 rounded-xl text-sm font-medium ${status.type === 'success'
-              ? 'bg-emerald-50 text-emerald-800 border border-emerald-200'
-              : 'bg-rose-50 text-rose-800 border border-rose-200'
-              }`}>
-              {status.msg}
-            </div>
-          )}
-
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <label className="block text-xs font-bold text-slate-600 uppercase mb-1">Full Name</label>
-              <input
-                type="text"
-                name="name"
-                required
-                value={formData.name}
-                onChange={handleChange}
-                placeholder="e.g. Rahul Carpenter"
-                className="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:border-indigo-600 transition-colors text-sm"
-              />
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-xs font-bold text-slate-600 uppercase mb-1">Email Address</label>
-                <input
-                  type="email"
-                  name="email"
-                  required
-                  value={formData.email}
-                  onChange={handleChange}
-                  placeholder="name@email.com"
-                  className="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:border-indigo-600 transition-colors text-sm"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs font-bold text-slate-600 uppercase mb-1">Phone Number</label>
-                <input
-                  type="tel"
-                  name="phone"
-                  required
-                  value={formData.phone}
-                  onChange={handleChange}
-                  placeholder="+91 98765 43210"
-                  className="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:border-indigo-600 transition-colors text-sm"
-                />
-              </div>
-            </div>
-
-            <div>
-              <label className="block text-xs font-bold text-slate-600 uppercase mb-1">Applied Profile</label>
-              <select
-                name="service"
-                value={formData.service}
-                onChange={handleChange}
-                className="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:border-indigo-600 transition-colors text-sm"
-              >
-                <option value="Frontend Developer">Frontend / React Developer</option>
-                <option value="Backend Developer">Backend / Python Developer</option>
-                <option value="UI/UX Designer">UI/UX Product Designer</option>
-                <option value="Digital Marketing Role">Digital Growth & Marketing Specialist</option>
-                <option value="Business Developer">Business Development Executive</option>
-              </select>
-            </div>
-
-            <div>
-              <label className="block text-xs font-bold text-slate-600 uppercase mb-1">Upload Resume (PDF / Doc)</label>
-              <input
-                type="file"
-                accept=".pdf,.doc,.docx"
-                onChange={handleFileChange}
-                className="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-slate-700 text-xs file:mr-3 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-indigo-100 file:text-indigo-700 hover:file:bg-indigo-200 cursor-pointer"
-              />
-            </div>
-
-            <div>
-              <label className="block text-xs font-bold text-slate-600 uppercase mb-1">Cover Note / Experience Summary</label>
-              <textarea
-                name="message"
-                required
-                rows="3"
-                value={formData.message}
-                onChange={handleChange}
-                placeholder="Briefly describe your skill set and experience..."
-                className="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:border-indigo-600 transition-colors text-sm"
-              ></textarea>
-            </div>
-
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3.5 rounded-xl transition-all shadow-lg shadow-indigo-500/20 text-sm uppercase tracking-wider cursor-pointer"
-            >
-              {loading ? "Submitting Application..." : "Submit Application"}
-            </button>
-          </form>
-        </div>
-
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+          <input 
+            type="text" 
+            name="fullName"
+            placeholder="Your Full Name" 
+            required 
+            value={formData.fullName}
+            onChange={handleChange}
+            className="p-4 rounded-xl bg-[#030712] border border-gray-800 text-white outline-none focus:border-sky-500 transition"
+          />
+          <input 
+            type="email" 
+            name="email"
+            placeholder="Your Email" 
+            required 
+            value={formData.email}
+            onChange={handleChange}
+            className="p-4 rounded-xl bg-[#030712] border border-gray-800 text-white outline-none focus:border-sky-500 transition"
+          />
+          <input 
+            type="tel" 
+            name="phone"
+            placeholder="Phone Number (Optional)" 
+            value={formData.phone}
+            onChange={handleChange}
+            className="p-4 rounded-xl bg-[#030712] border border-gray-800 text-white outline-none focus:border-sky-500 transition"
+          />
+          <input 
+            type="text" 
+            name="subject"
+            placeholder="Inquiry Subject" 
+            required 
+            value={formData.subject}
+            onChange={handleChange}
+            className="p-4 rounded-xl bg-[#030712] border border-gray-800 text-white outline-none focus:border-sky-500 transition"
+          />
+          <textarea 
+            name="userMessage"
+            placeholder="Your Message" 
+            rows="4" 
+            required 
+            value={formData.userMessage}
+            onChange={handleChange}
+            className="p-4 rounded-xl bg-[#030712] border border-gray-800 text-white outline-none focus:border-sky-500 transition resize-none"
+          ></textarea>
+          <button 
+            type="submit" 
+            disabled={isSubmitting}
+            className="bg-gradient-to-r from-sky-400 to-indigo-500 text-white p-4 rounded-xl font-bold shadow-lg hover:opacity-90 transition cursor-pointer disabled:opacity-50"
+          >
+            {isSubmitting ? 'Sending Message...' : 'Send Message'}
+          </button>
+          {submitted && <p className="text-sky-400 text-center font-semibold mt-2">Message sent successfully!</p>}
+          {errorMessage && <p className="text-red-400 text-center font-semibold mt-2 text-sm">{errorMessage}</p>}
+        </form>
       </div>
     </section>
   );
