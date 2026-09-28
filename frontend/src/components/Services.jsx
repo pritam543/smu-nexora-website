@@ -18,16 +18,16 @@ const services = [
     details: "Expert technical guidance to optimize your tech stack, streamline workflows, and scale your operations efficiently. We align software engineering roadmaps directly with core business revenue goals."
   },
   {
-    id: "cyber-security",
-    title: "Cyber Security & Auditing",
-    desc: "Vulnerability assessments, penetration testing, and end-to-end data encryption protocols.",
-    icon: "🛡️",
-    tag: "Core Security",
-    details: "Advanced protection protocols, vulnerability assessments, and secure system design to safeguard intellectual property, sensitive corporate data, and critical customer financial records."
+    id: "ai-software",
+    title: "AI & Custom Software Tools",
+    desc: "Intelligent automation tools, custom AI integration, and workflow optimization software.",
+    icon: "🤖",
+    tag: "Next-Gen Tech",
+    details: "Automate manual tasks and streamline operations with custom AI chatbots, machine learning tools, and specialized business logic software engineered specifically for your team's needs."
   },
   {
     id: "digital-marketing",
-    title: "Digital Growth & BEST SEO",
+    title: "Digital Marketing ",
     desc: "Data-driven BEST SEO, Performance Ads, Content Strategy, and Targeted Social Media Campaigns.",
     icon: "🚀",
     tag: "ROI Focused",
@@ -42,12 +42,13 @@ const services = [
     details: "Modernize your IT infrastructure with automated cloud deployments on AWS, Google Cloud, or Azure. We reduce downtime, optimize server costs, and ensure zero-friction scaling."
   },
   {
-    id: "ai-software",
-    title: "AI & Custom Software Tools",
-    desc: "Intelligent automation tools, custom AI integration, and workflow optimization software.",
-    icon: "🤖",
-    tag: "Next-Gen Tech",
-    details: "Automate manual tasks and streamline operations with custom AI chatbots, machine learning tools, and specialized business logic software engineered specifically for your team's needs."
+
+    id: "cyber-security",
+    title: "Cyber Security & Auditing",
+    desc: "Vulnerability assessments, penetration testing, and end-to-end data encryption protocols.",
+    icon: "🛡️",
+    tag: "Core Security",
+    details: "Advanced protection protocols, vulnerability assessments, and secure system design to safeguard intellectual property, sensitive corporate data, and critical customer financial records."
   }
 ];
 
@@ -61,7 +62,7 @@ export default function Services() {
   return (
     <section className="py-24 bg-slate-50 border-t border-slate-200">
       <div className="max-w-7xl mx-auto px-6">
-        
+
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <span className="text-blue-600 font-bold tracking-widest text-xs uppercase px-3 py-1 bg-blue-100 rounded-full">
@@ -80,12 +81,11 @@ export default function Services() {
           {services.map((srv) => {
             const isExpanded = activeService === srv.id;
             return (
-              <div 
+              <div
                 key={srv.id}
                 onClick={() => toggleService(srv.id)}
-                className={`bg-white border rounded-2xl p-7 transition-all duration-300 shadow-sm hover:shadow-xl cursor-pointer flex flex-col justify-between ${
-                  isExpanded ? 'border-blue-600 ring-2 ring-blue-500/20' : 'border-slate-200 hover:border-blue-400'
-                }`}
+                className={`bg-white border rounded-2xl p-7 transition-all duration-300 shadow-sm hover:shadow-xl cursor-pointer flex flex-col justify-between ${isExpanded ? 'border-blue-600 ring-2 ring-blue-500/20' : 'border-slate-200 hover:border-blue-400'
+                  }`}
               >
                 <div>
                   <div className="flex items-center justify-between mb-4">
