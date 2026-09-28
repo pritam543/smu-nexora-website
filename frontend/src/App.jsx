@@ -27,10 +27,8 @@ export default function App() {
   const [activeService, setActiveService] = useState('web-dev');
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  // Updated Dropdown states for About Us and Projects
-  const [aboutUsOpen, setAboutUsOpen] = useState(false);
+  // Projects Dropdown state
   const [projectsOpen, setProjectsOpen] = useState(false);
-
   const [servicesOpen, setServicesOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -84,7 +82,6 @@ export default function App() {
       setSelectedDetail(detailObj);
     }
 
-    setAboutUsOpen(false);
     setProjectsOpen(false);
     setServicesOpen(false);
     setMobileMenuOpen(false);
@@ -342,7 +339,6 @@ export default function App() {
   };
 
   const scrollToSection = (id) => {
-    setAboutUsOpen(false);
     setProjectsOpen(false);
     setServicesOpen(false);
     setMobileMenuOpen(false);
@@ -497,37 +493,22 @@ export default function App() {
 
           <div className="nav-items-container" style={{ display: 'flex', alignItems: 'center', gap: '1.2rem', flexWrap: 'wrap', position: 'relative' }}>
             <button onClick={() => navigateTo('home')} className="nav-btn-hover" style={navLinkStyle}>Home</button>
-
-            {/* About Us Dropdown (Now contains What We Do list) */}
-            <div style={{ position: 'relative' }} onMouseEnter={() => setAboutUsOpen(true)} onMouseLeave={() => setAboutUsOpen(false)}>
-              <button onClick={() => setAboutUsOpen(!aboutUsOpen)} className="nav-btn-hover" style={navLinkStyle}>
-                About Us <ChevronDown size={14} />
-              </button>
-              <AnimatePresence>
-                {aboutUsOpen && (
-                  <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 10 }} className="dropdown-desktop-panel" style={dropdownContainerStyle}>
-                    <div onClick={() => scrollToSection('about')} style={dropdownItemStyle}>
-                      <Building size={18} color="#0284c7" /><span>Company Profile</span>
-                    </div>
-                    {whatWeDoList.map((item) => {
-                      const IconComp = item.icon;
-                      return (
-                        <div key={item.id} onClick={() => navigateTo('what-we-do-detail', null, item)} style={dropdownItemStyle}>
-                          <IconComp size={18} color="#0284c7" /><span>{item.name}</span>
-                        </div>
-                      );
-                    })}
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-
+            <button onClick={() => scrollToSection('about')} className="nav-btn-hover" style={navLinkStyle}>About Us</button>
             <button onClick={() => scrollToSection('services')} className="nav-btn-hover" style={navLinkStyle}>Services</button>
 
-            {/* Projects Dropdown (Now contains What We Do / Architectures data) */}
-            <div style={{ position: 'relative' }} onMouseEnter={() => setProjectsOpen(true)} onMouseLeave={() => setProjectsOpen(false)}>
-              <button onClick={() => setProjectsOpen(!projectsOpen)} className="nav-btn-hover" style={navLinkStyle}>
-                Projects <ChevronDown size={14} />
+            {/* Projects Dropdown with Hover and Click Support */}
+            <div
+              style={{ position: 'relative' }}
+              onMouseEnter={() => setProjectsOpen(true)}
+              onMouseLeave={() => setProjectsOpen(false)}
+            >
+              <button
+                onClick={() => navigateTo('what-we-do-detail', null, whatWeDoList[0])}
+                className="nav-btn-hover"
+                style={{ ...navLinkStyle, display: 'inline-flex', alignItems: 'center', gap: '4px' }}
+              >
+                <span>Projects</span>
+                <ChevronDown size={14} onClick={(e) => { e.stopPropagation(); setProjectsOpen(!projectsOpen); }} />
               </button>
               <AnimatePresence>
                 {projectsOpen && (
@@ -1010,7 +991,7 @@ export default function App() {
                     <selectedDetail.icon size={30} color="#0284c7" />
                   </div>
                   <div>
-                    <span style={{ fontSize: '0.8rem', color: '#0284c7', fontWeight: '800', textTransform: 'uppercase' }}>Industry Vertical / Project Domain</span>
+                    <span style={{ fontSize: '0.8rem', color: '#0284c7', fontWeight: '800', textTransform: 'uppercase' }}>Project Vertical</span>
                     <h1 style={{ margin: 0, fontSize: '2rem', color: '#1e1b4b', fontWeight: '800' }}>{selectedDetail.name} Solutions</h1>
                   </div>
                 </div>
@@ -1028,7 +1009,7 @@ export default function App() {
                   ))}
                 </div>
 
-                {/* Added Client Testimonial Section inside Project / Detail Page */}
+                {/* Client Testimonial Section added inside Project Page */}
                 <div style={{ marginTop: '3rem', padding: '2rem', background: 'linear-gradient(135deg, #f0f7ff 0%, #fdf2f8 100%)', borderRadius: '18px', border: '1px solid #bae6fd' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#f59e0b', marginBottom: '10px' }}>
                     {[...Array(5)].map((_, i) => (
@@ -1071,7 +1052,7 @@ export default function App() {
               <button onClick={() => navigateTo('home')} style={{ background: 'none', border: 'none', textAlign: 'left', color: '#475569', fontSize: '0.88rem', fontWeight: '600', cursor: 'pointer', padding: 0 }}>Home</button>
               <button onClick={() => scrollToSection('about')} style={{ background: 'none', border: 'none', textAlign: 'left', color: '#475569', fontSize: '0.88rem', fontWeight: '600', cursor: 'pointer', padding: 0 }}>About Us</button>
               <button onClick={() => scrollToSection('services')} style={{ background: 'none', border: 'none', textAlign: 'left', color: '#475569', fontSize: '0.88rem', fontWeight: '600', cursor: 'pointer', padding: 0 }}>Services</button>
-              <button onClick={() => scrollToSection('services')} style={{ background: 'none', border: 'none', textAlign: 'left', color: '#475569', fontSize: '0.88rem', fontWeight: '600', cursor: 'pointer', padding: 0 }}>Projects</button>
+              <button onClick={() => navigateTo('what-we-do-detail', null, whatWeDoList[0])} style={{ background: 'none', border: 'none', textAlign: 'left', color: '#475569', fontSize: '0.88rem', fontWeight: '600', cursor: 'pointer', padding: 0 }}>Projects</button>
               <button onClick={() => navigateTo('careers')} style={{ background: 'none', border: 'none', textAlign: 'left', color: '#475569', fontSize: '0.88rem', fontWeight: '600', cursor: 'pointer', padding: 0 }}>Careers</button>
               <button onClick={() => navigateTo('contact')} style={{ background: 'none', border: 'none', textAlign: 'left', color: '#475569', fontSize: '0.88rem', fontWeight: '600', cursor: 'pointer', padding: 0 }}>Contact Us</button>
             </div>
