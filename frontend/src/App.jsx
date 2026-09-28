@@ -110,7 +110,7 @@ export default function App() {
       target: "careers"
     },
     {
-      title: "Security Hardened & Scalable Architectures",
+      title: "Security Hardened & BEST SEO Architectures",
       subtitle: "Safeguarding digital systems with robust encryption protocols and high-performance web frameworks.",
       image: "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=1200&q=80",
       target: "services"
@@ -188,7 +188,7 @@ export default function App() {
     {
       title: "Founder",
       name: "Sakshi Pare",
-      image: "frontend/src/images/founder.jpg",
+      image: "/images/founder.jpg",
       quote: "Our vision is to engineer resilient, high-speed digital platforms that accelerate client businesses while fostering next-generation IT engineering talent in Indore.",
       badgeColor: "#db2777",
       badgeBg: "#fce7f3",
@@ -198,7 +198,7 @@ export default function App() {
     {
       title: "Co-Founder",
       name: "Shashank pare",
-      image: "frontend/public/images/co-founder.jpg",
+      image: "/images/co-founder.jpg",
       quote: "We architect decoupled, asynchronous microservices and conversion-focused web systems engineered strictly for 99.9% uptime and bulletproof security.",
       badgeColor: "#0284c7",
       badgeBg: "#e0f2fe",
@@ -208,7 +208,7 @@ export default function App() {
     {
       title: "Management Head",
       name: "Vidhi Naramdeo",
-      image: "frontend/public/images/vidhi naramdeo.jpeg",
+      image: "/images/vidhi naramdeo.jpeg",
       quote: "Driving operational excellence, structured execution, and high-performance cross-functional coordination.",
       badgeColor: "#059669",
       badgeBg: "#d1fae5",
@@ -223,7 +223,7 @@ export default function App() {
       role: "Team Lead",
       name: "Vijay Chourey",
       field: "Technical Lead & Engineering Operations",
-      image: "frontend/public/images/vijay chourey.jpeg",
+      image: "/images/vijay chourey.jpeg",
       badgeColor: "#0284c7",
       badgeBg: "#e0f2fe",
       borderColor: "#7dd3fc",
@@ -233,7 +233,7 @@ export default function App() {
       role: "Project Management",
       name: "Shubham Kanungo",
       field: "Sprint Planning & Client Deliverables",
-      image: "frontend/public/images/shubham kanungo.jpeg",
+      image: "/images/shubham kanungo.jpg",
       badgeColor: "#d97706",
       badgeBg: "#fef3c7",
       borderColor: "#fde68a",
@@ -243,7 +243,7 @@ export default function App() {
       role: "Full Stack Developer",
       name: "Pritam Carpenter",
       field: "React.js, Python, Django Systems",
-      image: "frontend/public/images/pritam.jpg",
+      image: "/images/pritam.jpg",
       badgeColor: "#7c3aed",
       badgeBg: "#ede9fe",
       borderColor: "#c4b5fd",
@@ -802,7 +802,7 @@ export default function App() {
                 </div>
               </motion.section>
 
-              {/* QUICK CONNECT SECTION */}
+              {/* QUICK CONNECT SECTION WITH WHATSAPP, INSTAGRAM, AND EMAIL */}
               <motion.section id="home-contact" initial={{ opacity: 0, scale: 0.9, y: 40 }} whileInView={{ opacity: 1, scale: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} style={{ padding: '5rem 1.5rem', maxWidth: '1100px', margin: '0 auto' }}>
                 <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
                   <span style={{ fontSize: '0.85rem', color: '#0284c7', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.05em', background: '#e0f2fe', padding: '5px 16px', borderRadius: '9999px', border: '1px solid #bae6fd' }}>
@@ -814,12 +814,32 @@ export default function App() {
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '2rem' }}>
                   <div className="hover-card" style={pastelCardStyle}>
                     <h3 style={{ fontSize: '1.3rem', fontWeight: '800', color: '#1e1b4b', margin: '0 0 1.2rem 0' }}>Connect On Social Media</h3>
+                    <p style={{ color: '#475569', fontSize: '0.92rem', lineHeight: '1.6', marginBottom: '1.5rem' }}>
+                      Have a project query or internship doubt? Contact us directly via WhatsApp, Instagram, or Email.
+                    </p>
+
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                       <a href="https://wa.me/918435299100" target="_blank" rel="noreferrer" className="hover-social" style={socialBadgeStyle('#25D366')}>
                         <MessageCircle size={22} color="#25D366" />
                         <div>
                           <span style={{ display: 'block', fontSize: '0.78rem', color: '#64748b' }}>WhatsApp / Call</span>
                           <span style={{ fontSize: '0.92rem', fontWeight: '700', color: '#1e1b4b' }}>8435299100</span>
+                        </div>
+                      </a>
+
+                      <a href="https://instagram.com/smunextech" target="_blank" rel="noreferrer" className="hover-social" style={socialBadgeStyle('#E1306C')}>
+                        <Camera size={22} color="#E1306C" />
+                        <div>
+                          <span style={{ display: 'block', fontSize: '0.78rem', color: '#64748b' }}>Instagram Handle</span>
+                          <span style={{ fontSize: '0.92rem', fontWeight: '700', color: '#1e1b4b' }}>@smunextech</span>
+                        </div>
+                      </a>
+
+                      <a href="mailto:smunextech@gmail.com" className="hover-social" style={socialBadgeStyle('#38bdf8')}>
+                        <Mail size={22} color="#0284c7" />
+                        <div>
+                          <span style={{ display: 'block', fontSize: '0.78rem', color: '#64748b' }}>Official Support Email</span>
+                          <span style={{ fontSize: '0.92rem', fontWeight: '700', color: '#1e1b4b' }}>smunextech@gmail.com</span>
                         </div>
                       </a>
                     </div>
