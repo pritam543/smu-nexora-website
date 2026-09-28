@@ -674,7 +674,7 @@ export default function App() {
                       Leadership & Execution Team
                     </span>
                     <h2 style={{ fontSize: '2.5rem', fontWeight: '900', margin: '12px 0 0 0', color: '#1e1b4b' }}>
-                      Client Testimonial
+                      Our Leadership
                     </h2>
                   </div>
 
@@ -1034,7 +1034,7 @@ export default function App() {
       <CorporateDeck isOpen={isDeckOpen} onClose={() => setIsDeckOpen(false)} />
 
       {/* 3-PART PROFESSIONAL FOOTER */}
-      <footer style={{ background: 'linear-gradient(135deg, #fce7f3 0%, #faf8f2 50%, #e0f2fe 100%)', color: '#334155', padding: '3.5rem 1.5rem 2rem 1.5rem', borderTop: '1px solid #e2edf8', marginTop: '4rem' }}>
+      <footer style={{ background: 'linear-gradient(135deg, #cfc0ff 0%, #cfc0ff 0%, #cfc0ff 0%)', color: '#334155', padding: '3.5rem 1.5rem 2rem 1.5rem', borderTop: '1px solid #e2edf8', marginTop: '4rem' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '2.5rem', paddingBottom: '2.5rem', borderBottom: '1px solid #cbd5e1' }}>
 
           <div>
