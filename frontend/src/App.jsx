@@ -124,7 +124,6 @@ export default function App() {
     return () => clearInterval(interval);
   }, [slides.length]);
 
-  // EXACT 5 CORE FIELDS (3 TOP + 2 BOTTOM CENTERED) - PASTEL PALETTE
   const fields = [
     {
       id: 'web-dev',
@@ -183,7 +182,7 @@ export default function App() {
     }
   ];
 
-  // 1. FOUNDER & CO-FOUNDER (PASTEL PINK & POWDER BLUE BORDERS)
+  // LEADERS (IMAGES UNTOUCHED)
   const leaders = [
     {
       title: "Founder",
@@ -217,7 +216,7 @@ export default function App() {
     }
   ];
 
-  // 2. WORKING SQUAD
+  // SQUAD (IMAGES UNTOUCHED)
   const teamMembers = [
     {
       role: "Team Lead",
@@ -233,7 +232,7 @@ export default function App() {
       role: "Project Management",
       name: "Shubham Kanungo",
       field: "Sprint Planning & Client Deliverables",
-      image: "/images/shubham kanungo.jpeg",
+      image: "/images/shubham kanungo.jpg",
       badgeColor: "#d97706",
       badgeBg: "#fef3c7",
       borderColor: "#fde68a",
@@ -354,7 +353,8 @@ export default function App() {
     }
   };
 
-  const pastelMainBg = "linear-gradient(135deg, #fdf2f8 0%, #faf8f2 50%, #eff6ff 100%)";
+  // HIGHLIGHTED MORE VIBRANT PASTEL BACKGROUND
+  const pastelMainBg = "linear-gradient(135deg, #fbcfe8 0%, #fef3c7 40%, #e0f2fe 100%)";
 
   return (
     <div style={{ background: pastelMainBg, color: '#1e293b', minHeight: '100vh', fontFamily: "'Plus Jakarta Sans', 'Inter', system-ui, sans-serif", position: 'relative', overflowX: 'hidden' }}>
@@ -371,7 +371,7 @@ export default function App() {
           height: 2px;
           bottom: -4px;
           left: 0;
-          background-color: #38bdf8;
+          background-color: #0284c7;
           transition: width 0.25s ease;
         }
         .nav-btn-hover:hover {
@@ -552,19 +552,29 @@ export default function App() {
           {currentPage === 'home' && (
             <motion.div key="home-page">
 
-              {/* HERO BANNER */}
-              <section style={{ position: 'relative', width: '100%', minHeight: '480px', overflow: 'hidden', background: 'linear-gradient(135deg, #fdf2f8 0%, #faf8f2 50%, #eff6ff 100%)', borderBottom: '1px solid #e2edf8', display: 'flex', alignItems: 'center' }}>
-                <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '4rem 1.5rem', width: '100%' }}>
+              {/* HERO BANNER WITH SLIDESHOW IMAGE BACKGROUND */}
+              <section style={{ position: 'relative', width: '100%', minHeight: '520px', overflow: 'hidden', borderBottom: '1px solid #e2edf8', display: 'flex', alignItems: 'center' }}>
+                {/* Background Slideshow Image with Dark Overlay for Text Readability */}
+                <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 1 }}>
+                  <img
+                    src={slides[currentSlide].image}
+                    alt="Hero slide"
+                    style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.45)' }}
+                  />
+                  <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', background: 'linear-gradient(135deg, rgba(30, 41, 59, 0.85) 0%, rgba(15, 23, 42, 0.75) 100%)' }}></div>
+                </div>
+
+                <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '5rem 1.5rem', width: '100%', position: 'relative', zIndex: 2 }}>
                   <div style={{ maxWidth: '800px' }}>
-                    <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#ffffff', border: '1px solid #bfdbfe', padding: '6px 16px', borderRadius: '9999px', fontSize: '0.82rem', fontWeight: '800', color: '#0284c7', marginBottom: '1.2rem', boxShadow: '0 2px 8px rgba(191, 219, 254, 0.3)' }}>
+                    <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'rgba(255, 255, 255, 0.9)', border: '1px solid #bfdbfe', padding: '6px 16px', borderRadius: '9999px', fontSize: '0.82rem', fontWeight: '800', color: '#0284c7', marginBottom: '1.2rem', boxShadow: '0 2px 8px rgba(191, 219, 254, 0.3)' }}>
                       <Sparkles size={16} color="#0284c7" />
                       <span>Enterprise Digital Engineering</span>
                     </div>
 
-                    <h1 style={{ fontSize: 'clamp(2.2rem, 4vw, 3.4rem)', fontWeight: '900', color: '#1e293b', margin: '0 0 16px 0', lineHeight: '1.2', letterSpacing: '-0.02em' }}>
+                    <h1 style={{ fontSize: 'clamp(2.2rem, 4vw, 3.4rem)', fontWeight: '900', color: '#ffffff', margin: '0 0 16px 0', lineHeight: '1.2', letterSpacing: '-0.02em', textShadow: '0 2px 10px rgba(0,0,0,0.3)' }}>
                       {slides[currentSlide].title}
                     </h1>
-                    <p style={{ fontSize: '1.1rem', color: '#475569', margin: '0 0 28px 0', lineHeight: '1.7', maxWidth: '680px' }}>
+                    <p style={{ fontSize: '1.1rem', color: '#cbd5e1', margin: '0 0 28px 0', lineHeight: '1.7', maxWidth: '680px' }}>
                       {slides[currentSlide].subtitle}
                     </p>
 
@@ -595,9 +605,10 @@ export default function App() {
                         onClick={() => setIsDeckOpen(true)}
                         className="hover-btn"
                         style={{
-                          background: '#ffffff',
-                          border: '1px solid #cbd5e1',
-                          color: '#334155',
+                          background: 'rgba(255, 255, 255, 0.1)',
+                          backdropFilter: 'blur(10px)',
+                          border: '1px solid rgba(255, 255, 255, 0.3)',
+                          color: '#ffffff',
                           padding: '13px 22px',
                           borderRadius: '12px',
                           fontWeight: '700',
@@ -605,11 +616,10 @@ export default function App() {
                           cursor: 'pointer',
                           display: 'inline-flex',
                           alignItems: 'center',
-                          gap: '8px',
-                          boxShadow: '0 2px 8px rgba(0,0,0,0.03)'
+                          gap: '8px'
                         }}
                       >
-                        <FileText size={18} color="#0284c7" />
+                        <FileText size={18} color="#38bdf8" />
                         <span>View Corporate Deck</span>
                       </button>
                     </div>
@@ -626,7 +636,7 @@ export default function App() {
                   <h2 style={{ fontSize: '2.4rem', fontWeight: '900', margin: '10px 0 0 0', color: '#1e1b4b' }}>
                     About SMU Nexora Technologies
                   </h2>
-                  <p style={{ color: '#64748b', fontSize: '1rem', marginTop: '6px', maxWidth: '650px', margin: '6px auto 0 auto' }}>
+                  <p style={{ color: '#475569', fontSize: '1rem', marginTop: '6px', maxWidth: '650px', margin: '6px auto 0 auto' }}>
                     A modern software development firm engineered for high reliability, digital growth, and professional tech incubation in Central India.
                   </p>
                 </div>
@@ -647,7 +657,7 @@ export default function App() {
                 </div>
               </motion.section>
 
-              {/* LEADERSHIP & CORE TEAM SECTION */}
+              {/* LEADERSHIP & CORE TEAM SECTION (IMAGES UNTOUCHED) */}
               <motion.section id="team-and-testimonials" initial={{ opacity: 0, scale: 0.9, y: 40 }} whileInView={{ opacity: 1, scale: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} style={{ padding: '5.5rem 1.5rem', background: 'linear-gradient(180deg, #ffffff 0%, #faf8f5 100%)', borderTop: '1px solid #e2edf8', borderBottom: '1px solid #e2edf8' }}>
                 <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
 
@@ -802,7 +812,7 @@ export default function App() {
                 </div>
               </motion.section>
 
-              {/* QUICK CONNECT SECTION WITH WHATSAPP, INSTAGRAM, AND EMAIL */}
+              {/* QUICK CONNECT SECTION */}
               <motion.section id="home-contact" initial={{ opacity: 0, scale: 0.9, y: 40 }} whileInView={{ opacity: 1, scale: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} style={{ padding: '5rem 1.5rem', maxWidth: '1100px', margin: '0 auto' }}>
                 <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
                   <span style={{ fontSize: '0.85rem', color: '#0284c7', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.05em', background: '#e0f2fe', padding: '5px 16px', borderRadius: '9999px', border: '1px solid #bae6fd' }}>
