@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { FileText, ChevronDown, Compass, GraduationCap, Stethoscope, School, Hotel } from 'lucide-react';
+import { FileText, ChevronDown } from 'lucide-react';
 
 const Navbar = ({ onOpenDeck, onNavigate }) => {
   const [whatWeDoOpen, setWhatWeDoOpen] = useState(false);
 
   const whatWeDoList = [
-    { id: 'architectures', name: "Architecture" },
+    { id: 'architectures', name: "Architectures" },
     { id: 'education', name: "Education" },
     { id: 'healthcare', name: "Healthcare" },
     { id: 'schools', name: "Schools" },
@@ -23,7 +23,7 @@ const Navbar = ({ onOpenDeck, onNavigate }) => {
         </div>
         <div>
           <span className="text-xl font-bold tracking-wider">
-            <span className="bg-gradient-to-r from-sky-400 via-indigo-400 to-purple-400 bg-clip-text text-transparent"> SMU NEXORA</span>
+            SMU <span className="bg-gradient-to-r from-sky-400 via-indigo-400 to-purple-400 bg-clip-text text-transparent">NEXORA</span>
           </span>
           <p className="text-[9px] text-slate-400 tracking-widest font-semibold uppercase">
             TECHNOLOGIES PVT. LTD.
@@ -34,7 +34,7 @@ const Navbar = ({ onOpenDeck, onNavigate }) => {
       <ul className="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-300">
         <li onClick={() => onNavigate && onNavigate('home')} className="hover:text-blue-400 cursor-pointer transition-colors">Home</li>
 
-        {/* What We Do Dropdown with Architectures 1st */}
+        {/* What We Do Dropdown */}
         <li
           className="relative group cursor-pointer"
           onMouseEnter={() => setWhatWeDoOpen(true)}

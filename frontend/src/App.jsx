@@ -110,7 +110,7 @@ export default function App() {
       target: "careers"
     },
     {
-      title: "Security Hardened & BEST SEO Architectures",
+      title: "Security Hardened & Scalable Architectures",
       subtitle: "Safeguarding digital systems with robust encryption protocols and high-performance web frameworks.",
       image: "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=1200&q=80",
       target: "services"
@@ -1297,6 +1297,7 @@ export default function App() {
               <button onClick={() => navigateTo('home')} style={{ background: 'none', border: 'none', textAlign: 'left', color: '#475569', fontSize: '0.88rem', fontWeight: '600', cursor: 'pointer', padding: 0 }}>Home</button>
               <button onClick={() => scrollToSection('about')} style={{ background: 'none', border: 'none', textAlign: 'left', color: '#475569', fontSize: '0.88rem', fontWeight: '600', cursor: 'pointer', padding: 0 }}>About Us</button>
               <button onClick={() => scrollToSection('services')} style={{ background: 'none', border: 'none', textAlign: 'left', color: '#475569', fontSize: '0.88rem', fontWeight: '600', cursor: 'pointer', padding: 0 }}>Services</button>
+              <button onClick={() => navigateTo('careers')} style={{ background: 'none', border: 'none', textAlign: 'left', color: '#475569', fontSize: '0.88rem', fontWeight: '600', cursor: 'pointer', padding: 0 }}>Projects</button>
               <button onClick={() => navigateTo('careers')} style={{ background: 'none', border: 'none', textAlign: 'left', color: '#475569', fontSize: '0.88rem', fontWeight: '600', cursor: 'pointer', padding: 0 }}>Careers</button>
               <button onClick={() => navigateTo('contact')} style={{ background: 'none', border: 'none', textAlign: 'left', color: '#475569', fontSize: '0.88rem', fontWeight: '600', cursor: 'pointer', padding: 0 }}>Contact Us</button>
             </div>
@@ -1306,7 +1307,7 @@ export default function App() {
           <div>
             <h4 style={{ fontSize: '0.95rem', fontWeight: '800', color: '#1e1b4b', marginBottom: '12px' }}>Direct Inquiries</h4>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', fontSize: '0.88rem', color: '#475569', fontWeight: '600' }}>
-              <p style={{ margin: 0 }}><strong>Name:</strong> SMU Nexora Support Desk</p>
+              <p style={{ margin: 0 }}><strong>Name:</strong> SMU Nexora Technologies</p>
               <p style={{ margin: 0 }}><strong>Email:</strong> smunextech@gmail.com</p>
               <p style={{ margin: 0 }}><strong>Number:</strong> +91 8435299100</p>
             </div>
