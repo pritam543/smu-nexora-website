@@ -188,7 +188,7 @@ export default function App() {
     {
       title: "Founder",
       name: "Sakshi Pare",
-      image: "frontend/src/assets/founder.jpg",
+      image: "frontend/src/assets/images/founder.jpg",
       quote: "Our vision is to engineer resilient, high-speed digital platforms that accelerate client businesses while fostering next-generation IT engineering talent in Indore.",
       badgeColor: "#db2777",
       badgeBg: "#fce7f3",
@@ -198,7 +198,7 @@ export default function App() {
     {
       title: "Co-Founder",
       name: "Shashank pare",
-      image: "/images/co-founder.jpg",
+      image: "frontend/src/assets/images/co-founder.jpg",
       quote: "We architect decoupled, asynchronous microservices and conversion-focused web systems engineered strictly for 99.9% uptime and bulletproof security.",
       badgeColor: "#0284c7",
       badgeBg: "#e0f2fe",
@@ -208,7 +208,7 @@ export default function App() {
     {
       title: "Management Head",
       name: "Vidhi Naramdeo",
-      image: "/images/pritam.jpg",
+      image: "frontend/src/assets/images/vidhi naramdeo.jpeg",
       quote: "Driving cutting-edge frontend architectures, full-stack systems, and robust technical implementations.",
       badgeColor: "#059669",
       badgeBg: "#d1fae5",
@@ -220,19 +220,20 @@ export default function App() {
   // 2. WORKING SQUAD (3 BOXES + UI/UX SQUAD ADDED)
   const teamMembers = [
     {
-      role: "Full Stack Developer",
-      name: "Pritam Carpenter",
-      field: "React.js, Next.js & TypeScript Systems",
-      image: "/images/pritam.jpg",
+      role: "Team Lead",
+      name: "Vijay Chourey",
+
+      image: "frontend/src/assets/images/vijay chourey.jpeg",
       badgeColor: "#0284c7",
       badgeBg: "#e0f2fe",
       borderColor: "#7dd3fc",
       glowShadow: "rgba(125, 211, 252, 0.3)"
     },
     {
-      role: "Digital Growth & BEST SEO Unit",
-      name: "Digital Growth Strategist",
-      field: "Performance Marketing, Ads & BEST SEO",
+      role: "Project Management",
+      name: "Shubham Kanungo ",
+
+      image: "frontend/src/assets/images/shubham kanungo.jpg",
       image: "",
       badgeColor: "#d97706",
       badgeBg: "#fef3c7",
@@ -240,10 +241,10 @@ export default function App() {
       glowShadow: "rgba(253, 230, 138, 0.3)"
     },
     {
-      role: "UI/UX Engineering Squad",
-      name: "Product Design Unit",
-      field: "Wireframing, Prototyping & User Interfaces",
-      image: "",
+      role: "Full stack developer",
+      name: "Pritam carpenter",
+      field: "React.js , Python, Django",
+      image: "frontend/src/assets/images/pritam.jpg",
       badgeColor: "#7c3aed",
       badgeBg: "#ede9fe",
       borderColor: "#c4b5fd",
