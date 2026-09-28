@@ -110,7 +110,7 @@ export default function App() {
       target: "careers"
     },
     {
-      title: "Security Hardened & BEST SEO Architectures",
+      title: "Security Hardened & Scalable Architectures",
       subtitle: "Safeguarding digital systems with robust encryption protocols and high-performance web frameworks.",
       image: "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=1200&q=80",
       target: "services"
@@ -233,7 +233,7 @@ export default function App() {
       role: "Project Management",
       name: "Shubham Kanungo",
       field: "Sprint Planning & Client Deliverables",
-      image: "/images/shubham kanungo.jpg",
+      image: "/images/shubham kanungo.jpeg",
       badgeColor: "#d97706",
       badgeBg: "#fef3c7",
       borderColor: "#fde68a",
