@@ -26,7 +26,11 @@ export default function App() {
 
   const [activeService, setActiveService] = useState('web-dev');
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [whatWeDoOpen, setWhatWeDoOpen] = useState(false);
+
+  // Updated Dropdown states for About Us and Projects
+  const [aboutUsOpen, setAboutUsOpen] = useState(false);
+  const [projectsOpen, setProjectsOpen] = useState(false);
+
   const [servicesOpen, setServicesOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -80,7 +84,8 @@ export default function App() {
       setSelectedDetail(detailObj);
     }
 
-    setWhatWeDoOpen(false);
+    setAboutUsOpen(false);
+    setProjectsOpen(false);
     setServicesOpen(false);
     setMobileMenuOpen(false);
 
@@ -337,7 +342,8 @@ export default function App() {
   };
 
   const scrollToSection = (id) => {
-    setWhatWeDoOpen(false);
+    setAboutUsOpen(false);
+    setProjectsOpen(false);
     setServicesOpen(false);
     setMobileMenuOpen(false);
 
@@ -353,7 +359,6 @@ export default function App() {
     }
   };
 
-  // ORIGINAL SUBTLE PASTEL BACKGROUND RESTORED
   const pastelMainBg = "linear-gradient(135deg, #ffcbe8 0%, #fff3d0 50%, #c5deff 100%)";
 
   return (
@@ -470,7 +475,7 @@ export default function App() {
         }
       `}</style>
 
-      {/* FIXED NAV BAR WITH PROJECTS BUTTON */}
+      {/* FIXED NAV BAR */}
       <nav style={{ position: 'fixed', top: 0, left: 0, width: '100%', zIndex: 1000, backgroundColor: 'rgba(255, 255, 255, 0.94)', backdropFilter: 'blur(16px)', borderBottom: '1px solid #e2edf8', padding: '0.8rem 1.5rem', boxSizing: 'border-box' }}>
         <div style={{ maxWidth: '1300px', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap' }}>
 
@@ -492,16 +497,18 @@ export default function App() {
 
           <div className="nav-items-container" style={{ display: 'flex', alignItems: 'center', gap: '1.2rem', flexWrap: 'wrap', position: 'relative' }}>
             <button onClick={() => navigateTo('home')} className="nav-btn-hover" style={navLinkStyle}>Home</button>
-            <button onClick={() => scrollToSection('about')} className="nav-btn-hover" style={navLinkStyle}>About Us</button>
 
-            {/* What We Do Dropdown */}
-            <div style={{ position: 'relative' }} onMouseEnter={() => setWhatWeDoOpen(true)} onMouseLeave={() => setWhatWeDoOpen(false)}>
-              <button onClick={() => setWhatWeDoOpen(!whatWeDoOpen)} className="nav-btn-hover" style={navLinkStyle}>
-                What We Do <ChevronDown size={14} />
+            {/* About Us Dropdown (Now contains What We Do list) */}
+            <div style={{ position: 'relative' }} onMouseEnter={() => setAboutUsOpen(true)} onMouseLeave={() => setAboutUsOpen(false)}>
+              <button onClick={() => setAboutUsOpen(!aboutUsOpen)} className="nav-btn-hover" style={navLinkStyle}>
+                About Us <ChevronDown size={14} />
               </button>
               <AnimatePresence>
-                {whatWeDoOpen && (
+                {aboutUsOpen && (
                   <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 10 }} className="dropdown-desktop-panel" style={dropdownContainerStyle}>
+                    <div onClick={() => scrollToSection('about')} style={dropdownItemStyle}>
+                      <Building size={18} color="#0284c7" /><span>Company Profile</span>
+                    </div>
                     {whatWeDoList.map((item) => {
                       const IconComp = item.icon;
                       return (
@@ -516,7 +523,28 @@ export default function App() {
             </div>
 
             <button onClick={() => scrollToSection('services')} className="nav-btn-hover" style={navLinkStyle}>Services</button>
-            <button onClick={() => scrollToSection('services')} className="nav-btn-hover" style={navLinkStyle}>Projects</button>
+
+            {/* Projects Dropdown (Now contains What We Do / Architectures data) */}
+            <div style={{ position: 'relative' }} onMouseEnter={() => setProjectsOpen(true)} onMouseLeave={() => setProjectsOpen(false)}>
+              <button onClick={() => setProjectsOpen(!projectsOpen)} className="nav-btn-hover" style={navLinkStyle}>
+                Projects <ChevronDown size={14} />
+              </button>
+              <AnimatePresence>
+                {projectsOpen && (
+                  <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 10 }} className="dropdown-desktop-panel" style={dropdownContainerStyle}>
+                    {whatWeDoList.map((item) => {
+                      const IconComp = item.icon;
+                      return (
+                        <div key={item.id} onClick={() => navigateTo('what-we-do-detail', null, item)} style={dropdownItemStyle}>
+                          <IconComp size={18} color="#0284c7" /><span>{item.name}</span>
+                        </div>
+                      );
+                    })}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+
             <button onClick={() => navigateTo('careers')} className="nav-btn-hover" style={navLinkStyle}>Careers</button>
             <button onClick={() => navigateTo('contact')} className="nav-btn-hover" style={navLinkStyle}>Contact Us</button>
 
@@ -554,7 +582,6 @@ export default function App() {
 
               {/* HERO BANNER WITH SLIDESHOW IMAGE BACKGROUND */}
               <section style={{ position: 'relative', width: '100%', minHeight: '520px', overflow: 'hidden', borderBottom: '1px solid #e2edf8', display: 'flex', alignItems: 'center' }}>
-                {/* Background Slideshow Image with Dark Overlay for Text Readability */}
                 <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 1 }}>
                   <img
                     src={slides[currentSlide].image}
@@ -657,7 +684,7 @@ export default function App() {
                 </div>
               </motion.section>
 
-              {/* LEADERSHIP & CORE TEAM SECTION (IMAGES UNTOUCHED) */}
+              {/* LEADERSHIP & CORE TEAM SECTION */}
               <motion.section id="team-and-testimonials" initial={{ opacity: 0, scale: 0.9, y: 40 }} whileInView={{ opacity: 1, scale: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} style={{ padding: '5.5rem 1.5rem', background: 'linear-gradient(180deg, #ffffff 0%, #faf8f5 100%)', borderTop: '1px solid #e2edf8', borderBottom: '1px solid #e2edf8' }}>
                 <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
 
@@ -666,7 +693,7 @@ export default function App() {
                       Leadership & Execution Team
                     </span>
                     <h2 style={{ fontSize: '2.5rem', fontWeight: '900', margin: '12px 0 0 0', color: '#1e1b4b' }}>
-                      Our Leadership
+                      Client Testimonial
                     </h2>
                   </div>
 
@@ -983,13 +1010,39 @@ export default function App() {
                     <selectedDetail.icon size={30} color="#0284c7" />
                   </div>
                   <div>
-                    <span style={{ fontSize: '0.8rem', color: '#0284c7', fontWeight: '800', textTransform: 'uppercase' }}>Industry Vertical</span>
+                    <span style={{ fontSize: '0.8rem', color: '#0284c7', fontWeight: '800', textTransform: 'uppercase' }}>Industry Vertical / Project Domain</span>
                     <h1 style={{ margin: 0, fontSize: '2rem', color: '#1e1b4b', fontWeight: '800' }}>{selectedDetail.name} Solutions</h1>
                   </div>
                 </div>
 
                 <h3 style={{ fontSize: '1.25rem', color: '#0284c7', fontWeight: '700', marginBottom: '1rem' }}>{selectedDetail.tagline}</h3>
                 <p style={{ color: '#475569', fontSize: '1.05rem', lineHeight: '1.7', marginBottom: '2rem' }}>{selectedDetail.description}</p>
+
+                <h4 style={{ fontSize: '1.1rem', fontWeight: '700', color: '#1e1b4b', marginBottom: '1rem' }}>Key Capabilities:</h4>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '12px', marginBottom: '2.5rem' }}>
+                  {selectedDetail.features.map((feat, idx) => (
+                    <div key={idx} style={{ background: '#faf9f5', border: '1px solid #e2edf8', padding: '12px 16px', borderRadius: '10px', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                      <CheckCircle2 size={18} color="#10b981" />
+                      <span style={{ fontSize: '0.9rem', fontWeight: '600', color: '#334155' }}>{feat}</span>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Added Client Testimonial Section inside Project / Detail Page */}
+                <div style={{ marginTop: '3rem', padding: '2rem', background: 'linear-gradient(135deg, #f0f7ff 0%, #fdf2f8 100%)', borderRadius: '18px', border: '1px solid #bae6fd' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#f59e0b', marginBottom: '10px' }}>
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} size={16} fill="#f59e0b" />
+                    ))}
+                    <span style={{ fontSize: '0.85rem', fontWeight: '800', color: '#1e1b4b', marginLeft: '6px' }}>Client Success Story</span>
+                  </div>
+                  <h4 style={{ fontSize: '1.15rem', fontWeight: '800', color: '#1e1b4b', margin: '0 0 8px 0' }}>
+                    "SMU Nexora delivered exceptional engineering and robust execution for our {selectedDetail.name} platform."
+                  </h4>
+                  <p style={{ fontSize: '0.9rem', color: '#475569', margin: 0, fontStyle: 'italic' }}>
+                    — Enterprise Partner & Operations Director, Central India Region
+                  </p>
+                </div>
               </div>
             </motion.div>
           )}
