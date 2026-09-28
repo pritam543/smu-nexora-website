@@ -110,7 +110,7 @@ export default function App() {
       target: "careers"
     },
     {
-      title: "Security Hardened & Scalable Architectures",
+      title: "Security Hardened & BEST SEO Architectures",
       subtitle: "Safeguarding digital systems with robust encryption protocols and high-performance web frameworks.",
       image: "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=1200&q=80",
       target: "services"
@@ -124,7 +124,7 @@ export default function App() {
     return () => clearInterval(interval);
   }, [slides.length]);
 
-  // CORE DOMAINS (IT Strategy 2nd, Cyber Security 3rd, Web & App)
+  // EXACT 5 CORE FIELDS (3 TOP + 2 BOTTOM CENTERED) - PASTEL PALETTE
   const fields = [
     {
       id: 'web-dev',
@@ -161,7 +161,7 @@ export default function App() {
     },
     {
       id: 'digital-marketing',
-      title: "Digital Growth & SEO",
+      title: "Digital Growth & BEST SEO",
       icon: Megaphone,
       color: "#d97706",
       pastelBg: "#fef3c7",
@@ -183,12 +183,12 @@ export default function App() {
     }
   ];
 
-  // 1. LEADERSHIP (3 BOXES: FOUNDER, CO-FOUNDER + 1 EXTRA)
+  // 1. FOUNDER & CO-FOUNDER (PASTEL PINK & POWDER BLUE BORDERS)
   const leaders = [
     {
       title: "Founder",
       name: "Sakshi Pare",
-      image: "frontend/src/assets/images/founder.jpg",
+      image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80",
       quote: "Our vision is to engineer resilient, high-speed digital platforms that accelerate client businesses while fostering next-generation IT engineering talent in Indore.",
       badgeColor: "#db2777",
       badgeBg: "#fce7f3",
@@ -198,7 +198,7 @@ export default function App() {
     {
       title: "Co-Founder",
       name: "Shashank pare",
-      image: "frontend/src/assets/images/co-founder.jpg",
+      image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=400&q=80",
       quote: "We architect decoupled, asynchronous microservices and conversion-focused web systems engineered strictly for 99.9% uptime and bulletproof security.",
       badgeColor: "#0284c7",
       badgeBg: "#e0f2fe",
@@ -208,8 +208,8 @@ export default function App() {
     {
       title: "Management Head",
       name: "Vidhi Naramdeo",
-      image: "frontend/src/assets/images/vidhi naramdeo.jpeg",
-      quote: "Driving cutting-edge frontend architectures, full-stack systems, and robust technical implementations.",
+      image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=400&q=80",
+      quote: "Driving operational excellence, structured execution, and high-performance cross-functional coordination.",
       badgeColor: "#059669",
       badgeBg: "#d1fae5",
       borderColor: "#6ee7b7",
@@ -217,13 +217,13 @@ export default function App() {
     }
   ];
 
-  // 2. WORKING SQUAD (3 BOXES + UI/UX SQUAD ADDED)
+  // 2. WORKING SQUAD
   const teamMembers = [
     {
       role: "Team Lead",
       name: "Vijay Chourey",
-
-      image: "frontend/src/assets/images/vijay chourey.jpeg",
+      field: "Technical Lead & Engineering Operations",
+      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80",
       badgeColor: "#0284c7",
       badgeBg: "#e0f2fe",
       borderColor: "#7dd3fc",
@@ -231,20 +231,19 @@ export default function App() {
     },
     {
       role: "Project Management",
-      name: "Shubham Kanungo ",
-
-      image: "frontend/src/assets/images/shubham kanungo.jpg",
-      image: "",
+      name: "Shubham Kanungo",
+      field: "Sprint Planning & Client Deliverables",
+      image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80",
       badgeColor: "#d97706",
       badgeBg: "#fef3c7",
       borderColor: "#fde68a",
       glowShadow: "rgba(253, 230, 138, 0.3)"
     },
     {
-      role: "Full stack developer",
-      name: "Pritam carpenter",
-      field: "React.js , Python, Django",
-      image: "frontend/src/assets/images/pritam.jpg",
+      role: "Full Stack Developer",
+      name: "Pritam Carpenter",
+      field: "React.js, Python, Django Systems",
+      image: "https://images.unsplash.com/photo-1628157582853-a796fa650a6a?auto=format&fit=crop&w=400&q=80",
       badgeColor: "#7c3aed",
       badgeBg: "#ede9fe",
       borderColor: "#c4b5fd",
@@ -252,7 +251,6 @@ export default function App() {
     }
   ];
 
-  // WHAT WE DO LIST (ARCHITECTURES 1ST)
   const whatWeDoList = [
     { id: 'architectures', name: "Architectures", icon: Compass, tagline: "Digital Engineering for Infrastructure & Design", description: "Delivering 3D rendering management, CAD file sync cloud tools, and project collaboration software.", features: ["3D Project Portals", "Cloud Asset Management", "Client Design Review Suite"] },
     { id: 'education', name: "Education", icon: GraduationCap, tagline: "Empowering Modern Learning Environments", description: "Digitizing educational ecosystems with modern LMS portals, online exam engines, and cloud campus portals.", features: ["Student Analytics Dashboard", "Live Interactive Classrooms", "Automated Grading Systems"] },
@@ -472,11 +470,10 @@ export default function App() {
         }
       `}</style>
 
-      {/* FIXED NAV BAR */}
+      {/* FIXED NAV BAR WITH PROJECTS BUTTON */}
       <nav style={{ position: 'fixed', top: 0, left: 0, width: '100%', zIndex: 1000, backgroundColor: 'rgba(255, 255, 255, 0.94)', backdropFilter: 'blur(16px)', borderBottom: '1px solid #e2edf8', padding: '0.8rem 1.5rem', boxSizing: 'border-box' }}>
         <div style={{ maxWidth: '1300px', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap' }}>
 
-          {/* Logo with Gradient NEXORA */}
           <div onClick={() => navigateTo('home')} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '10px' }}>
             <div style={{ width: '38px', height: '38px', borderRadius: '10px', background: 'linear-gradient(135deg, #fbcfe8 0%, #bfdbfe 100%)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#1e293b', fontWeight: 'bold', fontSize: '1.1rem', boxShadow: '0 4px 12px rgba(191, 219, 254, 0.35)', border: '1px solid #ffffff' }}>
               SN
@@ -497,7 +494,7 @@ export default function App() {
             <button onClick={() => navigateTo('home')} className="nav-btn-hover" style={navLinkStyle}>Home</button>
             <button onClick={() => scrollToSection('about')} className="nav-btn-hover" style={navLinkStyle}>About Us</button>
 
-            {/* What We Do Dropdown (Architectures 1st) */}
+            {/* What We Do Dropdown */}
             <div style={{ position: 'relative' }} onMouseEnter={() => setWhatWeDoOpen(true)} onMouseLeave={() => setWhatWeDoOpen(false)}>
               <button onClick={() => setWhatWeDoOpen(!whatWeDoOpen)} className="nav-btn-hover" style={navLinkStyle}>
                 What We Do <ChevronDown size={14} />
@@ -518,49 +515,8 @@ export default function App() {
               </AnimatePresence>
             </div>
 
-            {/* Services Dropdown */}
-            <div style={{ position: 'relative' }} onMouseEnter={() => setServicesOpen(true)} onMouseLeave={() => setServicesOpen(false)}>
-              <button onClick={() => { setServicesOpen(!servicesOpen); scrollToSection('services'); }} className="nav-btn-hover" style={navLinkStyle}>
-                Services <ChevronDown size={14} />
-              </button>
-              <AnimatePresence>
-                {servicesOpen && (
-                  <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 10 }} className="dropdown-desktop-panel services-desktop-panel" style={{ ...dropdownContainerStyle, width: 'min(92vw, 680px)', right: 0, left: 'auto', display: 'flex', gap: '15px', flexDirection: 'row-reverse' }}>
-                    <div style={{ flex: 1, borderLeft: '1px solid #e0f2fe', paddingLeft: '10px' }}>
-                      {fields.map((f) => (
-                        <div key={f.id} onMouseEnter={() => setActiveService(f.id)} onClick={() => scrollToSection('services')} style={{ ...dropdownItemStyle, backgroundColor: activeService === f.id ? '#e0f2fe' : 'transparent', borderRadius: '8px' }}>
-                          <f.icon size={16} color={f.color} />
-                          <span style={{ fontSize: '0.85rem', fontWeight: '600' }}>{f.title}</span>
-                        </div>
-                      ))}
-                    </div>
-
-                    <div style={{ flex: 1.5, padding: '14px', background: '#faf9f5', borderRadius: '12px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', border: '1px solid #e2edf8' }}>
-                      {(() => {
-                        const curr = fields.find(item => item.id === activeService) || fields[0];
-                        return (
-                          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', height: '100%' }}>
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', borderBottom: '1px solid #e2edf8', paddingBottom: '6px' }}>
-                              <curr.icon size={22} color={curr.color} />
-                              <h4 style={{ margin: 0, fontSize: '0.98rem', color: '#1e1b4b', fontWeight: '800' }}>SMU {curr.title}</h4>
-                            </div>
-                            <p style={{ fontSize: '0.82rem', color: '#475569', lineHeight: '1.4', margin: 0 }}>{curr.desc}</p>
-                            <div style={{ background: '#ffffff', padding: '8px', borderRadius: '8px', border: '1px solid #e0f2fe' }}>
-                              <span style={{ fontSize: '0.72rem', fontWeight: '700', color: '#0284c7', display: 'block' }}>TECH STACK:</span>
-                              <span style={{ fontSize: '0.75rem', color: '#334155' }}>{curr.techStack}</span>
-                            </div>
-                            <button onClick={() => navigateTo('careers', curr.title)} className="hover-btn" style={{ marginTop: '4px', background: 'linear-gradient(135deg, #dbeafe 0%, #fce7f3 100%)', color: '#1e1b4b', border: '1px solid #bfdbfe', padding: '8px 12px', borderRadius: '8px', fontSize: '0.78rem', fontWeight: '700', cursor: 'pointer' }}>
-                              Apply / Inquire For {curr.title}
-                            </button>
-                          </div>
-                        );
-                      })()}
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-
+            <button onClick={() => scrollToSection('services')} className="nav-btn-hover" style={navLinkStyle}>Services</button>
+            <button onClick={() => scrollToSection('services')} className="nav-btn-hover" style={navLinkStyle}>Projects</button>
             <button onClick={() => navigateTo('careers')} className="nav-btn-hover" style={navLinkStyle}>Careers</button>
             <button onClick={() => navigateTo('contact')} className="nav-btn-hover" style={navLinkStyle}>Contact Us</button>
 
@@ -689,70 +645,9 @@ export default function App() {
                     <strong>SMU Nexora Technologies Pvt. Ltd.</strong> is an enterprise software engineering and IT strategic consulting firm. We specialize in building decoupled React web systems, high-converting digital storefronts, and hardened API architectures. Simultaneously, we operate an active technology incubation environment in Indore, bridging the industry-academia divide by mentoring engineers on live production codebases.
                   </p>
                 </div>
-
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1.5rem', marginBottom: '2rem' }}>
-                  <div className="hover-card" style={{ ...pastelCardStyle, padding: '1.6rem', border: '1px solid #dbeafe', background: '#ffffff' }}>
-                    <div style={{ width: '42px', height: '42px', borderRadius: '12px', background: '#e0f2fe', color: '#0284c7', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1rem' }}>
-                      <Code2 size={22} />
-                    </div>
-                    <h4 style={{ fontSize: '1.15rem', fontWeight: '800', color: '#1e1b4b', margin: '0 0 6px 0' }}>Modern Engineering</h4>
-                    <p style={{ fontSize: '0.86rem', color: '#475569', lineHeight: '1.6', margin: 0 }}>
-                      Clean, modular React & Python FastAPI architectures built for low-latency non-blocking performance.
-                    </p>
-                  </div>
-
-                  <div className="hover-card" style={{ ...pastelCardStyle, padding: '1.6rem', border: '1px solid #d1fae5', background: '#ffffff' }}>
-                    <div style={{ width: '42px', height: '42px', borderRadius: '12px', background: '#d1fae5', color: '#059669', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1rem' }}>
-                      <Zap size={22} />
-                    </div>
-                    <h4 style={{ fontSize: '1.15rem', fontWeight: '800', color: '#1e1b4b', margin: '0 0 6px 0' }}>Agile Sprint Delivery</h4>
-                    <p style={{ fontSize: '0.86rem', color: '#475569', lineHeight: '1.6', margin: 0 }}>
-                      Two-week milestone sprints with transparent client demos, real-time code staging, and on-time launches.
-                    </p>
-                  </div>
-
-                  <div className="hover-card" style={{ ...pastelCardStyle, padding: '1.6rem', border: '1px solid #fce7f3', background: '#ffffff' }}>
-                    <div style={{ width: '42px', height: '42px', borderRadius: '12px', background: '#fce7f3', color: '#db2777', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1rem' }}>
-                      <Lock size={22} />
-                    </div>
-                    <h4 style={{ fontSize: '1.15rem', fontWeight: '800', color: '#1e1b4b', margin: '0 0 6px 0' }}>Security & Compliance</h4>
-                    <p style={{ fontSize: '0.86rem', color: '#475569', lineHeight: '1.6', margin: 0 }}>
-                      Parameterized SQL abstractions, HTTPS transport protection, and strict OWASP top-10 mitigation.
-                    </p>
-                  </div>
-
-                  <div className="hover-card" style={{ ...pastelCardStyle, padding: '1.6rem', border: '1px solid #e0f2fe', background: '#ffffff' }}>
-                    <div style={{ width: '42px', height: '42px', borderRadius: '12px', background: '#e0f2fe', color: '#0284c7', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1rem' }}>
-                      <Users size={22} />
-                    </div>
-                    <h4 style={{ fontSize: '1.15rem', fontWeight: '800', color: '#1e1b4b', margin: '0 0 6px 0' }}>Talent Incubation</h4>
-                    <p style={{ fontSize: '0.86rem', color: '#475569', lineHeight: '1.6', margin: 0 }}>
-                      Structured mentorship programs for junior developers and students to gain hands-on production experience.
-                    </p>
-                  </div>
-                </div>
-
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.2rem', padding: '1.6rem', background: 'linear-gradient(135deg, #ffffff 0%, #f0f7ff 100%)', borderRadius: '20px', border: '1px solid #dbeafe', textAlign: 'center', boxShadow: '0 4px 16px rgba(191, 219, 254, 0.25)' }}>
-                  <div>
-                    <div style={{ fontSize: '2rem', fontWeight: '900', color: '#0284c7' }}>99.9%</div>
-                    <div style={{ fontSize: '0.82rem', color: '#64748b', fontWeight: '700' }}>Platform Uptime</div>
-                  </div>
-                  <div>
-                    <div style={{ fontSize: '2rem', fontWeight: '900', color: '#059669' }}>&lt; 24 Hrs</div>
-                    <div style={{ fontSize: '0.82rem', color: '#64748b', fontWeight: '700' }}>Consultation SLA</div>
-                  </div>
-                  <div>
-                    <div style={{ fontSize: '2rem', fontWeight: '900', color: '#d97706' }}>100%</div>
-                    <div style={{ fontSize: '0.82rem', color: '#64748b', fontWeight: '700' }}>Code IP Ownership</div>
-                  </div>
-                  <div>
-                    <div style={{ fontSize: '2rem', fontWeight: '900', color: '#db2777' }}>24/7</div>
-                    <div style={{ fontSize: '0.82rem', color: '#64748b', fontWeight: '700' }}>Support Desk</div>
-                  </div>
-                </div>
               </motion.section>
 
-              {/* LEADERSHIP & CORE TEAM SECTION (3 LEADERS + SQUAD WITH UI/UX) */}
+              {/* LEADERSHIP & CORE TEAM SECTION */}
               <motion.section id="team-and-testimonials" initial={{ opacity: 0, scale: 0.9, y: 40 }} whileInView={{ opacity: 1, scale: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} style={{ padding: '5.5rem 1.5rem', background: 'linear-gradient(180deg, #ffffff 0%, #faf8f5 100%)', borderTop: '1px solid #e2edf8', borderBottom: '1px solid #e2edf8' }}>
                 <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
 
@@ -763,9 +658,6 @@ export default function App() {
                     <h2 style={{ fontSize: '2.5rem', fontWeight: '900', margin: '12px 0 0 0', color: '#1e1b4b' }}>
                       Client Testimonial
                     </h2>
-                    <p style={{ color: '#64748b', fontSize: '0.95rem', marginTop: '6px', maxWidth: '600px', margin: '6px auto 0 auto' }}>
-                      The driving visionary and technical leadership powering SMU Nexora Technologies.
-                    </p>
                   </div>
 
                   {/* 3 LEADERS GRID */}
@@ -787,10 +679,6 @@ export default function App() {
                           justifyContent: 'space-between'
                         }}
                       >
-                        <div style={{ position: 'absolute', top: '16px', right: '20px', opacity: 0.12 }}>
-                          <Quote size={64} color={leader.badgeColor} />
-                        </div>
-
                         <div>
                           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', marginBottom: '1.6rem' }}>
                             <div style={{ width: '150px', height: '150px', borderRadius: '50%', overflow: 'hidden', border: `4px solid ${leader.borderColor}`, boxShadow: `0 12px 28px ${leader.glowShadow}`, marginBottom: '16px', background: '#f8fafc' }}>
@@ -810,23 +698,9 @@ export default function App() {
                             </h3>
                           </div>
 
-                          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '4px', marginBottom: '14px', color: '#f59e0b' }}>
-                            {[...Array(5)].map((_, i) => (
-                              <Star key={i} size={16} fill="#f59e0b" />
-                            ))}
-                            <span style={{ fontSize: '0.82rem', fontWeight: '800', color: '#1e1b4b', marginLeft: '6px' }}>Executive Perspective</span>
-                          </div>
-
                           <p style={{ fontSize: '0.96rem', color: '#475569', lineHeight: '1.8', fontStyle: 'italic', margin: 0, textAlign: 'center' }}>
                             "{leader.quote}"
                           </p>
-                        </div>
-
-                        <div style={{ marginTop: '2.2rem', paddingTop: '1.2rem', borderTop: '1px solid #e2edf8', display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.84rem' }}>
-                          <span style={{ fontWeight: '700', color: '#64748b' }}>SMU Nexora Technologies</span>
-                          <span style={{ fontWeight: '800', color: '#059669', display: 'flex', alignItems: 'center', gap: '4px' }}>
-                            <CheckCircle2 size={16} /> Executive Office
-                          </span>
                         </div>
                       </div>
                     ))}
@@ -860,7 +734,7 @@ export default function App() {
                         >
                           <div>
                             <div style={{ width: '145px', height: '145px', borderRadius: '50%', overflow: 'hidden', margin: '0 auto 1.5rem auto', border: `1.5px solid ${member.borderColor}`, boxShadow: `0 4px 14px ${member.glowShadow}`, background: '#f8fafc' }}>
-                              <img src={member.image || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80'} alt={member.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                              <img src={member.image} alt={member.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                             </div>
 
                             <div style={{ fontSize: '0.84rem', fontWeight: '800', color: member.badgeColor, background: member.badgeBg, padding: '4px 14px', borderRadius: '9999px', display: 'inline-block', marginBottom: '8px', border: `1px solid ${member.borderColor}50` }}>
@@ -874,11 +748,6 @@ export default function App() {
                             <p style={{ fontSize: '0.86rem', color: '#64748b', margin: 0, fontWeight: '600' }}>
                               {member.field}
                             </p>
-                          </div>
-
-                          <div style={{ marginTop: '1.8rem', paddingTop: '1rem', borderTop: '1px solid #f1f5f9', width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', color: '#059669', fontSize: '0.84rem', fontWeight: '700' }}>
-                            <CheckCircle2 size={16} />
-                            <span>Active Project Lead</span>
                           </div>
                         </div>
                       ))}
@@ -898,9 +767,6 @@ export default function App() {
                     <h2 style={{ fontSize: '2.4rem', fontWeight: '900', margin: '12px 0 0 0', color: '#1e1b4b' }}>
                       Core Technology Domains
                     </h2>
-                    <p style={{ color: '#64748b', fontSize: '0.95rem', marginTop: '6px', maxWidth: '600px', margin: '6px auto 0 auto' }}>
-                      Specialized software engineering practices built for scale, reliability, and business growth.
-                    </p>
                   </div>
 
                   <div className="services-centered-flex">
@@ -930,31 +796,6 @@ export default function App() {
                             {field.desc}
                           </p>
                         </div>
-
-                        <div style={{ marginTop: '1.6rem', paddingTop: '1.2rem', borderTop: '1px solid #f1f5f9' }}>
-                          <button
-                            onClick={() => navigateTo('careers', field.title)}
-                            className="hover-btn"
-                            style={{
-                              width: '100%',
-                              background: 'linear-gradient(135deg, #e0f2fe 0%, #ffffff 50%, #fce7f3 100%)',
-                              border: `1px solid #bfdbfe`,
-                              color: '#1e293b',
-                              padding: '10px 16px',
-                              borderRadius: '10px',
-                              fontWeight: '700',
-                              fontSize: '0.84rem',
-                              cursor: 'pointer',
-                              display: 'flex',
-                              alignItems: 'center',
-                              justifyContent: 'center',
-                              gap: '6px'
-                            }}
-                          >
-                            <span>Explore & Inquire</span>
-                            <ArrowRight size={14} color="#0284c7" />
-                          </button>
-                        </div>
                       </div>
                     ))}
                   </div>
@@ -973,32 +814,12 @@ export default function App() {
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '2rem' }}>
                   <div className="hover-card" style={pastelCardStyle}>
                     <h3 style={{ fontSize: '1.3rem', fontWeight: '800', color: '#1e1b4b', margin: '0 0 1.2rem 0' }}>Connect On Social Media</h3>
-                    <p style={{ color: '#475569', fontSize: '0.92rem', lineHeight: '1.6', marginBottom: '1.5rem' }}>
-                      Have a project query or internship doubt? Contact us directly via WhatsApp, Instagram, or Email.
-                    </p>
-
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                       <a href="https://wa.me/918435299100" target="_blank" rel="noreferrer" className="hover-social" style={socialBadgeStyle('#25D366')}>
                         <MessageCircle size={22} color="#25D366" />
                         <div>
                           <span style={{ display: 'block', fontSize: '0.78rem', color: '#64748b' }}>WhatsApp / Call</span>
                           <span style={{ fontSize: '0.92rem', fontWeight: '700', color: '#1e1b4b' }}>8435299100</span>
-                        </div>
-                      </a>
-
-                      <a href="https://instagram.com/smunextech" target="_blank" rel="noreferrer" className="hover-social" style={socialBadgeStyle('#E1306C')}>
-                        <Camera size={22} color="#E1306C" />
-                        <div>
-                          <span style={{ display: 'block', fontSize: '0.78rem', color: '#64748b' }}>Instagram Handle</span>
-                          <span style={{ fontSize: '0.92rem', fontWeight: '700', color: '#1e1b4b' }}>@smunextech</span>
-                        </div>
-                      </a>
-
-                      <a href="mailto:smunextech@gmail.com" className="hover-social" style={socialBadgeStyle('#38bdf8')}>
-                        <Mail size={22} color="#0284c7" />
-                        <div>
-                          <span style={{ display: 'block', fontSize: '0.78rem', color: '#64748b' }}>Official Support Email</span>
-                          <span style={{ fontSize: '0.92rem', fontWeight: '700', color: '#1e1b4b' }}>smunextech@gmail.com</span>
                         </div>
                       </a>
                     </div>
@@ -1023,7 +844,7 @@ export default function App() {
                         <label style={labelStyle}>Your Message *</label>
                         <textarea name="userMessage" rows="3" placeholder="Enter your message here..." required value={contactData.userMessage} onChange={handleContactInputChange} style={{ ...inputStyle, resize: 'vertical' }}></textarea>
                       </div>
-                      <button type="submit" disabled={isSubmitting} className="hover-btn" style={{ width: '100%', padding: '13px', borderRadius: '12px', border: '1px solid #bfdbfe', background: 'linear-gradient(135deg, #e0f2fe 0%, #ffffff 50%, #fce7f3 100%)', color: '#1e293b', fontWeight: '800', fontSize: '0.95rem', cursor: isSubmitting ? 'not-allowed' : 'pointer', boxShadow: '0 4px 14px rgba(191, 219, 254, 0.4)' }}>
+                      <button type="submit" disabled={isSubmitting} className="hover-btn" style={{ width: '100%', padding: '13px', borderRadius: '12px', border: '1px solid #bfdbfe', background: 'linear-gradient(135deg, #e0f2fe 0%, #ffffff 50%, #fce7f3 100%)', color: '#1e293b', fontWeight: '800', fontSize: '0.95rem', cursor: isSubmitting ? 'not-allowed' : 'pointer' }}>
                         {isSubmitting ? 'Sending Message...' : 'Send Inquiry Message'}
                       </button>
                     </form>
@@ -1083,24 +904,7 @@ export default function App() {
                     </div>
                   </div>
 
-                  <div style={sectionBoxStyle}>
-                    <div style={sectionHeaderStyle}><Award size={18} color="#0284c7" /><span>3. Technical Background</span></div>
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1.2rem' }}>
-                      <div><label style={labelStyle}>Highest Qualification *</label><input type="text" name="qualification" placeholder="Enter your highest qualification" required value={careerData.qualification} onChange={handleCareerInputChange} style={inputStyle} /></div>
-                      <div><label style={labelStyle}>Key Skills *</label><input type="text" name="skills" placeholder="Enter your key technical skills" required value={careerData.skills} onChange={handleCareerInputChange} style={inputStyle} /></div>
-                    </div>
-                  </div>
-
-                  <div style={sectionBoxStyle}>
-                    <div style={sectionHeaderStyle}><FileText size={18} color="#0284c7" /><span>4. Resume Attachment</span></div>
-                    <div style={{ border: '2px dashed #bfdbfe', padding: '1.5rem', borderRadius: '12px', textAlign: 'center', background: '#faf9f5' }}>
-                      <Upload size={26} color="#64748b" style={{ marginBottom: '6px' }} />
-                      <p style={{ margin: 0, fontSize: '0.9rem', color: '#334155', fontWeight: '600' }}>Upload Resume (PDF or DOCX)</p>
-                      <input type="file" required accept=".pdf,.docx" onChange={(e) => setResumeFile(e.target.files[0])} style={{ marginTop: '10px', fontSize: '0.85rem' }} />
-                    </div>
-                  </div>
-
-                  <button type="submit" disabled={isSubmitting} className="hover-btn" style={{ width: '100%', padding: '15px', borderRadius: '12px', border: '1px solid #bfdbfe', background: 'linear-gradient(135deg, #e0f2fe 0%, #ffffff 50%, #fce7f3 100%)', color: '#1e293b', fontWeight: '800', fontSize: '1rem', cursor: isSubmitting ? 'not-allowed' : 'pointer', boxShadow: '0 8px 20px rgba(191, 219, 254, 0.4)' }}>
+                  <button type="submit" disabled={isSubmitting} className="hover-btn" style={{ width: '100%', padding: '15px', borderRadius: '12px', border: '1px solid #bfdbfe', background: 'linear-gradient(135deg, #e0f2fe 0%, #ffffff 50%, #fce7f3 100%)', color: '#1e293b', fontWeight: '800', fontSize: '1rem', cursor: isSubmitting ? 'not-allowed' : 'pointer' }}>
                     {isSubmitting ? 'Submitting Application...' : 'Submit Career Application'}
                   </button>
                 </form>
@@ -1119,15 +923,6 @@ export default function App() {
                   <Building size={32} color="#0284c7" style={{ marginBottom: '1rem' }} />
                   <h2 style={{ fontSize: '1.8rem', fontWeight: '800', color: '#1e1b4b', margin: '0 0 1rem 0' }}>Corporate Desk</h2>
                   <p style={{ color: '#475569', lineHeight: '1.6' }}><strong>SMU Nexora Technologies Pvt. Ltd.</strong><br />Indore, MP, India</p>
-
-                  <div style={{ marginTop: '1.5rem', display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                    <a href="https://wa.me/918435299100" target="_blank" rel="noreferrer" className="hover-social" style={socialBadgeStyle('#25D366')}>
-                      <MessageCircle size={20} color="#25D366" /><span style={{ fontSize: '0.9rem', fontWeight: '700', color: '#1e1b4b' }}>WhatsApp / Call: 8435299100</span>
-                    </a>
-                    <a href="https://instagram.com/smunextech" target="_blank" rel="noreferrer" className="hover-social" style={socialBadgeStyle('#E1306C')}>
-                      <Camera size={20} color="#E1306C" /><span style={{ fontSize: '0.9rem', fontWeight: '700', color: '#1e1b4b' }}>Insta: @smunextech</span>
-                    </a>
-                  </div>
                 </div>
 
                 <div className="hover-card" style={pastelCardStyle}>
@@ -1137,7 +932,7 @@ export default function App() {
                     <div><label style={labelStyle}>Email Address *</label><input type="email" name="email" placeholder="Enter your email address" required value={contactData.email} onChange={handleContactInputChange} style={inputStyle} /></div>
                     <div><label style={labelStyle}>Subject *</label><input type="text" name="subject" placeholder="Enter inquiry subject" required value={contactData.subject} onChange={handleContactInputChange} style={inputStyle} /></div>
                     <div><label style={labelStyle}>Your Message *</label><textarea name="userMessage" rows="3" placeholder="Enter your message here..." required value={contactData.userMessage} onChange={handleContactInputChange} style={{ ...inputStyle, resize: 'vertical' }}></textarea></div>
-                    <button type="submit" disabled={isSubmitting} className="hover-btn" style={{ width: '100%', padding: '13px', borderRadius: '12px', border: '1px solid #bfdbfe', background: 'linear-gradient(135deg, #e0f2fe 0%, #ffffff 50%, #fce7f3 100%)', color: '#1e293b', fontWeight: '800', fontSize: '0.95rem', cursor: isSubmitting ? 'not-allowed' : 'pointer', boxShadow: '0 4px 14px rgba(191, 219, 254, 0.4)' }}>
+                    <button type="submit" disabled={isSubmitting} className="hover-btn" style={{ width: '100%', padding: '13px', borderRadius: '12px', border: '1px solid #bfdbfe', background: 'linear-gradient(135deg, #e0f2fe 0%, #ffffff 50%, #fce7f3 100%)', color: '#1e293b', fontWeight: '800', fontSize: '0.95rem', cursor: isSubmitting ? 'not-allowed' : 'pointer' }}>
                       {isSubmitting ? 'Sending...' : 'Send Message'}
                     </button>
                   </form>
@@ -1165,20 +960,6 @@ export default function App() {
 
                 <h3 style={{ fontSize: '1.25rem', color: '#0284c7', fontWeight: '700', marginBottom: '1rem' }}>{selectedDetail.tagline}</h3>
                 <p style={{ color: '#475569', fontSize: '1.05rem', lineHeight: '1.7', marginBottom: '2rem' }}>{selectedDetail.description}</p>
-
-                <h4 style={{ fontSize: '1.1rem', fontWeight: '700', color: '#1e1b4b', marginBottom: '1rem' }}>Key Capabilities:</h4>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '12px', marginBottom: '2.5rem' }}>
-                  {selectedDetail.features.map((feat, idx) => (
-                    <div key={idx} style={{ background: '#faf9f5', border: '1px solid #e2edf8', padding: '12px 16px', borderRadius: '10px', display: 'flex', alignItems: 'center', gap: '10px' }}>
-                      <CheckCircle2 size={18} color="#10b981" />
-                      <span style={{ fontSize: '0.9rem', fontWeight: '600', color: '#334155' }}>{feat}</span>
-                    </div>
-                  ))}
-                </div>
-
-                <button onClick={() => navigateTo('contact')} className="hover-btn" style={{ background: 'linear-gradient(135deg, #e0f2fe 0%, #ffffff 50%, #fce7f3 100%)', color: '#1e293b', border: '1px solid #bfdbfe', padding: '14px 28px', borderRadius: '12px', fontWeight: '800', fontSize: '0.95rem', cursor: 'pointer', boxShadow: '0 4px 14px rgba(191, 219, 254, 0.4)' }}>
-                  Inquire For {selectedDetail.name} Solutions
-                </button>
               </div>
             </motion.div>
           )}
@@ -1186,102 +967,12 @@ export default function App() {
         </AnimatePresence>
       </div>
 
-      {/* POPUP MODAL */}
-      <AnimatePresence>
-        {modalState.isOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            style={{
-              position: 'fixed',
-              top: 0, left: 0, width: '100vw', height: '100vh',
-              backgroundColor: 'rgba(240, 244, 255, 0.65)',
-              backdropFilter: 'blur(12px)',
-              zIndex: 2000,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              padding: '1.5rem'
-            }}
-          >
-            <motion.div
-              initial={{ scale: 0.85, y: 20 }}
-              animate={{ scale: 1, y: 0 }}
-              exit={{ scale: 0.85, y: 20 }}
-              style={{
-                background: '#ffffff',
-                borderRadius: '24px',
-                padding: '2.2rem 2rem',
-                maxWidth: '480px',
-                width: '100%',
-                boxShadow: '0 25px 50px -12px rgba(191, 219, 254, 0.45)',
-                textAlign: 'center',
-                position: 'relative',
-                border: modalState.type === 'success' ? '2px solid #bbf7d0' : '2px solid #fecdd3'
-              }}
-            >
-              <button
-                onClick={closeModal}
-                style={{
-                  position: 'absolute', top: '16px', right: '16px',
-                  background: '#f8fafc', border: 'none', borderRadius: '50%',
-                  width: '32px', height: '32px', display: 'flex',
-                  alignItems: 'center', justifyContent: 'center', cursor: 'pointer'
-                }}
-              >
-                <X size={18} color="#64748b" />
-              </button>
-
-              {modalState.type === 'success' ? (
-                <div style={{ width: '70px', height: '70px', borderRadius: '50%', background: '#dcfce7', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.2rem auto' }}>
-                  <CheckCircle2 size={44} color="#16a34a" />
-                </div>
-              ) : (
-                <div style={{ width: '70px', height: '70px', borderRadius: '50%', background: '#ffe4e6', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.2rem auto' }}>
-                  <AlertCircle size={44} color="#e11d48" />
-                </div>
-              )}
-
-              <h2 style={{ fontSize: '1.6rem', fontWeight: '800', color: '#1e1b4b', margin: '0 0 8px 0' }}>
-                {modalState.type === 'success' ? 'Form Submitted Successfully!' : 'Submission Failed'}
-              </h2>
-
-              <p style={{ color: '#475569', fontSize: '0.95rem', margin: '0 0 1.2rem 0', lineHeight: '1.5' }}>
-                {modalState.type === 'success' ? (
-                  <>Thank you, <strong>{modalState.userName}</strong>! Your submission for <strong>{modalState.fieldTitle}</strong> has been logged.</>
-                ) : (
-                  <>Hello <strong>{modalState.userName}</strong>, we couldn't process your request for <strong>{modalState.fieldTitle}</strong>.</>
-                )}
-              </p>
-
-              <div style={{ background: '#faf9f5', padding: '12px', borderRadius: '12px', border: '1px solid #e2edf8', fontSize: '0.88rem', color: '#334155', marginBottom: '1.5rem', textAlign: 'left' }}>
-                <strong>Status Message:</strong> {modalState.message}
-              </div>
-
-              <button
-                onClick={closeModal}
-                className="hover-btn"
-                style={{
-                  width: '100%', padding: '12px', borderRadius: '10px',
-                  border: '1px solid #bfdbfe', background: modalState.type === 'success' ? 'linear-gradient(135deg, #dcfce7 0%, #dbeafe 100%)' : 'linear-gradient(135deg, #ffe4e6 0%, #dbeafe 100%)',
-                  color: '#1e293b', fontWeight: '800', fontSize: '0.98rem', cursor: 'pointer'
-                }}
-              >
-                Close & Continue
-              </button>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
       <CorporateDeck isOpen={isDeckOpen} onClose={() => setIsDeckOpen(false)} />
 
       {/* 3-PART PROFESSIONAL FOOTER */}
       <footer style={{ background: 'linear-gradient(135deg, #fce7f3 0%, #faf8f2 50%, #e0f2fe 100%)', color: '#334155', padding: '3.5rem 1.5rem 2rem 1.5rem', borderTop: '1px solid #e2edf8', marginTop: '4rem' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '2.5rem', paddingBottom: '2.5rem', borderBottom: '1px solid #cbd5e1' }}>
 
-          {/* Part 1: Company Name & Intro */}
           <div>
             <h3 style={{ fontSize: '1.3rem', fontWeight: '900', color: '#1e1b4b', marginBottom: '10px' }}>
               SMU <span style={{ background: 'linear-gradient(135deg, #0284c7 0%, #7c3aed 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>NEXORA</span>
@@ -1291,20 +982,18 @@ export default function App() {
             </p>
           </div>
 
-          {/* Part 2: Vertical Navbar Buttons */}
           <div>
             <h4 style={{ fontSize: '0.95rem', fontWeight: '800', color: '#1e1b4b', marginBottom: '12px' }}>Quick Navigation</h4>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
               <button onClick={() => navigateTo('home')} style={{ background: 'none', border: 'none', textAlign: 'left', color: '#475569', fontSize: '0.88rem', fontWeight: '600', cursor: 'pointer', padding: 0 }}>Home</button>
               <button onClick={() => scrollToSection('about')} style={{ background: 'none', border: 'none', textAlign: 'left', color: '#475569', fontSize: '0.88rem', fontWeight: '600', cursor: 'pointer', padding: 0 }}>About Us</button>
               <button onClick={() => scrollToSection('services')} style={{ background: 'none', border: 'none', textAlign: 'left', color: '#475569', fontSize: '0.88rem', fontWeight: '600', cursor: 'pointer', padding: 0 }}>Services</button>
-              <button onClick={() => navigateTo('careers')} style={{ background: 'none', border: 'none', textAlign: 'left', color: '#475569', fontSize: '0.88rem', fontWeight: '600', cursor: 'pointer', padding: 0 }}>Projects</button>
+              <button onClick={() => scrollToSection('services')} style={{ background: 'none', border: 'none', textAlign: 'left', color: '#475569', fontSize: '0.88rem', fontWeight: '600', cursor: 'pointer', padding: 0 }}>Projects</button>
               <button onClick={() => navigateTo('careers')} style={{ background: 'none', border: 'none', textAlign: 'left', color: '#475569', fontSize: '0.88rem', fontWeight: '600', cursor: 'pointer', padding: 0 }}>Careers</button>
               <button onClick={() => navigateTo('contact')} style={{ background: 'none', border: 'none', textAlign: 'left', color: '#475569', fontSize: '0.88rem', fontWeight: '600', cursor: 'pointer', padding: 0 }}>Contact Us</button>
             </div>
           </div>
 
-          {/* Part 3: Contact Details (Email, Name, Number) */}
           <div>
             <h4 style={{ fontSize: '0.95rem', fontWeight: '800', color: '#1e1b4b', marginBottom: '12px' }}>Direct Inquiries</h4>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', fontSize: '0.88rem', color: '#475569', fontWeight: '600' }}>
@@ -1335,7 +1024,6 @@ const sectionBoxStyle = { background: '#faf9f5', border: '1px solid #e2edf8', bo
 const sectionHeaderStyle = { display: 'flex', alignItems: 'center', gap: '10px', fontWeight: '700', fontSize: '0.95rem', color: '#1e1b4b', marginBottom: '1.2rem', borderBottom: '1px solid #e2edf8', paddingBottom: '8px' };
 const labelStyle = { display: 'block', fontWeight: '600', fontSize: '0.88rem', marginBottom: '6px', color: '#334155' };
 const inputStyle = { width: '100%', padding: '10px 14px', borderRadius: '8px', background: '#ffffff', border: '1px solid #cbd5e1', color: '#0f172a', fontSize: '0.95rem', outline: 'none', boxSizing: 'border-box' };
-
 const socialBadgeStyle = (borderColor) => ({
   display: 'flex',
   alignItems: 'center',
