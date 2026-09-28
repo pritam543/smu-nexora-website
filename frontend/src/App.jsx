@@ -188,7 +188,7 @@ export default function App() {
     {
       title: "Founder",
       name: "Sakshi Pare",
-      image: "frontend/public/images/founder.jpg",
+      image: "frontend/src/images/founder.jpg",
       quote: "Our vision is to engineer resilient, high-speed digital platforms that accelerate client businesses while fostering next-generation IT engineering talent in Indore.",
       badgeColor: "#db2777",
       badgeBg: "#fce7f3",
