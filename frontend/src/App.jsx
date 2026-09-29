@@ -240,6 +240,7 @@ export default function App() {
       borderColor: "#fde68a",
       glowShadow: "rgba(253, 230, 138, 0.3)"
     },
+
     {
       role: "Full Stack Developer",
       name: "Pritam Carpenter",
