@@ -233,7 +233,7 @@ export default function App() {
     {
       role: "Project Management",
       name: "Shubham Kanungo",
-      field: "Sprint Planning & Client Deliverables",
+      field: "Driving Delivery • Coordinating Teams • Managing Client Success",
       image: "/images/shubham kanungo.jpeg",
       badgeColor: "#d97706",
       badgeBg: "#fef3c7",
