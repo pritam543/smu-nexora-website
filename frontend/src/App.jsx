@@ -275,7 +275,7 @@ export default function App() {
       role: "Full Stack Developer",
       name: "Pritam Carpenter",
       field: "React.js, Python, Django Systems",
-      image: "/images/pritam.jpg",
+      image: "frontend/src/assets/images/pritam.jpg",
       badgeColor: "#7c3aed",
       badgeBg: "#ede9fe",
       borderColor: "#c4b5fd",
