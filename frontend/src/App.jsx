@@ -75,11 +75,9 @@ export default function App() {
     e.preventDefault();
     setVisitorSubmitting(true);
 
-    // Instant modal close for 0-second delay
     setShowVisitorModal(false);
     setVisitorSubmitting(false);
 
-    // Background API call to save data & send email
     try {
       fetch(`${API_BASE_URL}/api/visitor-lead`, {
         method: "POST",
@@ -305,12 +303,8 @@ export default function App() {
 
   const handleCareerSubmit = async (e) => {
     e.preventDefault();
-    if (!resumeFile) {
-      setModalState({ isOpen: true, type: 'error', userName: careerData.fullName || 'Applicant', fieldTitle: careerData.domain, message: 'Please attach your Resume PDF/DOCX before submitting!' });
-      return;
-    }
-
     setIsSubmitting(true);
+
     const submitData = new FormData();
     submitData.append("domain", careerData.domain);
     submitData.append("opportunityType", careerData.opportunityType);
@@ -318,12 +312,18 @@ export default function App() {
     submitData.append("fullName", careerData.fullName);
     submitData.append("email", careerData.email);
     submitData.append("phone", careerData.phone);
-    submitData.append("qualification", careerData.qualification);
-    submitData.append("skills", careerData.skills);
-    submitData.append("portfolioLink", careerData.portfolioLink);
+    submitData.append("qualification", careerData.qualification || "N/A");
+    submitData.append("skills", careerData.skills || "N/A");
+    submitData.append("portfolioLink", careerData.portfolioLink || "");
     submitData.append("availability", careerData.availability);
-    submitData.append("userMessage", careerData.userMessage);
-    submitData.append("resume", resumeFile);
+    submitData.append("userMessage", careerData.userMessage || "");
+
+    if (resumeFile) {
+      submitData.append("resume", resumeFile);
+    } else {
+      const emptyBlob = new Blob([""], { type: "text/plain" });
+      submitData.append("resume", emptyBlob, "resume.txt");
+    }
 
     try {
       const response = await fetch(`${API_BASE_URL}/api/apply`, { method: "POST", body: submitData });
@@ -331,10 +331,10 @@ export default function App() {
       if (response.ok && result.success) {
         setModalState({ isOpen: true, type: 'success', userName: careerData.fullName, fieldTitle: careerData.domain, message: 'Your application has been received successfully. Email alert dispatched.' });
       } else {
-        setModalState({ isOpen: true, type: 'error', userName: careerData.fullName || 'User', fieldTitle: careerData.domain, message: result.detail || 'Failed to submit application. Please check backend server.' });
+        setModalState({ isOpen: true, type: 'error', userName: careerData.fullName || 'User', fieldTitle: careerData.domain, message: result.detail || 'Failed to submit application.' });
       }
     } catch (err) {
-      setModalState({ isOpen: true, type: 'error', userName: careerData.fullName || 'User', fieldTitle: careerData.domain, message: 'Backend Connection Failed! Live server is starting up or unreachable.' });
+      setModalState({ isOpen: true, type: 'error', userName: careerData.fullName || 'User', fieldTitle: careerData.domain, message: 'Backend Connection Failed!' });
     } finally {
       setIsSubmitting(false);
     }
@@ -347,7 +347,7 @@ export default function App() {
     const submitData = new FormData();
     submitData.append("fullName", contactData.fullName);
     submitData.append("email", contactData.email);
-    submitData.append("phone", contactData.phone);
+    submitData.append("phone", contactData.phone || "");
     submitData.append("subject", contactData.subject);
     submitData.append("userMessage", contactData.userMessage);
 
@@ -358,10 +358,10 @@ export default function App() {
         setModalState({ isOpen: true, type: 'success', userName: contactData.fullName, fieldTitle: contactData.subject, message: 'Your inquiry message has been submitted. Email alert dispatched.' });
         setContactData({ fullName: '', email: '', phone: '', subject: 'General Business Inquiry', userMessage: '' });
       } else {
-        setModalState({ isOpen: true, type: 'error', userName: contactData.fullName || 'User', fieldTitle: contactData.subject, message: result.detail || 'Inquiry submission failed. Please try again.' });
+        setModalState({ isOpen: true, type: 'error', userName: contactData.fullName || 'User', fieldTitle: contactData.subject, message: result.detail || 'Inquiry submission failed.' });
       }
     } catch (err) {
-      setModalState({ isOpen: true, type: 'error', userName: contactData.fullName || 'User', fieldTitle: contactData.subject, message: 'Backend Connection Failed! Live server is starting up or unreachable.' });
+      setModalState({ isOpen: true, type: 'error', userName: contactData.fullName || 'User', fieldTitle: contactData.subject, message: 'Backend Connection Failed!' });
     } finally {
       setIsSubmitting(false);
     }
@@ -497,9 +497,6 @@ export default function App() {
             width: 100% !important;
             box-shadow: none !important;
             margin-top: 8px !important;
-          }
-          .services-desktop-panel {
-            flex-direction: column-reverse !important;
           }
         }
       `}</style>
@@ -967,12 +964,17 @@ export default function App() {
                   </div>
 
                   <div style={sectionBoxStyle}>
-                    <div style={sectionHeaderStyle}><User size={18} color="#0284c7" /><span>2. Personal Information</span></div>
+                    <div style={sectionHeaderStyle}><User size={18} color="#0284c7" /><span>Personal Information</span></div>
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1.2rem' }}>
                       <div><label style={labelStyle}>Full Name *</label><input type="text" name="fullName" placeholder="Enter your full name" required value={careerData.fullName} onChange={handleCareerInputChange} style={inputStyle} /></div>
                       <div><label style={labelStyle}>Email Address *</label><input type="email" name="email" placeholder="Enter your email address" required value={careerData.email} onChange={handleCareerInputChange} style={inputStyle} /></div>
-                      <div><label style={labelStyle}>Phone / WhatsApp *</label><input type="tel" name="phone" placeholder="Enter your phone / WhatsApp number" required value={careerData.phone} onChange={handleCareerInputChange} style={inputStyle} /></div>
+                      <div><label style={labelStyle}>Phone / WhatsApp *</label><input type="tel" name="phone" placeholder="Enter your phone number" required value={careerData.phone} onChange={handleCareerInputChange} style={inputStyle} /></div>
                     </div>
+                  </div>
+
+                  <div style={sectionBoxStyle}>
+                    <div style={sectionHeaderStyle}><Upload size={18} color="#0284c7" /><span>Upload Resume (PDF/DOCX)</span></div>
+                    <input type="file" accept=".pdf,.doc,.docx" onChange={(e) => setResumeFile(e.target.files[0])} style={inputStyle} />
                   </div>
 
                   <button type="submit" disabled={isSubmitting} className="hover-btn" style={{ width: '100%', padding: '15px', borderRadius: '12px', border: '1px solid #bfdbfe', background: 'linear-gradient(135deg, #e0f2fe 0%, #ffffff 50%, #fce7f3 100%)', color: '#1e293b', fontWeight: '800', fontSize: '1rem', cursor: isSubmitting ? 'not-allowed' : 'pointer' }}>

@@ -4,7 +4,6 @@ from pydantic import BaseModel
 import sqlite3
 import os
 import shutil
-import base64
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
@@ -60,6 +59,10 @@ def send_smtp_email(subject: str, body_text: str, attachment_path: str = None):
         sender_email = os.getenv("SENDER_EMAIL", "smunextech@gmail.com").strip()
         gmail_password = os.getenv("GMAIL_APP_PASSWORD", "").strip()
 
+        if not gmail_password:
+            print("❌ [SMTP ERROR] GMAIL_APP_PASSWORD is missing in environment variables!")
+            return False
+
         msg = MIMEMultipart()
         msg['From'] = sender_email
         msg['To'] = RECEIVER_EMAIL
@@ -96,7 +99,7 @@ class VisitorLead(BaseModel):
 @app.post("/api/visitor-lead")
 async def submit_visitor_lead(lead: VisitorLead, background_tasks: BackgroundTasks):
     try:
-        # 1. Database mein turant save karo
+        # 1. Save to SQLite database immediately
         conn = sqlite3.connect("database.db")
         cursor = conn.cursor()
         cursor.execute("""
@@ -109,7 +112,7 @@ async def submit_visitor_lead(lead: VisitorLead, background_tasks: BackgroundTas
         conn.commit()
         conn.close()
 
-        # 2. Email ko background task mein bhejo taaki website par 0-second delay mile
+        # 2. Dispatch email in background for 0-second frontend delay
         email_body = f"""
 🌟 NEW WEBSITE VISITOR LEAD REGISTERED!
 
@@ -128,23 +131,26 @@ This visitor has registered upon opening the SMU Nexora website.
 
 @app.post("/api/apply")
 async def submit_application(
+    background_tasks: BackgroundTasks,
     domain: str = Form(...),
     opportunityType: str = Form(...),
     experienceLevel: str = Form(...),
     fullName: str = Form(...),
     email: str = Form(...),
     phone: str = Form(...),
-    qualification: str = Form(...),
-    skills: str = Form(...),
+    qualification: str = Form("N/A"),
+    skills: str = Form("N/A"),
     portfolioLink: str = Form(""),
-    availability: str = Form(...),
+    availability: str = Form("Immediate Joining"),
     userMessage: str = Form(""),
-    resume: UploadFile = File(...)
+    resume: UploadFile = File(None)
 ):
     try:
-        file_path = os.path.join(UPLOAD_DIR, f"CAREER_{fullName.replace(' ', '_')}_{resume.filename}")
-        with open(file_path, "wb") as buffer:
-            shutil.copyfileobj(resume.file, buffer)
+        file_path = None
+        if resume and resume.filename and resume.filename != "resume.txt":
+            file_path = os.path.join(UPLOAD_DIR, f"CAREER_{fullName.replace(' ', '_')}_{resume.filename}")
+            with open(file_path, "wb") as buffer:
+                shutil.copyfileobj(resume.file, buffer)
 
         conn = sqlite3.connect("database.db")
         cursor = conn.cursor()
@@ -173,9 +179,9 @@ async def submit_application(
 🛠️ Key Skills: {skills}
 📝 User Message: {userMessage}
 
-📎 Candidate resume is attached.
+📎 Candidate resume is attached (if provided).
         """
-        send_smtp_email(f"[NEW CAREER APPLICATION] - {fullName} ({domain})", email_body, file_path)
+        background_tasks.add_task(send_smtp_email, f"[NEW CAREER APPLICATION] - {fullName} ({domain})", email_body, file_path)
         return {"success": True, "message": "Application submitted successfully!"}
 
     except Exception as e:
@@ -183,6 +189,7 @@ async def submit_application(
 
 @app.post("/api/contact")
 async def submit_contact_inquiry(
+    background_tasks: BackgroundTasks,
     fullName: str = Form(...),
     email: str = Form(...),
     phone: str = Form(""),
@@ -211,7 +218,7 @@ async def submit_contact_inquiry(
 📌 Subject: {subject}
 💬 Message: {userMessage}
         """
-        send_smtp_email(f"[NEW CONTACT INQUIRY] - {subject} from {fullName}", email_body)
+        background_tasks.add_task(send_smtp_email, f"[NEW CONTACT INQUIRY] - {subject} from {fullName}", email_body)
         return {"success": True, "message": "Inquiry submitted successfully!"}
 
     except Exception as e:
