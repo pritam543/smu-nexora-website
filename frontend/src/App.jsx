@@ -24,6 +24,11 @@ export default function App() {
     message: ''
   });
 
+  // Visitor Welcome Popup States
+  const [showVisitorModal, setShowVisitorModal] = useState(false);
+  const [visitorData, setVisitorData] = useState({ fullName: '', email: '', phone: '' });
+  const [visitorSubmitting, setVisitorSubmitting] = useState(false);
+
   const [activeService, setActiveService] = useState('web-dev');
   const [currentSlide, setCurrentSlide] = useState(0);
 
@@ -57,6 +62,44 @@ export default function App() {
 
   // LIVE RENDER BACKEND BASE URL
   const API_BASE_URL = "https://smu-nexora-website.onrender.com";
+
+  // ==================== VISITOR POPUP SESSION CHECK ====================
+  useEffect(() => {
+    const hasVisitedBefore = localStorage.getItem('smu_nexora_visitor');
+    if (!hasVisitedBefore) {
+      const timer = setTimeout(() => {
+        setShowVisitorModal(true);
+      }, 1500);
+      return () => clearTimeout(timer);
+    }
+  }, []);
+
+  const handleVisitorSubmit = async (e) => {
+    e.preventDefault();
+    setVisitorSubmitting(true);
+
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/visitor-lead`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(visitorData)
+      });
+      const result = await response.json();
+
+      if (response.ok && result.success) {
+        localStorage.setItem('smu_nexora_visitor', 'true');
+        setShowVisitorModal(false);
+      } else {
+        localStorage.setItem('smu_nexora_visitor', 'true');
+        setShowVisitorModal(false);
+      }
+    } catch (err) {
+      localStorage.setItem('smu_nexora_visitor', 'true');
+      setShowVisitorModal(false);
+    } finally {
+      setVisitorSubmitting(false);
+    }
+  };
 
   // ==================== EXACT BACK BUTTON ROUTING LOGIC ====================
   useEffect(() => {
@@ -240,7 +283,6 @@ export default function App() {
       borderColor: "#fde68a",
       glowShadow: "rgba(253, 230, 138, 0.3)"
     },
-
     {
       role: "Full Stack Developer",
       name: "Pritam Carpenter",
@@ -1031,6 +1073,112 @@ export default function App() {
 
         </AnimatePresence>
       </div>
+
+      {/* VISITOR WELCOME REGISTRATION POPUP MODAL */}
+      <AnimatePresence>
+        {showVisitorModal && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            style={{
+              position: 'fixed',
+              top: 0, left: 0, width: '100vw', height: '100vh',
+              backgroundColor: 'rgba(15, 23, 42, 0.7)',
+              backdropFilter: 'blur(10px)',
+              zIndex: 3000,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: '1.5rem'
+            }}
+          >
+            <motion.div
+              initial={{ scale: 0.9, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.9, y: 20 }}
+              style={{
+                background: '#ffffff',
+                borderRadius: '24px',
+                padding: '2.5rem 2rem',
+                maxWidth: '440px',
+                width: '100%',
+                boxShadow: '0 25px 50px -12px rgba(186, 230, 253, 0.5)',
+                border: '1.5px solid #bae6fd',
+                textAlign: 'center'
+              }}
+            >
+              <div style={{ width: '56px', height: '56px', borderRadius: '16px', background: '#e0f2fe', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.2rem auto' }}>
+                <Sparkles size={28} color="#0284c7" />
+              </div>
+
+              <h2 style={{ fontSize: '1.5rem', fontWeight: '900', color: '#1e1b4b', margin: '0 0 8px 0' }}>
+                Welcome to SMU Nexora
+              </h2>
+              <p style={{ color: '#64748b', fontSize: '0.9rem', margin: '0 0 1.5rem 0', lineHeight: '1.5' }}>
+                Please share your quick details to unlock full platform access, corporate deck, and live project tools.
+              </p>
+
+              <form onSubmit={handleVisitorSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem', textAlign: 'left' }}>
+                <div>
+                  <label style={labelStyle}>Your Full Name *</label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="Enter your name"
+                    value={visitorData.fullName}
+                    onChange={(e) => setVisitorData({ ...visitorData, fullName: e.target.value })}
+                    style={inputStyle}
+                  />
+                </div>
+                <div>
+                  <label style={labelStyle}>Email Address *</label>
+                  <input
+                    type="email"
+                    required
+                    placeholder="Enter your email"
+                    value={visitorData.email}
+                    onChange={(e) => setVisitorData({ ...visitorData, email: e.target.value })}
+                    style={inputStyle}
+                  />
+                </div>
+                <div>
+                  <label style={labelStyle}>Phone / WhatsApp Number *</label>
+                  <input
+                    type="tel"
+                    required
+                    placeholder="Enter your phone number"
+                    value={visitorData.phone}
+                    onChange={(e) => setVisitorData({ ...visitorData, phone: e.target.value })}
+                    style={inputStyle}
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={visitorSubmitting}
+                  className="hover-btn"
+                  style={{
+                    width: '100%',
+                    padding: '13px',
+                    borderRadius: '12px',
+                    border: '1px solid #bfdbfe',
+                    background: 'linear-gradient(135deg, #0284c7 0%, #2563eb 100%)',
+                    color: '#ffffff',
+                    fontWeight: '800',
+                    fontSize: '0.95rem',
+                    cursor: visitorSubmitting ? 'not-allowed' : 'pointer',
+                    marginTop: '0.5rem',
+                    boxShadow: '0 4px 14px rgba(2, 132, 199, 0.35)'
+                  }}
+                >
+                  {visitorSubmitting ? 'Unlocking Access...' : 'Continue to Website'}
+                </button>
+              </form>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <CorporateDeck isOpen={isDeckOpen} onClose={() => setIsDeckOpen(false)} />
 

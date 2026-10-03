@@ -1,5 +1,6 @@
 from fastapi import FastAPI, File, UploadFile, Form, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
 import sqlite3
 import os
 import shutil
@@ -84,6 +85,42 @@ def send_resend_email(subject: str, body_text: str, attachment_path: str = None)
 @app.get("/")
 def home():
     return {"status": "Active", "message": "SMU Nexora Technologies API is running!"}
+
+# Pydantic model for Visitor Lead
+class VisitorLead(BaseModel):
+    fullName: str
+    email: str
+    phone: str
+
+@app.post("/api/visitor-lead")
+async def submit_visitor_lead(lead: VisitorLead):
+    try:
+        conn = sqlite3.connect("database.db")
+        cursor = conn.cursor()
+        cursor.execute("""
+            INSERT INTO submissions (
+                form_type, domain_or_subject, full_name, email, phone
+            ) VALUES (?, ?, ?, ?, ?)
+        """, (
+            'VISITOR_POPUP_LEAD', 'Website Entry Registration', lead.fullName, lead.email, lead.phone
+        ))
+        conn.commit()
+        conn.close()
+
+        email_body = f"""
+🌟 NEW WEBSITE VISITOR LEAD REGISTERED!
+
+👤 Full Name: {lead.fullName}
+✉️ Email: {lead.email}
+📞 Phone / WhatsApp: {lead.phone}
+
+This visitor has registered upon opening the SMU Nexora website.
+        """
+        send_resend_email(f"[NEW VISITOR LEAD] - {lead.fullName}", email_body)
+        return {"success": True, "message": "Visitor lead logged successfully!"}
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
 @app.post("/api/apply")
 async def submit_application(
