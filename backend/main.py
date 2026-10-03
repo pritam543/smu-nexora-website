@@ -182,11 +182,11 @@ async def submit_application(
 @app.post("/api/contact")
 async def submit_contact_inquiry(
     background_tasks: BackgroundTasks,
-    fullName: str,
-    email: str,
-    phone: str = "",
-    subject: str = "General Business Inquiry",
-    userMessage: str = ""
+    fullName: str = Form(...),
+    email: str = Form(...),
+    phone: str = Form(""),
+    subject: str = Form("General Business Inquiry"),
+    userMessage: str = Form("")
 ):
     try:
         conn = sqlite3.connect("database.db")
@@ -213,4 +213,5 @@ async def submit_contact_inquiry(
         background_tasks.add_task(send_resend_email, f"[NEW CONTACT INQUIRY] - {subject} from {fullName}", email_body)
         return {"success": True, "message": "Inquiry submitted successfully!"}
     except Exception as e:
+        print("❌ [CONTACT ERROR] Error:", str(e))
         raise HTTPException(status_code=500, detail=str(e))
