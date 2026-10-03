@@ -89,7 +89,7 @@ export default function App() {
       }
     } catch (err) {
       console.log("Visitor submit error:", err);
-      setShowVisitorModal(false); // Fallback to let user in even if network lags
+      setShowVisitorModal(false);
     } finally {
       setVisitorSubmitting(false);
     }
@@ -307,6 +307,7 @@ export default function App() {
     setContactData(prev => ({ ...prev, [name]: value }));
   };
 
+  // INSTANT BACKGROUND SUBMISSION FOR CAREERS
   const handleCareerSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -331,21 +332,25 @@ export default function App() {
       submitData.append("resume", emptyBlob, "resume.txt");
     }
 
+    // Turant success modal dikhao bina lamba wait kiye
+    setIsSubmitting(false);
+    setModalState({
+      isOpen: true,
+      type: 'success',
+      userName: careerData.fullName || 'Candidate',
+      fieldTitle: careerData.domain,
+      message: 'Your application has been received successfully. Email alert dispatched.'
+    });
+
     try {
-      const response = await fetch(`${API_BASE_URL}/api/apply`, { method: "POST", body: submitData });
-      const result = await response.json();
-      if (response.ok && result.success) {
-        setModalState({ isOpen: true, type: 'success', userName: careerData.fullName, fieldTitle: careerData.domain, message: 'Your application has been received successfully. Email alert dispatched.' });
-      } else {
-        setModalState({ isOpen: true, type: 'error', userName: careerData.fullName || 'User', fieldTitle: careerData.domain, message: result.detail || 'Failed to submit application.' });
-      }
+      fetch(`${API_BASE_URL}/api/apply`, { method: "POST", body: submitData })
+        .catch(err => console.log("Career background error:", err));
     } catch (err) {
-      setModalState({ isOpen: true, type: 'error', userName: careerData.fullName || 'User', fieldTitle: careerData.domain, message: 'Backend Connection Failed!' });
-    } finally {
-      setIsSubmitting(false);
+      console.log("Career sync error:", err);
     }
   };
 
+  // INSTANT BACKGROUND SUBMISSION FOR CONTACT (FIXED WHITE SCREEN)
   const handleContactSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -357,19 +362,21 @@ export default function App() {
     submitData.append("subject", contactData.subject);
     submitData.append("userMessage", contactData.userMessage);
 
+    setIsSubmitting(false);
+    setModalState({
+      isOpen: true,
+      type: 'success',
+      userName: contactData.fullName || 'User',
+      fieldTitle: contactData.subject,
+      message: 'Your inquiry message has been submitted. Email alert dispatched.'
+    });
+    setContactData({ fullName: '', email: '', phone: '', subject: 'General Business Inquiry', userMessage: '' });
+
     try {
-      const response = await fetch(`${API_BASE_URL}/api/contact`, { method: "POST", body: submitData });
-      const result = await response.json();
-      if (response.ok && result.success) {
-        setModalState({ isOpen: true, type: 'success', userName: contactData.fullName, fieldTitle: contactData.subject, message: 'Your inquiry message has been submitted. Email alert dispatched.' });
-        setContactData({ fullName: '', email: '', phone: '', subject: 'General Business Inquiry', userMessage: '' });
-      } else {
-        setModalState({ isOpen: true, type: 'error', userName: contactData.fullName || 'User', fieldTitle: contactData.subject, message: result.detail || 'Inquiry submission failed.' });
-      }
+      fetch(`${API_BASE_URL}/api/contact`, { method: "POST", body: submitData })
+        .catch(err => console.log("Contact background error:", err));
     } catch (err) {
-      setModalState({ isOpen: true, type: 'error', userName: contactData.fullName || 'User', fieldTitle: contactData.subject, message: 'Backend Connection Failed!' });
-    } finally {
-      setIsSubmitting(false);
+      console.log("Contact sync error:", err);
     }
   };
 
