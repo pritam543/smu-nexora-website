@@ -63,23 +63,19 @@ export default function App() {
   // LIVE RENDER BACKEND BASE URL
   const API_BASE_URL = "https://smu-nexora-website.onrender.com";
 
-  // ==================== VISITOR POPUP SESSION CHECK ====================
+  // ==================== VISITOR POPUP TIMER (TESTING MODE) ====================
   useEffect(() => {
-    const hasVisitedBefore = localStorage.getItem('smu_nexora_visitor');
-    if (!hasVisitedBefore) {
-      const timer = setTimeout(() => {
-        setShowVisitorModal(true);
-      }, 1500);
-      return () => clearTimeout(timer);
-    }
+    const timer = setTimeout(() => {
+      setShowVisitorModal(true);
+    }, 1500);
+    return () => clearTimeout(timer);
   }, []);
 
   const handleVisitorSubmit = async (e) => {
     e.preventDefault();
     setVisitorSubmitting(true);
 
-    // Instant local storage save & modal close for 0-second delay
-    localStorage.setItem('smu_nexora_visitor', 'true');
+    // Instant modal close for 0-second delay
     setShowVisitorModal(false);
     setVisitorSubmitting(false);
 
