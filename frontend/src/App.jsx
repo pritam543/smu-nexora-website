@@ -73,20 +73,25 @@ export default function App() {
 
   const handleVisitorSubmit = async (e) => {
     e.preventDefault();
-    setVisitorSubmitting(false);
+    setVisitorSubmitting(true);
 
-    // Turant popup band karo bina wait kiye
-    setShowVisitorModal(false);
-
-    // Background mein API call bhejo
     try {
-      fetch(`${API_BASE_URL}/api/visitor-lead`, {
+      const response = await fetch(`${API_BASE_URL}/api/visitor-lead`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(visitorData)
-      }).catch(err => console.log("Visitor background error:", err));
+      });
+      const result = await response.json();
+      if (response.ok && result.success) {
+        setShowVisitorModal(false);
+      } else {
+        alert("Failed to submit visitor lead. Please check details.");
+      }
     } catch (err) {
-      console.log("Visitor sync error:", err);
+      console.log("Visitor submit error:", err);
+      setShowVisitorModal(false); // Fallback to let user in even if network lags
+    } finally {
+      setVisitorSubmitting(false);
     }
   };
 
@@ -326,22 +331,18 @@ export default function App() {
       submitData.append("resume", emptyBlob, "resume.txt");
     }
 
-    // Turant success modal dikhao bina wait kiye
-    setIsSubmitting(false);
-    setModalState({
-      isOpen: true,
-      type: 'success',
-      userName: careerData.fullName,
-      fieldTitle: careerData.domain,
-      message: 'Your application has been received successfully. Email alert dispatched.'
-    });
-
-    // Background mein server par bhejo
     try {
-      fetch(`${API_BASE_URL}/api/apply`, { method: "POST", body: submitData })
-        .catch(err => console.log("Career background error:", err));
+      const response = await fetch(`${API_BASE_URL}/api/apply`, { method: "POST", body: submitData });
+      const result = await response.json();
+      if (response.ok && result.success) {
+        setModalState({ isOpen: true, type: 'success', userName: careerData.fullName, fieldTitle: careerData.domain, message: 'Your application has been received successfully. Email alert dispatched.' });
+      } else {
+        setModalState({ isOpen: true, type: 'error', userName: careerData.fullName || 'User', fieldTitle: careerData.domain, message: result.detail || 'Failed to submit application.' });
+      }
     } catch (err) {
-      console.log("Career sync error:", err);
+      setModalState({ isOpen: true, type: 'error', userName: careerData.fullName || 'User', fieldTitle: careerData.domain, message: 'Backend Connection Failed!' });
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -356,23 +357,19 @@ export default function App() {
     submitData.append("subject", contactData.subject);
     submitData.append("userMessage", contactData.userMessage);
 
-    // Turant success modal dikhao
-    setIsSubmitting(false);
-    setModalState({
-      isOpen: true,
-      type: 'success',
-      userName: contactData.fullName,
-      fieldTitle: contactData.subject,
-      message: 'Your inquiry message has been submitted. Email alert dispatched.'
-    });
-    setContactData({ fullName: '', email: '', phone: '', subject: 'General Business Inquiry', userMessage: '' });
-
-    // Background mein server par bhejo
     try {
-      fetch(`${API_BASE_URL}/api/contact`, { method: "POST", body: submitData })
-        .catch(err => console.log("Contact background error:", err));
+      const response = await fetch(`${API_BASE_URL}/api/contact`, { method: "POST", body: submitData });
+      const result = await response.json();
+      if (response.ok && result.success) {
+        setModalState({ isOpen: true, type: 'success', userName: contactData.fullName, fieldTitle: contactData.subject, message: 'Your inquiry message has been submitted. Email alert dispatched.' });
+        setContactData({ fullName: '', email: '', phone: '', subject: 'General Business Inquiry', userMessage: '' });
+      } else {
+        setModalState({ isOpen: true, type: 'error', userName: contactData.fullName || 'User', fieldTitle: contactData.subject, message: result.detail || 'Inquiry submission failed.' });
+      }
     } catch (err) {
-      console.log("Contact sync error:", err);
+      setModalState({ isOpen: true, type: 'error', userName: contactData.fullName || 'User', fieldTitle: contactData.subject, message: 'Backend Connection Failed!' });
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -1176,6 +1173,28 @@ export default function App() {
                   {visitorSubmitting ? 'Unlocking Access...' : 'Continue to Website'}
                 </button>
               </form>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* SUCCESS / ERROR MODAL POPUP */}
+      <AnimatePresence>
+        {modalState.isOpen && (
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', backgroundColor: 'rgba(15, 23, 42, 0.7)', backdropFilter: 'blur(10px)', zIndex: 4000, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1.5rem' }}>
+            <motion.div initial={{ scale: 0.9 }} animate={{ scale: 1 }} exit={{ scale: 0.9 }} style={{ background: '#ffffff', borderRadius: '24px', padding: '2.5rem 2rem', maxWidth: '420px', width: '100%', textAlign: 'center', border: '1.5px solid #bae6fd' }}>
+              <div style={{ width: '56px', height: '56px', borderRadius: '50%', background: modalState.type === 'success' ? '#d1fae5' : '#fee2e2', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.2rem auto' }}>
+                {modalState.type === 'success' ? <Check size={28} color="#059669" /> : <AlertCircle size={28} color="#dc2626" />}
+              </div>
+              <h3 style={{ fontSize: '1.4rem', fontWeight: '900', color: '#1e1b4b', margin: '0 0 8px 0' }}>
+                {modalState.type === 'success' ? 'Submission Successful!' : 'Submission Failed'}
+              </h3>
+              <p style={{ color: '#64748b', fontSize: '0.92rem', lineHeight: '1.6', margin: '0 0 1.8rem 0' }}>
+                {modalState.message}
+              </p>
+              <button onClick={closeModal} className="hover-btn" style={{ width: '100%', padding: '12px', borderRadius: '12px', background: '#0284c7', color: '#ffffff', fontWeight: '800', cursor: 'pointer', border: 'none' }}>
+                OK, Got It
+              </button>
             </motion.div>
           </motion.div>
         )}

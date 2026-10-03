@@ -115,9 +115,7 @@ async def submit_visitor_lead(lead: VisitorLead, background_tasks: BackgroundTas
 
 👤 Full Name: {lead.fullName}
 ✉️ Email: {lead.email}
-📞 Phone / WhatsApp: {lead.phone}
-
-This visitor has registered upon opening the SMU Nexora website.
+📞 Phone: {lead.phone}
         """
         background_tasks.add_task(send_smtp_email, f"[NEW VISITOR LEAD] - {lead.fullName}", email_body)
 
@@ -166,20 +164,12 @@ async def submit_application(
 🚀 NEW CAREER APPLICATION RECEIVED!
 
 👤 Full Name: {fullName}
-💻 Target Domain: {domain}
-🎯 Opportunity Type: {opportunityType}
-📈 Experience Level: {experienceLevel}
+💻 Domain: {domain}
+🎯 Type: {opportunityType}
 ✉️ Email: {email}
-📞 Phone / WhatsApp: {phone}
-🎓 Qualification: {qualification}
-🛠️ Key Skills: {skills}
-📝 User Message: {userMessage}
-
-📎 Candidate resume is attached (if provided).
+📞 Phone: {phone}
         """
-        # Background task lagane se button instant free ho jayega
         background_tasks.add_task(send_smtp_email, f"[NEW CAREER APPLICATION] - {fullName} ({domain})", email_body, file_path)
-        
         return {"success": True, "message": "Application submitted successfully!"}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
@@ -216,7 +206,6 @@ async def submit_contact_inquiry(
 💬 Message: {userMessage}
         """
         background_tasks.add_task(send_smtp_email, f"[NEW CONTACT INQUIRY] - {subject} from {fullName}", email_body)
-
         return {"success": True, "message": "Inquiry submitted successfully!"}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
