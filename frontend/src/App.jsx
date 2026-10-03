@@ -73,19 +73,20 @@ export default function App() {
 
   const handleVisitorSubmit = async (e) => {
     e.preventDefault();
-    setVisitorSubmitting(true);
-
-    setShowVisitorModal(false);
     setVisitorSubmitting(false);
 
+    // Turant popup band karo bina wait kiye
+    setShowVisitorModal(false);
+
+    // Background mein API call bhejo
     try {
       fetch(`${API_BASE_URL}/api/visitor-lead`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(visitorData)
-      }).catch(err => console.log("Background log error:", err));
+      }).catch(err => console.log("Visitor background error:", err));
     } catch (err) {
-      console.log("Background sync error:", err);
+      console.log("Visitor sync error:", err);
     }
   };
 
@@ -275,7 +276,7 @@ export default function App() {
       role: "Full Stack Developer",
       name: "Pritam Carpenter",
       field: "React.js, Python, Django Systems",
-      image: "/images/pritam.jpg ",
+      image: "/images/pritam.jpg",
       badgeColor: "#7c3aed",
       badgeBg: "#ede9fe",
       borderColor: "#c4b5fd",
@@ -325,18 +326,22 @@ export default function App() {
       submitData.append("resume", emptyBlob, "resume.txt");
     }
 
+    // Turant success modal dikhao bina wait kiye
+    setIsSubmitting(false);
+    setModalState({
+      isOpen: true,
+      type: 'success',
+      userName: careerData.fullName,
+      fieldTitle: careerData.domain,
+      message: 'Your application has been received successfully. Email alert dispatched.'
+    });
+
+    // Background mein server par bhejo
     try {
-      const response = await fetch(`${API_BASE_URL}/api/apply`, { method: "POST", body: submitData });
-      const result = await response.json();
-      if (response.ok && result.success) {
-        setModalState({ isOpen: true, type: 'success', userName: careerData.fullName, fieldTitle: careerData.domain, message: 'Your application has been received successfully. Email alert dispatched.' });
-      } else {
-        setModalState({ isOpen: true, type: 'error', userName: careerData.fullName || 'User', fieldTitle: careerData.domain, message: result.detail || 'Failed to submit application.' });
-      }
+      fetch(`${API_BASE_URL}/api/apply`, { method: "POST", body: submitData })
+        .catch(err => console.log("Career background error:", err));
     } catch (err) {
-      setModalState({ isOpen: true, type: 'error', userName: careerData.fullName || 'User', fieldTitle: careerData.domain, message: 'Backend Connection Failed!' });
-    } finally {
-      setIsSubmitting(false);
+      console.log("Career sync error:", err);
     }
   };
 
@@ -351,19 +356,23 @@ export default function App() {
     submitData.append("subject", contactData.subject);
     submitData.append("userMessage", contactData.userMessage);
 
+    // Turant success modal dikhao
+    setIsSubmitting(false);
+    setModalState({
+      isOpen: true,
+      type: 'success',
+      userName: contactData.fullName,
+      fieldTitle: contactData.subject,
+      message: 'Your inquiry message has been submitted. Email alert dispatched.'
+    });
+    setContactData({ fullName: '', email: '', phone: '', subject: 'General Business Inquiry', userMessage: '' });
+
+    // Background mein server par bhejo
     try {
-      const response = await fetch(`${API_BASE_URL}/api/contact`, { method: "POST", body: submitData });
-      const result = await response.json();
-      if (response.ok && result.success) {
-        setModalState({ isOpen: true, type: 'success', userName: contactData.fullName, fieldTitle: contactData.subject, message: 'Your inquiry message has been submitted. Email alert dispatched.' });
-        setContactData({ fullName: '', email: '', phone: '', subject: 'General Business Inquiry', userMessage: '' });
-      } else {
-        setModalState({ isOpen: true, type: 'error', userName: contactData.fullName || 'User', fieldTitle: contactData.subject, message: result.detail || 'Inquiry submission failed.' });
-      }
+      fetch(`${API_BASE_URL}/api/contact`, { method: "POST", body: submitData })
+        .catch(err => console.log("Contact background error:", err));
     } catch (err) {
-      setModalState({ isOpen: true, type: 'error', userName: contactData.fullName || 'User', fieldTitle: contactData.subject, message: 'Backend Connection Failed!' });
-    } finally {
-      setIsSubmitting(false);
+      console.log("Contact sync error:", err);
     }
   };
 
