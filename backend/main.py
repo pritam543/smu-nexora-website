@@ -5,7 +5,10 @@ import sqlite3
 import os
 import shutil
 import base64
-import resend
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+from email.mime.application import MIMEApplication
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -23,8 +26,6 @@ app.add_middleware(
 UPLOAD_DIR = "uploads"
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 
-# Resend API Key Setup
-resend.api_key = os.getenv("RESEND_API_KEY", "").strip()
 RECEIVER_EMAIL = "smunextech@gmail.com"
 
 def init_db():
@@ -54,32 +55,32 @@ def init_db():
 
 init_db()
 
-def send_resend_email(subject: str, body_text: str, attachment_path: str = None):
+def send_smtp_email(subject: str, body_text: str, attachment_path: str = None):
     try:
-        attachments = []
+        sender_email = os.getenv("SENDER_EMAIL", "smunextech@gmail.com").strip()
+        gmail_password = os.getenv("GMAIL_APP_PASSWORD", "").strip()
+
+        msg = MIMEMultipart()
+        msg['From'] = sender_email
+        msg['To'] = RECEIVER_EMAIL
+        msg['Subject'] = subject
+        msg.attach(MIMEText(body_text, 'plain'))
+
         if attachment_path and os.path.exists(attachment_path):
             with open(attachment_path, "rb") as f:
-                file_data = f.read()
-                encoded_file = base64.b64encode(file_data).decode('utf-8')
-                attachments.append({
-                    "filename": os.path.basename(attachment_path),
-                    "content": encoded_file
-                })
+                part = MIMEApplication(f.read(), Name=os.path.basename(attachment_path))
+                part['Content-Disposition'] = f'attachment; filename="{os.path.basename(attachment_path)}"'
+                msg.attach(part)
 
-        params = {
-            "from": "SMU Nexora Portal <onboarding@resend.dev>",
-            "to": [RECEIVER_EMAIL],
-            "subject": subject,
-            "text": body_text,
-        }
-        if attachments:
-            params["attachments"] = attachments
-
-        email = resend.Emails.send(params)
-        print("✅ [RESEND SUCCESS] Email sent! ID:", email)
+        server = smtplib.SMTP('smtp.gmail.com', 587)
+        server.starttls()
+        server.login(sender_email, gmail_password)
+        server.sendmail(sender_email, RECEIVER_EMAIL, msg.as_string())
+        server.quit()
+        print("✅ [GMAIL SMTP SUCCESS] Email sent successfully!")
         return True
     except Exception as e:
-        print("❌ [RESEND FAILED] Error:", str(e))
+        print("❌ [GMAIL SMTP FAILED] Error:", str(e))
         return False
 
 @app.get("/")
@@ -108,7 +109,7 @@ async def submit_visitor_lead(lead: VisitorLead, background_tasks: BackgroundTas
         conn.commit()
         conn.close()
 
-        # 2. Email ko background task mein bhejo taaki 0-second delay mile
+        # 2. Email ko background task mein bhejo taaki website par 0-second delay mile
         email_body = f"""
 🌟 NEW WEBSITE VISITOR LEAD REGISTERED!
 
@@ -118,7 +119,7 @@ async def submit_visitor_lead(lead: VisitorLead, background_tasks: BackgroundTas
 
 This visitor has registered upon opening the SMU Nexora website.
         """
-        background_tasks.add_task(send_resend_email, f"[NEW VISITOR LEAD] - {lead.fullName}", email_body)
+        background_tasks.add_task(send_smtp_email, f"[NEW VISITOR LEAD] - {lead.fullName}", email_body)
 
         return {"success": True, "message": "Visitor lead logged successfully!"}
 
@@ -174,7 +175,7 @@ async def submit_application(
 
 📎 Candidate resume is attached.
         """
-        send_resend_email(f"[NEW CAREER APPLICATION] - {fullName} ({domain})", email_body, file_path)
+        send_smtp_email(f"[NEW CAREER APPLICATION] - {fullName} ({domain})", email_body, file_path)
         return {"success": True, "message": "Application submitted successfully!"}
 
     except Exception as e:
@@ -210,7 +211,7 @@ async def submit_contact_inquiry(
 📌 Subject: {subject}
 💬 Message: {userMessage}
         """
-        send_resend_email(f"[NEW CONTACT INQUIRY] - {subject} from {fullName}", email_body)
+        send_smtp_email(f"[NEW CONTACT INQUIRY] - {subject} from {fullName}", email_body)
         return {"success": True, "message": "Inquiry submitted successfully!"}
 
     except Exception as e:
