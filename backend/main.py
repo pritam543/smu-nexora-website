@@ -60,7 +60,7 @@ def send_smtp_email(subject: str, body_text: str, attachment_path: str = None):
         gmail_password = os.getenv("GMAIL_APP_PASSWORD", "").strip()
 
         if not gmail_password:
-            print("❌ [SMTP ERROR] GMAIL_APP_PASSWORD is missing in environment variables!")
+            print("❌ [SMTP ERROR] GMAIL_APP_PASSWORD is missing!")
             return False
 
         msg = MIMEMultipart()
@@ -90,7 +90,6 @@ def send_smtp_email(subject: str, body_text: str, attachment_path: str = None):
 def home():
     return {"status": "Active", "message": "SMU Nexora Technologies API is running!"}
 
-# Pydantic model for Visitor Lead
 class VisitorLead(BaseModel):
     fullName: str
     email: str
@@ -99,7 +98,6 @@ class VisitorLead(BaseModel):
 @app.post("/api/visitor-lead")
 async def submit_visitor_lead(lead: VisitorLead, background_tasks: BackgroundTasks):
     try:
-        # 1. Save to SQLite database immediately
         conn = sqlite3.connect("database.db")
         cursor = conn.cursor()
         cursor.execute("""
@@ -112,7 +110,6 @@ async def submit_visitor_lead(lead: VisitorLead, background_tasks: BackgroundTas
         conn.commit()
         conn.close()
 
-        # 2. Dispatch email in background for 0-second frontend delay
         email_body = f"""
 🌟 NEW WEBSITE VISITOR LEAD REGISTERED!
 
@@ -125,7 +122,6 @@ This visitor has registered upon opening the SMU Nexora website.
         background_tasks.add_task(send_smtp_email, f"[NEW VISITOR LEAD] - {lead.fullName}", email_body)
 
         return {"success": True, "message": "Visitor lead logged successfully!"}
-
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
@@ -181,9 +177,10 @@ async def submit_application(
 
 📎 Candidate resume is attached (if provided).
         """
+        # Background task lagane se button instant free ho jayega
         background_tasks.add_task(send_smtp_email, f"[NEW CAREER APPLICATION] - {fullName} ({domain})", email_body, file_path)
+        
         return {"success": True, "message": "Application submitted successfully!"}
-
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
@@ -219,7 +216,7 @@ async def submit_contact_inquiry(
 💬 Message: {userMessage}
         """
         background_tasks.add_task(send_smtp_email, f"[NEW CONTACT INQUIRY] - {subject} from {fullName}", email_body)
-        return {"success": True, "message": "Inquiry submitted successfully!"}
 
+        return {"success": True, "message": "Inquiry submitted successfully!"}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
