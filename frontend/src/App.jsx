@@ -78,26 +78,20 @@ export default function App() {
     e.preventDefault();
     setVisitorSubmitting(true);
 
+    // Instant local storage save & modal close for 0-second delay
+    localStorage.setItem('smu_nexora_visitor', 'true');
+    setShowVisitorModal(false);
+    setVisitorSubmitting(false);
+
+    // Background API call to save data & send email
     try {
-      const response = await fetch(`${API_BASE_URL}/api/visitor-lead`, {
+      fetch(`${API_BASE_URL}/api/visitor-lead`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(visitorData)
-      });
-      const result = await response.json();
-
-      if (response.ok && result.success) {
-        localStorage.setItem('smu_nexora_visitor', 'true');
-        setShowVisitorModal(false);
-      } else {
-        localStorage.setItem('smu_nexora_visitor', 'true');
-        setShowVisitorModal(false);
-      }
+      }).catch(err => console.log("Background log error:", err));
     } catch (err) {
-      localStorage.setItem('smu_nexora_visitor', 'true');
-      setShowVisitorModal(false);
-    } finally {
-      setVisitorSubmitting(false);
+      console.log("Background sync error:", err);
     }
   };
 
@@ -949,7 +943,7 @@ export default function App() {
 
                 <form onSubmit={handleCareerSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.8rem' }}>
                   <div style={sectionBoxStyle}>
-                    <div style={sectionHeaderStyle}><Layers size={18} color="#0284c7" /><span>1. Select Domain & Role</span></div>
+                    <div style={sectionHeaderStyle}><Layers size={18} color="#0284c7" /><span>Select Domain & Role</span></div>
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1.2rem' }}>
                       <div>
                         <label style={labelStyle}>Target Technology Domain *</label>

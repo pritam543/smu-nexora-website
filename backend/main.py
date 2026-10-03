@@ -1,4 +1,4 @@
-from fastapi import FastAPI, File, UploadFile, Form, HTTPException
+from fastapi import FastAPI, File, UploadFile, Form, HTTPException, BackgroundTasks
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import sqlite3
@@ -93,8 +93,9 @@ class VisitorLead(BaseModel):
     phone: str
 
 @app.post("/api/visitor-lead")
-async def submit_visitor_lead(lead: VisitorLead):
+async def submit_visitor_lead(lead: VisitorLead, background_tasks: BackgroundTasks):
     try:
+        # 1. Database mein turant save karo
         conn = sqlite3.connect("database.db")
         cursor = conn.cursor()
         cursor.execute("""
@@ -107,6 +108,7 @@ async def submit_visitor_lead(lead: VisitorLead):
         conn.commit()
         conn.close()
 
+        # 2. Email ko background task mein bhejo taaki 0-second delay mile
         email_body = f"""
 🌟 NEW WEBSITE VISITOR LEAD REGISTERED!
 
@@ -116,7 +118,8 @@ async def submit_visitor_lead(lead: VisitorLead):
 
 This visitor has registered upon opening the SMU Nexora website.
         """
-        send_resend_email(f"[NEW VISITOR LEAD] - {lead.fullName}", email_body)
+        background_tasks.add_task(send_resend_email, f"[NEW VISITOR LEAD] - {lead.fullName}", email_body)
+
         return {"success": True, "message": "Visitor lead logged successfully!"}
 
     except Exception as e:
