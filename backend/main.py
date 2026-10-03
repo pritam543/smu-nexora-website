@@ -4,10 +4,8 @@ from pydantic import BaseModel
 import sqlite3
 import os
 import shutil
-import smtplib
-from email.mime.text import MIMEText
-from email.mime.multipart import MIMEMultipart
-from email.mime.application import MIMEApplication
+import base64
+import resend
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -26,6 +24,9 @@ UPLOAD_DIR = "uploads"
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 
 RECEIVER_EMAIL = "smunextech@gmail.com"
+
+# Resend API Key setup from Environment variables
+resend.api_key = os.getenv("RESEND_API_KEY", "").strip()
 
 def init_db():
     conn = sqlite3.connect("database.db")
@@ -54,36 +55,32 @@ def init_db():
 
 init_db()
 
-def send_smtp_email(subject: str, body_text: str, attachment_path: str = None):
+def send_resend_email(subject: str, body_text: str, attachment_path: str = None):
     try:
-        sender_email = os.getenv("SENDER_EMAIL", "smunextech@gmail.com").strip()
-        gmail_password = os.getenv("GMAIL_APP_PASSWORD", "").strip()
-
-        if not gmail_password:
-            print("❌ [SMTP ERROR] GMAIL_APP_PASSWORD is missing!")
-            return False
-
-        msg = MIMEMultipart()
-        msg['From'] = sender_email
-        msg['To'] = RECEIVER_EMAIL
-        msg['Subject'] = subject
-        msg.attach(MIMEText(body_text, 'plain'))
-
+        attachments = []
         if attachment_path and os.path.exists(attachment_path):
             with open(attachment_path, "rb") as f:
-                part = MIMEApplication(f.read(), Name=os.path.basename(attachment_path))
-                part['Content-Disposition'] = f'attachment; filename="{os.path.basename(attachment_path)}"'
-                msg.attach(part)
+                file_data = f.read()
+                encoded_file = base64.b64encode(file_data).decode('utf-8')
+                attachments.append({
+                    "filename": os.path.basename(attachment_path),
+                    "content": encoded_file
+                })
 
-        server = smtplib.SMTP('smtp.gmail.com', 587)
-        server.starttls()
-        server.login(sender_email, gmail_password)
-        server.sendmail(sender_email, RECEIVER_EMAIL, msg.as_string())
-        server.quit()
-        print("✅ [GMAIL SMTP SUCCESS] Email sent successfully!")
+        params = {
+            "from": "SMU Nexora Portal <onboarding@resend.dev>",
+            "to": [RECEIVER_EMAIL],
+            "subject": subject,
+            "text": body_text,
+        }
+        if attachments:
+            params["attachments"] = attachments
+
+        email = resend.Emails.send(params)
+        print("✅ [RESEND SUCCESS] Email sent successfully! ID:", email)
         return True
     except Exception as e:
-        print("❌ [GMAIL SMTP FAILED] Error:", str(e))
+        print("❌ [RESEND FAILED] Error:", str(e))
         return False
 
 @app.get("/")
@@ -116,8 +113,10 @@ async def submit_visitor_lead(lead: VisitorLead, background_tasks: BackgroundTas
 👤 Full Name: {lead.fullName}
 ✉️ Email: {lead.email}
 📞 Phone: {lead.phone}
+
+This visitor has registered upon opening the SMU Nexora website.
         """
-        background_tasks.add_task(send_smtp_email, f"[NEW VISITOR LEAD] - {lead.fullName}", email_body)
+        background_tasks.add_task(send_resend_email, f"[NEW VISITOR LEAD] - {lead.fullName}", email_body)
 
         return {"success": True, "message": "Visitor lead logged successfully!"}
     except Exception as e:
@@ -166,10 +165,16 @@ async def submit_application(
 👤 Full Name: {fullName}
 💻 Domain: {domain}
 🎯 Type: {opportunityType}
+📈 Level: {experienceLevel}
 ✉️ Email: {email}
 📞 Phone: {phone}
+🎓 Qualification: {qualification}
+🛠️ Skills: {skills}
+📝 Message: {userMessage}
+
+📎 Candidate resume is attached (if provided).
         """
-        background_tasks.add_task(send_smtp_email, f"[NEW CAREER APPLICATION] - {fullName} ({domain})", email_body, file_path)
+        background_tasks.add_task(send_resend_email, f"[NEW CAREER APPLICATION] - {fullName} ({domain})", email_body, file_path)
         return {"success": True, "message": "Application submitted successfully!"}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
@@ -177,11 +182,11 @@ async def submit_application(
 @app.post("/api/contact")
 async def submit_contact_inquiry(
     background_tasks: BackgroundTasks,
-    fullName: str = Form(...),
-    email: str = Form(...),
-    phone: str = Form(""),
-    subject: str = Form(...),
-    userMessage: str = Form(...)
+    fullName: str,
+    email: str,
+    phone: str = "",
+    subject: str = "General Business Inquiry",
+    userMessage: str = ""
 ):
     try:
         conn = sqlite3.connect("database.db")
@@ -205,7 +210,7 @@ async def submit_contact_inquiry(
 📌 Subject: {subject}
 💬 Message: {userMessage}
         """
-        background_tasks.add_task(send_smtp_email, f"[NEW CONTACT INQUIRY] - {subject} from {fullName}", email_body)
+        background_tasks.add_task(send_resend_email, f"[NEW CONTACT INQUIRY] - {subject} from {fullName}", email_body)
         return {"success": True, "message": "Inquiry submitted successfully!"}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
