@@ -307,7 +307,6 @@ export default function App() {
     setContactData(prev => ({ ...prev, [name]: value }));
   };
 
-  // INSTANT BACKGROUND SUBMISSION FOR CAREERS
   const handleCareerSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -332,7 +331,6 @@ export default function App() {
       submitData.append("resume", emptyBlob, "resume.txt");
     }
 
-    // Turant success modal dikhao bina lamba wait kiye
     setIsSubmitting(false);
     setModalState({
       isOpen: true,
@@ -350,7 +348,6 @@ export default function App() {
     }
   };
 
-  // INSTANT BACKGROUND SUBMISSION FOR CONTACT (FIXED WHITE SCREEN)
   const handleContactSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -907,7 +904,10 @@ export default function App() {
                   </div>
 
                   <div className="hover-card" style={pastelCardStyle}>
-                    <h3 style={{ fontSize: '1.4rem', fontWeight: '800', color: '#1e1b4b', margin: '0 0 1rem 0' }}>Send Inquiry Message</h3>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+                      <h3 style={{ fontSize: '1.4rem', fontWeight: '800', color: '#1e1b4b', margin: 0 }}>Send Inquiry Message</h3>
+                      <button onClick={() => navigateTo('home')} className="hover-btn" style={{ background: '#f1f5f9', border: '1px solid #cbd5e1', padding: '5px 12px', borderRadius: '8px', fontSize: '0.8rem', fontWeight: '700', color: '#334155', cursor: 'pointer' }}>Cancel</button>
+                    </div>
                     <form onSubmit={handleContactSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                       <div>
                         <label style={labelStyle}>Your Full Name *</label>
@@ -925,9 +925,14 @@ export default function App() {
                         <label style={labelStyle}>Your Message *</label>
                         <textarea name="userMessage" rows="3" placeholder="Enter your message here..." required value={contactData.userMessage} onChange={handleContactInputChange} style={{ ...inputStyle, resize: 'vertical' }}></textarea>
                       </div>
-                      <button type="submit" disabled={isSubmitting} className="hover-btn" style={{ width: '100%', padding: '13px', borderRadius: '12px', border: '1px solid #bfdbfe', background: 'linear-gradient(135deg, #e0f2fe 0%, #ffffff 50%, #fce7f3 100%)', color: '#1e293b', fontWeight: '800', fontSize: '0.95rem', cursor: isSubmitting ? 'not-allowed' : 'pointer' }}>
-                        {isSubmitting ? 'Sending Message...' : 'Send Inquiry Message'}
-                      </button>
+                      <div style={{ display: 'flex', gap: '10px' }}>
+                        <button type="submit" disabled={isSubmitting} className="hover-btn" style={{ flex: 1, padding: '13px', borderRadius: '12px', border: '1px solid #bfdbfe', background: 'linear-gradient(135deg, #e0f2fe 0%, #ffffff 50%, #fce7f3 100%)', color: '#1e293b', fontWeight: '800', fontSize: '0.95rem', cursor: isSubmitting ? 'not-allowed' : 'pointer' }}>
+                          {isSubmitting ? 'Sending Message...' : 'Send Inquiry Message'}
+                        </button>
+                        <button type="button" onClick={() => navigateTo('home')} className="hover-btn" style={{ padding: '13px 18px', borderRadius: '12px', border: '1px solid #cbd5e1', background: '#f8fafc', color: '#64748b', fontWeight: '700', fontSize: '0.95rem', cursor: 'pointer' }}>
+                          Cancel
+                        </button>
+                      </div>
                     </form>
                   </div>
                 </div>
@@ -937,9 +942,14 @@ export default function App() {
 
           {currentPage === 'careers' && (
             <motion.div key="careers-page" initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -15 }} style={{ maxWidth: '900px', margin: '2rem auto', padding: '0 1.5rem' }}>
-              <button onClick={() => navigateTo('home')} className="hover-btn" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#ffffff', border: '1px solid #cbd5e1', padding: '9px 18px', borderRadius: '10px', color: '#334155', fontWeight: '600', cursor: 'pointer', marginBottom: '1.8rem' }}>
-                <ArrowLeft size={18} /><span>Back to Home</span>
-              </button>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.8rem' }}>
+                <button onClick={() => navigateTo('home')} className="hover-btn" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#ffffff', border: '1px solid #cbd5e1', padding: '9px 18px', borderRadius: '10px', color: '#334155', fontWeight: '600', cursor: 'pointer' }}>
+                  <ArrowLeft size={18} /><span>Back to Home</span>
+                </button>
+                <button onClick={() => navigateTo('home')} className="hover-btn" style={{ background: '#ffffff', border: '1px solid #cbd5e1', padding: '9px 18px', borderRadius: '10px', color: '#dc2626', fontWeight: '700', cursor: 'pointer' }}>
+                  Cancel Application
+                </button>
+              </div>
 
               <div style={pastelCardStyle}>
                 <div style={{ textAlign: 'center', marginBottom: '2rem', borderBottom: '1px solid #e2edf8', paddingBottom: '1.5rem' }}>
@@ -990,9 +1000,14 @@ export default function App() {
                     <input type="file" accept=".pdf,.doc,.docx" onChange={(e) => setResumeFile(e.target.files[0])} style={inputStyle} />
                   </div>
 
-                  <button type="submit" disabled={isSubmitting} className="hover-btn" style={{ width: '100%', padding: '15px', borderRadius: '12px', border: '1px solid #bfdbfe', background: 'linear-gradient(135deg, #e0f2fe 0%, #ffffff 50%, #fce7f3 100%)', color: '#1e293b', fontWeight: '800', fontSize: '1rem', cursor: isSubmitting ? 'not-allowed' : 'pointer' }}>
-                    {isSubmitting ? 'Submitting Application...' : 'Submit Career Application'}
-                  </button>
+                  <div style={{ display: 'flex', gap: '12px' }}>
+                    <button type="submit" disabled={isSubmitting} className="hover-btn" style={{ flex: 1, padding: '15px', borderRadius: '12px', border: '1px solid #bfdbfe', background: 'linear-gradient(135deg, #e0f2fe 0%, #ffffff 50%, #fce7f3 100%)', color: '#1e293b', fontWeight: '800', fontSize: '1rem', cursor: isSubmitting ? 'not-allowed' : 'pointer' }}>
+                      {isSubmitting ? 'Submitting Application...' : 'Submit Career Application'}
+                    </button>
+                    <button type="button" onClick={() => navigateTo('home')} className="hover-btn" style={{ padding: '15px 24px', borderRadius: '12px', border: '1px solid #cbd5e1', background: '#f8fafc', color: '#dc2626', fontWeight: '700', fontSize: '1rem', cursor: 'pointer' }}>
+                      Cancel
+                    </button>
+                  </div>
                 </form>
               </div>
             </motion.div>
@@ -1000,9 +1015,14 @@ export default function App() {
 
           {currentPage === 'contact' && (
             <motion.div key="contact-page" initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -15 }} style={{ maxWidth: '1000px', margin: '2rem auto', padding: '0 1.5rem' }}>
-              <button onClick={() => navigateTo('home')} className="hover-btn" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#ffffff', border: '1px solid #cbd5e1', padding: '9px 18px', borderRadius: '10px', color: '#334155', fontWeight: '600', cursor: 'pointer', marginBottom: '1.8rem' }}>
-                <ArrowLeft size={18} /><span>Back to Home</span>
-              </button>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.8rem' }}>
+                <button onClick={() => navigateTo('home')} className="hover-btn" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#ffffff', border: '1px solid #cbd5e1', padding: '9px 18px', borderRadius: '10px', color: '#334155', fontWeight: '600', cursor: 'pointer' }}>
+                  <ArrowLeft size={18} /><span>Back to Home</span>
+                </button>
+                <button onClick={() => navigateTo('home')} className="hover-btn" style={{ background: '#ffffff', border: '1px solid #cbd5e1', padding: '9px 18px', borderRadius: '10px', color: '#dc2626', fontWeight: '700', cursor: 'pointer' }}>
+                  Cancel
+                </button>
+              </div>
 
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '2rem' }}>
                 <div className="hover-card" style={pastelCardStyle}>
@@ -1012,15 +1032,23 @@ export default function App() {
                 </div>
 
                 <div className="hover-card" style={pastelCardStyle}>
-                  <h3 style={{ fontSize: '1.4rem', fontWeight: '800', color: '#1e1b4b', margin: '0 0 1rem 0' }}>Send Inquiry Message</h3>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+                    <h3 style={{ fontSize: '1.4rem', fontWeight: '800', color: '#1e1b4b', margin: 0 }}>Send Inquiry Message</h3>
+                    <button onClick={() => navigateTo('home')} className="hover-btn" style={{ background: '#f1f5f9', border: '1px solid #cbd5e1', padding: '5px 12px', borderRadius: '8px', fontSize: '0.8rem', fontWeight: '700', color: '#dc2626', cursor: 'pointer' }}>Cancel</button>
+                  </div>
                   <form onSubmit={handleContactSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                     <div><label style={labelStyle}>Your Name *</label><input type="text" name="fullName" placeholder="Enter your full name" required value={contactData.fullName} onChange={handleContactInputChange} style={inputStyle} /></div>
                     <div><label style={labelStyle}>Email Address *</label><input type="email" name="email" placeholder="Enter your email address" required value={contactData.email} onChange={handleContactInputChange} style={inputStyle} /></div>
                     <div><label style={labelStyle}>Subject *</label><input type="text" name="subject" placeholder="Enter inquiry subject" required value={contactData.subject} onChange={handleContactInputChange} style={inputStyle} /></div>
                     <div><label style={labelStyle}>Your Message *</label><textarea name="userMessage" rows="3" placeholder="Enter your message here..." required value={contactData.userMessage} onChange={handleContactInputChange} style={{ ...inputStyle, resize: 'vertical' }}></textarea></div>
-                    <button type="submit" disabled={isSubmitting} className="hover-btn" style={{ width: '100%', padding: '13px', borderRadius: '12px', border: '1px solid #bfdbfe', background: 'linear-gradient(135deg, #e0f2fe 0%, #ffffff 50%, #fce7f3 100%)', color: '#1e293b', fontWeight: '800', fontSize: '0.95rem', cursor: isSubmitting ? 'not-allowed' : 'pointer' }}>
-                      {isSubmitting ? 'Sending...' : 'Send Message'}
-                    </button>
+                    <div style={{ display: 'flex', gap: '10px' }}>
+                      <button type="submit" disabled={isSubmitting} className="hover-btn" style={{ flex: 1, padding: '13px', borderRadius: '12px', border: '1px solid #bfdbfe', background: 'linear-gradient(135deg, #e0f2fe 0%, #ffffff 50%, #fce7f3 100%)', color: '#1e293b', fontWeight: '800', fontSize: '0.95rem', cursor: isSubmitting ? 'not-allowed' : 'pointer' }}>
+                        {isSubmitting ? 'Sending...' : 'Send Message'}
+                      </button>
+                      <button type="button" onClick={() => navigateTo('home')} className="hover-btn" style={{ padding: '13px 18px', borderRadius: '12px', border: '1px solid #cbd5e1', background: '#f8fafc', color: '#dc2626', fontWeight: '700', fontSize: '0.95rem', cursor: 'pointer' }}>
+                        Cancel
+                      </button>
+                    </div>
                   </form>
                 </div>
               </div>
@@ -1110,9 +1138,14 @@ export default function App() {
                 width: '100%',
                 boxShadow: '0 25px 50px -12px rgba(186, 230, 253, 0.5)',
                 border: '1.5px solid #bae6fd',
-                textAlign: 'center'
+                textAlign: 'center',
+                position: 'relative'
               }}
             >
+              <button onClick={() => setShowVisitorModal(false)} style={{ position: 'absolute', top: '16px', right: '16px', background: '#f1f5f9', border: 'none', borderRadius: '50%', width: '32px', height: '32px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: '#64748b' }}>
+                <X size={18} />
+              </button>
+
               <div style={{ width: '56px', height: '56px', borderRadius: '16px', background: '#e0f2fe', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.2rem auto' }}>
                 <Sparkles size={28} color="#0284c7" />
               </div>
@@ -1159,26 +1192,44 @@ export default function App() {
                   />
                 </div>
 
-                <button
-                  type="submit"
-                  disabled={visitorSubmitting}
-                  className="hover-btn"
-                  style={{
-                    width: '100%',
-                    padding: '13px',
-                    borderRadius: '12px',
-                    border: '1px solid #bfdbfe',
-                    background: 'linear-gradient(135deg, #0284c7 0%, #2563eb 100%)',
-                    color: '#ffffff',
-                    fontWeight: '800',
-                    fontSize: '0.95rem',
-                    cursor: visitorSubmitting ? 'not-allowed' : 'pointer',
-                    marginTop: '0.5rem',
-                    boxShadow: '0 4px 14px rgba(2, 132, 199, 0.35)'
-                  }}
-                >
-                  {visitorSubmitting ? 'Unlocking Access...' : 'Continue to Website'}
-                </button>
+                <div style={{ display: 'flex', gap: '10px', marginTop: '0.5rem' }}>
+                  <button
+                    type="submit"
+                    disabled={visitorSubmitting}
+                    className="hover-btn"
+                    style={{
+                      flex: 1,
+                      padding: '13px',
+                      borderRadius: '12px',
+                      border: '1px solid #bfdbfe',
+                      background: 'linear-gradient(135deg, #0284c7 0%, #2563eb 100%)',
+                      color: '#ffffff',
+                      fontWeight: '800',
+                      fontSize: '0.95rem',
+                      cursor: visitorSubmitting ? 'not-allowed' : 'pointer',
+                      boxShadow: '0 4px 14px rgba(2, 132, 199, 0.35)'
+                    }}
+                  >
+                    {visitorSubmitting ? 'Unlocking...' : 'Continue'}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setShowVisitorModal(false)}
+                    className="hover-btn"
+                    style={{
+                      padding: '13px 18px',
+                      borderRadius: '12px',
+                      border: '1px solid #cbd5e1',
+                      background: '#f8fafc',
+                      color: '#64748b',
+                      fontWeight: '700',
+                      fontSize: '0.95rem',
+                      cursor: 'pointer'
+                    }}
+                  >
+                    Cancel
+                  </button>
+                </div>
               </form>
             </motion.div>
           </motion.div>
