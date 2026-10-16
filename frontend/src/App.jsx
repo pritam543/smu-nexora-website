@@ -160,7 +160,7 @@ export default function App() {
     },
     {
       title: "Transforming Careers Through Technology",
-      subtitle: "Join SMU Nexora's mentorship program to work on real-world IT client systems and platforms.",
+      subtitle: "Join SMU Vnex's mentorship program to work on real-world IT client systems and platforms.",
       image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1200&q=80",
       target: "careers"
     },
@@ -537,7 +537,7 @@ export default function App() {
             </div>
             <div>
               <span style={{ fontSize: '1.2rem', fontWeight: '800', letterSpacing: '-0.02em' }}>
-                SMU <span style={{ background: 'linear-gradient(135deg, #0284c7 0%, #7c3aed 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>NEXORA</span>
+                SMU <span style={{ background: 'linear-gradient(135deg, #0284c7 0%, #7c3aed 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>VNEX</span>
               </span>
               <span style={{ fontSize: '0.7rem', display: 'block', color: '#0284c7', fontWeight: '700', letterSpacing: '0.05em' }}>TECHNOLOGIES</span>
             </div>
@@ -698,7 +698,7 @@ export default function App() {
                     Corporate Profile & Values
                   </span>
                   <h2 style={{ fontSize: '2.4rem', fontWeight: '900', margin: '10px 0 0 0', color: '#1e1b4b' }}>
-                    About SMU Nexora Technologies
+                    About SMU Vnex Technologies
                   </h2>
                   <p style={{ color: '#64748b', fontSize: '1rem', marginTop: '6px', maxWidth: '650px', margin: '6px auto 0 auto' }}>
                     A modern software development firm engineered for high reliability, digital growth, and professional tech incubation in Central India.
@@ -716,7 +716,7 @@ export default function App() {
                     </div>
                   </div>
                   <p style={{ color: '#475569', fontSize: '1rem', lineHeight: '1.8', margin: 0 }}>
-                    <strong>SMU Nexora Technologies Pvt. Ltd.</strong> is an enterprise software engineering and IT strategic consulting firm. We specialize in building decoupled React web systems, high-converting digital storefronts, and hardened API architectures. Simultaneously, we operate an active technology incubation environment in Indore, bridging the industry-academia divide by mentoring engineers on live production codebases.
+                    <strong>SMU Vnex Technologies Pvt. Ltd.</strong> is an enterprise software engineering and IT strategic consulting firm. We specialize in building decoupled React web systems, high-converting digital storefronts, and hardened API architectures. Simultaneously, we operate an active technology incubation environment in Indore, bridging the industry-academia divide by mentoring engineers on live production codebases.
                   </p>
                 </div>
               </motion.section>
@@ -882,7 +882,7 @@ export default function App() {
                   <span style={{ fontSize: '0.85rem', color: '#0284c7', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.05em', background: '#e0f2fe', padding: '5px 16px', borderRadius: '9999px', border: '1px solid #bae6fd' }}>
                     Quick Connect
                   </span>
-                  <h2 style={{ fontSize: '2.2rem', fontWeight: '800', margin: '8px 0 0 0', color: '#1e1b4b' }}>Get In Touch With SMU Nexora</h2>
+                  <h2 style={{ fontSize: '2.2rem', fontWeight: '800', margin: '8px 0 0 0', color: '#1e1b4b' }}>Get In Touch With SMU Vnex</h2>
                 </div>
 
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '2rem' }}>
@@ -957,7 +957,7 @@ export default function App() {
               <div style={pastelCardStyle}>
                 <div style={{ textAlign: 'center', marginBottom: '2rem', borderBottom: '1px solid #e2edf8', paddingBottom: '1.5rem' }}>
                   <Briefcase size={40} color="#0284c7" style={{ margin: '0 auto 10px auto' }} />
-                  <h1 style={{ margin: 0, fontSize: '2.2rem', color: '#1e1b4b', fontWeight: '800' }}>SMU Nexora Career Application</h1>
+                  <h1 style={{ margin: 0, fontSize: '2.2rem', color: '#1e1b4b', fontWeight: '800' }}>SMU Vnex Career Application</h1>
                 </div>
 
                 <form onSubmit={handleCareerSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.8rem' }}>
@@ -1021,7 +1021,7 @@ export default function App() {
                 <div className="hover-card" style={pastelCardStyle}>
                   <Building size={32} color="#0284c7" style={{ marginBottom: '1rem' }} />
                   <h2 style={{ fontSize: '1.8rem', fontWeight: '800', color: '#1e1b4b', margin: '0 0 1rem 0' }}>Corporate Desk</h2>
-                  <p style={{ color: '#475569', lineHeight: '1.6' }}><strong>SMU Nexora Technologies Pvt. Ltd.</strong><br />Indore, MP, India</p>
+                  <p style={{ color: '#475569', lineHeight: '1.6' }}><strong>SMU Vnex Technologies Pvt. Ltd.</strong><br />Indore, MP, India</p>
                 </div>
 
                 <div className="hover-card" style={pastelCardStyle}>
@@ -1079,7 +1079,7 @@ export default function App() {
                     <span style={{ fontSize: '0.85rem', fontWeight: '800', color: '#1e1b4b', marginLeft: '6px' }}>Client Success Story</span>
                   </div>
                   <h4 style={{ fontSize: '1.15rem', fontWeight: '800', color: '#1e1b4b', margin: '0 0 8px 0' }}>
-                    "SMU Nexora delivered exceptional engineering and robust execution for our {selectedDetail.name} platform."
+                    "SMU Vnex delivered exceptional engineering and robust execution for our {selectedDetail.name} platform."
                   </h4>
                   <p style={{ fontSize: '0.9rem', color: '#475569', margin: 0, fontStyle: 'italic' }}>
                     — Enterprise Partner & Operations Director, Central India Region
@@ -1131,7 +1131,7 @@ export default function App() {
               </div>
 
               <h2 style={{ fontSize: '1.5rem', fontWeight: '900', color: '#1e1b4b', margin: '0 0 8px 0' }}>
-                Welcome to SMU Nexora
+                Welcome to SMU Vnex
               </h2>
               <p style={{ color: '#64748b', fontSize: '0.9rem', margin: '0 0 1.5rem 0', lineHeight: '1.5' }}>
                 Please share your quick details to unlock full platform access, corporate deck, and live project tools.
@@ -1223,12 +1223,12 @@ export default function App() {
       <CorporateDeck isOpen={isDeckOpen} onClose={() => setIsDeckOpen(false)} />
 
       {/* 3-PART PROFESSIONAL FOOTER */}
-      <footer style={{ background: 'linear-gradient(135deg, #3720846d 0%, #3720846d 0%, #3720846d 0%)', color: '#334155', padding: '3.5rem 1.5rem 2rem 1.5rem', borderTop: '1px solid #e2edf8', marginTop: '4rem' }}>
+      <footer style={{ background: 'linear-gradient(135deg, #372084 0%, #372084 0%, #372084 0%)', color: '#334155', padding: '3.5rem 1.5rem 2rem 1.5rem', borderTop: '1px solid #e2edf8', marginTop: '4rem' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '2.5rem', paddingBottom: '2.5rem', borderBottom: '1px solid #cbd5e1' }}>
 
           <div>
             <h3 style={{ fontSize: '1.3rem', fontWeight: '900', color: '#1e1b4b', marginBottom: '10px' }}>
-              SMU <span style={{ background: 'linear-gradient(135deg, #0284c7 0%, #7c3aed 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>NEXORA</span>
+              SMU <span style={{ background: 'linear-gradient(135deg, #0284c7 0%, #7c3aed 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>VNEX</span>
             </h3>
             <p style={{ fontSize: '0.88rem', color: '#64748b', lineHeight: '1.6', margin: 0 }}>
               Enterprise digital engineering, advanced software architectures, and IT solutions engineered from Indore, India.
@@ -1250,7 +1250,7 @@ export default function App() {
           <div>
             <h4 style={{ fontSize: '0.95rem', fontWeight: '800', color: '#1e1b4b', marginBottom: '12px' }}>Direct Inquiries</h4>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', fontSize: '0.88rem', color: '#475569', fontWeight: '600' }}>
-              <p style={{ margin: 0 }}><strong>Name:</strong> SMU Nexora Technologies</p>
+              <p style={{ margin: 0 }}><strong>Name:</strong> SMU Vnex Technologies</p>
               <p style={{ margin: 0 }}><strong>Email:</strong> smunextech@gmail.com</p>
               <p style={{ margin: 0 }}><strong>Number:</strong> +91 8435299100</p>
             </div>
@@ -1260,7 +1260,7 @@ export default function App() {
 
         <div style={{ textAlign: 'center', paddingTop: '1.5rem' }}>
           <p style={{ margin: 0, fontSize: '0.84rem', color: '#64748b', fontWeight: '600' }}>
-            © {new Date().getFullYear()} SMU Nexora Technologies. All rights reserved.
+            © {new Date().getFullYear()} SMU Vnex Technologies. All rights reserved.
           </p>
         </div>
       </footer>
