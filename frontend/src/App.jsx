@@ -1230,13 +1230,13 @@ export default function App() {
             <h3 style={{ fontSize: '1.3rem', fontWeight: '900', color: '#1e1b4b', marginBottom: '10px' }}>
               SMU <span style={{ background: 'linear-gradient(135deg, #0284c7 0%, #7c3aed 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>VNEX</span>
             </h3>
-            <p style={{ fontSize: '0.88rem', color: '#64748b', lineHeight: '1.6', margin: 0 }}>
+            <p style={{ fontSize: '0.88rem', color: '#f6f7f8', lineHeight: '1.6', margin: 0 }}>
               Enterprise digital engineering, advanced software architectures, and IT solutions engineered from Indore, India.
             </p>
           </div>
 
           <div>
-            <h4 style={{ fontSize: '0.95rem', fontWeight: '800', color: '#1e1b4b', marginBottom: '12px' }}>Quick Navigation</h4>
+            <h4 style={{ fontSize: '0.95rem', fontWeight: '800', color: '#f6f6fb', marginBottom: '12px' }}>Quick Navigation</h4>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
               <button onClick={() => navigateTo('home')} style={{ background: 'none', border: 'none', textAlign: 'left', color: '#475569', fontSize: '0.88rem', fontWeight: '600', cursor: 'pointer', padding: 0 }}>Home</button>
               <button onClick={() => scrollToSection('about')} style={{ background: 'none', border: 'none', textAlign: 'left', color: '#475569', fontSize: '0.88rem', fontWeight: '600', cursor: 'pointer', padding: 0 }}>About Us</button>
