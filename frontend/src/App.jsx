@@ -1223,7 +1223,7 @@ export default function App() {
       <CorporateDeck isOpen={isDeckOpen} onClose={() => setIsDeckOpen(false)} />
 
       {/* 3-PART PROFESSIONAL FOOTER */}
-      <footer style={{ background: 'linear-gradient(135deg, #372084 0%, #372084 0%, #372084 0%)', color: '#334155', padding: '3.5rem 1.5rem 2rem 1.5rem', borderTop: '1px solid #e2edf8', marginTop: '4rem' }}>
+      <footer style={{ background: 'linear-gradient(135deg, #6c5c9e 0%, #6c5c9e 0%, #6c5c9e 0%)', color: '#334155', padding: '3.5rem 1.5rem 2rem 1.5rem', borderTop: '1px solid #e2edf8', marginTop: '4rem' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '2.5rem', paddingBottom: '2.5rem', borderBottom: '1px solid #cbd5e1' }}>
 
           <div>
