@@ -37,7 +37,7 @@ export default function CorporateDeck({ isOpen, onClose }) {
         {
             id: 1,
             badge: "Corporate Dossier 2026",
-            title: "SMU Nexora Technologies",
+            title: "SMU Vnex Technologies",
             subtitle: "Enterprise Software Engineering & Digital Solutions",
             render: () => (
                 <div className="space-y-6">
@@ -52,7 +52,7 @@ export default function CorporateDeck({ isOpen, onClose }) {
                             </span>
                         </h2>
                         <p style={{ color: '#475569', fontSize: '0.95rem', marginTop: '1rem', maxWidth: '650px', lineHeight: '1.6' }}>
-                            SMU Nexora Technologies is a specialized software engineering firm delivering high-throughput web platforms, asynchronous backend APIs, high-converting e-commerce systems, and performance digital strategies.
+                            SMU Vnex Technologies is a specialized software engineering firm delivering high-throughput web platforms, asynchronous backend APIs, high-converting e-commerce systems, and performance digital strategies.
                         </p>
 
                         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))', gap: '1rem', marginTop: '2rem', paddingTop: '1.5rem', borderTop: '1px solid #c7d2fe' }}>
@@ -205,7 +205,7 @@ export default function CorporateDeck({ isOpen, onClose }) {
                     </div>
 
                     <div style={{ padding: '1.2rem', background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '14px', fontFamily: 'monospace', fontSize: '0.82rem' }}>
-                        <div style={{ color: '#64748b' }}>// SMU Nexora Production API Benchmarks</div>
+                        <div style={{ color: '#64748b' }}>// SMU Vnex Production API Benchmarks</div>
                         <div style={{ color: '#4f46e5', marginTop: '4px', fontWeight: '600' }}>POST /api/apply → Candidate Ingestion + Resume File Upload</div>
                         <div style={{ color: '#0284c7', marginTop: '4px', fontWeight: '600' }}>POST /api/contact → Client Inquiries + DB Record + Real-time Alert</div>
                         <div style={{ color: '#16a34a', marginTop: '4px', fontWeight: '700' }}>Average API Ingestion Latency: &lt; 120ms</div>
@@ -354,9 +354,9 @@ export default function CorporateDeck({ isOpen, onClose }) {
                             For well-defined web platforms, business portals, or custom API integrations.
                         </p>
                         <ul style={{ fontSize: '0.8rem', color: '#334155', listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '6px' }}>
-                            <li>• Clear scope & deliverables</li>
-                            <li>• Guaranteed deadline timeline</li>
-                            <li>• 30-day post-launch support</li>
+                            <li>✓ Clear scope & deliverables</li>
+                            <li>✓ Guaranteed deadline timeline</li>
+                            <li>✓ 30-day post-launch support</li>
                         </ul>
                     </div>
 
@@ -367,9 +367,9 @@ export default function CorporateDeck({ isOpen, onClose }) {
                             Full-time embedded engineers (React + FastAPI) acting directly as an extension of your team.
                         </p>
                         <ul style={{ fontSize: '0.8rem', color: '#334155', listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '6px' }}>
-                            <li>• Direct sprint access via Slack/Git</li>
-                            <li>• Weekly deliverable demos</li>
-                            <li>• Agile architecture scaling</li>
+                            <li>✓ Direct sprint access via Slack/Git</li>
+                            <li>✓ Weekly deliverable demos</li>
+                            <li>✓ Agile architecture scaling</li>
                         </ul>
                     </div>
 
@@ -380,9 +380,9 @@ export default function CorporateDeck({ isOpen, onClose }) {
                             Architecture audits, legacy migration roadmap, and application performance tuning.
                         </p>
                         <ul style={{ fontSize: '0.8rem', color: '#334155', listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '6px' }}>
-                            <li>• Codebase vulnerability audits</li>
-                            <li>• UI/UX conversion audits</li>
-                            <li>• Database performance tuning</li>
+                            <li>✓ Codebase vulnerability audits</li>
+                            <li>✓ UI/UX conversion audits</li>
+                            <li>✓ Database performance tuning</li>
                         </ul>
                     </div>
                 </div>
@@ -441,7 +441,7 @@ export default function CorporateDeck({ isOpen, onClose }) {
                     </div>
 
                     <h3 style={{ fontSize: '1.6rem', fontWeight: '900', color: '#1e1b4b', margin: '0 0 6px 0' }}>
-                        SMU Nexora Technologies Pvt. Ltd.
+                        SMU Vnex Technologies Pvt. Ltd.
                     </h3>
                     <p style={{ fontSize: '0.88rem', color: '#475569', maxWidth: '500px', margin: '0 auto 1.5rem auto', lineHeight: '1.5' }}>
                         Contact our engineering leads for project estimations, corporate consultation, or technical mentorship inquiries.
@@ -506,7 +506,7 @@ export default function CorporateDeck({ isOpen, onClose }) {
                             <Building2 size={18} />
                         </div>
                         <div>
-                            <h3 style={{ fontSize: '0.92rem', fontWeight: '800', color: '#1e1b4b', margin: 0 }}>SMU Nexora Technologies</h3>
+                            <h3 style={{ fontSize: '0.92rem', fontWeight: '800', color: '#1e1b4b', margin: 0 }}>SMU VNEX Technologies</h3>
                             <p style={{ fontSize: '0.7rem', color: '#6366f1', fontWeight: '700', margin: 0 }}>Corporate Capabilities Deck 2026</p>
                         </div>
                     </div>

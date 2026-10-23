@@ -730,7 +730,7 @@ export default function App() {
                       Leadership & Execution Team
                     </span>
                     <h2 style={{ fontSize: '2.5rem', fontWeight: '900', margin: '12px 0 0 0', color: '#1e1b4b' }}>
-                      Our Leadership
+                      Our Path Holders
                     </h2>
                   </div>
 
