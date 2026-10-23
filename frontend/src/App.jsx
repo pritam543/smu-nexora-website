@@ -1236,20 +1236,20 @@ export default function App() {
           </div>
 
           <div>
-            <h4 style={{ fontSize: '0.95rem', fontWeight: '800', color: '#f6f6fb', marginBottom: '12px' }}>Quick Navigation</h4>
+            <h4 style={{ fontSize: '0.95rem', fontWeight: '800', color: '#1e1b4b', marginBottom: '12px' }}>Quick Navigation</h4>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-              <button onClick={() => navigateTo('home')} style={{ background: 'none', border: 'none', textAlign: 'left', color: '#475569', fontSize: '0.88rem', fontWeight: '600', cursor: 'pointer', padding: 0 }}>Home</button>
-              <button onClick={() => scrollToSection('about')} style={{ background: 'none', border: 'none', textAlign: 'left', color: '#475569', fontSize: '0.88rem', fontWeight: '600', cursor: 'pointer', padding: 0 }}>About Us</button>
-              <button onClick={() => scrollToSection('services')} style={{ background: 'none', border: 'none', textAlign: 'left', color: '#475569', fontSize: '0.88rem', fontWeight: '600', cursor: 'pointer', padding: 0 }}>Services</button>
+              <button onClick={() => navigateTo('home')} style={{ background: 'none', border: 'none', textAlign: 'left', color: '#fdfeff', fontSize: '0.88rem', fontWeight: '600', cursor: 'pointer', padding: 0 }}>Home</button>
+              <button onClick={() => scrollToSection('about')} style={{ background: 'none', border: 'none', textAlign: 'left', color: '#fdfeff', fontSize: '0.88rem', fontWeight: '600', cursor: 'pointer', padding: 0 }}>About Us</button>
+              <button onClick={() => scrollToSection('services')} style={{ background: 'none', border: 'none', textAlign: 'left', color: '#fdfeff', fontSize: '0.88rem', fontWeight: '600', cursor: 'pointer', padding: 0 }}>Services</button>
               <button onClick={() => navigateTo('what-we-do-detail', null, whatWeDoList[0])} style={{ background: 'none', border: 'none', textAlign: 'left', color: '#475569', fontSize: '0.88rem', fontWeight: '600', cursor: 'pointer', padding: 0 }}>Projects</button>
-              <button onClick={() => navigateTo('careers')} style={{ background: 'none', border: 'none', textAlign: 'left', color: '#475569', fontSize: '0.88rem', fontWeight: '600', cursor: 'pointer', padding: 0 }}>Careers</button>
-              <button onClick={() => navigateTo('contact')} style={{ background: 'none', border: 'none', textAlign: 'left', color: '#475569', fontSize: '0.88rem', fontWeight: '600', cursor: 'pointer', padding: 0 }}>Contact Us</button>
+              <button onClick={() => navigateTo('careers')} style={{ background: 'none', border: 'none', textAlign: 'left', color: '#fdfeff', fontSize: '0.88rem', fontWeight: '600', cursor: 'pointer', padding: 0 }}>Careers</button>
+              <button onClick={() => navigateTo('contact')} style={{ background: 'none', border: 'none', textAlign: 'left', color: '#fdfeff', fontSize: '0.88rem', fontWeight: '600', cursor: 'pointer', padding: 0 }}>Contact Us</button>
             </div>
           </div>
 
           <div>
             <h4 style={{ fontSize: '0.95rem', fontWeight: '800', color: '#1e1b4b', marginBottom: '12px' }}>Direct Inquiries</h4>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', fontSize: '0.88rem', color: '#475569', fontWeight: '600' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', fontSize: '0.88rem', color: '#fdfeff', fontWeight: '600' }}>
               <p style={{ margin: 0 }}><strong>Name:</strong> SMU Vnex Technologies</p>
               <p style={{ margin: 0 }}><strong>Email:</strong> smunextech@gmail.com</p>
               <p style={{ margin: 0 }}><strong>Number:</strong> +91 8435299100</p>
@@ -1259,7 +1259,7 @@ export default function App() {
         </div>
 
         <div style={{ textAlign: 'center', paddingTop: '1.5rem' }}>
-          <p style={{ margin: 0, fontSize: '0.84rem', color: '#64748b', fontWeight: '600' }}>
+          <p style={{ margin: 0, fontSize: '0.84rem', color: '#fdfeff', fontWeight: '600' }}>
             © {new Date().getFullYear()} SMU Vnex Technologies. All rights reserved.
           </p>
         </div>
