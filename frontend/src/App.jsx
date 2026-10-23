@@ -1241,7 +1241,7 @@ export default function App() {
               <button onClick={() => navigateTo('home')} style={{ background: 'none', border: 'none', textAlign: 'left', color: '#fdfeff', fontSize: '0.88rem', fontWeight: '600', cursor: 'pointer', padding: 0 }}>Home</button>
               <button onClick={() => scrollToSection('about')} style={{ background: 'none', border: 'none', textAlign: 'left', color: '#fdfeff', fontSize: '0.88rem', fontWeight: '600', cursor: 'pointer', padding: 0 }}>About Us</button>
               <button onClick={() => scrollToSection('services')} style={{ background: 'none', border: 'none', textAlign: 'left', color: '#fdfeff', fontSize: '0.88rem', fontWeight: '600', cursor: 'pointer', padding: 0 }}>Services</button>
-              <button onClick={() => navigateTo('what-we-do-detail', null, whatWeDoList[0])} style={{ background: 'none', border: 'none', textAlign: 'left', color: '#475569', fontSize: '0.88rem', fontWeight: '600', cursor: 'pointer', padding: 0 }}>Projects</button>
+              <button onClick={() => navigateTo('what-we-do-detail', null, whatWeDoList[0])} style={{ background: 'none', border: 'none', textAlign: 'left', color: '#fdfeff', fontSize: '0.88rem', fontWeight: '600', cursor: 'pointer', padding: 0 }}>Projects</button>
               <button onClick={() => navigateTo('careers')} style={{ background: 'none', border: 'none', textAlign: 'left', color: '#fdfeff', fontSize: '0.88rem', fontWeight: '600', cursor: 'pointer', padding: 0 }}>Careers</button>
               <button onClick={() => navigateTo('contact')} style={{ background: 'none', border: 'none', textAlign: 'left', color: '#fdfeff', fontSize: '0.88rem', fontWeight: '600', cursor: 'pointer', padding: 0 }}>Contact Us</button>
             </div>
