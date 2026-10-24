@@ -7,7 +7,7 @@ import {
   Upload, CheckCircle2, MessageSquare, Briefcase, User, Mail, Phone, Award, FileText,
   ChevronDown, Building, Stethoscope, School, Compass, Hotel, ShoppingCart,
   CheckCircle, Users, Target, Laptop, Send, Layers, MessageCircle, AlertCircle, X, Camera, Menu,
-  Check, Lock, Zap, Quote, Star, Palette
+  Check, Lock, Zap, Quote, Star, Palette, Bot
 } from 'lucide-react';
 import CorporateDeck from './components/CorporateDeck';
 
@@ -28,6 +28,24 @@ export default function App() {
   const [showVisitorModal, setShowVisitorModal] = useState(false);
   const [visitorData, setVisitorData] = useState({ fullName: '', email: '', phone: '' });
   const [visitorSubmitting, setVisitorSubmitting] = useState(false);
+  const [popupSlideIndex, setPopupSlideIndex] = useState(0);
+
+  const popupServicesList = [
+    "🚀 High-Performance Web & App Development",
+    "⚡ Asynchronous FastAPI & Microservices",
+    "🛡️ Advanced Cyber Security & OWASP Audits",
+    "🛒 Scalable E-Commerce & Shopify Plus Stores",
+    "📈 Technical SEO & Digital Growth Strategies"
+  ];
+
+  // Slideshow ticker for visitor popup
+  useEffect(() => {
+    if (!showVisitorModal) return;
+    const interval = setInterval(() => {
+      setPopupSlideIndex((prev) => (prev + 1) % popupServicesList.length);
+    }, 2500);
+    return () => clearInterval(interval);
+  }, [showVisitorModal, popupServicesList.length]);
 
   const [activeService, setActiveService] = useState('web-dev');
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -716,7 +734,7 @@ export default function App() {
                     </div>
                   </div>
                   <p style={{ color: '#475569', fontSize: '1rem', lineHeight: '1.8', margin: 0 }}>
-                    <strong>SMU Vnex Technologies Pvt. Ltd.</strong> is an enterprise software engineering and IT strategic consulting firm. We specialize in building decoupled React web systems, high-converting digital storefronts, and hardened API architectures. Simultaneously, we operate an active technology incubation environment in Indore, bridging the industry-academia divide by mentoring engineers on live production codebases.
+                    <strong>SMU Vnex Technologies</strong> is an end-to-end enterprise software engineering and digital transformation firm. We specialize in building high-performance React web platforms, secure API architectures, and conversion-focused digital systems. From custom web development to full-scale digital growth, we deliver robust, scalable solutions tailored precisely to your business objectives.
                   </p>
                 </div>
               </motion.section>
@@ -730,7 +748,7 @@ export default function App() {
                       Leadership & Execution Team
                     </span>
                     <h2 style={{ fontSize: '2.5rem', fontWeight: '900', margin: '12px 0 0 0', color: '#1e1b4b' }}>
-                      Our Path Holders
+                      Our Leadership
                     </h2>
                   </div>
 
@@ -944,6 +962,30 @@ export default function App() {
                     </form>
                   </div>
                 </div>
+
+                {/* NEW: AI Requirement Assistant Button below Quick Connect */}
+                <div style={{ marginTop: '2rem', textAlign: 'center' }}>
+                  <div style={{ background: 'linear-gradient(135deg, #e0f2fe 0%, #f0fdf4 100%)', border: '1px solid #bae6fd', borderRadius: '20px', padding: '1.8rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem', boxShadow: '0 8px 20px rgba(186, 230, 253, 0.3)' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '14px', textAlign: 'left' }}>
+                      <div style={{ width: '48px', height: '48px', borderRadius: '14px', background: '#0284c7', color: '#ffffff', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 4px 12px rgba(2, 132, 199, 0.3)' }}>
+                        <Bot size={26} />
+                      </div>
+                      <div>
+                        <h4 style={{ fontSize: '1.1rem', fontWeight: '800', color: '#1e1b4b', margin: '0 0 4px 0' }}>Need Custom Tech Scoping or Project Estimation?</h4>
+                        <p style={{ fontSize: '0.86rem', color: '#475569', margin: 0 }}>Consult our AI Assistant to instantly analyze your project requirements and architecture scope.</p>
+                      </div>
+                    </div>
+                    <button
+                      onClick={() => alert("🤖 SMU Vnex AI Assistant: Hello! Please share your project scope or requirement in our contact form above, and our technical desk will review it instantly.")}
+                      className="hover-btn"
+                      style={{ background: 'linear-gradient(135deg, #0284c7 0%, #2563eb 100%)', color: '#ffffff', border: 'none', padding: '12px 24px', borderRadius: '12px', fontWeight: '800', fontSize: '0.9rem', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: '8px', boxShadow: '0 4px 14px rgba(2, 132, 199, 0.35)' }}
+                    >
+                      <Sparkles size={16} />
+                      <span>Start AI Requirement Chat</span>
+                    </button>
+                  </div>
+                </div>
+
               </motion.section>
             </motion.div>
           )}
@@ -1092,7 +1134,7 @@ export default function App() {
         </AnimatePresence>
       </div>
 
-      {/* VISITOR WELCOME REGISTRATION POPUP MODAL (NO CANCEL, 2ND TIME HERO SECTION) */}
+      {/* VISITOR WELCOME REGISTRATION POPUP MODAL (WITH SERVICES SLIDESHOW TICKER) */}
       <AnimatePresence>
         {showVisitorModal && (
           <motion.div
@@ -1118,26 +1160,42 @@ export default function App() {
               style={{
                 background: '#ffffff',
                 borderRadius: '24px',
-                padding: '2.5rem 2rem',
-                maxWidth: '440px',
+                padding: '2.2rem 2rem',
+                maxWidth: '460px',
                 width: '100%',
                 boxShadow: '0 25px 50px -12px rgba(186, 230, 253, 0.5)',
                 border: '1.5px solid #bae6fd',
                 textAlign: 'center'
               }}
             >
-              <div style={{ width: '56px', height: '56px', borderRadius: '16px', background: '#e0f2fe', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.2rem auto' }}>
-                <Sparkles size={28} color="#0284c7" />
+              <div style={{ width: '50px', height: '50px', borderRadius: '14px', background: '#e0f2fe', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 0.8rem auto' }}>
+                <Sparkles size={24} color="#0284c7" />
               </div>
 
-              <h2 style={{ fontSize: '1.5rem', fontWeight: '900', color: '#1e1b4b', margin: '0 0 8px 0' }}>
+              <h2 style={{ fontSize: '1.4rem', fontWeight: '900', color: '#1e1b4b', margin: '0 0 4px 0' }}>
                 Welcome to SMU Vnex
               </h2>
-              <p style={{ color: '#64748b', fontSize: '0.9rem', margin: '0 0 1.5rem 0', lineHeight: '1.5' }}>
+              <p style={{ color: '#64748b', fontSize: '0.85rem', margin: '0 0 1rem 0', lineHeight: '1.4' }}>
                 Please share your quick details to unlock full platform access, corporate deck, and live project tools.
               </p>
 
-              <form onSubmit={handleVisitorSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem', textAlign: 'left' }}>
+              {/* NEW: Services Slideshow Ticker inside Visitor Popup */}
+              <div style={{ background: '#f0fdf4', border: '1px solid #bbf7d0', borderRadius: '12px', padding: '10px 14px', marginBottom: '1.2rem', minHeight: '40px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={popupSlideIndex}
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -8 }}
+                    transition={{ duration: 0.3 }}
+                    style={{ fontSize: '0.84rem', fontWeight: '700', color: '#16a34a' }}
+                  >
+                    {popupServicesList[popupSlideIndex]}
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+
+              <form onSubmit={handleVisitorSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '0.9rem', textAlign: 'left' }}>
                 <div>
                   <label style={labelStyle}>Your Full Name *</label>
                   <input
@@ -1178,15 +1236,15 @@ export default function App() {
                   className="hover-btn"
                   style={{
                     width: '100%',
-                    padding: '13px',
+                    padding: '12px',
                     borderRadius: '12px',
                     border: '1px solid #bfdbfe',
                     background: 'linear-gradient(135deg, #0284c7 0%, #2563eb 100%)',
                     color: '#ffffff',
                     fontWeight: '800',
-                    fontSize: '0.95rem',
+                    fontSize: '0.92rem',
                     cursor: visitorSubmitting ? 'not-allowed' : 'pointer',
-                    marginTop: '0.5rem',
+                    marginTop: '0.3rem',
                     boxShadow: '0 4px 14px rgba(2, 132, 199, 0.35)'
                   }}
                 >
