@@ -171,7 +171,7 @@ export default function App() {
 
   const slides = [
     {
-      title: "Building Enterprise Digital Ecosystems",
+      title: "Empowering global businesses with high-performance Full-Stack Web Platforms and Microservices.",
       subtitle: "Empowering global businesses with high-performance Full-Stack Web Platforms and Microservices.",
       image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1200&q=80",
       target: "services"
@@ -183,7 +183,7 @@ export default function App() {
       target: "careers"
     },
     {
-      title: "Security Hardened & Scalable Architectures",
+      title: "We build Digital Solution That Grow Your Business",
       subtitle: "Safeguarding digital systems with robust encryption protocols and high-performance web frameworks.",
       image: "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=1200&q=80",
       target: "services"
@@ -679,7 +679,7 @@ export default function App() {
                           boxShadow: '0 6px 18px rgba(191, 219, 254, 0.4)'
                         }}
                       >
-                        <span>Apply For Opportunities</span>
+                        <span>Discuss Your Projects</span>
                         <ArrowRight size={18} color="#0284c7" />
                       </button>
 
