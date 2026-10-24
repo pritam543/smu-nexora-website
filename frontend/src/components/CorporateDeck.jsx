@@ -441,7 +441,7 @@ export default function CorporateDeck({ isOpen, onClose }) {
                     </div>
 
                     <h3 style={{ fontSize: '1.6rem', fontWeight: '900', color: '#1e1b4b', margin: '0 0 6px 0' }}>
-                        SMU Vnex Technologies Pvt. Ltd.
+                        SMU Vnex Technologies
                     </h3>
                     <p style={{ fontSize: '0.88rem', color: '#475569', maxWidth: '500px', margin: '0 auto 1.5rem auto', lineHeight: '1.5' }}>
                         Contact our engineering leads for project estimations, corporate consultation, or technical mentorship inquiries.
