@@ -205,7 +205,7 @@ export default function App() {
       color: "#0284c7",
       pastelBg: "#e0f2fe",
       borderGlow: "#bae6fd",
-      desc: "Engineered scalable web applications, responsive mobile app solutions, and interactive dashboards.",
+      desc: "Custom high-speed websites, mobile apps, and business dashboards designed to convert visitors into loyal customers.",
       techStack: "React, Next.js, Node.js, Flutter, TypeScript",
       businessImpact: "Accelerates conversion rates, handles high concurrent traffic, and ensures 99.9% uptime."
     },
@@ -216,7 +216,7 @@ export default function App() {
       color: "#2563eb",
       pastelBg: "#dbeafe",
       borderGlow: "#bfdbfe",
-      desc: "Modernizing legacy architectures and defining digital product technical roadmaps.",
+      desc: "Expert technical guidance to upgrade legacy systems, choose the right tech stack, and scale your digital products efficiently.",
       techStack: "System Design Blueprints, Modular APIs, Legacy Refactoring",
       businessImpact: "Aligns software engineering roadmaps directly with core business revenue goals."
     },
@@ -227,7 +227,7 @@ export default function App() {
       color: "#db2777",
       pastelBg: "#fce7f3",
       borderGlow: "#fbcfe8",
-      desc: "Vulnerability assessments, penetration testing, and end-to-end data encryption protocols.",
+      desc: "Advanced vulnerability checks, penetration testing, and end-to-end data encryption to protect your business from threats.",
       techStack: "Kali Linux, Wireshark, OWASP Protocols, Encrypted DBs",
       businessImpact: "Safeguards intellectual property and critical customer financial records."
     },
@@ -238,7 +238,7 @@ export default function App() {
       color: "#d97706",
       pastelBg: "#fef3c7",
       borderGlow: "#fde68a",
-      desc: "Performance marketing, technical on-page BEST SEO, and brand ROI conversion strategies.",
+      desc: "Result-driven Google/Meta ads, high-ROI marketing, and SEO strategies to bring daily organic leads to your business.",
       techStack: "Google Analytics 4, SEMrush, Meta Ads Manager, Ahrefs",
       businessImpact: "Drives organic lead acquisition and lowers Customer Acquisition Cost (CAC)."
     },
@@ -249,7 +249,7 @@ export default function App() {
       color: "#059669",
       pastelBg: "#d1fae5",
       borderGlow: "#a7f3d0",
-      desc: "High-converting Shopify Plus stores and custom headless marketplace architectures.",
+      desc: "Feature-rich, lightning-fast Shopify and custom online stores built to maximize online sales and seamless checkout.",
       techStack: "Shopify Plus, Liquid, WooCommerce, Stripe / Razorpay",
       businessImpact: "Boosts online checkout conversions with frictionless mobile payment flows."
     }
@@ -464,8 +464,8 @@ export default function App() {
         }
         .hover-card:hover {
           transform: translateY(-6px) !important;
-          box-shadow: 0 16px 32px rgba(186, 230, 253, 0.45) !important;
-          border-color: #bae6fd !important;
+          box-shadow: 0 20px 38px rgba(186, 230, 253, 0.6) !important;
+          border-color: #38bdf8 !important;
         }
 
         .hover-btn {
@@ -497,7 +497,7 @@ export default function App() {
           display: flex;
           flex-wrap: wrap;
           justify-content: center;
-          gap: 24px;
+          gap: 28px;
           max-width: 1200px;
           margin: 0 auto;
         }
@@ -517,8 +517,8 @@ export default function App() {
 
         @media (min-width: 1040px) {
           .services-flex-card {
-            flex: 0 1 calc(33.333% - 18px);
-            max-width: calc(33.333% - 18px);
+            flex: 0 1 calc(33.333% - 20px);
+            max-width: calc(33.333% - 20px);
           }
         }
 
@@ -849,16 +849,19 @@ export default function App() {
                 </div>
               </motion.section>
 
-              {/* CORE TECHNOLOGY DOMAINS */}
-              <motion.section id="services" initial={{ opacity: 0, scale: 0.9, y: 40 }} whileInView={{ opacity: 1, scale: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} style={{ padding: '5rem 1.5rem', background: 'linear-gradient(180deg, #fdf2f8 0%, #f0f7ff 100%)', borderTop: '1px solid #e2edf8', borderBottom: '1px solid #e2edf8' }}>
+              {/* CORE TECHNOLOGY DOMAINS (Enhanced Attractive Cards & Sub-lines) */}
+              <motion.section id="services" initial={{ opacity: 0, scale: 0.9, y: 40 }} whileInView={{ opacity: 1, scale: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} style={{ padding: '6rem 1.5rem', background: 'linear-gradient(180deg, #fdf2f8 0%, #f0f7ff 100%)', borderTop: '1px solid #e2edf8', borderBottom: '1px solid #e2edf8' }}>
                 <div style={{ maxWidth: '1300px', margin: '0 auto' }}>
-                  <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
-                    <span style={{ fontSize: '0.85rem', color: '#0284c7', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.05em', background: '#e0f2fe', padding: '5px 16px', borderRadius: '9999px', border: '1px solid #bae6fd' }}>
+                  <div style={{ textAlign: 'center', marginBottom: '3.5rem' }}>
+                    <span style={{ fontSize: '0.85rem', color: '#0284c7', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.05em', background: '#e0f2fe', padding: '6px 18px', borderRadius: '9999px', border: '1px solid #bae6fd', boxShadow: '0 2px 8px rgba(2, 132, 199, 0.15)' }}>
                       Client IT Services
                     </span>
-                    <h2 style={{ fontSize: '2.4rem', fontWeight: '900', margin: '12px 0 0 0', color: '#1e1b4b' }}>
+                    <h2 style={{ fontSize: 'clamp(2.2rem, 3.5vw, 2.8rem)', fontWeight: '900', margin: '14px 0 8px 0', color: '#1e1b4b' }}>
                       Core Technology Domains
                     </h2>
+                    <p style={{ color: '#64748b', fontSize: '1.05rem', maxWidth: '680px', margin: '0 auto', lineHeight: '1.6' }}>
+                      Everything your business needs to scale digitally—engineered with precision, speed, and absolute reliability.
+                    </p>
                   </div>
 
                   <div className="services-centered-flex">
@@ -867,26 +870,32 @@ export default function App() {
                         key={field.id}
                         className="hover-card services-flex-card"
                         style={{
-                          ...pastelCardStyle,
                           display: 'flex',
                           flexDirection: 'column',
                           justifyContent: 'space-between',
-                          border: `1px solid ${field.borderGlow}`,
-                          background: '#ffffff',
-                          borderRadius: '22px',
-                          padding: '2rem'
+                          border: `1.5px solid ${field.borderGlow}`,
+                          background: 'linear-gradient(145deg, #ffffff 0%, #fafcff 100%)',
+                          borderRadius: '24px',
+                          padding: '2.4rem',
+                          boxShadow: '0 10px 30px rgba(186, 230, 253, 0.25)',
+                          position: 'relative',
+                          overflow: 'hidden'
                         }}
                       >
+                        <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '5px', background: `linear-gradient(90deg, ${field.color}, #38bdf8)` }}></div>
                         <div>
-                          <div style={{ width: '48px', height: '48px', borderRadius: '14px', background: field.pastelBg, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1.2rem', border: `1px solid ${field.borderGlow}` }}>
-                            <field.icon size={24} color={field.color} />
+                          <div style={{ width: '56px', height: '56px', borderRadius: '16px', background: field.pastelBg, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1.4rem', border: `1px solid ${field.borderGlow}`, boxShadow: '0 4px 12px rgba(0,0,0,0.03)' }}>
+                            <field.icon size={28} color={field.color} />
                           </div>
-                          <h3 style={{ fontSize: '1.2rem', margin: '0 0 8px 0', color: '#1e1b4b', fontWeight: '800' }}>
+                          <h3 style={{ fontSize: '1.35rem', margin: '0 0 10px 0', color: '#1e1b4b', fontWeight: '800', letterSpacing: '-0.01em' }}>
                             {field.title}
                           </h3>
-                          <p style={{ fontSize: '0.88rem', color: '#475569', margin: 0, lineHeight: '1.6' }}>
+                          <p style={{ fontSize: '0.94rem', color: '#475569', margin: '0 0 1.2rem 0', lineHeight: '1.7' }}>
                             {field.desc}
                           </p>
+                        </div>
+                        <div style={{ paddingTop: '1rem', borderTop: '1px dashed #e2e8f0', display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.8rem', fontWeight: '700', color: field.color }}>
+                          <CheckCircle2 size={16} /> <span>Enterprise Grade Execution</span>
                         </div>
                       </div>
                     ))}
