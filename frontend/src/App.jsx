@@ -175,7 +175,7 @@ export default function App() {
     if (pageName === 'home') {
       setCurrentPage('home');
       setSelectedDetail(null);
-      window.history.replaceState({ page: 'home' }, '', '#home');
+      window.history.pushState({ page: 'home' }, '', '#home');
     } else {
       setCurrentPage(pageName);
       window.history.pushState({ page: pageName }, '', `#${pageName}`);
@@ -186,7 +186,7 @@ export default function App() {
 
   const slides = [
     {
-      title: "Building Enterprise Digital Ecosystems",
+      title: "Empowering global businesses with high-performance Full-Stack Web Platforms and Microservices.",
       subtitle: "Empowering global businesses with high-performance Full-Stack Web Platforms and Microservices.",
       image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1200&q=80",
       target: "services"
@@ -281,13 +281,13 @@ export default function App() {
     }
   ];
 
-  // LEADERS
+  // LEADERS (Updated with new bios and names)
   const leaders = [
     {
       title: "Founder",
       name: "Sakshi Pare",
       image: "/images/founder.jpg",
-      quote: "Our vision is to engineer resilient, high-speed digital platforms that accelerate client businesses while fostering next-generation IT engineering talent in Indore.",
+      quote: "Leads business strategy, client relationships, and the company's vision for digital growth.",
       badgeColor: "#db2777",
       badgeBg: "#fce7f3",
       borderColor: "#f472b6",
@@ -295,9 +295,9 @@ export default function App() {
     },
     {
       title: "Co-Founder",
-      name: "Shashank pare",
+      name: "Shashank Bhargava",
       image: "/images/co-founder.jpg",
-      quote: "We architect decoupled, asynchronous microservices and conversion-focused web systems engineered strictly for 99.9% uptime and bulletproof security.",
+      quote: "Supports technology planning, project execution, and the delivery of digital solutions.",
       badgeColor: "#0284c7",
       badgeBg: "#e0f2fe",
       borderColor: "#38bdf8",
@@ -780,8 +780,15 @@ export default function App() {
                 </div>
               </section>
 
-              {/* ABOUT US SECTION */}
-              <motion.section id="about" initial={{ opacity: 0, scale: 0.9, y: 40 }} whileInView={{ opacity: 1, scale: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} style={{ padding: '5rem 1.5rem', maxWidth: '1200px', margin: '0 auto' }}>
+              {/* ABOUT US SECTION (Animated: Slide from Left, Runs ONLY ONCE via viewport once: true) */}
+              <motion.section
+                id="about"
+                initial={{ opacity: 0, x: -140 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, amount: 0.15 }}
+                transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+                style={{ padding: '5rem 1.5rem', maxWidth: '1200px', margin: '0 auto' }}
+              >
                 <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
                   <span style={{ fontSize: '0.85rem', color: '#0284c7', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.05em', background: '#e0f2fe', padding: '5px 16px', borderRadius: '9999px', border: '1px solid #bae6fd' }}>
                     Corporate Profile & Values
@@ -810,8 +817,15 @@ export default function App() {
                 </div>
               </motion.section>
 
-              {/* LEADERSHIP & CORE TEAM SECTION */}
-              <motion.section id="team-and-testimonials" initial={{ opacity: 0, scale: 0.9, y: 40 }} whileInView={{ opacity: 1, scale: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} style={{ padding: '5.5rem 1.5rem', background: 'linear-gradient(180deg, #ffffff 0%, #faf8f5 100%)', borderTop: '1px solid #e2edf8', borderBottom: '1px solid #e2edf8' }}>
+              {/* LEADERSHIP & CORE TEAM SECTION (Animated: Slide from Right, Runs ONLY ONCE via viewport once: true) */}
+              <motion.section
+                id="team-and-testimonials"
+                initial={{ opacity: 0, x: 140 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, amount: 0.1 }}
+                transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+                style={{ padding: '5.5rem 1.5rem', background: 'linear-gradient(180deg, #ffffff 0%, #faf8f5 100%)', borderTop: '1px solid #e2edf8', borderBottom: '1px solid #e2edf8' }}
+              >
                 <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
 
                   <div style={{ textAlign: 'center', marginBottom: '3.5rem' }}>
@@ -920,8 +934,15 @@ export default function App() {
                 </div>
               </motion.section>
 
-              {/* CORE TECHNOLOGY DOMAINS */}
-              <motion.section id="services" initial={{ opacity: 0, scale: 0.9, y: 40 }} whileInView={{ opacity: 1, scale: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} style={{ padding: '6rem 1.5rem', background: 'linear-gradient(180deg, #fdf2f8 0%, #f0f7ff 100%)', borderTop: '1px solid #e2edf8', borderBottom: '1px solid #e2edf8' }}>
+              {/* CORE TECHNOLOGY DOMAINS (Animated: Slide from Bottom, Runs ONLY ONCE via viewport once: true) */}
+              <motion.section
+                id="services"
+                initial={{ opacity: 0, y: 120 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.1 }}
+                transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+                style={{ padding: '6rem 1.5rem', background: 'linear-gradient(180deg, #fdf2f8 0%, #f0f7ff 100%)', borderTop: '1px solid #e2edf8', borderBottom: '1px solid #e2edf8' }}
+              >
                 <div style={{ maxWidth: '1300px', margin: '0 auto' }}>
                   <div style={{ textAlign: 'center', marginBottom: '3.5rem' }}>
                     <span style={{ fontSize: '0.85rem', color: '#0284c7', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.05em', background: '#e0f2fe', padding: '6px 18px', borderRadius: '9999px', border: '1px solid #bae6fd', boxShadow: '0 2px 8px rgba(2, 132, 199, 0.15)' }}>
@@ -965,8 +986,33 @@ export default function App() {
                             {field.desc}
                           </p>
                         </div>
-                        <div style={{ paddingTop: '1rem', borderTop: '1px dashed #e2e8f0', display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.8rem', fontWeight: '700', color: field.color }}>
-                          <CheckCircle2 size={16} /> <span>Enterprise Grade Execution</span>
+                        <div>
+                          {/* Explore More Button */}
+                          <button
+                            onClick={() => navigateTo('service-detail', null, field)}
+                            className="hover-btn"
+                            style={{
+                              marginBottom: '1rem',
+                              background: 'none',
+                              border: `1.5px solid ${field.color}`,
+                              color: field.color,
+                              padding: '8px 16px',
+                              borderRadius: '10px',
+                              fontWeight: '700',
+                              fontSize: '0.84rem',
+                              cursor: 'pointer',
+                              display: 'inline-flex',
+                              alignItems: 'center',
+                              gap: '6px'
+                            }}
+                          >
+                            <span>Explore More</span>
+                            <ArrowRight size={14} />
+                          </button>
+
+                          <div style={{ paddingTop: '1rem', borderTop: '1px dashed #e2e8f0', display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.8rem', fontWeight: '700', color: field.color }}>
+                            <CheckCircle2 size={16} /> <span>Enterprise Grade Execution</span>
+                          </div>
                         </div>
                       </div>
                     ))}
@@ -974,8 +1020,15 @@ export default function App() {
                 </div>
               </motion.section>
 
-              {/* QUICK CONNECT SECTION */}
-              <motion.section id="home-contact" initial={{ opacity: 0, scale: 0.9, y: 40 }} whileInView={{ opacity: 1, scale: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} style={{ padding: '5rem 1.5rem', maxWidth: '1100px', margin: '0 auto' }}>
+              {/* QUICK CONNECT SECTION (Animated: Slide from Bottom, Runs ONLY ONCE via viewport once: true) */}
+              <motion.section
+                id="home-contact"
+                initial={{ opacity: 0, y: 100 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.15 }}
+                transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+                style={{ padding: '5rem 1.5rem', maxWidth: '1100px', margin: '0 auto' }}
+              >
                 <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
                   <span style={{ fontSize: '0.85rem', color: '#0284c7', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.05em', background: '#e0f2fe', padding: '5px 16px', borderRadius: '9999px', border: '1px solid #bae6fd' }}>
                     Quick Connect
@@ -1054,7 +1107,7 @@ export default function App() {
                   </div>
                 </div>
 
-                {/* AI Requirement Assistant Button below Quick Connect (OPENS FRESH AI CHAT PAGE) */}
+                {/* AI Requirement Assistant Button below Quick Connect */}
                 <div style={{ marginTop: '2rem', textAlign: 'center' }}>
                   <div style={{ background: 'linear-gradient(135deg, #e0f2fe 0%, #f0fdf4 100%)', border: '1px solid #bae6fd', borderRadius: '20px', padding: '1.8rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem', boxShadow: '0 8px 20px rgba(186, 230, 253, 0.3)' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '14px', textAlign: 'left' }}>
@@ -1078,6 +1131,69 @@ export default function App() {
                 </div>
 
               </motion.section>
+            </motion.div>
+          )}
+
+          {/* ==================== SERVICE DETAIL PAGE ==================== */}
+          {currentPage === 'service-detail' && selectedDetail && (
+            <motion.div key="service-detail-page" initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -15 }} style={{ maxWidth: '900px', margin: '2rem auto', padding: '0 1.5rem' }}>
+              <button onClick={() => navigateTo('home')} className="hover-btn" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#ffffff', border: '1px solid #cbd5e1', padding: '9px 18px', borderRadius: '10px', color: '#334155', fontWeight: '600', cursor: 'pointer', marginBottom: '1.8rem' }}>
+                <ArrowLeft size={18} /><span>Back to Home</span>
+              </button>
+
+              <div style={pastelCardStyle}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '1.5rem', borderBottom: '1px solid #e2edf8', paddingBottom: '1.5rem' }}>
+                  <div style={{ width: '56px', height: '56px', borderRadius: '14px', background: selectedDetail.pastelBg || '#e0f2fe', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <selectedDetail.icon size={30} color={selectedDetail.color || '#0284c7'} />
+                  </div>
+                  <div>
+                    <span style={{ fontSize: '0.8rem', color: '#0284c7', fontWeight: '800', textTransform: 'uppercase' }}>Technology Domain</span>
+                    <h1 style={{ margin: 0, fontSize: '2rem', color: '#1e1b4b', fontWeight: '800' }}>{selectedDetail.title}</h1>
+                  </div>
+                </div>
+
+                <p style={{ color: '#475569', fontSize: '1.05rem', lineHeight: '1.7', marginBottom: '2rem' }}>{selectedDetail.desc}</p>
+
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1.5rem', marginBottom: '2.5rem' }}>
+                  <div style={{ background: '#faf9f5', border: '1px solid #e2edf8', padding: '1.5rem', borderRadius: '16px' }}>
+                    <h4 style={{ fontSize: '1rem', fontWeight: '800', color: '#1e1b4b', margin: '0 0 8px 0', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <Code2 size={18} color="#0284c7" /> Tech Stack & Tools
+                    </h4>
+                    <p style={{ fontSize: '0.9rem', color: '#475569', margin: 0, fontWeight: '600' }}>{selectedDetail.techStack}</p>
+                  </div>
+
+                  <div style={{ background: '#faf9f5', border: '1px solid #e2edf8', padding: '1.5rem', borderRadius: '16px' }}>
+                    <h4 style={{ fontSize: '1rem', fontWeight: '800', color: '#1e1b4b', margin: '0 0 8px 0', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <Target size={18} color="#059669" /> Business Impact
+                    </h4>
+                    <p style={{ fontSize: '0.9rem', color: '#475569', margin: 0, fontWeight: '600' }}>{selectedDetail.businessImpact}</p>
+                  </div>
+                </div>
+
+                <div style={{ textAlign: 'center' }}>
+                  <button
+                    onClick={() => navigateTo('contact')}
+                    className="hover-btn"
+                    style={{
+                      background: 'linear-gradient(135deg, #0284c7 0%, #2563eb 100%)',
+                      color: '#ffffff',
+                      border: 'none',
+                      padding: '13px 28px',
+                      borderRadius: '12px',
+                      fontWeight: '800',
+                      fontSize: '0.95rem',
+                      cursor: 'pointer',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '8px',
+                      boxShadow: '0 4px 14px rgba(2, 132, 199, 0.35)'
+                    }}
+                  >
+                    <span>Inquire About This Service</span>
+                    <ArrowRight size={18} />
+                  </button>
+                </div>
+              </div>
             </motion.div>
           )}
 
@@ -1471,7 +1587,7 @@ export default function App() {
             <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '0.88rem', color: '#cbd5e1', fontWeight: '600' }}>
               <p style={{ margin: 0 }}><strong style={{ color: '#ffffff' }}>Name:</strong> SMU Vnex Technologies</p>
               <p style={{ margin: 0 }}><strong style={{ color: '#ffffff' }}>Email:</strong> smunextech@gmail.com</p>
-              <p style={{ margin: 0 }}><strong style={{ color: '#ffffff' }}>Contact Us:</strong> +91 8435299100</p>
+              <p style={{ margin: 0 }}><strong style={{ color: '#ffffff' }}>Contact Us:</strong> +91 8435299100, +91 95845 52255</p>
               <p style={{ margin: '0 0 8px 0' }}><strong style={{ color: '#ffffff' }}>Location:</strong> B-57, MIG Colony, RSS Nagar, Indore - 452011</p>
 
               <a
