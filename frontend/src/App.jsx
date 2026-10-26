@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 // force update 
 import { motion, AnimatePresence } from 'framer-motion';
 import {
@@ -7,7 +7,7 @@ import {
   Upload, CheckCircle2, MessageSquare, Briefcase, User, Mail, Phone, Award, FileText,
   ChevronDown, Building, Stethoscope, School, Compass, Hotel, ShoppingCart,
   CheckCircle, Users, Target, Laptop, Send, Layers, MessageCircle, AlertCircle, X, Camera, Menu,
-  Check, Lock, Zap, Quote, Star, Palette, Bot
+  Check, Lock, Zap, Quote, Star, Palette, Bot, Cpu, Database, MapPin, SendHorizonal
 } from 'lucide-react';
 import CorporateDeck from './components/CorporateDeck';
 
@@ -32,9 +32,9 @@ export default function App() {
 
   const popupServicesList = [
     "🚀 High-Performance Web & App Development",
-    "⚡ Asynchronous FastAPI & Microservices",
-    "🛡️ Advanced Cyber Security & OWASP Audits",
-    "🛒 Scalable E-Commerce & Shopify Plus Stores",
+    "🤖 AI Solutions & Intelligent Workflows",
+    "📊 CRM Portals & Lead Management Systems",
+    "🏢 Custom ERP Solutions for Operations",
     "📈 Technical SEO & Digital Growth Strategies"
   ];
 
@@ -47,13 +47,19 @@ export default function App() {
     return () => clearInterval(interval);
   }, [showVisitorModal, popupServicesList.length]);
 
-  const [activeService, setActiveService] = useState('web-dev');
   const [currentSlide, setCurrentSlide] = useState(0);
 
   // Projects Dropdown state
   const [projectsOpen, setProjectsOpen] = useState(false);
-  const [servicesOpen, setServicesOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  // AI Chat States
+  const [chatMessages, setChatMessages] = useState([
+    { sender: 'ai', text: 'Hello! I am the SMU Vnex AI Architect Assistant. Please share your project scope, required features, or tech stack, and I will help scope your requirements.' }
+  ]);
+  const [chatInput, setChatInput] = useState('');
+  const [isAiTyping, setIsAiTyping] = useState(false);
+  const chatScrollRef = useRef(null);
 
   const [careerData, setCareerData] = useState({
     domain: 'Web & App Solutions',
@@ -74,6 +80,7 @@ export default function App() {
     fullName: '',
     email: '',
     phone: '',
+    service: 'Web & App Solutions',
     subject: 'General Business Inquiry',
     userMessage: ''
   });
@@ -81,20 +88,23 @@ export default function App() {
   // LIVE RENDER BACKEND BASE URL
   const API_BASE_URL = "https://smu-nexora-website.onrender.com";
 
-  // ==================== VISITOR POPUP SCROLL LOGIC (2ND TIME HERO SECTION) ====================
+  // Auto scroll chat to bottom
+  useEffect(() => {
+    if (chatScrollRef.current) {
+      chatScrollRef.current.scrollTop = chatScrollRef.current.scrollHeight;
+    }
+  }, [chatMessages, isAiTyping]);
+
+  // ==================== VISITOR POPUP SCROLL LOGIC ====================
   useEffect(() => {
     let hasScrolledDown = false;
     let hasShownPopup = false;
 
     const handleScroll = () => {
       const scrollPos = window.scrollY;
-
-      // Jab user niche scroll kare
       if (scrollPos > 300) {
         hasScrolledDown = true;
       }
-
-      // Jab user wapas upar (Hero Section < 50px) aaye aur pehle niche gaya ho, tab popup kholo
       if (hasScrolledDown && scrollPos < 50 && !hasShownPopup) {
         hasShownPopup = true;
         setShowVisitorModal(true);
@@ -119,10 +129,9 @@ export default function App() {
       if (response.ok && result.success) {
         setShowVisitorModal(false);
       } else {
-        alert("Failed to submit visitor lead. Please check details.");
+        setShowVisitorModal(false);
       }
     } catch (err) {
-      console.log("Visitor submit error:", err);
       setShowVisitorModal(false);
     } finally {
       setVisitorSubmitting(false);
@@ -153,14 +162,20 @@ export default function App() {
       setSelectedDetail(detailObj);
     }
 
+    // Fresh chat reset when entering AI chat page
+    if (pageName === 'ai-chat') {
+      setChatMessages([
+        { sender: 'ai', text: 'Hello! I am the SMU Vnex AI Architect Assistant. Please share your project scope, required features, or tech stack, and I will help scope your requirements.' }
+      ]);
+    }
+
     setProjectsOpen(false);
-    setServicesOpen(false);
     setMobileMenuOpen(false);
 
     if (pageName === 'home') {
       setCurrentPage('home');
       setSelectedDetail(null);
-      window.history.pushState({ page: 'home' }, '', '#home');
+      window.history.replaceState({ page: 'home' }, '', '#home');
     } else {
       setCurrentPage(pageName);
       window.history.pushState({ page: pageName }, '', `#${pageName}`);
@@ -171,7 +186,7 @@ export default function App() {
 
   const slides = [
     {
-      title: "Empowering global businesses with high-performance Full-Stack Web Platforms and Microservices.",
+      title: "Building Enterprise Digital Ecosystems",
       subtitle: "Empowering global businesses with high-performance Full-Stack Web Platforms and Microservices.",
       image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1200&q=80",
       target: "services"
@@ -221,17 +236,6 @@ export default function App() {
       businessImpact: "Aligns software engineering roadmaps directly with core business revenue goals."
     },
     {
-      id: 'cyber-security',
-      title: "Cyber Security & Auditing",
-      icon: ShieldCheck,
-      color: "#db2777",
-      pastelBg: "#fce7f3",
-      borderGlow: "#fbcfe8",
-      desc: "Advanced vulnerability checks, penetration testing, and end-to-end data encryption to protect your business from threats.",
-      techStack: "Kali Linux, Wireshark, OWASP Protocols, Encrypted DBs",
-      businessImpact: "Safeguards intellectual property and critical customer financial records."
-    },
-    {
       id: 'digital-marketing',
       title: "Digital Growth & BEST SEO",
       icon: Megaphone,
@@ -243,19 +247,41 @@ export default function App() {
       businessImpact: "Drives organic lead acquisition and lowers Customer Acquisition Cost (CAC)."
     },
     {
-      id: 'e-commerce',
-      title: "E-Commerce Systems",
-      icon: ShoppingCart,
+      id: 'ai-solutions',
+      title: "AI Solutions",
+      icon: Cpu,
+      color: "#7c3aed",
+      pastelBg: "#ede9fe",
+      borderGlow: "#c4b5fd",
+      desc: "AI integrations, intelligent chatbots, and workflow automation tailored to specific business needs.",
+      techStack: "OpenAI API, LangChain, Python, Vector DBs",
+      businessImpact: "Automates customer support and streamlines operational workflows."
+    },
+    {
+      id: 'crm-portals',
+      title: "CRM Portals",
+      icon: Users,
       color: "#059669",
       pastelBg: "#d1fae5",
       borderGlow: "#a7f3d0",
-      desc: "Feature-rich, lightning-fast Shopify and custom online stores built to maximize online sales and seamless checkout.",
-      techStack: "Shopify Plus, Liquid, WooCommerce, Stripe / Razorpay",
-      businessImpact: "Boosts online checkout conversions with frictionless mobile payment flows."
+      desc: "Lead management, customer tracking, follow-up workflows, and sales pipeline management.",
+      techStack: "React, Node.js, PostgreSQL, REST APIs",
+      businessImpact: "Improves customer retention and increases sales team closing efficiency."
+    },
+    {
+      id: 'erp-portals',
+      title: "ERP Portals",
+      icon: Database,
+      color: "#ea580c",
+      pastelBg: "#ffedd5",
+      borderGlow: "#fed7aa",
+      desc: "Custom business management systems for operational workflows, reporting, and enterprise resource control.",
+      techStack: "React, Python FastAPI, PostgreSQL, Docker",
+      businessImpact: "Centralizes business operations and provides real-time analytics for decision making."
     }
   ];
 
-  // LEADERS (IMAGES UNTOUCHED)
+  // LEADERS
   const leaders = [
     {
       title: "Founder",
@@ -289,7 +315,7 @@ export default function App() {
     }
   ];
 
-  // SQUAD (IMAGES UNTOUCHED)
+  // SQUAD
   const teamMembers = [
     {
       role: "Team Lead",
@@ -341,6 +367,42 @@ export default function App() {
     setContactData(prev => ({ ...prev, [name]: value }));
   };
 
+  // Handle AI Chat Message Send
+  const handleSendAiMessage = async (e) => {
+    e.preventDefault();
+    if (!chatInput.trim()) return;
+
+    const userMsg = chatInput;
+    const updatedMessages = [...chatMessages, { sender: 'user', text: userMsg }];
+    setChatMessages(updatedMessages);
+    setChatInput('');
+    setIsAiTyping(true);
+
+    setTimeout(async () => {
+      let aiReply = "Thank you for sharing your requirement. Our technical team at SMU Vnex will review this scope and connect with you shortly with an optimal architecture and cost estimate.";
+      if (userMsg.toLowerCase().includes('react') || userMsg.toLowerCase().includes('web')) {
+        aiReply = "For React web applications, we recommend a modular Vite + Tailwind setup with high-speed REST APIs. We can build this within 2-3 agile sprints.";
+      } else if (userMsg.toLowerCase().includes('app') || userMsg.toLowerCase().includes('mobile')) {
+        aiReply = "Cross-platform mobile apps built with Flutter or React Native are ideal for performance and rapid deployment.";
+      } else if (userMsg.toLowerCase().includes('ai') || userMsg.toLowerCase().includes('chatbot')) {
+        aiReply = "We specialize in custom AI integrations using Python FastAPI, OpenAI API, and vector databases for intelligent workflow automation.";
+      }
+
+      setChatMessages(prev => [...prev, { sender: 'ai', text: aiReply }]);
+      setIsAiTyping(false);
+
+      try {
+        await fetch(`${API_BASE_URL}/api/ai-chat-log`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ messages: [...updatedMessages, { sender: 'ai', text: aiReply }] })
+        });
+      } catch (err) {
+        console.log("Chat log sync error:", err);
+      }
+    }, 1200);
+  };
+
   const handleCareerSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -390,6 +452,7 @@ export default function App() {
     submitData.append("fullName", contactData.fullName);
     submitData.append("email", contactData.email);
     submitData.append("phone", contactData.phone || "");
+    submitData.append("service", contactData.service || "General Inquiry");
     submitData.append("subject", contactData.subject);
     submitData.append("userMessage", contactData.userMessage);
 
@@ -401,7 +464,7 @@ export default function App() {
       fieldTitle: contactData.subject,
       message: 'Your inquiry message has been submitted. Email alert dispatched.'
     });
-    setContactData({ fullName: '', email: '', phone: '', subject: 'General Business Inquiry', userMessage: '' });
+    setContactData({ fullName: '', email: '', phone: '', service: 'Web & App Solutions', subject: 'General Business Inquiry', userMessage: '' });
 
     try {
       fetch(`${API_BASE_URL}/api/contact`, { method: "POST", body: submitData })
@@ -417,7 +480,6 @@ export default function App() {
 
   const scrollToSection = (id) => {
     setProjectsOpen(false);
-    setServicesOpen(false);
     setMobileMenuOpen(false);
 
     if (currentPage !== 'home') {
@@ -550,8 +612,8 @@ export default function App() {
         <div style={{ maxWidth: '1300px', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap' }}>
 
           <div onClick={() => navigateTo('home')} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <div style={{ width: '38px', height: '38px', borderRadius: '10px', background: 'linear-gradient(135deg, #fbcfe8 0%, #bfdbfe 100%)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#1e293b', fontWeight: 'bold', fontSize: '1.1rem', boxShadow: '0 4px 12px rgba(191, 219, 254, 0.35)', border: '1px solid #ffffff' }}>
-              SN
+            <div style={{ width: '42px', height: '42px', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
+              <img src="/images/logo.png" alt="SMU VNEX Logo" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
             </div>
             <div>
               <span style={{ fontSize: '1.2rem', fontWeight: '800', letterSpacing: '-0.02em' }}>
@@ -635,28 +697,28 @@ export default function App() {
           {currentPage === 'home' && (
             <motion.div key="home-page">
 
-              {/* HERO BANNER WITH SLIDESHOW IMAGE BACKGROUND */}
-              <section style={{ position: 'relative', width: '100%', minHeight: '520px', overflow: 'hidden', borderBottom: '1px solid #e2edf8', display: 'flex', alignItems: 'center' }}>
+              {/* HERO BANNER */}
+              <section style={{ position: 'relative', width: '100%', minHeight: '520px', overflow: 'hidden', borderBottom: '1px solid #e2edf8', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                 <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 1 }}>
                   <img
                     src={slides[currentSlide].image}
                     alt="Hero slide"
-                    style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.45)' }}
+                    style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.70) contrast(1.05)' }}
                   />
-                  <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', background: 'linear-gradient(135deg, rgba(30, 41, 59, 0.85) 0%, rgba(15, 23, 42, 0.75) 100%)' }}></div>
+                  <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', background: 'linear-gradient(135deg, rgba(15, 23, 42, 0.55) 0%, rgba(30, 41, 59, 0.45) 100%)' }}></div>
                 </div>
 
-                <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '5rem 1.5rem', width: '100%', position: 'relative', zIndex: 2 }}>
+                <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '5rem 1.5rem 3rem 1.5rem', width: '100%', position: 'relative', zIndex: 2, flex: 1, display: 'flex', alignItems: 'center' }}>
                   <div style={{ maxWidth: '800px' }}>
-                    <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'rgba(255, 255, 255, 0.9)', border: '1px solid #bfdbfe', padding: '6px 16px', borderRadius: '9999px', fontSize: '0.82rem', fontWeight: '800', color: '#0284c7', marginBottom: '1.2rem', boxShadow: '0 2px 8px rgba(191, 219, 254, 0.3)' }}>
+                    <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'rgba(255, 255, 255, 0.95)', border: '1px solid #bfdbfe', padding: '6px 16px', borderRadius: '9999px', fontSize: '0.82rem', fontWeight: '800', color: '#0284c7', marginBottom: '1.2rem', boxShadow: '0 2px 8px rgba(191, 219, 254, 0.3)' }}>
                       <Sparkles size={16} color="#0284c7" />
                       <span>Enterprise Digital Engineering</span>
                     </div>
 
-                    <h1 style={{ fontSize: 'clamp(2.2rem, 4vw, 3.4rem)', fontWeight: '900', color: '#ffffff', margin: '0 0 16px 0', lineHeight: '1.2', letterSpacing: '-0.02em', textShadow: '0 2px 10px rgba(0,0,0,0.3)' }}>
+                    <h1 style={{ fontSize: 'clamp(2.2rem, 4vw, 3.4rem)', fontWeight: '900', color: '#ffffff', margin: '0 0 16px 0', lineHeight: '1.2', letterSpacing: '-0.02em', textShadow: '0 2px 12px rgba(0,0,0,0.4)' }}>
                       {slides[currentSlide].title}
                     </h1>
-                    <p style={{ fontSize: '1.1rem', color: '#cbd5e1', margin: '0 0 28px 0', lineHeight: '1.7', maxWidth: '680px' }}>
+                    <p style={{ fontSize: '1.1rem', color: '#f1f5f9', margin: '0 0 28px 0', lineHeight: '1.7', maxWidth: '680px', textShadow: '0 1px 6px rgba(0,0,0,0.4)' }}>
                       {slides[currentSlide].subtitle}
                     </p>
 
@@ -687,9 +749,9 @@ export default function App() {
                         onClick={() => setIsDeckOpen(true)}
                         className="hover-btn"
                         style={{
-                          background: 'rgba(255, 255, 255, 0.1)',
+                          background: 'rgba(255, 255, 255, 0.15)',
                           backdropFilter: 'blur(10px)',
-                          border: '1px solid rgba(255, 255, 255, 0.3)',
+                          border: '1px solid rgba(255, 255, 255, 0.4)',
                           color: '#ffffff',
                           padding: '13px 22px',
                           borderRadius: '12px',
@@ -705,6 +767,15 @@ export default function App() {
                         <span>View Corporate Deck</span>
                       </button>
                     </div>
+                  </div>
+                </div>
+
+                {/* Hero Footer Tagline Line */}
+                <div style={{ position: 'relative', zIndex: 2, width: '100%', padding: '1rem 1.5rem', background: 'transparent', borderTop: '1px solid rgba(255, 255, 255, 0.25)', textAlign: 'center' }}>
+                  <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', color: '#ffffff', fontSize: '0.9rem', fontWeight: '800', letterSpacing: '0.08em', textTransform: 'uppercase', textShadow: '0 1px 4px rgba(0,0,0,0.5)' }}>
+                    <span>BUILD SMARTER</span>
+                    <span style={{ color: '#38bdf8' }}>•</span>
+                    <span>GROW FASTER</span>
                   </div>
                 </div>
               </section>
@@ -849,7 +920,7 @@ export default function App() {
                 </div>
               </motion.section>
 
-              {/* CORE TECHNOLOGY DOMAINS (Enhanced Attractive Cards & Sub-lines) */}
+              {/* CORE TECHNOLOGY DOMAINS */}
               <motion.section id="services" initial={{ opacity: 0, scale: 0.9, y: 40 }} whileInView={{ opacity: 1, scale: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} style={{ padding: '6rem 1.5rem', background: 'linear-gradient(180deg, #fdf2f8 0%, #f0f7ff 100%)', borderTop: '1px solid #e2edf8', borderBottom: '1px solid #e2edf8' }}>
                 <div style={{ maxWidth: '1300px', margin: '0 auto' }}>
                   <div style={{ textAlign: 'center', marginBottom: '3.5rem' }}>
@@ -958,6 +1029,17 @@ export default function App() {
                         <input type="email" name="email" placeholder="Enter your email address" required value={contactData.email} onChange={handleContactInputChange} style={inputStyle} />
                       </div>
                       <div>
+                        <label style={labelStyle}>Select Service Needed *</label>
+                        <select name="service" value={contactData.service} onChange={handleContactInputChange} style={inputStyle}>
+                          <option value="Web & App Solutions">Web & App Solutions</option>
+                          <option value="IT Strategic Consulting">IT Strategic Consulting</option>
+                          <option value="Digital Growth & BEST SEO">Digital Growth & BEST SEO</option>
+                          <option value="AI Solutions">AI Solutions</option>
+                          <option value="CRM Portals">CRM Portals</option>
+                          <option value="ERP Portals">ERP Portals</option>
+                        </select>
+                      </div>
+                      <div>
                         <label style={labelStyle}>Subject *</label>
                         <input type="text" name="subject" placeholder="Enter inquiry subject" required value={contactData.subject} onChange={handleContactInputChange} style={inputStyle} />
                       </div>
@@ -972,7 +1054,7 @@ export default function App() {
                   </div>
                 </div>
 
-                {/* AI Requirement Assistant Button below Quick Connect */}
+                {/* AI Requirement Assistant Button below Quick Connect (OPENS FRESH AI CHAT PAGE) */}
                 <div style={{ marginTop: '2rem', textAlign: 'center' }}>
                   <div style={{ background: 'linear-gradient(135deg, #e0f2fe 0%, #f0fdf4 100%)', border: '1px solid #bae6fd', borderRadius: '20px', padding: '1.8rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem', boxShadow: '0 8px 20px rgba(186, 230, 253, 0.3)' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '14px', textAlign: 'left' }}>
@@ -985,7 +1067,7 @@ export default function App() {
                       </div>
                     </div>
                     <button
-                      onClick={() => alert("🤖 SMU Vnex AI Assistant: Hello! Please share your project scope or requirement in our contact form above, and our technical desk will review it instantly.")}
+                      onClick={() => navigateTo('ai-chat')}
                       className="hover-btn"
                       style={{ background: 'linear-gradient(135deg, #0284c7 0%, #2563eb 100%)', color: '#ffffff', border: 'none', padding: '12px 24px', borderRadius: '12px', fontWeight: '800', fontSize: '0.9rem', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: '8px', boxShadow: '0 4px 14px rgba(2, 132, 199, 0.35)' }}
                     >
@@ -996,6 +1078,76 @@ export default function App() {
                 </div>
 
               </motion.section>
+            </motion.div>
+          )}
+
+          {/* ==================== DEDICATED AI CHAT PAGE ==================== */}
+          {currentPage === 'ai-chat' && (
+            <motion.div key="ai-chat-page" initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -15 }} style={{ maxWidth: '850px', margin: '2rem auto', padding: '0 1.5rem' }}>
+              <button onClick={() => navigateTo('home')} className="hover-btn" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#ffffff', border: '1px solid #cbd5e1', padding: '9px 18px', borderRadius: '10px', color: '#334155', fontWeight: '600', cursor: 'pointer', marginBottom: '1.5rem' }}>
+                <ArrowLeft size={18} /><span>Back to Home</span>
+              </button>
+
+              <div style={{ background: '#ffffff', borderRadius: '24px', border: '1.5px solid #bae6fd', boxShadow: '0 15px 35px rgba(186, 230, 253, 0.4)', overflow: 'hidden', display: 'flex', flexDirection: 'column', height: '600px' }}>
+
+                {/* Chat Header */}
+                <div style={{ background: 'linear-gradient(135deg, #0284c7 0%, #2563eb 100%)', color: '#ffffff', padding: '1.2rem 1.8rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                    <div style={{ width: '40px', height: '40px', borderRadius: '12px', background: 'rgba(255,255,255,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      <Bot size={24} color="#ffffff" />
+                    </div>
+                    <div>
+                      <h2 style={{ fontSize: '1.15rem', fontWeight: '800', margin: 0 }}>SMU Vnex AI Architect Assistant</h2>
+                      <span style={{ fontSize: '0.78rem', color: '#e0f2fe' }}>Online • Ready to scope your project requirements</span>
+                    </div>
+                  </div>
+                  <span style={{ background: '#10b981', color: '#ffffff', fontSize: '0.75rem', fontWeight: '700', padding: '4px 10px', borderRadius: '9999px' }}>Live Sync</span>
+                </div>
+
+                {/* Chat Messages Body */}
+                <div ref={chatScrollRef} style={{ flex: 1, padding: '1.5rem', overflowY: 'auto', background: '#f8fafc', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                  {chatMessages.map((msg, idx) => (
+                    <div key={idx} style={{ display: 'flex', justifyContent: msg.sender === 'user' ? 'flex-end' : 'flex-start' }}>
+                      <div style={{
+                        maxWidth: '75%',
+                        padding: '12px 16px',
+                        borderRadius: msg.sender === 'user' ? '18px 18px 2px 18px' : '18px 18px 18px 2px',
+                        background: msg.sender === 'user' ? 'linear-gradient(135deg, #0284c7 0%, #2563eb 100%)' : '#ffffff',
+                        color: msg.sender === 'user' ? '#ffffff' : '#1e293b',
+                        boxShadow: '0 4px 12px rgba(0,0,0,0.05)',
+                        border: msg.sender === 'ai' ? '1px solid #e2e8f0' : 'none',
+                        fontSize: '0.92rem',
+                        lineHeight: '1.5'
+                      }}>
+                        {msg.text}
+                      </div>
+                    </div>
+                  ))}
+                  {isAiTyping && (
+                    <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
+                      <div style={{ padding: '10px 16px', borderRadius: '14px', background: '#ffffff', border: '1px solid #e2edf8', color: '#64748b', fontSize: '0.85rem', fontStyle: 'italic' }}>
+                        AI Assistant is analyzing requirements...
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                {/* Chat Input Footer */}
+                <form onSubmit={handleSendAiMessage} style={{ padding: '1rem 1.5rem', background: '#ffffff', borderTop: '1px solid #e2edf8', display: 'flex', gap: '10px', alignItems: 'center' }}>
+                  <input
+                    type="text"
+                    placeholder="Type your project scope, features, or questions here..."
+                    value={chatInput}
+                    onChange={(e) => setChatInput(e.target.value)}
+                    style={{ flex: 1, padding: '12px 16px', borderRadius: '12px', border: '1px solid #cbd5e1', outline: 'none', fontSize: '0.95rem' }}
+                  />
+                  <button type="submit" className="hover-btn" style={{ background: 'linear-gradient(135deg, #0284c7 0%, #2563eb 100%)', color: '#ffffff', border: 'none', padding: '12px 20px', borderRadius: '12px', fontWeight: '800', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+                    <span>Send</span>
+                    <SendHorizonal size={16} />
+                  </button>
+                </form>
+
+              </div>
             </motion.div>
           )}
 
@@ -1143,7 +1295,7 @@ export default function App() {
         </AnimatePresence>
       </div>
 
-      {/* VISITOR WELCOME REGISTRATION POPUP MODAL (WITH ATTRACTIVE SERVICES SLIDESHOW) */}
+      {/* VISITOR WELCOME REGISTRATION POPUP MODAL */}
       <AnimatePresence>
         {showVisitorModal && (
           <motion.div
@@ -1289,8 +1441,8 @@ export default function App() {
 
       <CorporateDeck isOpen={isDeckOpen} onClose={() => setIsDeckOpen(false)} />
 
-      {/* 3-PART PROFESSIONAL FOOTER (High Contrast & Clean Styling) */}
-      <footer style={{ background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)', color: '#cbd5e1', padding: '4rem 1.5rem 2rem 1.5rem', borderTop: '1px solid #334155', marginTop: '4rem', boxShadow: '0 -10px 25px rgba(0,0,0,0.1)' }}>
+      {/* 3-PART PROFESSIONAL FOOTER */}
+      <footer style={{ background: 'linear-gradient(135deg, #090d16 0%, #172033 50%, #0f172a 100%)', color: '#cbd5e1', padding: '4rem 1.5rem 2rem 1.5rem', borderTop: '2px solid #38bdf8', marginTop: '4rem', boxShadow: '0 -15px 30px rgba(0,0,0,0.2)' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '2.5rem', paddingBottom: '3rem', borderBottom: '1px solid #334155' }}>
 
           <div>
@@ -1319,7 +1471,34 @@ export default function App() {
             <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '0.88rem', color: '#cbd5e1', fontWeight: '600' }}>
               <p style={{ margin: 0 }}><strong style={{ color: '#ffffff' }}>Name:</strong> SMU Vnex Technologies</p>
               <p style={{ margin: 0 }}><strong style={{ color: '#ffffff' }}>Email:</strong> smunextech@gmail.com</p>
-              <p style={{ margin: 0 }}><strong style={{ color: '#ffffff' }}>Number:</strong> +91 8435299100</p>
+              <p style={{ margin: 0 }}><strong style={{ color: '#ffffff' }}>Contact Us:</strong> +91 8435299100</p>
+              <p style={{ margin: '0 0 8px 0' }}><strong style={{ color: '#ffffff' }}>Location:</strong> B-57, MIG Colony, RSS Nagar, Indore - 452011</p>
+
+              <a
+                href="https://maps.google.com/?q=B-57,+MIG+Colony,+RSS+Nagar,+Indore+-+452011"
+                target="_blank"
+                rel="noreferrer"
+                title="Click to open office location in Google Maps"
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  background: 'rgba(56, 189, 248, 0.1)',
+                  border: '1px solid #38bdf8',
+                  borderRadius: '10px',
+                  padding: '8px 12px',
+                  textDecoration: 'none',
+                  color: '#38bdf8',
+                  fontSize: '0.82rem',
+                  fontWeight: '700',
+                  width: 'fit-content',
+                  transition: 'all 0.2s ease'
+                }}
+                className="hover-btn"
+              >
+                <MapPin size={16} color="#38bdf8" />
+                <span>View Office on Map</span>
+              </a>
             </div>
           </div>
 
