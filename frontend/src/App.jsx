@@ -49,6 +49,16 @@ export default function App() {
 
   const [currentSlide, setCurrentSlide] = useState(0);
 
+  // Services Slideshow Index (Auto right-to-left flow)
+  const [serviceIndex, setServiceIndex] = useState(0);
+
+  useEffect(() => {
+    const serviceInterval = setInterval(() => {
+      setServiceIndex((prev) => (prev + 1) % fields.length);
+    }, 3000);
+    return () => clearInterval(serviceInterval);
+  }, []);
+
   // Projects Dropdown state
   const [projectsOpen, setProjectsOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -175,7 +185,7 @@ export default function App() {
     if (pageName === 'home') {
       setCurrentPage('home');
       setSelectedDetail(null);
-      window.history.pushState({ page: 'home' }, '', '#home');
+      window.history.replaceState({ page: 'home' }, '', '#home');
     } else {
       setCurrentPage(pageName);
       window.history.pushState({ page: pageName }, '', `#${pageName}`);
@@ -281,7 +291,7 @@ export default function App() {
     }
   ];
 
-  // LEADERS (Updated with new bios and names)
+  // LEADERS
   const leaders = [
     {
       title: "Founder",
@@ -522,12 +532,12 @@ export default function App() {
         }
 
         .hover-card {
-          transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease !important;
+          transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.35s ease !important;
         }
         .hover-card:hover {
           transform: translateY(-6px) !important;
-          box-shadow: 0 20px 38px rgba(186, 230, 253, 0.6) !important;
-          border-color: #38bdf8 !important;
+          box-shadow: 0 25px 45px rgba(186, 230, 253, 0.7) !important;
+          border-color: #0284c7 !important;
         }
 
         .hover-btn {
@@ -553,35 +563,6 @@ export default function App() {
           color: #1e293b;
           cursor: pointer;
           padding: 6px;
-        }
-
-        .services-centered-flex {
-          display: flex;
-          flex-wrap: wrap;
-          justify-content: center;
-          gap: 28px;
-          max-width: 1200px;
-          margin: 0 auto;
-        }
-
-        .services-flex-card {
-          flex: 0 1 100%;
-          width: 100%;
-          box-sizing: border-box;
-        }
-
-        @media (min-width: 768px) {
-          .services-flex-card {
-            flex: 0 1 calc(50% - 16px);
-            max-width: calc(50% - 16px);
-          }
-        }
-
-        @media (min-width: 1040px) {
-          .services-flex-card {
-            flex: 0 1 calc(33.333% - 20px);
-            max-width: calc(33.333% - 20px);
-          }
         }
 
         @media (max-width: 868px) {
@@ -780,7 +761,7 @@ export default function App() {
                 </div>
               </section>
 
-              {/* ABOUT US SECTION (Animated: Slide from Left, Runs ONLY ONCE via viewport once: true) */}
+              {/* ABOUT US SECTION */}
               <motion.section
                 id="about"
                 initial={{ opacity: 0, x: -140 }}
@@ -817,7 +798,7 @@ export default function App() {
                 </div>
               </motion.section>
 
-              {/* LEADERSHIP & CORE TEAM SECTION (Animated: Slide from Right, Runs ONLY ONCE via viewport once: true) */}
+              {/* LEADERSHIP & CORE TEAM SECTION */}
               <motion.section
                 id="team-and-testimonials"
                 initial={{ opacity: 0, x: 140 }}
@@ -934,17 +915,17 @@ export default function App() {
                 </div>
               </motion.section>
 
-              {/* CORE TECHNOLOGY DOMAINS (Animated: Slide from Bottom, Runs ONLY ONCE via viewport once: true) */}
+              {/* CORE TECHNOLOGY DOMAINS (RIGHT TO LEFT CONTINUOUS FLOW TICKER WITH TRANSPARENCY) */}
               <motion.section
                 id="services"
                 initial={{ opacity: 0, y: 120 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.1 }}
                 transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-                style={{ padding: '6rem 1.5rem', background: 'linear-gradient(180deg, #fdf2f8 0%, #f0f7ff 100%)', borderTop: '1px solid #e2edf8', borderBottom: '1px solid #e2edf8' }}
+                style={{ padding: '6.5rem 1.5rem', background: 'linear-gradient(180deg, #fdf2f8 0%, #f0f7ff 100%)', borderTop: '1px solid #e2edf8', borderBottom: '1px solid #e2edf8' }}
               >
                 <div style={{ maxWidth: '1300px', margin: '0 auto' }}>
-                  <div style={{ textAlign: 'center', marginBottom: '3.5rem' }}>
+                  <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
                     <span style={{ fontSize: '0.85rem', color: '#0284c7', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.05em', background: '#e0f2fe', padding: '6px 18px', borderRadius: '9999px', border: '1px solid #bae6fd', boxShadow: '0 2px 8px rgba(2, 132, 199, 0.15)' }}>
                       Client IT Services
                     </span>
@@ -952,75 +933,92 @@ export default function App() {
                       Core Technology Domains
                     </h2>
                     <p style={{ color: '#64748b', fontSize: '1.05rem', maxWidth: '680px', margin: '0 auto', lineHeight: '1.6' }}>
-                      Everything your business needs to scale digitally—engineered with precision, speed, and absolute reliability.
+                      Engineered for high-speed performance, absolute security, and effortless scalability.
                     </p>
                   </div>
 
-                  <div className="services-centered-flex">
-                    {fields.map((field) => (
-                      <div
-                        key={field.id}
-                        className="hover-card services-flex-card"
-                        style={{
-                          display: 'flex',
-                          flexDirection: 'column',
-                          justifyContent: 'space-between',
-                          border: `1.5px solid ${field.borderGlow}`,
-                          background: 'linear-gradient(145deg, #ffffff 0%, #fafcff 100%)',
-                          borderRadius: '24px',
-                          padding: '2.4rem',
-                          boxShadow: '0 10px 30px rgba(186, 230, 253, 0.25)',
-                          position: 'relative',
-                          overflow: 'hidden'
-                        }}
-                      >
-                        <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '5px', background: `linear-gradient(90deg, ${field.color}, #38bdf8)` }}></div>
-                        <div>
-                          <div style={{ width: '56px', height: '56px', borderRadius: '16px', background: field.pastelBg, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1.4rem', border: `1px solid ${field.borderGlow}`, boxShadow: '0 4px 12px rgba(0,0,0,0.03)' }}>
-                            <field.icon size={28} color={field.color} />
-                          </div>
-                          <h3 style={{ fontSize: '1.35rem', margin: '0 0 10px 0', color: '#1e1b4b', fontWeight: '800', letterSpacing: '-0.01em' }}>
-                            {field.title}
-                          </h3>
-                          <p style={{ fontSize: '0.94rem', color: '#475569', margin: '0 0 1.2rem 0', lineHeight: '1.7' }}>
-                            {field.desc}
-                          </p>
-                        </div>
-                        <div>
-                          {/* Explore More Button */}
-                          <button
-                            onClick={() => navigateTo('service-detail', null, field)}
-                            className="hover-btn"
-                            style={{
-                              marginBottom: '1rem',
-                              background: 'none',
-                              border: `1.5px solid ${field.color}`,
-                              color: field.color,
-                              padding: '8px 16px',
-                              borderRadius: '10px',
-                              fontWeight: '700',
-                              fontSize: '0.84rem',
-                              cursor: 'pointer',
-                              display: 'inline-flex',
-                              alignItems: 'center',
-                              gap: '6px'
-                            }}
-                          >
-                            <span>Explore More</span>
-                            <ArrowRight size={14} />
-                          </button>
+                  {/* TICKER FLOW CONTAINER */}
+                  <div style={{ position: 'relative', width: '100%', overflow: 'hidden', padding: '2rem 0' }}>
+                    <motion.div
+                      style={{ display: 'flex', gap: '30px', width: 'max-content' }}
+                      animate={{ x: ['0%', '-50%'] }}
+                      transition={{ repeat: Infinity, duration: 25, ease: 'linear' }}
+                    >
+                      {/* Double fields array to create infinite seamless loop */}
+                      {[...fields, ...fields].map((field, idx) => (
+                        <div
+                          key={`${field.id}-${idx}`}
+                          className="hover-card"
+                          style={{
+                            width: '370px',
+                            flexShrink: 0,
+                            display: 'flex',
+                            flexDirection: 'column',
+                            justifyContent: 'space-between',
+                            background: 'linear-gradient(145deg, rgba(255, 255, 255, 0.9) 0%, rgba(240, 248, 255, 0.8) 100%)',
+                            backdropFilter: 'blur(10px)',
+                            borderRadius: '28px',
+                            padding: '2.6rem 2.2rem',
+                            border: `1.5px solid ${field.borderGlow}`,
+                            boxShadow: '0 15px 35px rgba(2, 132, 199, 0.08)',
+                            position: 'relative',
+                            overflow: 'hidden'
+                          }}
+                        >
+                          <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '5px', background: `linear-gradient(90deg, ${field.color}, #38bdf8)` }}></div>
 
-                          <div style={{ paddingTop: '1rem', borderTop: '1px dashed #e2e8f0', display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.8rem', fontWeight: '700', color: field.color }}>
-                            <CheckCircle2 size={16} /> <span>Enterprise Grade Execution</span>
+                          <div>
+                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.4rem' }}>
+                              <div style={{ width: '56px', height: '56px', borderRadius: '16px', background: field.pastelBg, display: 'flex', alignItems: 'center', justifyContent: 'center', border: `1.5px solid ${field.borderGlow}` }}>
+                                <field.icon size={26} color={field.color} />
+                              </div>
+                              <span style={{ fontSize: '0.78rem', fontWeight: '800', color: field.color, background: field.pastelBg, padding: '4px 12px', borderRadius: '9999px', border: `1px solid ${field.borderGlow}` }}>
+                                DOMAIN
+                              </span>
+                            </div>
+
+                            <h3 style={{ fontSize: '1.35rem', margin: '0 0 10px 0', color: '#1e1b4b', fontWeight: '900', letterSpacing: '-0.01em' }}>
+                              {field.title}
+                            </h3>
+                            <p style={{ fontSize: '0.92rem', color: '#475569', margin: '0 0 1.4rem 0', lineHeight: '1.7' }}>
+                              {field.desc}
+                            </p>
+                          </div>
+
+                          <div>
+                            <button
+                              onClick={() => navigateTo('service-detail', null, field)}
+                              className="hover-btn"
+                              style={{
+                                width: '100%',
+                                padding: '11px',
+                                borderRadius: '12px',
+                                background: `linear-gradient(135deg, ${field.pastelBg} 0%, #ffffff 100%)`,
+                                border: `1.5px solid ${field.color}`,
+                                color: field.color,
+                                fontWeight: '800',
+                                fontSize: '0.88rem',
+                                cursor: 'pointer',
+                                display: 'inline-flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                gap: '8px',
+                                boxShadow: '0 4px 12px rgba(0,0,0,0.03)'
+                              }}
+                            >
+                              <span>Explore Domain</span>
+                              <ArrowRight size={16} />
+                            </button>
                           </div>
                         </div>
-                      </div>
-                    ))}
+                      ))}
+                    </motion.div>
                   </div>
+
                 </div>
               </motion.section>
 
-              {/* QUICK CONNECT SECTION (Animated: Slide from Bottom, Runs ONLY ONCE via viewport once: true) */}
+              {/* QUICK CONNECT SECTION */}
               <motion.section
                 id="home-contact"
                 initial={{ opacity: 0, y: 100 }}
